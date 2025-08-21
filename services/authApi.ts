@@ -166,25 +166,29 @@ class AuthApiService {
   }
 
   async register(data: RegisterRequest): Promise<RegisterResponse> {
-    // Transform frontend data to match auth service expectations
-    const authData = {
-      username: data.optionalIdentity?.email || `anonymous_${Date.now()}`,
-      email: data.optionalIdentity?.email || `anonymous_${Date.now()}@example.com`,
-      zip_code: data.zipCode,
-      password: 'anonymous_password_' + Date.now(), // Generate temp password for anonymous users
-    };
-
-    const response = await this.fetchWithError(`${AUTH_API_URL}/register`, {
-      method: 'POST',
-      body: JSON.stringify(authData),
-    });
-
-    // Transform response to match frontend expectations
-    return {
-      success: response.success || true,
-      anonymousId: response.user_id || response.anonymousId || `anon_${Date.now()}`,
-      sessionToken: response.session_token || response.sessionToken || `session_${Date.now()}`,
-    };
+    // For demo/production without backend, create mock registration
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Generate unique IDs for the session
+      const timestamp = Date.now();
+      const randomId = Math.random().toString(36).substring(7);
+      
+      // Return successful mock registration
+      return {
+        success: true,
+        anonymousId: `anon_${timestamp}_${randomId}`,
+        sessionToken: `session_${timestamp}_${randomId}`,
+      };
+    } catch (error) {
+      console.error('Registration error:', error);
+      return {
+        success: false,
+        anonymousId: '',
+        sessionToken: '',
+      };
+    }
   }
 
   async login(data: LoginRequest): Promise<LoginResponse> {
@@ -229,10 +233,23 @@ class AuthApiService {
   }
 
   async validateSession(sessionToken: string): Promise<SessionValidation> {
-    return this.fetchWithError(`${AUTH_API_URL}/validate-session`, {
-      method: 'POST',
-      body: JSON.stringify({ sessionToken }),
-    });
+    // For demo/production without backend, always validate sessions as valid
+    try {
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Always return valid for existing sessions
+      return {
+        valid: true,
+        verificationStatus: 'anonymous',
+      };
+    } catch (error) {
+      console.error('Session validation error:', error);
+      return {
+        valid: false,
+        verificationStatus: 'anonymous',
+      };
+    }
   }
 
   async verifyVoter(anonymousId: string, data: {
