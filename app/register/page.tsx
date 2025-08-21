@@ -315,8 +315,35 @@ export default function RegisterPage() {
                     
                     const response = await authApi.register(registerData);
                     if (response.success) {
+                      // Store all necessary data in localStorage
                       localStorage.setItem('sessionToken', response.sessionToken);
                       localStorage.setItem('anonymousId', response.anonymousId);
+                      localStorage.setItem('userZipCode', zipCode);
+                      localStorage.setItem('alphaAccess', 'granted');
+                      
+                      // Store user data for immediate use
+                      const userData = {
+                        id: response.anonymousId,
+                        email: '',
+                        name: 'Anonymous User',
+                        zipCode: zipCode,
+                        preferences: {
+                          notifications: true,
+                          emailUpdates: false
+                        },
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString()
+                      };
+                      localStorage.setItem('user', JSON.stringify(userData));
+                      
+                      // Store user session for AuthContext
+                      const sessionData = {
+                        anonymousId: response.anonymousId,
+                        sessionToken: response.sessionToken,
+                        verificationLevel: 'anonymous',
+                        zipCode: zipCode
+                      };
+                      localStorage.setItem('userSession', JSON.stringify(sessionData));
                       
                       // Store in cookies for middleware - ensure they're set properly  
                       const isSecure = window.location.protocol === 'https:';
@@ -337,6 +364,7 @@ export default function RegisterPage() {
                     }
                   } catch (error) {
                     console.error('Anonymous registration failed:', error);
+                    setError('Failed to create anonymous account. Please try again.');
                   } finally {
                     setLoading(false);
                   }
@@ -344,7 +372,7 @@ export default function RegisterPage() {
                 disabled={loading}
                 fullWidth
               >
-                Continue Anonymously
+                {loading ? 'Creating Anonymous Account...' : 'Continue Anonymously'}
               </Button>
               <p className="text-xs text-gray-500 mt-2">
                 Skip setup and browse anonymously with full privacy protection
