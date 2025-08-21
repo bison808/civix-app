@@ -88,7 +88,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const anonymousId = authApi.getAnonymousId();
       
       if (!sessionToken || !anonymousId) {
-        setUser(null);
+        // Check if there's user data in localStorage from recent registration
+        const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+        if (storedUser) {
+          try {
+            const userData = JSON.parse(storedUser);
+            const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
+            const location = userLocation ? JSON.parse(userLocation) : null;
+            
+            // Set user from localStorage data
+            setUser({
+              anonymousId: userData.id || 'temp-' + Date.now(),
+              sessionToken: 'temp-session',
+              verificationLevel: 'anonymous',
+              zipCode: userData.zipCode || localStorage.getItem('userZipCode') || undefined,
+              location: location,
+              email: userData.email,
+              firstName: userData.name?.split(' ')[0],
+              lastName: userData.name?.split(' ')[1]
+            });
+            
+            // Set session expiry
+            const expiryTime = new Date(Date.now() + SESSION_DURATION);
+            setSessionExpiry(expiryTime);
+          } catch (e) {
+            console.error('Failed to parse stored user:', e);
+            setUser(null);
+          }
+        } else {
+          setUser(null);
+        }
         setLoading(false);
         return;
       }
@@ -112,12 +141,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
         const location = userLocation ? JSON.parse(userLocation) : null;
         
+        // Also check for user data stored during registration
+        const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+        const registrationData = storedUser ? JSON.parse(storedUser) : {};
+        
         setUser({
           anonymousId: anonymousId,
           sessionToken: sessionToken,
           verificationLevel: validation.verificationStatus as VerificationLevel || 'anonymous',
           zipCode: typeof window !== 'undefined' ? localStorage.getItem('userZipCode') || undefined : undefined,
           location: location,
+          email: registrationData.email || userData.email,
+          firstName: registrationData.name?.split(' ')[0] || userData.firstName,
+          lastName: registrationData.name?.split(' ')[1] || userData.lastName,
           ...userData
         });
 

@@ -77,6 +77,23 @@ export default function RegisterPage() {
         // Store session info in localStorage and cookies
         localStorage.setItem('sessionToken', response.sessionToken);
         localStorage.setItem('anonymousId', response.anonymousId);
+        localStorage.setItem('userZipCode', zipCode);
+        localStorage.setItem('alphaAccess', 'granted');
+        
+        // Store user data for immediate use
+        const userData = {
+          id: response.anonymousId,
+          email: formData.email || '',
+          name: `${formData.firstName || ''} ${formData.lastName || ''}`.trim() || 'Anonymous User',
+          zipCode: zipCode,
+          preferences: {
+            notifications: true,
+            emailUpdates: formData.allowAnalytics
+          },
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
         
         // Store in cookies for middleware - ensure they're set properly
         const isSecure = window.location.protocol === 'https:';
@@ -87,13 +104,10 @@ export default function RegisterPage() {
         document.cookie = `verificationLevel=anonymous; ${cookieOptions}`;
         document.cookie = `userZipCode=${zipCode}; ${cookieOptions}`;
         
-        // Add longer delay to ensure cookies are definitely set before navigation
+        // Use router.push for better navigation
         setTimeout(() => {
-          // Verify cookies are set before navigating
-          console.log('Cookies set:', document.cookie);
-          // Force a full page reload to ensure AuthContext picks up the new session
-          window.location.href = '/feed';
-        }, 1000);
+          router.push('/feed');
+        }, 500);
       } else {
         setError('Registration failed. Please try again.');
       }
