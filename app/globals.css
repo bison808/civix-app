@@ -24,6 +24,11 @@
   body {
     @apply bg-gray-50 text-gray-900;
     overscroll-behavior-y: contain;
+    /* Override any GoDaddy injected styles */
+    background-image: none !important;
+    background-color: rgb(249 250 251) !important;
+    position: relative !important;
+    z-index: 1 !important;
   }
 }
 
