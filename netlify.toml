@@ -8,10 +8,6 @@
 [build.environment]
   NEXT_PUBLIC_BASE_URL = "https://civix.vote"
 
-[functions]
-  directory = "netlify/functions"
-  included_files = ["**"]
-
 [[headers]]
   for = "/*"
   [headers.values]
