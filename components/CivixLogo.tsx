@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface CivixLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -12,10 +13,10 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   animated = false 
 }) => {
   const sizes = {
-    sm: { triangle: 'text-lg', text: 'text-lg', tagline: 'text-xs' },
-    md: { triangle: 'text-2xl', text: 'text-2xl', tagline: 'text-sm' },
-    lg: { triangle: 'text-4xl', text: 'text-4xl', tagline: 'text-base' },
-    xl: { triangle: 'text-6xl', text: 'text-6xl', tagline: 'text-lg' }
+    sm: { logo: 32, text: 'text-lg', tagline: 'text-xs' },
+    md: { logo: 48, text: 'text-2xl', tagline: 'text-sm' },
+    lg: { logo: 64, text: 'text-4xl', tagline: 'text-base' },
+    xl: { logo: 96, text: 'text-6xl', tagline: 'text-lg' }
   };
 
   const sizeConfig = sizes[size];
@@ -23,13 +24,16 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center gap-2">
-        <span 
-          className={`${sizeConfig.triangle} text-civix-blue font-bold ${
+        <Image
+          src="/civix-logo.jpeg"
+          alt="CIVIX Logo"
+          width={sizeConfig.logo}
+          height={sizeConfig.logo}
+          className={`rounded-lg object-cover ${
             animated ? 'animate-pulse' : ''
           }`}
-        >
-          ▲
-        </span>
+          priority
+        />
         <span className={`${sizeConfig.text} font-bold tracking-wide`}>
           CIVIX
         </span>
