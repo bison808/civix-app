@@ -268,9 +268,15 @@ export class RealDataService {
   private getLocationFromZipFallback(zipCode: string): { city: string; state: string; county: string } {
     const zipNum = parseInt(zipCode);
     
-    // Basic ZIP code range mapping
-    if (zipNum >= 90000 && zipNum <= 96999) {
-      return { city: 'Los Angeles area', state: 'CA', county: 'California' };
+    // Specific California ZIP mappings
+    if (zipCode === '95060') {
+      return { city: 'Santa Cruz', state: 'CA', county: 'Santa Cruz County' };
+    } else if (zipNum >= 95000 && zipNum <= 95099) {
+      return { city: 'Santa Cruz area', state: 'CA', county: 'Santa Cruz County' };
+    } else if (zipNum >= 94000 && zipNum <= 94999) {
+      return { city: 'San Francisco Bay Area', state: 'CA', county: 'California' };
+    } else if (zipNum >= 90000 && zipNum <= 93999) {
+      return { city: 'Los Angeles area', state: 'CA', county: 'Los Angeles County' };
     } else if (zipNum >= 10000 && zipNum <= 14999) {
       return { city: 'New York area', state: 'NY', county: 'New York' };
     } else if (zipNum >= 75000 && zipNum <= 79999) {
