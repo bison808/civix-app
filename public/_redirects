@@ -6,5 +6,6 @@ https://www.civix.vote/* https://citzn.vote/:splat 301!
 https://www.citzn.vote/* https://citzn.vote/:splat 301!
 
 # Handle Netlify subdomains (both old and new)
-https://civixvote.netlify.app/* https://citzn.vote/:splat 301!
-https://citznvote.netlify.app/* https://citzn.vote/:splat 301!
+# Temporarily disabled while DNS propagates
+# https://civixvote.netlify.app/* https://citzn.vote/:splat 301!
+# https://citznvote.netlify.app/* https://citzn.vote/:splat 301!
