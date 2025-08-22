@@ -39,13 +39,14 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
           alt="CITZN"
           width={sizeConfig.logo}
           height={sizeConfig.logo}
-          className={`rounded-lg object-contain ${
+          className={`rounded-lg ${
             animated ? 'animate-pulse' : ''
           } ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
           onError={() => setImageError(true)}
           style={{
             width: `${sizeConfig.logo}px`,
-            height: `${sizeConfig.logo}px`,
+            height: 'auto',
+            maxHeight: `${sizeConfig.logo}px`,
             objectFit: 'contain'
           }}
         />
