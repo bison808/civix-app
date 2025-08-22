@@ -11,7 +11,8 @@ import {
   User,
   Bell,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  BookOpen
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -47,32 +48,39 @@ export default function OnboardingFlow({
 
   const steps: OnboardingStep[] = [
     {
+      id: 'civic-intro',
+      title: 'Learn the Basics',
+      description: 'How government works',
+      icon: BookOpen,
+      status: currentStep > 0 ? 'completed' : currentStep === 0 ? 'current' : 'pending'
+    },
+    {
       id: 'location',
       title: 'Set Your Location',
       description: 'Help us show relevant bills',
       icon: MapPin,
-      status: currentStep > 0 ? 'completed' : currentStep === 0 ? 'current' : 'pending'
+      status: currentStep > 1 ? 'completed' : currentStep === 1 ? 'current' : 'pending'
     },
     {
       id: 'privacy',
       title: 'Choose Privacy',
       description: 'Control your data',
       icon: Shield,
-      status: currentStep > 1 ? 'completed' : currentStep === 1 ? 'current' : 'pending'
+      status: currentStep > 2 ? 'completed' : currentStep === 2 ? 'current' : 'pending'
     },
     {
       id: 'preferences',
       title: 'Set Preferences',
       description: 'Personalize your experience',
       icon: Bell,
-      status: currentStep > 2 ? 'completed' : currentStep === 2 ? 'current' : 'pending'
+      status: currentStep > 3 ? 'completed' : currentStep === 3 ? 'current' : 'pending'
     },
     {
       id: 'ready',
       title: 'You\'re All Set!',
       description: 'Start exploring',
       icon: Sparkles,
-      status: currentStep >= 3 ? 'completed' : 'pending'
+      status: currentStep >= 4 ? 'completed' : 'pending'
     }
   ];
 
@@ -178,20 +186,25 @@ export default function OnboardingFlow({
         >
           {currentStep === 0 && (
             <p className="text-sm text-gray-600">
-              🎯 Great start! Your location helps us show bills that affect you directly.
+              📚 Let's start with the basics of how your government works for you.
             </p>
           )}
           {currentStep === 1 && (
             <p className="text-sm text-gray-600">
-              🔒 Your privacy matters. Choose what feels right for you.
+              🎯 Great! Your location helps us show bills that affect you directly.
             </p>
           )}
           {currentStep === 2 && (
             <p className="text-sm text-gray-600">
-              ⚡ Almost there! Customize your experience for maximum impact.
+              🔒 Your privacy matters. Choose what feels right for you.
             </p>
           )}
           {currentStep === 3 && (
+            <p className="text-sm text-gray-600">
+              ⚡ Almost there! Customize your experience for maximum impact.
+            </p>
+          )}
+          {currentStep === 4 && (
             <p className="text-sm text-gray-600 font-medium">
               🎉 Welcome to CITZN! You\'re ready to make your voice heard.
             </p>

@@ -1,8 +1,9 @@
 'use client';
 
-import { Calendar, Users, TrendingUp, ChevronRight } from 'lucide-react';
+import { Calendar, Users, TrendingUp, ChevronRight, Lightbulb } from 'lucide-react';
 import Card from '@/components/core/Card';
 import LikeDislike from '@/components/feedback/LikeDislike';
+import WhyThisMatters from './WhyThisMatters';
 import { Bill } from '@/types';
 import { formatDate } from '@/lib/utils';
 import { cn } from '@/lib/utils';
@@ -12,9 +13,10 @@ interface BillCardProps {
   onVote?: (billId: string, vote: 'like' | 'dislike' | null) => Promise<void>;
   onClick?: (bill: Bill) => void;
   compact?: boolean;
+  showEngagement?: boolean;
 }
 
-export default function BillCard({ bill, onVote, onClick, compact = false }: BillCardProps) {
+export default function BillCard({ bill, onVote, onClick, compact = false, showEngagement = true }: BillCardProps) {
   const getStatusColor = (status: Bill['status']) => {
     const colors = {
       proposed: 'bg-blue-100 text-blue-700',
@@ -90,7 +92,13 @@ export default function BillCard({ bill, onVote, onClick, compact = false }: Bil
                 <span>Last Action: {formatDate(bill.lastActionDate)}</span>
               </div>
             )}
-            {/* Representatives would be loaded separately */}
+            {/* Engagement indicator */}
+            {showEngagement && !compact && (
+              <div className="flex items-center gap-1 text-yellow-600">
+                <Lightbulb size={14} />
+                <span>Impact Explained</span>
+              </div>
+            )}
           </div>
 
           <div onClick={(e) => e.stopPropagation()}>
@@ -105,6 +113,13 @@ export default function BillCard({ bill, onVote, onClick, compact = false }: Bil
             />
           </div>
         </div>
+
+        {/* Why This Matters section for enhanced engagement */}
+        {showEngagement && !compact && (
+          <div className="mt-3 pt-3 border-t border-gray-100" onClick={(e) => e.stopPropagation()}>
+            <WhyThisMatters bill={bill} compact={true} />
+          </div>
+        )}
       </div>
     </Card>
   );

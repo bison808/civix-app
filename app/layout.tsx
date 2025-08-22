@@ -2,31 +2,28 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { QueryProvider } from '@/providers/query-provider';
+import { WebVitalsMonitor } from '@/components/performance/WebVitals';
+import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
+import { defaultMetadata } from '@/lib/seo';
+import Script from 'next/script';
 import './globals.css';
-
-// Force dynamic rendering to avoid React Query SSR issues
-export const dynamic = 'force-dynamic';
 
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
-  preload: true
+  preload: true,
+  variable: '--font-inter'
 });
 
-export const metadata: Metadata = {
-  title: 'CITZN - Directing Democracy',
-  description: 'Citizen engagement platform for government transparency',
-  keywords: 'government, transparency, citizen, engagement, bills, voting, citzn, democracy',
-  authors: [{ name: 'CITZN Team' }],
-  manifest: '/manifest.json',
-};
+export const metadata: Metadata = defaultMetadata;
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
   viewportFit: 'cover',
-  userScalable: false,
+  userScalable: true,
+  themeColor: '#007bff',
 };
 
 export default function RootLayout({
@@ -35,15 +32,64 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preload" href="/citzn-logo.jpeg" as="image" type="image/jpeg" />
+        <link rel="dns-prefetch" href="//api.congress.gov" />
+        
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "CITZN - Directing Democracy",
+              "description": "Citizen engagement platform for government transparency",
+              "url": "https://citzn.vote",
+              "applicationCategory": "GovernmentApplication"
+            })
+          }}
+        />
+      </head>
       <body className={inter.className}>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
+
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-blue-600 text-white px-4 py-2 rounded z-50"
+        >
+          Skip to main content
+        </a>
+
         <QueryProvider>
           <AuthProvider>
             <div className="min-h-screen flex flex-col">
-              {children}
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
             </div>
           </AuthProvider>
         </QueryProvider>
+
+        <WebVitalsMonitor />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
