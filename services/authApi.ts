@@ -232,12 +232,22 @@ class AuthApiService {
       // Generate unique IDs for the session
       const timestamp = Date.now();
       const randomId = Math.random().toString(36).substring(7);
+      const anonymousId = `anon_${timestamp}_${randomId}`;
+      const sessionToken = `session_${timestamp}_${randomId}`;
+      
+      // Store session immediately upon successful registration
+      this.storeSession({
+        anonymousId,
+        sessionToken,
+        verificationLevel: 'anonymous',
+        zipCode: data.zipCode
+      });
       
       // Return successful mock registration
       return {
         success: true,
-        anonymousId: `anon_${timestamp}_${randomId}`,
-        sessionToken: `session_${timestamp}_${randomId}`,
+        anonymousId,
+        sessionToken,
       };
     } catch (error) {
       console.error('Registration error:', error);
@@ -255,6 +265,9 @@ class AuthApiService {
     const storedSession = this.getStoredSession();
     
     if (storedSession && storedSession.email === data.email) {
+      // Re-store the session to refresh cookies
+      this.storeSession(storedSession);
+      
       // Return existing session
       return {
         success: true,
@@ -280,6 +293,7 @@ class AuthApiService {
       ...response,
       email: data.email,
       verificationStatus: 'anonymous',
+      zipCode: localStorage.getItem('userZipCode') || '00000',
     });
 
     return {
@@ -359,23 +373,28 @@ class AuthApiService {
 
   // Helper methods for session management
   private storeSession(session: any) {
+    // Store in localStorage for persistence
     localStorage.setItem('userSession', JSON.stringify(session));
     localStorage.setItem('sessionToken', session.sessionToken);
     localStorage.setItem('anonymousId', session.anonymousId);
+    if (session.zipCode) {
+      localStorage.setItem('userZipCode', session.zipCode);
+    }
     
     // Also store in cookies for middleware - use consistent settings
     if (typeof document !== 'undefined') {
       const isSecure = window.location.protocol === 'https:';
-      const cookieOptions = `path=/; max-age=86400; samesite=lax${isSecure ? '; secure' : ''}`;
+      // Set cookies with 7 day expiry for better persistence
+      const maxAge = 7 * 24 * 60 * 60; // 7 days in seconds
+      const cookieOptions = `path=/; max-age=${maxAge}; samesite=lax${isSecure ? '; secure' : ''}`;
       
       document.cookie = `sessionToken=${session.sessionToken}; ${cookieOptions}`;
       document.cookie = `anonymousId=${session.anonymousId}; ${cookieOptions}`;
-      document.cookie = `verificationLevel=anonymous; ${cookieOptions}`;
+      document.cookie = `verificationLevel=${session.verificationLevel || 'anonymous'}; ${cookieOptions}`;
       
-      // Store ZIP code from localStorage to cookie
-      const zipCode = localStorage.getItem('userZipCode');
-      if (zipCode) {
-        document.cookie = `userZipCode=${zipCode}; ${cookieOptions}`;
+      // Store ZIP code in cookie
+      if (session.zipCode) {
+        document.cookie = `userZipCode=${session.zipCode}; ${cookieOptions}`;
       }
     }
   }
@@ -392,31 +411,21 @@ class AuthApiService {
   }
 
   getSessionToken(): string | null {
-    // Check both localStorage and cookies for better sync
-    const localToken = localStorage.getItem('sessionToken');
-    const cookieToken = this.getCookie('sessionToken');
+    // Prefer localStorage for consistency, fallback to cookies
+    const localToken = typeof window !== 'undefined' ? localStorage.getItem('sessionToken') : null;
+    if (localToken) return localToken;
     
-    // If they don't match, clear everything to prevent loops
-    if (localToken && cookieToken && localToken !== cookieToken) {
-      this.clearAllAuth();
-      return null;
-    }
-    
-    return localToken || cookieToken;
+    // Fallback to cookie
+    return this.getCookie('sessionToken');
   }
 
   getAnonymousId(): string | null {
-    // Check both localStorage and cookies for better sync
-    const localId = localStorage.getItem('anonymousId');
-    const cookieId = this.getCookie('anonymousId');
+    // Prefer localStorage for consistency, fallback to cookies
+    const localId = typeof window !== 'undefined' ? localStorage.getItem('anonymousId') : null;
+    if (localId) return localId;
     
-    // If they don't match, clear everything to prevent loops
-    if (localId && cookieId && localId !== cookieId) {
-      this.clearAllAuth();
-      return null;
-    }
-    
-    return localId || cookieId;
+    // Fallback to cookie
+    return this.getCookie('anonymousId');
   }
 
   // Helper method to read cookies

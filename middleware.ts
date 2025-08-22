@@ -35,6 +35,11 @@ export function middleware(request: NextRequest) {
   
   // Check authentication for protected routes
   if (!sessionToken || !anonymousId) {
+    // Check if we're dealing with a static resource
+    if (pathname.startsWith('/_next') || pathname.startsWith('/api')) {
+      return NextResponse.next();
+    }
+    
     // For /feed specifically, redirect to register if no session
     // For other protected routes, redirect to login
     if (pathname === '/feed') {

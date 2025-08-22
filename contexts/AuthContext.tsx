@@ -84,87 +84,76 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(true);
     
     try {
+      // First check cookies and localStorage for session
       const sessionToken = authApi.getSessionToken();
       const anonymousId = authApi.getAnonymousId();
+      const zipCode = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
       
-      if (!sessionToken || !anonymousId) {
-        // Check if there's user data in localStorage from recent registration
+      // If we have both session token and anonymous ID, restore the session
+      if (sessionToken && anonymousId && zipCode) {
+        // Restore user data from multiple sources
+        const storedSession = typeof window !== 'undefined' ? localStorage.getItem('userSession') : null;
         const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+        const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
+        
+        let userData: any = {};
+        
+        // Parse stored session data
+        if (storedSession) {
+          try {
+            userData = { ...userData, ...JSON.parse(storedSession) };
+          } catch (e) {
+            console.error('Failed to parse stored session:', e);
+          }
+        }
+        
+        // Parse stored user data
         if (storedUser) {
           try {
-            const userData = JSON.parse(storedUser);
-            const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
-            const location = userLocation ? JSON.parse(userLocation) : null;
-            
-            // Set user from localStorage data
-            setUser({
-              anonymousId: userData.id || 'temp-' + Date.now(),
-              sessionToken: 'temp-session',
-              verificationLevel: 'anonymous',
-              zipCode: userData.zipCode || localStorage.getItem('userZipCode') || undefined,
-              location: location,
-              email: userData.email,
-              firstName: userData.name?.split(' ')[0],
-              lastName: userData.name?.split(' ')[1]
-            });
-            
-            // Set session expiry
-            const expiryTime = new Date(Date.now() + SESSION_DURATION);
-            setSessionExpiry(expiryTime);
+            const userInfo = JSON.parse(storedUser);
+            userData.email = userData.email || userInfo.email;
+            userData.firstName = userData.firstName || userInfo.name?.split(' ')[0];
+            userData.lastName = userData.lastName || userInfo.name?.split(' ')[1];
           } catch (e) {
             console.error('Failed to parse stored user:', e);
-            setUser(null);
           }
-        } else {
-          setUser(null);
         }
-        setLoading(false);
-        return;
-      }
-
-      // Also verify that middleware-required data is available
-      if (!authApi.isAuthenticatedForMiddleware()) {
-        console.log('Session exists but middleware requirements not met, clearing...');
-        authApi.logout();
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-
-      // Validate session with backend
-      const validation = await authApi.validateSession(sessionToken);
-      
-      if (validation.valid) {
-        const storedSession = typeof window !== 'undefined' ? localStorage.getItem('userSession') : null;
-        const userData = storedSession ? JSON.parse(storedSession) : {};
         
-        const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
-        const location = userLocation ? JSON.parse(userLocation) : null;
+        // Parse location data
+        let location = null;
+        if (userLocation) {
+          try {
+            location = JSON.parse(userLocation);
+          } catch (e) {
+            console.error('Failed to parse location:', e);
+          }
+        }
         
-        // Also check for user data stored during registration
-        const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
-        const registrationData = storedUser ? JSON.parse(storedUser) : {};
-        
+        // Set the restored user
         setUser({
           anonymousId: anonymousId,
           sessionToken: sessionToken,
-          verificationLevel: validation.verificationStatus as VerificationLevel || 'anonymous',
-          zipCode: typeof window !== 'undefined' ? localStorage.getItem('userZipCode') || undefined : undefined,
+          verificationLevel: userData.verificationLevel as VerificationLevel || 'anonymous',
+          zipCode: zipCode,
           location: location,
-          email: registrationData.email || userData.email,
-          firstName: registrationData.name?.split(' ')[0] || userData.firstName,
-          lastName: registrationData.name?.split(' ')[1] || userData.lastName,
-          ...userData
+          email: userData.email,
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          privacySettings: userData.privacySettings
         });
-
+        
         // Set session expiry
         const expiryTime = new Date(Date.now() + SESSION_DURATION);
         setSessionExpiry(expiryTime);
-      } else {
-        // Invalid session
-        authApi.logout();
-        setUser(null);
+        
+        setLoading(false);
+        return;
       }
+      
+      // No valid session found
+      setUser(null);
+      setLoading(false);
+
     } catch (err) {
       console.error('Session check failed:', err);
       setUser(null);
@@ -183,14 +172,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
         const location = userLocation ? JSON.parse(userLocation) : null;
         
-        setUser({
+        const userData = {
           anonymousId: response.anonymousId,
           sessionToken: response.sessionToken,
           verificationLevel: response.verificationStatus as VerificationLevel || 'anonymous',
           email: email,
           zipCode: typeof window !== 'undefined' ? localStorage.getItem('userZipCode') || undefined : undefined,
           location: location,
-        });
+        };
+        
+        setUser(userData);
+        
+        // Persist session data to localStorage
+        localStorage.setItem('userSession', JSON.stringify(userData));
 
         // Set session expiry
         const expiryTime = new Date(Date.now() + SESSION_DURATION);
@@ -217,17 +211,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const userLocation = typeof window !== 'undefined' ? localStorage.getItem('userLocation') : null;
         const location = userLocation ? JSON.parse(userLocation) : null;
         
-        setUser({
+        const userData = {
           anonymousId: response.anonymousId,
           sessionToken: response.sessionToken,
-          verificationLevel: 'anonymous',
+          verificationLevel: 'anonymous' as VerificationLevel,
           zipCode: data.zipCode,
           location: location,
           email: data.optionalIdentity?.email,
           firstName: data.optionalIdentity?.firstName,
           lastName: data.optionalIdentity?.lastName,
           privacySettings: data.privacySettings,
-        });
+        };
+        
+        setUser(userData);
+        
+        // Persist session data to localStorage
+        localStorage.setItem('userSession', JSON.stringify(userData));
 
         // Set session expiry
         const expiryTime = new Date(Date.now() + SESSION_DURATION);
