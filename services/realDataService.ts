@@ -268,8 +268,16 @@ export class RealDataService {
   private getLocationFromZipFallback(zipCode: string): { city: string; state: string; county: string } {
     const zipNum = parseInt(zipCode);
     
+    // Massachusetts ZIP mappings (01xxx-02xxx)
+    if (zipNum >= 2100 && zipNum <= 2299) {
+      return { city: 'Boston', state: 'MA', county: 'Suffolk County' };
+    } else if (zipNum >= 2000 && zipNum <= 2799) {
+      return { city: 'Boston area', state: 'MA', county: 'Massachusetts' };
+    } else if (zipNum >= 1000 && zipNum <= 1999) {
+      return { city: 'Western Massachusetts', state: 'MA', county: 'Massachusetts' };
+    }
     // Specific California ZIP mappings
-    if (zipCode === '95060') {
+    else if (zipCode === '95060') {
       return { city: 'Santa Cruz', state: 'CA', county: 'Santa Cruz County' };
     } else if (zipNum >= 95000 && zipNum <= 95099) {
       return { city: 'Santa Cruz area', state: 'CA', county: 'Santa Cruz County' };
