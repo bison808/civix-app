@@ -8,6 +8,9 @@ import { defaultMetadata } from '@/lib/seo';
 import Script from 'next/script';
 import './globals.css';
 
+// Force dynamic rendering to avoid React Query SSR issues
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap',
