@@ -7,10 +7,10 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'CIVIX - Be the Difference',
+  title: 'CITZN - Directing Democracy',
   description: 'Citizen engagement platform for government transparency',
-  keywords: 'government, transparency, citizen, engagement, bills, voting, civix',
-  authors: [{ name: 'CIVIX Team' }],
+  keywords: 'government, transparency, citizen, engagement, bills, voting, citzn, democracy',
+  authors: [{ name: 'CITZN Team' }],
   manifest: '/manifest.json',
 };
 

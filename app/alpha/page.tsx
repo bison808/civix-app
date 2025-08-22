@@ -14,7 +14,7 @@ export default function AlphaAccessPage() {
 
   // Alpha access codes - you can change these
   const VALID_CODES = [
-    'CIVIX2025',
+    'CITZN2025',
     'ALPHATEST',
     'BETATESTER',
     'DEMOCRACY',
@@ -44,7 +44,7 @@ export default function AlphaAccessPage() {
         router.push('/');
       }, 1500);
     } else {
-      setError('Invalid access code. Please check with the CIVIX team.');
+      setError('Invalid access code. Please check with the CITZN team.');
     }
   };
 
@@ -77,7 +77,7 @@ export default function AlphaAccessPage() {
                   Alpha Access Required
                 </h1>
                 <p className="text-gray-600 text-sm">
-                  CIVIX is currently in private alpha testing. 
+                  CITZN is currently in private alpha testing. 
                   Enter your access code to continue.
                 </p>
               </div>

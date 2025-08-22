@@ -1,7 +1,7 @@
 {
-  "name": "CIVIX - Government Transparency Platform",
-  "short_name": "CIVIX",
-  "description": "Be the Difference",
+  "name": "CITZN - Government Transparency Platform",
+  "short_name": "CITZN",
+  "description": "Directing Democracy",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f9fafb",

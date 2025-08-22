@@ -6,7 +6,7 @@
   package = "@netlify/plugin-nextjs"
 
 [build.environment]
-  NEXT_PUBLIC_BASE_URL = "https://civix.vote"
+  NEXT_PUBLIC_BASE_URL = "https://citzn.vote"
 
 [[headers]]
   for = "/*"

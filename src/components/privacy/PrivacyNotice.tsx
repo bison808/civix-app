@@ -23,7 +23,7 @@ export default function PrivacyNotice({
       case 'registration':
         return {
           title: 'Your Privacy is Protected',
-          summary: 'CIVIX uses privacy-first authentication. You can participate anonymously.',
+          summary: 'CITZN uses privacy-first authentication. You can participate anonymously.',
           details: [
             'No personal information required to start',
             'Your ZIP code is only used for local content',
@@ -50,7 +50,7 @@ export default function PrivacyNotice({
       default:
         return {
           title: 'Privacy First',
-          summary: 'CIVIX is built with privacy as a core principle.',
+          summary: 'CITZN is built with privacy as a core principle.',
           details: [
             'Zero-knowledge authentication',
             'End-to-end encryption for sensitive data',
