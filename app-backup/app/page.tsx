@@ -12,9 +12,6 @@ export default function HomePage() {
           <p className="text-green-600 font-semibold">
             ✅ Minimal deployment successful!
           </p>
-          <p className="text-sm text-gray-500 mt-4">
-            Service worker and performance optimizations active
-          </p>
         </div>
       </div>
     </div>
