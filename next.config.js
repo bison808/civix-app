@@ -1,23 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Minimal configuration for guaranteed Netlify deployment
+  // Server-side configuration for API routes to work
   reactStrictMode: true,
   swcMinify: true,
   
-  // Static export for maximum compatibility
-  output: 'export',
-  trailingSlash: true,
-  skipTrailingSlashRedirect: true,
-  
-  // Disable image optimization for static export
+  // Enable image optimization
   images: {
-    unoptimized: true,
+    domains: ['localhost', 'citznvote.netlify.app', 'citzn.vote'],
+    formats: ['image/avif', 'image/webp'],
   },
   
-  // Disable experimental features
+  // Disable experimental features for stability
   experimental: {},
   
-  // Basic configuration only
+  // Basic configuration
   compress: true,
   productionBrowserSourceMaps: false,
   

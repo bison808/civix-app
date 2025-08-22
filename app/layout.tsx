@@ -1,12 +1,32 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { QueryProvider } from '@/providers/query-provider';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+// Force dynamic rendering to avoid React Query SSR issues
+export const dynamic = 'force-dynamic';
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true
+});
 
 export const metadata: Metadata = {
   title: 'CITZN - Directing Democracy',
   description: 'Citizen engagement platform for government transparency',
+  keywords: 'government, transparency, citizen, engagement, bills, voting, citzn, democracy',
+  authors: [{ name: 'CITZN Team' }],
+  manifest: '/manifest.json',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover',
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -17,9 +37,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen flex flex-col">
-          {children}
-        </div>
+        <QueryProvider>
+          <AuthProvider>
+            <div className="min-h-screen flex flex-col">
+              {children}
+            </div>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
