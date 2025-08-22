@@ -41,6 +41,14 @@
     padding-bottom: env(safe-area-inset-bottom);
   }
 
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -48,5 +56,66 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Mobile-specific utilities */
+  @media (max-width: 640px) {
+    .mobile-full-bleed {
+      margin-left: -1rem;
+      margin-right: -1rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .mobile-card-stack {
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+    }
+  }
+
+  /* Touch feedback */
+  @media (hover: none) {
+    .touch-feedback {
+      -webkit-tap-highlight-color: rgba(124, 58, 237, 0.1);
+      touch-action: manipulation;
+    }
+
+    .touch-feedback:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+
+  /* Smooth scrolling on iOS */
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Pull to refresh support */
+  .pull-to-refresh {
+    overscroll-behavior-y: contain;
+  }
+
+  /* Bottom sheet style drawer */
+  .bottom-sheet {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    max-height: calc(100vh - 4rem);
+    overscroll-behavior: contain;
+  }
+
+  /* iOS-style backdrop blur */
+  .backdrop-blur-ios {
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Prevent text selection on interactive elements */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }

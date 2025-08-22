@@ -3,6 +3,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { RefreshCw, Filter, Search } from 'lucide-react';
 import BillCard from './BillCard';
+import EnhancedBillCard from './EnhancedBillCard';
+import MobileBillCard from './MobileBillCard';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import BillFilter from './BillFilter';
 import Button from '@/components/core/Button';
 import { Bill, FilterOptions } from '@/types';
@@ -16,6 +19,7 @@ interface BillFeedProps {
   onVote?: (billId: string, vote: 'like' | 'dislike' | null) => Promise<void>;
   onBillClick?: (bill: Bill) => void;
   onRefresh?: () => void;
+  useEnhancedCards?: boolean;
 }
 
 export default function BillFeed({
@@ -26,7 +30,9 @@ export default function BillFeed({
   onVote,
   onBillClick,
   onRefresh,
+  useEnhancedCards = true,
 }: BillFeedProps) {
+  const isMobile = useMediaQuery('(max-width: 640px)');
   
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -263,14 +269,30 @@ export default function BillFeed({
         ) : (
           // Bills list
           <>
-            {filteredBills.map((bill) => (
-              <BillCard
-                key={bill.id}
-                bill={bill}
-                onVote={onVote}
-                onClick={onBillClick}
-              />
-            ))}
+            {filteredBills.map((bill) => 
+              isMobile ? (
+                <MobileBillCard
+                  key={bill.id}
+                  bill={bill}
+                  onVote={onVote}
+                  onClick={onBillClick}
+                />
+              ) : useEnhancedCards ? (
+                <EnhancedBillCard
+                  key={bill.id}
+                  bill={bill}
+                  onVote={onVote}
+                  onClick={onBillClick}
+                />
+              ) : (
+                <BillCard
+                  key={bill.id}
+                  bill={bill}
+                  onVote={onVote}
+                  onClick={onBillClick}
+                />
+              )
+            )}
           </>
         )}
 
