@@ -67,7 +67,7 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
       )}
       {showTagline && (
         <p className={`${sizeConfig.tagline} text-gray-600 mt-2`}>
-          Your Voice. Your Vote.
+          Directing Democracy
         </p>
       )}
     </div>
