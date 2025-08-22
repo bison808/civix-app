@@ -26,7 +26,7 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   useEffect(() => {
     // Preload image
     const img = new Image();
-    img.src = '/civix-logo.jpeg';
+    img.src = '/citzn-logo.jpeg';
     img.onload = () => setImageLoaded(true);
     img.onerror = () => setImageError(true);
   }, []);
@@ -35,8 +35,8 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
     <div className="flex flex-col items-center">
       {!imageError ? (
         <img
-          src="/civix-logo.jpeg"
-          alt="CIVIX"
+          src="/citzn-logo.jpeg"
+          alt="CITZN"
           width={sizeConfig.logo}
           height={sizeConfig.logo}
           className={`rounded-lg object-contain ${
@@ -62,12 +62,12 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
             justifyContent: 'center'
           }}
         >
-          CIVIX
+          CITZN
         </div>
       )}
       {showTagline && (
         <p className={`${sizeConfig.tagline} text-gray-600 mt-2`}>
-          Learn & Influence
+          Your Voice. Your Vote.
         </p>
       )}
     </div>
