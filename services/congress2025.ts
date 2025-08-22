@@ -3,7 +3,10 @@
 
 import { Representative } from '@/types';
 
-// US Senators (2 per state)
+// Import remaining states
+import { REMAINING_SENATORS } from './allStatesReps';
+
+// US Senators (2 per state) - Merging all states
 export const US_SENATORS: Record<string, Representative[]> = {
   AL: [
     {
@@ -904,7 +907,9 @@ export const US_SENATORS: Record<string, Representative[]> = {
       termStart: '2025-01-03',
       termEnd: '2031-01-03'
     }
-  ]
+  ],
+  // Merge remaining states
+  ...REMAINING_SENATORS
 };
 
 // House districts by ZIP code (simplified mapping)
