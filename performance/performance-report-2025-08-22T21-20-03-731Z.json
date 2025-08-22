@@ -1,0 +1,325 @@
+{
+  "timestamp": "2025-08-22T21:19:46.168Z",
+  "url": "http://localhost:3008",
+  "pages": [
+    {
+      "page": "Homepage",
+      "url": "http://localhost:3008/",
+      "metrics": {
+        "pageLoadTime": 1051,
+        "firstContentfulPaint": 1352,
+        "largestContentfulPaint": 1352,
+        "cumulativeLayoutShift": 0,
+        "timeToInteractive": 365,
+        "domContentLoaded": 0
+      },
+      "memory": {
+        "usedJSHeapSize": "62.93",
+        "totalJSHeapSize": "66.29"
+      },
+      "slowResources": [
+        {
+          "name": "http://localhost:3008/_next/static/chunks/6fb24798.js?v=1755897586418",
+          "type": "script",
+          "duration": 115.79999999701977,
+          "size": 795226
+        }
+      ],
+      "consoleErrors": [],
+      "performance": {
+        "scores": {
+          "pageLoad": 100,
+          "fcp": 100,
+          "lcp": 100,
+          "cls": 100
+        },
+        "overall": "Excellent",
+        "grade": "A"
+      },
+      "bottlenecks": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897586418 (116ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        },
+        {
+          "type": "Memory Usage",
+          "severity": "Medium",
+          "value": "62.93MB",
+          "target": "<50MB",
+          "recommendation": "Fix memory leaks, optimize data structures, implement proper cleanup"
+        }
+      ]
+    },
+    {
+      "page": "Feed",
+      "url": "http://localhost:3008/feed",
+      "metrics": {
+        "pageLoadTime": 1354,
+        "firstContentfulPaint": 428,
+        "largestContentfulPaint": 788,
+        "cumulativeLayoutShift": 0,
+        "timeToInteractive": 808,
+        "domContentLoaded": 0
+      },
+      "memory": {
+        "usedJSHeapSize": "49.00",
+        "totalJSHeapSize": "58.34"
+      },
+      "slowResources": [
+        {
+          "name": "http://localhost:3008/_next/static/chunks/6fb24798.js?v=1755897589799",
+          "type": "script",
+          "duration": 127.59999999403954,
+          "size": 795226
+        }
+      ],
+      "consoleErrors": [],
+      "performance": {
+        "scores": {
+          "pageLoad": 100,
+          "fcp": 100,
+          "lcp": 100,
+          "cls": 100
+        },
+        "overall": "Excellent",
+        "grade": "A"
+      },
+      "bottlenecks": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897589799 (128ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    },
+    {
+      "page": "Representatives",
+      "url": "http://localhost:3008/representatives",
+      "metrics": {
+        "pageLoadTime": 1501,
+        "firstContentfulPaint": 60,
+        "largestContentfulPaint": 60,
+        "cumulativeLayoutShift": 0,
+        "timeToInteractive": 504,
+        "domContentLoaded": 0
+      },
+      "memory": {
+        "usedJSHeapSize": "48.23",
+        "totalJSHeapSize": "56.25"
+      },
+      "slowResources": [
+        {
+          "name": "http://localhost:3008/_next/static/chunks/6fb24798.js?v=1755897592946",
+          "type": "script",
+          "duration": 120.40000000596046,
+          "size": 795226
+        }
+      ],
+      "consoleErrors": [],
+      "performance": {
+        "scores": {
+          "pageLoad": 100,
+          "fcp": 100,
+          "lcp": 100,
+          "cls": 100
+        },
+        "overall": "Excellent",
+        "grade": "A"
+      },
+      "bottlenecks": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897592946 (120ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    },
+    {
+      "page": "Dashboard",
+      "url": "http://localhost:3008/dashboard",
+      "metrics": {
+        "pageLoadTime": 1502,
+        "firstContentfulPaint": 68,
+        "largestContentfulPaint": 68,
+        "cumulativeLayoutShift": 0,
+        "timeToInteractive": 493,
+        "domContentLoaded": 0
+      },
+      "memory": {
+        "usedJSHeapSize": "48.24",
+        "totalJSHeapSize": "56.75"
+      },
+      "slowResources": [
+        {
+          "name": "http://localhost:3008/_next/static/chunks/6fb24798.js?v=1755897596541",
+          "type": "script",
+          "duration": 118.79999999701977,
+          "size": 795226
+        }
+      ],
+      "consoleErrors": [],
+      "performance": {
+        "scores": {
+          "pageLoad": 100,
+          "fcp": 100,
+          "lcp": 100,
+          "cls": 100
+        },
+        "overall": "Excellent",
+        "grade": "A"
+      },
+      "bottlenecks": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897596541 (119ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    },
+    {
+      "page": "Settings",
+      "url": "http://localhost:3008/settings",
+      "metrics": {
+        "pageLoadTime": 1503,
+        "firstContentfulPaint": 52,
+        "largestContentfulPaint": 52,
+        "cumulativeLayoutShift": 0,
+        "timeToInteractive": 498,
+        "domContentLoaded": 0
+      },
+      "memory": {
+        "usedJSHeapSize": "48.23",
+        "totalJSHeapSize": "56.75"
+      },
+      "slowResources": [
+        {
+          "name": "http://localhost:3008/_next/static/chunks/6fb24798.js?v=1755897600113",
+          "type": "script",
+          "duration": 123,
+          "size": 795226
+        }
+      ],
+      "consoleErrors": [],
+      "performance": {
+        "scores": {
+          "pageLoad": 100,
+          "fcp": 100,
+          "lcp": 100,
+          "cls": 100
+        },
+        "overall": "Excellent",
+        "grade": "A"
+      },
+      "bottlenecks": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897600113 (123ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "averageMetrics": {
+      "pageLoadTime": 1382,
+      "firstContentfulPaint": 392,
+      "largestContentfulPaint": 464,
+      "cumulativeLayoutShift": 0,
+      "timeToInteractive": 534
+    },
+    "performance": {
+      "scores": {
+        "pageLoad": 100,
+        "fcp": 100,
+        "lcp": 100,
+        "cls": 100
+      },
+      "overall": "Excellent",
+      "grade": "A"
+    },
+    "totalPages": 5,
+    "successfulTests": 5,
+    "failedTests": 0,
+    "meetsTarget": true
+  },
+  "bottlenecks": [
+    {
+      "page": "Homepage",
+      "issues": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897586418 (116ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        },
+        {
+          "type": "Memory Usage",
+          "severity": "Medium",
+          "value": "62.93MB",
+          "target": "<50MB",
+          "recommendation": "Fix memory leaks, optimize data structures, implement proper cleanup"
+        }
+      ]
+    },
+    {
+      "page": "Feed",
+      "issues": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897589799 (128ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    },
+    {
+      "page": "Representatives",
+      "issues": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897592946 (120ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    },
+    {
+      "page": "Dashboard",
+      "issues": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897596541 (119ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    },
+    {
+      "page": "Settings",
+      "issues": [
+        {
+          "type": "Slow Resource",
+          "severity": "Medium",
+          "value": "6fb24798.js?v=1755897600113 (123ms)",
+          "target": "<1000ms",
+          "recommendation": "Optimize resource size, implement caching, use CDN"
+        }
+      ]
+    }
+  ]
+}
