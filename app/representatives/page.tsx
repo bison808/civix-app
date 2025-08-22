@@ -64,9 +64,18 @@ export default function RepresentativesPage() {
       );
     }
 
-    // Apply level filter (using chamber instead of level)
+    // Apply level filter based on chamber and title
     if (levelFilter !== 'all') {
-      filtered = filtered.filter(rep => rep.chamber.toLowerCase() === levelFilter.toLowerCase());
+      filtered = filtered.filter(rep => {
+        if (levelFilter === 'federal') {
+          return rep.chamber === 'House' || rep.chamber === 'Senate';
+        } else if (levelFilter === 'state') {
+          return rep.title.toLowerCase().includes('state');
+        } else if (levelFilter === 'local') {
+          return rep.title.toLowerCase().includes('mayor') || rep.title.toLowerCase().includes('council') || rep.title.toLowerCase().includes('commissioner');
+        }
+        return false;
+      });
     }
 
     // Apply sorting

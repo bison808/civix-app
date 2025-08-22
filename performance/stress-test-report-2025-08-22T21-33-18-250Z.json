@@ -1,0 +1,151 @@
+{
+  "timestamp": "2025-08-22T21:33:18.249Z",
+  "summary": {
+    "totalTests": 11,
+    "maxConcurrentUsers": 100,
+    "totalSuccesses": 291,
+    "totalErrors": 0,
+    "overallSuccessRate": 100
+  },
+  "endpointResults": [
+    {
+      "endpoint": "/api/auth/verify-zip",
+      "concurrency": 1,
+      "totalRequests": 1,
+      "successful": 1,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 393,
+      "totalTime": 393,
+      "requestsPerSecond": 3,
+      "timestamp": "2025-08-22T21:32:51.731Z"
+    },
+    {
+      "endpoint": "/api/auth/verify-zip",
+      "concurrency": 5,
+      "totalRequests": 5,
+      "successful": 5,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 415,
+      "totalTime": 593,
+      "requestsPerSecond": 8,
+      "timestamp": "2025-08-22T21:32:53.326Z"
+    },
+    {
+      "endpoint": "/api/auth/verify-zip",
+      "concurrency": 10,
+      "totalRequests": 10,
+      "successful": 10,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 452,
+      "totalTime": 881,
+      "requestsPerSecond": 11,
+      "timestamp": "2025-08-22T21:32:55.210Z"
+    },
+    {
+      "endpoint": "/api/auth/verify-zip",
+      "concurrency": 25,
+      "totalRequests": 25,
+      "successful": 25,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 585,
+      "totalTime": 1695,
+      "requestsPerSecond": 15,
+      "timestamp": "2025-08-22T21:32:57.906Z"
+    },
+    {
+      "endpoint": "/api/auth/verify-zip",
+      "concurrency": 50,
+      "totalRequests": 50,
+      "successful": 50,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 664,
+      "totalTime": 1214,
+      "requestsPerSecond": 41,
+      "timestamp": "2025-08-22T21:33:00.121Z"
+    },
+    {
+      "endpoint": "/api/auth/verify-zip",
+      "concurrency": 100,
+      "totalRequests": 100,
+      "successful": 100,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 696,
+      "totalTime": 1336,
+      "requestsPerSecond": 75,
+      "timestamp": "2025-08-22T21:33:02.459Z"
+    },
+    {
+      "endpoint": "/api/bills",
+      "concurrency": 1,
+      "totalRequests": 1,
+      "successful": 1,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 265,
+      "totalTime": 266,
+      "requestsPerSecond": 4,
+      "timestamp": "2025-08-22T21:33:03.728Z"
+    },
+    {
+      "endpoint": "/api/bills",
+      "concurrency": 5,
+      "totalRequests": 5,
+      "successful": 5,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 352,
+      "totalTime": 517,
+      "requestsPerSecond": 10,
+      "timestamp": "2025-08-22T21:33:06.248Z"
+    },
+    {
+      "endpoint": "/api/bills",
+      "concurrency": 10,
+      "totalRequests": 10,
+      "successful": 10,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 346,
+      "totalTime": 564,
+      "requestsPerSecond": 18,
+      "timestamp": "2025-08-22T21:33:08.814Z"
+    },
+    {
+      "endpoint": "/api/bills",
+      "concurrency": 20,
+      "totalRequests": 20,
+      "successful": 20,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 411,
+      "totalTime": 601,
+      "requestsPerSecond": 33,
+      "timestamp": "2025-08-22T21:33:11.416Z"
+    },
+    {
+      "endpoint": "/api/bills",
+      "concurrency": 50,
+      "totalRequests": 50,
+      "successful": 50,
+      "failed": 0,
+      "successRate": 100,
+      "avgResponseTime": 483,
+      "totalTime": 753,
+      "requestsPerSecond": 66,
+      "timestamp": "2025-08-22T21:33:14.172Z"
+    }
+  ],
+  "performance": {
+    "fastestResponse": 265,
+    "slowestResponse": 696,
+    "averageRPS": 26
+  },
+  "bottlenecks": [],
+  "recommendations": []
+}

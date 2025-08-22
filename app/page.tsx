@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
 import { CivixLogo } from '@/components/CivixLogo';
+// import OnboardingCarousel from '@/components/onboarding/OnboardingCarousel';
 import { authApi } from '@/services/authApi';
 
 export default function LandingPage() {
@@ -13,6 +14,15 @@ export default function LandingPage() {
   const [error, setError] = useState('');
   const [locationInfo, setLocationInfo] = useState<{ city?: string; state?: string } | null>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  
+  useEffect(() => {
+    // Check if user has seen onboarding before
+    const hasSeenOnboarding = localStorage.getItem('hasSeenOnboarding');
+    if (!hasSeenOnboarding) {
+      setShowOnboarding(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,9 +79,14 @@ export default function LandingPage() {
     }
   };
 
+  const handleOnboardingComplete = () => {
+    localStorage.setItem('hasSeenOnboarding', 'true');
+    setShowOnboarding(false);
+  };
+
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md space-y-8">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12">
+        <div className="w-full max-w-md space-y-6 sm:space-y-8">
         {/* Logo */}
         <div className="text-center">
           <CivixLogo size="xl" showTagline={true} animated={true} />
@@ -122,10 +137,12 @@ export default function LandingPage() {
                   console.log('ZIP code input:', cleaned, 'length:', cleaned.length);
                   setZipCode(cleaned);
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-delta focus:border-delta"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-delta focus:border-delta touch-feedback"
                 placeholder="90210"
                 required
                 disabled={loading}
+                aria-label="ZIP code"
+                autoComplete="postal-code"
               />
               {error && (
                 <p className="mt-2 text-sm text-negative">{error}</p>
@@ -164,7 +181,7 @@ export default function LandingPage() {
             </p>
           </div>
         )}
+        </div>
       </div>
-    </div>
   );
 }

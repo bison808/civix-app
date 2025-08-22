@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-08-22T21:36:22.177Z",
+  "summary": {
+    "pagesLoaded": 4,
+    "averageLoadTime": 965,
+    "averageDOMReady": 0,
+    "averageFirstByte": 0,
+    "totalResourceSize": "256KB"
+  },
+  "pageResults": [
+    {
+      "page": "Homepage",
+      "url": "https://citznvote.netlify.app/",
+      "timestamp": "2025-08-22T21:35:54.462Z",
+      "success": true,
+      "statusCode": 200,
+      "metrics": {
+        "totalLoadTime": 1334,
+        "firstByte": 0,
+        "domContentLoaded": 0,
+        "loadComplete": 0,
+        "fcp": 0,
+        "lcp": 0
+      },
+      "resources": {
+        "totalResources": 14,
+        "images": 0,
+        "scripts": 8,
+        "stylesheets": 5,
+        "totalSize": 234715
+      },
+      "errors": []
+    },
+    {
+      "page": "Feed",
+      "url": "https://citznvote.netlify.app/feed",
+      "timestamp": "2025-08-22T21:36:02.574Z",
+      "success": true,
+      "statusCode": 200,
+      "metrics": {
+        "totalLoadTime": 1043,
+        "firstByte": 0,
+        "domContentLoaded": 0,
+        "loadComplete": 0,
+        "fcp": 0,
+        "lcp": 0
+      },
+      "resources": {
+        "totalResources": 16,
+        "images": 0,
+        "scripts": 9,
+        "stylesheets": 6,
+        "totalSize": 14190
+      },
+      "errors": []
+    },
+    {
+      "page": "Representatives",
+      "url": "https://citznvote.netlify.app/representatives",
+      "timestamp": "2025-08-22T21:36:10.474Z",
+      "success": true,
+      "statusCode": 200,
+      "metrics": {
+        "totalLoadTime": 800,
+        "firstByte": 0,
+        "domContentLoaded": 0,
+        "loadComplete": 0,
+        "fcp": 0,
+        "lcp": 0
+      },
+      "resources": {
+        "totalResources": 13,
+        "images": 0,
+        "scripts": 8,
+        "stylesheets": 5,
+        "totalSize": 6530
+      },
+      "errors": []
+    },
+    {
+      "page": "Register",
+      "url": "https://citznvote.netlify.app/register",
+      "timestamp": "2025-08-22T21:36:18.258Z",
+      "success": true,
+      "statusCode": 200,
+      "metrics": {
+        "totalLoadTime": 682,
+        "firstByte": 0,
+        "domContentLoaded": 0,
+        "loadComplete": 0,
+        "fcp": 0,
+        "lcp": 0
+      },
+      "resources": {
+        "totalResources": 15,
+        "images": 0,
+        "scripts": 9,
+        "stylesheets": 5,
+        "totalSize": 6617
+      },
+      "errors": []
+    }
+  ],
+  "performance": {
+    "fastest": 682,
+    "slowest": 1334,
+    "grade": "A+"
+  },
+  "recommendations": []
+}

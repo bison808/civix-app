@@ -77,8 +77,8 @@ export class RealDataService {
     // Get REAL state legislators from OpenStates
     const stateReps = await openStatesService.getStateLegislators(location.state);
     
-    // Get local officials (still mock for now)
-    const localReps = openStatesService.getLocalOfficials(location.city, location.state);
+    // Get REAL local officials from civic info service
+    const localReps = await openStatesService.getLocalOfficials(location.city, location.state);
     
     return [...federalReps, ...stateReps, ...localReps];
   }
@@ -239,27 +239,9 @@ export class RealDataService {
     const cached = this.getFromCache(cacheKey);
     if (cached) return cached;
 
-    try {
-      // Census Geocoder can provide location info
-      // Format: ZIP code as address
-      const url = `${DATA_SOURCES.CENSUS_GEOCODER}?address=${zipCode}&benchmark=2020&format=json`;
-      const response = await fetch(url);
-      const data = await response.json();
-
-      if (data.result?.addressMatches?.[0]) {
-        const match = data.result.addressMatches[0];
-        const location = {
-          city: match.addressComponents.city || 'Unknown City',
-          state: match.addressComponents.state || 'Unknown State',
-          county: match.addressComponents.county || 'Unknown County'
-        };
-        this.setCache(cacheKey, location);
-        return location;
-      }
-    } catch (error) {
-      console.error('Census geocoder failed:', error);
-    }
-
+    // Skip Census API due to CORS issues - use fallback directly
+    // In production, this should be called from a backend service
+    
     // Fallback to ZIP code ranges
     return this.getLocationFromZipFallback(zipCode);
   }
@@ -267,6 +249,11 @@ export class RealDataService {
   // Fallback ZIP code to location mapping
   private getLocationFromZipFallback(zipCode: string): { city: string; state: string; county: string } {
     const zipNum = parseInt(zipCode);
+    
+    // Specific known ZIP codes
+    if (zipCode === '90210') {
+      return { city: 'Beverly Hills', state: 'CA', county: 'Los Angeles County' };
+    }
     
     // Massachusetts ZIP mappings (01xxx-02xxx)
     if (zipNum >= 2100 && zipNum <= 2299) {

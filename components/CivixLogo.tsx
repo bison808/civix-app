@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { OptimizedImage } from './OptimizedImage';
 
 interface CivixLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -12,7 +13,6 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   animated = false 
 }) => {
   const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   
   const sizes = {
     sm: { logo: 100, tagline: 'text-xs', text: 'text-2xl' },
@@ -22,33 +22,21 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   };
 
   const sizeConfig = sizes[size];
-
-  useEffect(() => {
-    // Preload image
-    const img = new Image();
-    img.src = '/citzn-logo.jpeg';
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageError(true);
-  }, []);
   
   return (
     <div className="flex flex-col items-center">
       {!imageError ? (
-        <img
-          src="/citzn-logo.jpeg"
-          alt="CITZN"
-          width={sizeConfig.logo}
-          height={sizeConfig.logo}
-          className={`rounded-lg object-contain ${
-            animated ? 'animate-pulse' : ''
-          } ${imageLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
-          onError={() => setImageError(true)}
-          style={{
-            width: `${sizeConfig.logo}px`,
-            height: `${sizeConfig.logo}px`,
-            objectFit: 'contain'
-          }}
-        />
+        <div style={{ width: sizeConfig.logo, height: sizeConfig.logo, position: 'relative' }}>
+          <OptimizedImage
+            src="/citzn-logo.jpeg"
+            alt="CITZN"
+            width={sizeConfig.logo}
+            height={sizeConfig.logo}
+            className={`rounded-lg object-contain ${animated ? 'animate-pulse' : ''}`}
+            priority={size === 'lg' || size === 'xl'}
+            sizes={`(max-width: 640px) ${sizeConfig.logo}px, (max-width: 1024px) ${sizeConfig.logo}px, ${sizeConfig.logo}px`}
+          />
+        </div>
       ) : (
         <div 
           className={`${sizeConfig.text} font-bold text-delta ${

@@ -2,6 +2,7 @@ import { Bill, User, Representative, FilterOptions, VoteRecord } from '@/types';
 import { mockBills, mockUser, mockRepresentatives, mockCARepresentatives, mockTXRepresentatives, mockNYRepresentatives } from './mockData';
 import { realDataService } from './realDataService';
 import { congressService } from './congressService';
+import { civicInfoService } from './civicInfoService';
 
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -51,17 +52,17 @@ export const api = {
       return bills;
     },
 
-    async getById(id: string): Promise<Bill | null> {
+    async getById(id: string): Promise<Bill | undefined> {
       await delay(200);
       if (USE_REAL_DATA) {
         try {
           const bills = await congressService.getRecentBills();
-          return bills.find(bill => bill.id === id) || null;
+          return bills.find(bill => bill.id === id);
         } catch (error) {
           console.error('Failed to fetch real bill, using mock:', error);
         }
       }
-      return mockBills.find(bill => bill.id === id) || null;
+      return mockBills.find(bill => bill.id === id);
     },
 
     async search(query: string): Promise<Bill[]> {
@@ -145,27 +146,42 @@ export const api = {
         const congressReps = getRepsByZip(zipCode);
         
         if (congressReps.length > 0) {
-          // Add some local/state officials for completeness
-          const localOfficials: Representative[] = [
-            {
-              id: `mayor-local-${zipCode}`,
-              name: 'Local Mayor',
-              title: 'Mayor',
-              party: 'Other' as const,
-              state: congressReps[0]?.state || 'US',
-              district: 'Local',
-              chamber: 'Local' as any,
-              contactInfo: {
-                phone: '555-0100',
-                website: 'https://local.gov',
-                email: 'mayor@local.gov'
-              },
-              socialMedia: {},
-              committees: [],
-              termStart: '2024-01-01',
-              termEnd: '2028-01-01'
-            }
-          ];
+          // Get location information for local officials
+          const location = await realDataService.getLocationFromZip(zipCode);
+          
+          // Get REAL local officials data
+          let localOfficials: Representative[] = [];
+          if (location) {
+            localOfficials = await civicInfoService.getLocalOfficials(
+              location.city,
+              location.state,
+              zipCode
+            );
+          }
+          
+          // If no local officials found, add at least basic info
+          if (localOfficials.length === 0) {
+            localOfficials = [
+              {
+                id: `mayor-${zipCode}`,
+                name: `Mayor of ${location?.city || 'Your City'}`,
+                title: 'Mayor',
+                party: 'Independent' as const,
+                state: congressReps[0]?.state || 'US',
+                district: location?.city || 'Local',
+                chamber: 'Local' as any,
+                contactInfo: {
+                  phone: '311',
+                  website: `https://www.${(location?.city || 'local').toLowerCase().replace(/\s+/g, '')}.gov`,
+                  email: `mayor@${(location?.city || 'local').toLowerCase().replace(/\s+/g, '')}.gov`
+                },
+                socialMedia: {},
+                committees: [],
+                termStart: '2022-01-01',
+                termEnd: '2026-01-01'
+              }
+            ];
+          }
           
           return [...congressReps, ...localOfficials];
         }

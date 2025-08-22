@@ -1,0 +1,549 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-22T21:39:21.138Z",
+    "testSuite": "CITZN Platform Load Test Suite",
+    "platform": "https://citznvote.netlify.app",
+    "nodeVersion": "v18.19.1",
+    "testDuration": "Comprehensive multi-phase testing"
+  },
+  "executiveSummary": {
+    "overallGrade": "A+",
+    "keyFindings": [
+      "Average page load time: 965ms",
+      "API reliability: 100% success rate",
+      "No WebSocket support detected (expected for static hosting)"
+    ],
+    "majorConcerns": [],
+    "strengths": [
+      "Excellent API reliability under load"
+    ]
+  },
+  "performanceMetrics": {
+    "pageLoad": {
+      "averageLoadTime": 965,
+      "fastestPage": 682,
+      "slowestPage": 1334,
+      "pagesTestedSuccessfully": 4,
+      "averageResourceCount": 15,
+      "averageBundleSize": "64KB"
+    },
+    "apiPerformance": {
+      "endpointsTested": 2,
+      "totalRequests": 277,
+      "overallSuccessRate": 100,
+      "averageResponseTime": 460,
+      "maxConcurrentUsers": 100,
+      "averageRPS": 26
+    },
+    "networkConditions": {
+      "slowNetworkTested": false,
+      "performsWellOn3G": true
+    },
+    "resourceOptimization": {
+      "bundleAnalysis": {
+        "error": "Static directory not found"
+      },
+      "optimizationOpportunities": []
+    }
+  },
+  "scalabilityAnalysis": {
+    "concurrentUsers": {
+      "/api/auth/verify-zip": [
+        {
+          "concurrency": 1,
+          "successRate": 100,
+          "avgResponseTime": 393
+        },
+        {
+          "concurrency": 5,
+          "successRate": 100,
+          "avgResponseTime": 415
+        },
+        {
+          "concurrency": 10,
+          "successRate": 100,
+          "avgResponseTime": 452
+        },
+        {
+          "concurrency": 25,
+          "successRate": 100,
+          "avgResponseTime": 585
+        },
+        {
+          "concurrency": 50,
+          "successRate": 100,
+          "avgResponseTime": 664
+        },
+        {
+          "concurrency": 100,
+          "successRate": 100,
+          "avgResponseTime": 696
+        }
+      ],
+      "/api/bills": [
+        {
+          "concurrency": 1,
+          "successRate": 100,
+          "avgResponseTime": 265
+        },
+        {
+          "concurrency": 5,
+          "successRate": 100,
+          "avgResponseTime": 352
+        },
+        {
+          "concurrency": 10,
+          "successRate": 100,
+          "avgResponseTime": 346
+        },
+        {
+          "concurrency": 20,
+          "successRate": 100,
+          "avgResponseTime": 411
+        },
+        {
+          "concurrency": 50,
+          "successRate": 100,
+          "avgResponseTime": 483
+        }
+      ]
+    },
+    "loadCapacity": {
+      "maxReliableConcurrency": 100,
+      "recommendedCapacity": 80,
+      "totalRequestsHandled": 277
+    },
+    "breakingPoints": []
+  },
+  "reliabilityAssessment": {
+    "errorRates": {
+      "api": {
+        "totalErrors": 0,
+        "totalRequests": 291,
+        "errorRate": 0
+      },
+      "pageLoad": {
+        "failedPages": 0,
+        "totalPages": 4,
+        "errorRate": 0
+      }
+    },
+    "memoryManagement": {
+      "memoryLeakDetected": false,
+      "heapGrowth": "3.42MB (within normal range)",
+      "recommendation": "Memory usage appears stable during load testing"
+    },
+    "serviceAvailability": {
+      "uptime": "100%",
+      "responseTime": "Good",
+      "serviceStatus": "Healthy",
+      "reliability": "Excellent"
+    }
+  },
+  "modernWebFeatures": {
+    "offlineSupport": {
+      "offlinePagesAccessible": false,
+      "serviceWorkerImplemented": false,
+      "recommendedImprovement": "Implement PWA offline capabilities"
+    },
+    "realtimeCapabilities": {
+      "webSocketSupport": false,
+      "realtimeEndpoints": 0,
+      "recommendation": "Consider implementing Server-Sent Events for real-time features on static hosting"
+    },
+    "progressiveWebApp": {
+      "serviceWorkerPresent": false,
+      "manifestFile": false,
+      "installability": "Unknown",
+      "recommendation": "Evaluate PWA implementation for better user experience"
+    }
+  },
+  "criticalIssues": [
+    {
+      "severity": "MEDIUM",
+      "category": "Security",
+      "issue": "No rate limiting detected",
+      "impact": "Vulnerability to abuse and DDoS attacks"
+    }
+  ],
+  "recommendations": {
+    "immediate": [
+      "Implement rate limiting on API endpoints",
+      "Add error handling for failed requests",
+      "Optimize image assets and enable compression"
+    ],
+    "shortTerm": [
+      "Implement service worker for offline functionality",
+      "Add real-time features using Server-Sent Events",
+      "Optimize bundle size with code splitting",
+      "Add performance monitoring and alerting"
+    ],
+    "longTerm": [
+      "Consider migrating to a more robust hosting solution for WebSocket support",
+      "Implement comprehensive caching strategy",
+      "Add automated performance testing to CI/CD pipeline",
+      "Develop progressive web app capabilities"
+    ]
+  },
+  "benchmarkComparison": {
+    "googlePageSpeedBenchmarks": {
+      "goodLCP": "< 2500ms",
+      "goodFID": "< 100ms",
+      "goodCLS": "< 0.1"
+    },
+    "industryStandards": {
+      "acceptableLoadTime": "< 3000ms",
+      "goodLoadTime": "< 1000ms",
+      "excellentLoadTime": "< 500ms"
+    },
+    "currentPerformance": {
+      "averageLoadTime": 965,
+      "grade": "A+"
+    }
+  },
+  "rawData": {
+    "websocket": {
+      "timestamp": "2025-08-22T21:37:47.799Z",
+      "summary": {
+        "totalConnections": 41,
+        "successfulConnections": 0,
+        "failedConnections": 41,
+        "overallSuccessRate": 0,
+        "messagesSent": 0,
+        "messagesReceived": 0,
+        "errors": 41
+      },
+      "testResults": [
+        {
+          "concurrency": 1,
+          "successful": 0,
+          "failed": 1,
+          "successRate": 0,
+          "totalTime": 190,
+          "timestamp": "2025-08-22T21:37:37.749Z"
+        },
+        {
+          "concurrency": 5,
+          "successful": 0,
+          "failed": 5,
+          "successRate": 0,
+          "totalTime": 183,
+          "timestamp": "2025-08-22T21:37:39.937Z"
+        },
+        {
+          "concurrency": 10,
+          "successful": 0,
+          "failed": 10,
+          "successRate": 0,
+          "totalTime": 184,
+          "timestamp": "2025-08-22T21:37:42.123Z"
+        },
+        {
+          "concurrency": 25,
+          "successful": 0,
+          "failed": 25,
+          "successRate": 0,
+          "totalTime": 284,
+          "timestamp": "2025-08-22T21:37:44.409Z"
+        }
+      ],
+      "analysis": {
+        "webSocketSupport": false,
+        "maxConcurrentConnections": 0,
+        "connectionReliability": [
+          {
+            "concurrency": 1,
+            "successRate": 0
+          },
+          {
+            "concurrency": 5,
+            "successRate": 0
+          },
+          {
+            "concurrency": 10,
+            "successRate": 0
+          },
+          {
+            "concurrency": 25,
+            "successRate": 0
+          }
+        ]
+      },
+      "recommendations": [
+        {
+          "priority": "INFO",
+          "category": "WebSocket Support",
+          "issue": "No WebSocket connections successful",
+          "recommendation": "Platform may not support WebSockets (common for static hosting). Consider Server-Sent Events or polling for real-time features."
+        },
+        {
+          "priority": "HIGH",
+          "category": "Error Rate",
+          "issue": "High error rate in WebSocket communications: 4100%",
+          "recommendation": "Implement better error handling and connection retry logic"
+        }
+      ]
+    },
+    "stressTest": {
+      "timestamp": "2025-08-22T21:33:18.249Z",
+      "summary": {
+        "totalTests": 11,
+        "maxConcurrentUsers": 100,
+        "totalSuccesses": 291,
+        "totalErrors": 0,
+        "overallSuccessRate": 100
+      },
+      "endpointResults": [
+        {
+          "endpoint": "/api/auth/verify-zip",
+          "concurrency": 1,
+          "totalRequests": 1,
+          "successful": 1,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 393,
+          "totalTime": 393,
+          "requestsPerSecond": 3,
+          "timestamp": "2025-08-22T21:32:51.731Z"
+        },
+        {
+          "endpoint": "/api/auth/verify-zip",
+          "concurrency": 5,
+          "totalRequests": 5,
+          "successful": 5,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 415,
+          "totalTime": 593,
+          "requestsPerSecond": 8,
+          "timestamp": "2025-08-22T21:32:53.326Z"
+        },
+        {
+          "endpoint": "/api/auth/verify-zip",
+          "concurrency": 10,
+          "totalRequests": 10,
+          "successful": 10,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 452,
+          "totalTime": 881,
+          "requestsPerSecond": 11,
+          "timestamp": "2025-08-22T21:32:55.210Z"
+        },
+        {
+          "endpoint": "/api/auth/verify-zip",
+          "concurrency": 25,
+          "totalRequests": 25,
+          "successful": 25,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 585,
+          "totalTime": 1695,
+          "requestsPerSecond": 15,
+          "timestamp": "2025-08-22T21:32:57.906Z"
+        },
+        {
+          "endpoint": "/api/auth/verify-zip",
+          "concurrency": 50,
+          "totalRequests": 50,
+          "successful": 50,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 664,
+          "totalTime": 1214,
+          "requestsPerSecond": 41,
+          "timestamp": "2025-08-22T21:33:00.121Z"
+        },
+        {
+          "endpoint": "/api/auth/verify-zip",
+          "concurrency": 100,
+          "totalRequests": 100,
+          "successful": 100,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 696,
+          "totalTime": 1336,
+          "requestsPerSecond": 75,
+          "timestamp": "2025-08-22T21:33:02.459Z"
+        },
+        {
+          "endpoint": "/api/bills",
+          "concurrency": 1,
+          "totalRequests": 1,
+          "successful": 1,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 265,
+          "totalTime": 266,
+          "requestsPerSecond": 4,
+          "timestamp": "2025-08-22T21:33:03.728Z"
+        },
+        {
+          "endpoint": "/api/bills",
+          "concurrency": 5,
+          "totalRequests": 5,
+          "successful": 5,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 352,
+          "totalTime": 517,
+          "requestsPerSecond": 10,
+          "timestamp": "2025-08-22T21:33:06.248Z"
+        },
+        {
+          "endpoint": "/api/bills",
+          "concurrency": 10,
+          "totalRequests": 10,
+          "successful": 10,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 346,
+          "totalTime": 564,
+          "requestsPerSecond": 18,
+          "timestamp": "2025-08-22T21:33:08.814Z"
+        },
+        {
+          "endpoint": "/api/bills",
+          "concurrency": 20,
+          "totalRequests": 20,
+          "successful": 20,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 411,
+          "totalTime": 601,
+          "requestsPerSecond": 33,
+          "timestamp": "2025-08-22T21:33:11.416Z"
+        },
+        {
+          "endpoint": "/api/bills",
+          "concurrency": 50,
+          "totalRequests": 50,
+          "successful": 50,
+          "failed": 0,
+          "successRate": 100,
+          "avgResponseTime": 483,
+          "totalTime": 753,
+          "requestsPerSecond": 66,
+          "timestamp": "2025-08-22T21:33:14.172Z"
+        }
+      ],
+      "performance": {
+        "fastestResponse": 265,
+        "slowestResponse": 696,
+        "averageRPS": 26
+      },
+      "bottlenecks": [],
+      "recommendations": []
+    },
+    "performance": {
+      "timestamp": "2025-08-22T21:36:22.177Z",
+      "summary": {
+        "pagesLoaded": 4,
+        "averageLoadTime": 965,
+        "averageDOMReady": 0,
+        "averageFirstByte": 0,
+        "totalResourceSize": "256KB"
+      },
+      "pageResults": [
+        {
+          "page": "Homepage",
+          "url": "https://citznvote.netlify.app/",
+          "timestamp": "2025-08-22T21:35:54.462Z",
+          "success": true,
+          "statusCode": 200,
+          "metrics": {
+            "totalLoadTime": 1334,
+            "firstByte": 0,
+            "domContentLoaded": 0,
+            "loadComplete": 0,
+            "fcp": 0,
+            "lcp": 0
+          },
+          "resources": {
+            "totalResources": 14,
+            "images": 0,
+            "scripts": 8,
+            "stylesheets": 5,
+            "totalSize": 234715
+          },
+          "errors": []
+        },
+        {
+          "page": "Feed",
+          "url": "https://citznvote.netlify.app/feed",
+          "timestamp": "2025-08-22T21:36:02.574Z",
+          "success": true,
+          "statusCode": 200,
+          "metrics": {
+            "totalLoadTime": 1043,
+            "firstByte": 0,
+            "domContentLoaded": 0,
+            "loadComplete": 0,
+            "fcp": 0,
+            "lcp": 0
+          },
+          "resources": {
+            "totalResources": 16,
+            "images": 0,
+            "scripts": 9,
+            "stylesheets": 6,
+            "totalSize": 14190
+          },
+          "errors": []
+        },
+        {
+          "page": "Representatives",
+          "url": "https://citznvote.netlify.app/representatives",
+          "timestamp": "2025-08-22T21:36:10.474Z",
+          "success": true,
+          "statusCode": 200,
+          "metrics": {
+            "totalLoadTime": 800,
+            "firstByte": 0,
+            "domContentLoaded": 0,
+            "loadComplete": 0,
+            "fcp": 0,
+            "lcp": 0
+          },
+          "resources": {
+            "totalResources": 13,
+            "images": 0,
+            "scripts": 8,
+            "stylesheets": 5,
+            "totalSize": 6530
+          },
+          "errors": []
+        },
+        {
+          "page": "Register",
+          "url": "https://citznvote.netlify.app/register",
+          "timestamp": "2025-08-22T21:36:18.258Z",
+          "success": true,
+          "statusCode": 200,
+          "metrics": {
+            "totalLoadTime": 682,
+            "firstByte": 0,
+            "domContentLoaded": 0,
+            "loadComplete": 0,
+            "fcp": 0,
+            "lcp": 0
+          },
+          "resources": {
+            "totalResources": 15,
+            "images": 0,
+            "scripts": 9,
+            "stylesheets": 5,
+            "totalSize": 6617
+          },
+          "errors": []
+        }
+      ],
+      "performance": {
+        "fastest": 682,
+        "slowest": 1334,
+        "grade": "A+"
+      },
+      "recommendations": []
+    }
+  }
+}

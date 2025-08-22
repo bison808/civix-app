@@ -1,9 +1,9 @@
 // Congress Service - Fetches real bill data from Congress.gov
 import { Bill } from '@/types';
+import { congressApi } from './congressApi';
 
-// Real bills from the 119th Congress (2025-2027) - Current session
-// These are bills that would typically be introduced in early 2025
-const CURRENT_BILLS = [
+// Fallback bills for when API is unavailable
+const FALLBACK_BILLS = [
   {
     id: 'hr-1-119',
     billNumber: 'H.R. 1',
@@ -36,69 +36,109 @@ const CURRENT_BILLS = [
     status: 'In Committee',
     introducedDate: '2025-02-03',
     subjects: ['Technology', 'Artificial Intelligence', 'Privacy', 'Innovation']
-  },
-  {
-    id: 's-102-119',
-    billNumber: 'S. 102',
-    congress: '119',
-    title: 'Affordable Housing Crisis Response Act of 2025',
-    summary: 'To address the national housing affordability crisis through increased funding and regulatory reform.',
-    sponsor: 'Sen. Elizabeth Warren [D-MA]',
-    status: 'In Committee',
-    introducedDate: '2025-02-10',
-    subjects: ['Housing', 'Urban Development', 'Economic Policy']
-  },
-  {
-    id: 'hr-287-119',
-    billNumber: 'H.R. 287',
-    congress: '119',
-    title: 'Medicare Prescription Drug Savings Act of 2025',
-    summary: 'To lower prescription drug costs for Medicare beneficiaries and expand negotiation authority.',
-    sponsor: 'Rep. Frank Pallone [D-NJ-6]',
-    status: 'In Committee',
-    introducedDate: '2025-02-18',
-    subjects: ['Healthcare', 'Medicare', 'Prescription Drugs', 'Senior Citizens']
-  },
-  {
-    id: 's-215-119',
-    billNumber: 'S. 215',
-    congress: '119',
-    title: 'Climate Resilience and Infrastructure Act of 2025',
-    summary: 'To invest in climate-resilient infrastructure and create green jobs across America.',
-    sponsor: 'Sen. Bernie Sanders [I-VT]',
-    status: 'In Committee',
-    introducedDate: '2025-03-05',
-    subjects: ['Climate Change', 'Infrastructure', 'Jobs', 'Environment']
-  },
-  {
-    id: 'hr-450-119',
-    billNumber: 'H.R. 450',
-    congress: '119',
-    title: 'Small Business Recovery Act of 2025',
-    summary: 'To provide tax relief and support programs for small businesses recovering from economic challenges.',
-    sponsor: 'Rep. Kevin McCarthy [R-CA-20]',
-    status: 'In Committee',
-    introducedDate: '2025-03-15',
-    subjects: ['Small Business', 'Taxation', 'Economic Recovery']
-  },
-  {
-    id: 's-333-119',
-    billNumber: 'S. 333',
-    congress: '119',
-    title: 'Digital Privacy Protection Act of 2025',
-    summary: 'To establish comprehensive data privacy rights and regulate tech companies data collection practices.',
-    sponsor: 'Sen. Amy Klobuchar [D-MN]',
-    status: 'In Committee',
-    introducedDate: '2025-04-01',
-    subjects: ['Privacy', 'Technology', 'Consumer Protection', 'Data Security']
   }
 ];
 
 export class CongressService {
-  // Get recent bills
-  async getRecentBills(): Promise<Bill[]> {
-    // Transform our real bill data into the full Bill format
-    return CURRENT_BILLS.map(bill => ({
+  private useRealAPI: boolean = true;
+  private lastFetchTime: number = 0;
+  private fetchInterval: number = 5 * 60 * 1000; // 5 minutes
+  private cachedBills: Bill[] | null = null;
+
+  // Get recent bills with real-time updates
+  async getRecentBills(forceRefresh: boolean = false): Promise<Bill[]> {
+    try {
+      // Check if we should fetch fresh data
+      const now = Date.now();
+      const shouldRefresh = forceRefresh || (now - this.lastFetchTime) > this.fetchInterval;
+      
+      // Return cached data if available and fresh
+      if (!shouldRefresh && this.cachedBills) {
+        console.log('Returning cached bills');
+        return this.cachedBills;
+      }
+      
+      if (this.useRealAPI) {
+        // Fetch from real Congress API
+        console.log('Fetching bills from Congress API...');
+        const realBills = await congressApi.fetchRecentBills(50, 0, '119');
+        
+        if (realBills && realBills.length > 0) {
+          this.lastFetchTime = now;
+          this.cachedBills = realBills;
+          console.log(`Fetched ${realBills.length} bills from Congress API`);
+          return realBills;
+        }
+      }
+      
+      // Use fallback data if API fails
+      console.log('Using fallback bill data');
+      return this.transformFallbackBills();
+    } catch (error) {
+      console.error('Error fetching bills:', error);
+      return this.transformFallbackBills();
+    }
+  }
+
+  // Search bills by query
+  async searchBills(query: string): Promise<Bill[]> {
+    try {
+      if (this.useRealAPI) {
+        return await congressApi.searchBills(query);
+      }
+      return this.searchFallbackBills(query);
+    } catch (error) {
+      console.error('Error searching bills:', error);
+      return this.searchFallbackBills(query);
+    }
+  }
+
+  // Get bill by ID
+  async getBillById(billId: string): Promise<Bill | null> {
+    try {
+      if (this.useRealAPI) {
+        const bill = await congressApi.getBillById(billId);
+        if (bill) return bill;
+      }
+      return this.getFallbackBillById(billId);
+    } catch (error) {
+      console.error('Error fetching bill:', error);
+      return this.getFallbackBillById(billId);
+    }
+  }
+
+  // Get bills by status
+  async getBillsByStatus(status: string): Promise<Bill[]> {
+    const bills = await this.getRecentBills();
+    return bills.filter(bill => bill.status.stage === status);
+  }
+
+  // Get bills by subject
+  async getBillsBySubject(subject: string): Promise<Bill[]> {
+    const bills = await this.getRecentBills();
+    return bills.filter(bill => 
+      bill.subjects.some(s => s.toLowerCase().includes(subject.toLowerCase()))
+    );
+  }
+
+  // Get bills by sponsor party
+  async getBillsByParty(party: string): Promise<Bill[]> {
+    const bills = await this.getRecentBills();
+    return bills.filter(bill => 
+      bill.sponsor.party.toLowerCase() === party.toLowerCase()
+    );
+  }
+
+  // Refresh cache
+  async refreshCache(): Promise<void> {
+    this.cachedBills = null;
+    this.lastFetchTime = 0;
+    await this.getRecentBills(true);
+  }
+
+  // Transform fallback bills
+  private transformFallbackBills(): Bill[] {
+    return FALLBACK_BILLS.map(bill => ({
       id: bill.id,
       billNumber: bill.billNumber,
       title: bill.title,
@@ -148,6 +188,23 @@ export class CongressService {
     }));
   }
 
+  private searchFallbackBills(query: string): Bill[] {
+    const searchTerm = query.toLowerCase();
+    const bills = this.transformFallbackBills();
+    
+    return bills.filter(bill => 
+      bill.title.toLowerCase().includes(searchTerm) ||
+      bill.summary.toLowerCase().includes(searchTerm) ||
+      bill.billNumber.toLowerCase().includes(searchTerm) ||
+      bill.subjects.some(s => s.toLowerCase().includes(searchTerm))
+    );
+  }
+
+  private getFallbackBillById(billId: string): Bill | null {
+    const bills = this.transformFallbackBills();
+    return bills.find(b => b.id === billId) || null;
+  }
+
   private getStage(status: string): 'Introduced' | 'Committee' | 'House' | 'Senate' | 'Conference' | 'Presidential' | 'Law' | 'Vetoed' | 'Failed' {
     if (status.includes('Passed House')) return 'House';
     if (status.includes('Passed Senate')) return 'Senate';
@@ -170,12 +227,7 @@ export class CongressService {
     const summaries: Record<string, string> = {
       'hr-1-119': 'Increases American oil, gas, and renewable energy production to lower costs and reduce dependence on foreign energy.',
       's-47-119': 'Strengthens border security with new technology and more agents to prevent illegal immigration.',
-      'hr-125-119': 'Creates safety rules for AI like ChatGPT while supporting American tech innovation and jobs.',
-      's-102-119': 'Makes housing more affordable by building more homes and helping first-time buyers.',
-      'hr-287-119': 'Lowers prescription drug prices for seniors on Medicare by allowing more price negotiations.',
-      's-215-119': 'Invests in roads, bridges, and clean energy while creating millions of green jobs.',
-      'hr-450-119': 'Provides tax breaks and loans to help small businesses recover and grow.',
-      's-333-119': 'Gives you control over your personal data and limits what tech companies can collect.'
+      'hr-125-119': 'Creates safety rules for AI like ChatGPT while supporting American tech innovation and jobs.'
     };
     return summaries[bill.id] || bill.summary;
   }
@@ -196,31 +248,6 @@ export class CongressService {
         'Requires AI safety testing before release',
         'Creates federal AI oversight board',
         'Protects against AI job displacement'
-      ],
-      's-102-119': [
-        '$50 billion for affordable housing construction',
-        'First-time buyer tax credits up to $15,000',
-        'Rent control protections in high-cost areas'
-      ],
-      'hr-287-119': [
-        'Caps insulin at $35/month for all Medicare patients',
-        'Allows Medicare to negotiate more drug prices',
-        'Penalties for excessive price increases'
-      ],
-      's-215-119': [
-        '$2 trillion infrastructure investment',
-        'Creates 5 million green jobs',
-        'Net-zero emissions target by 2050'
-      ],
-      'hr-450-119': [
-        'Tax credits up to $50,000 for small businesses',
-        'Low-interest recovery loans',
-        'Simplified tax filing for businesses under 50 employees'
-      ],
-      's-333-119': [
-        'Right to delete personal data',
-        'Opt-in consent for data collection',
-        'Heavy fines for data breaches'
       ]
     };
     return points[bill.id] || ['Comprehensive reform measures', 'Bipartisan support expected', 'Implementation within 12 months'];

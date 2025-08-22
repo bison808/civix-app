@@ -126,7 +126,11 @@ export default function MobileBillCard({ bill, onVote, onClick }: MobileBillCard
         </div>
 
         {/* Vote Buttons */}
-        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+        <div 
+          className="flex items-center gap-2 like-dislike-container" 
+          onClick={(e) => e.stopPropagation()}
+          data-tour="vote-buttons"
+        >
           <button
             onClick={() => handleVote('like')}
             disabled={isVoting}

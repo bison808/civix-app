@@ -33,7 +33,25 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    return NextResponse.json(filteredBills);
+    // Create response with caching headers
+    const response = NextResponse.json(filteredBills);
+    
+    // Cache for 5 minutes on CDN and 1 minute in browser
+    response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600, max-age=60');
+    response.headers.set('CDN-Cache-Control', 'max-age=300');
+    response.headers.set('Vercel-CDN-Cache-Control', 'max-age=300');
+    
+    // Add ETag for conditional requests
+    const etag = `"${Buffer.from(JSON.stringify(filteredBills)).toString('base64').substring(0, 27)}"`;
+    response.headers.set('ETag', etag);
+    
+    // Check if client has valid cached version
+    const clientEtag = request.headers.get('If-None-Match');
+    if (clientEtag === etag) {
+      return new NextResponse(null, { status: 304 });
+    }
+    
+    return response;
   } catch (error) {
     console.error('Error fetching bills:', error);
     return NextResponse.json(

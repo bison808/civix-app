@@ -1,5 +1,6 @@
 // OpenStates Service - Fetches real state legislator data
 import { Representative } from '@/types';
+import { civicInfoService } from './civicInfoService';
 
 // State abbreviation mapping
 const STATE_ABBREV: Record<string, string> = {
@@ -148,45 +149,9 @@ export class OpenStatesService {
   }
 
   // Get local government officials (mayors, city council)
-  getLocalOfficials(city: string, state: string): Representative[] {
-    // For local officials, we'll return mock data since there's no comprehensive free API
-    // In production, you'd integrate with local government websites or APIs
-    return [
-      {
-        id: `mayor-${city}`,
-        name: `Mayor of ${city}`,
-        title: 'Mayor',
-        party: 'Independent' as any,
-        state: state,
-        district: city,
-        chamber: 'House' as any,
-        contactInfo: {
-          phone: '311',
-          website: `https://www.${city.toLowerCase().replace(/\s+/g, '')}.gov`,
-          email: `mayor@${city.toLowerCase().replace(/\s+/g, '')}.gov`
-        },
-        socialMedia: {},
-        termStart: '2022-01-01',
-        termEnd: '2026-01-01'
-      },
-      {
-        id: `council-${city}-1`,
-        name: `City Council District 1`,
-        title: 'City Council Member',
-        party: 'Democrat' as any,
-        state: state,
-        district: 'District 1',
-        chamber: 'House' as any,
-        contactInfo: {
-          phone: '311',
-          website: `https://www.${city.toLowerCase().replace(/\s+/g, '')}.gov/council`,
-          email: `council@${city.toLowerCase().replace(/\s+/g, '')}.gov`
-        },
-        socialMedia: {},
-        termStart: '2023-01-01',
-        termEnd: '2025-01-01'
-      }
-    ];
+  async getLocalOfficials(city: string, state: string): Promise<Representative[]> {
+    // Use the civic info service to get real local officials
+    return await civicInfoService.getLocalOfficials(city, state);
   }
 
   // Cache helpers

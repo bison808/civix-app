@@ -1,0 +1,87 @@
+config:
+  target: 'https://citznvote.netlify.app'
+  phases:
+    # Warm-up phase
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm-up"
+    # Load test phase  
+    - duration: 300
+      arrivalRate: 50
+      name: "Load test"
+    # Spike test phase
+    - duration: 120
+      arrivalRate: 200
+      name: "Spike test"
+    # Cool down
+    - duration: 60
+      arrivalRate: 10
+      name: "Cool down"
+  processor: "./load-test-processor.js"
+  variables:
+    zip_codes:
+      - "95060"
+      - "90210" 
+      - "10001"
+      - "60601"
+      - "94102"
+
+scenarios:
+  - name: "Homepage load"
+    weight: 30
+    flow:
+      - get:
+          url: "/"
+          capture:
+            - json: "$.title"
+              as: "pageTitle"
+      - think: 2
+
+  - name: "ZIP verification flow"
+    weight: 25
+    flow:
+      - post:
+          url: "/api/auth/verify-zip"
+          json:
+            zipCode: "{{ zip_codes[$randomIndex(zip_codes)] }}"
+          expect:
+            - statusCode: [200, 400]
+      - think: 1
+
+  - name: "Bill feed browsing"
+    weight: 20
+    flow:
+      - get:
+          url: "/feed"
+      - get:
+          url: "/api/bills"
+          qs:
+            page: "{{ $randomInt(1, 5) }}"
+            limit: 20
+      - think: 3
+
+  - name: "Representative lookup"
+    weight: 15
+    flow:
+      - get:
+          url: "/representatives"
+      - get:
+          url: "/api/representatives"
+          qs:
+            zipCode: "{{ zip_codes[$randomIndex(zip_codes)] }}"
+      - think: 2
+
+  - name: "User registration flow"
+    weight: 10
+    flow:
+      - get:
+          url: "/register"
+      - post:
+          url: "/api/auth/register"
+          json:
+            email: "test{{ $randomInt(1, 10000) }}@example.com"
+            zipCode: "{{ zip_codes[$randomIndex(zip_codes)] }}"
+            anonymous: true
+          expect:
+            - statusCode: [200, 400, 409]
+      - think: 5

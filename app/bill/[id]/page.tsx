@@ -29,7 +29,7 @@ export default function BillDetailPage() {
     setLoading(true);
     try {
       const data = await api.bills.getById(billId);
-      setBill(data);
+      setBill(data || null);
     } catch (error) {
       console.error('Failed to load bill:', error);
     } finally {

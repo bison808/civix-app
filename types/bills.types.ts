@@ -28,6 +28,8 @@ export interface BillStatus {
   stage: 'Introduced' | 'Committee' | 'House' | 'Senate' | 'Conference' | 'Presidential' | 'Law' | 'Vetoed' | 'Failed';
   detail: string;
   date: string;
+  lastAction?: string;
+  isActive?: boolean;
 }
 
 export interface BillSponsor {
