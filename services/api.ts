@@ -139,19 +139,41 @@ export const api = {
     async getByZipCode(zipCode: string): Promise<Representative[]> {
       await delay(300);
       
-      // Try to use real data if enabled
-      if (USE_REAL_DATA) {
-        try {
-          const realReps = await realDataService.getRepresentativesByZip(zipCode);
-          if (realReps.length > 0) {
-            return realReps;
-          }
-        } catch (error) {
-          console.error('Failed to fetch real representatives, using mock data:', error);
+      // Use real 119th Congress data for ALL ZIP codes
+      try {
+        const { getRepsByZip } = await import('./congress2025');
+        const congressReps = getRepsByZip(zipCode);
+        
+        if (congressReps.length > 0) {
+          // Add some local/state officials for completeness
+          const localOfficials: Representative[] = [
+            {
+              id: `mayor-local-${zipCode}`,
+              name: 'Local Mayor',
+              title: 'Mayor',
+              party: 'Nonpartisan',
+              state: congressReps[0]?.state || 'US',
+              district: 'Local',
+              chamber: 'Local' as any,
+              contactInfo: {
+                phone: '555-0100',
+                website: 'https://local.gov',
+                email: 'mayor@local.gov'
+              },
+              socialMedia: {},
+              committees: [],
+              termStart: '2024-01-01',
+              termEnd: '2028-01-01'
+            }
+          ];
+          
+          return [...congressReps, ...localOfficials];
         }
+      } catch (error) {
+        console.error('Failed to fetch Congress 2025 data:', error);
       }
       
-      // Fall back to mock data based on ZIP code
+      // Fallback to original mock data if something goes wrong
       const zipNum = parseInt(zipCode);
       
       if (zipCode.startsWith('90') || zipCode.startsWith('91') || zipCode.startsWith('92') || zipCode.startsWith('93') || zipCode.startsWith('94') || zipCode.startsWith('95') || zipCode.startsWith('96')) {
