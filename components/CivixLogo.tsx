@@ -15,10 +15,10 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   const [imageLoaded, setImageLoaded] = useState(false);
   
   const sizes = {
-    sm: { logo: 80, tagline: 'text-xs', text: 'text-2xl' },
-    md: { logo: 120, tagline: 'text-sm', text: 'text-3xl' },
-    lg: { logo: 160, tagline: 'text-base', text: 'text-4xl' },
-    xl: { logo: 200, tagline: 'text-lg', text: 'text-5xl' }
+    sm: { logo: 100, tagline: 'text-xs', text: 'text-2xl' },
+    md: { logo: 150, tagline: 'text-sm', text: 'text-3xl' },
+    lg: { logo: 200, tagline: 'text-base', text: 'text-4xl' },
+    xl: { logo: 250, tagline: 'text-lg', text: 'text-5xl' }
   };
 
   const sizeConfig = sizes[size];
