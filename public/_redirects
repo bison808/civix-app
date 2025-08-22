@@ -5,5 +5,6 @@ https://www.civix.vote/* https://citzn.vote/:splat 301!
 # Redirect www to non-www
 https://www.citzn.vote/* https://citzn.vote/:splat 301!
 
-# Handle Netlify subdomain
+# Handle Netlify subdomains (both old and new)
 https://civixvote.netlify.app/* https://citzn.vote/:splat 301!
+https://citznvote.netlify.app/* https://citzn.vote/:splat 301!
