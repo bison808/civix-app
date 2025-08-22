@@ -2,9 +2,16 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { QueryProvider } from '@/providers/query-provider';
+import { CriticalCSS, ResourcePreloader, PerformanceMonitor } from '@/components/CriticalCSS';
+import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
+import { WebVitalsMonitor } from '@/components/performance/WebVitals';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Optimize font loading
+  preload: true
+});
 
 export const metadata: Metadata = {
   title: 'CITZN - Directing Democracy',
@@ -29,6 +36,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <CriticalCSS />
+        <ResourcePreloader />
+      </head>
       <body className={inter.className}>
         <QueryProvider>
           <AuthProvider>
@@ -37,6 +48,9 @@ export default function RootLayout({
             </div>
           </AuthProvider>
         </QueryProvider>
+        <ServiceWorkerRegistration />
+        <PerformanceMonitor />
+        <WebVitalsMonitor />
       </body>
     </html>
   );

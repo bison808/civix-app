@@ -7,14 +7,62 @@
 
 [build.environment]
   NEXT_PUBLIC_BASE_URL = "https://citzn.vote"
+  NODE_ENV = "production"
 
+# Service Worker Configuration - CRITICAL for offline support
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+    Content-Type = "application/javascript"
+
+# Offline page
+[[headers]]
+  for = "/offline.html"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Static assets with long cache
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# API responses with short cache
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, s-maxage=600"
+    Vary = "Accept-Encoding"
+
+# Security headers for all pages
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
 
+# Images with medium cache
 [[headers]]
   for = "/*.jpeg"
   [headers.values]
     Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Ensure service worker loads from root
+[[redirects]]
+  from = "/sw.js"
+  to = "/service-worker.js"
+  status = 301
