@@ -151,7 +151,7 @@ export const api = {
               id: `mayor-local-${zipCode}`,
               name: 'Local Mayor',
               title: 'Mayor',
-              party: 'Nonpartisan',
+              party: 'Other' as const,
               state: congressReps[0]?.state || 'US',
               district: 'Local',
               chamber: 'Local' as any,

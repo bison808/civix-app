@@ -71,18 +71,20 @@ export const santaCruzFederalReps: Representative[] = [
     },
     committees: [
       { id: 'c4', name: 'House Judiciary Committee', role: 'Member' },
-      { id: 'c5', name: 'House Administration Committee', role: 'Ranking Member' }
+      { id: 'c5', name: 'House Administration Committee', role: 'Member' as const }
     ],
     biography: 'Representative for California\'s 18th district, which includes Santa Cruz County',
     termStart: '2023-01-03',
     termEnd: '2025-01-03',
     officeLocations: [
       {
-        type: 'district',
-        address: '900 Front Street, Suite 100',
-        city: 'Santa Cruz',
-        state: 'CA',
-        zip: '95060',
+        type: 'District' as const,
+        address: {
+          street: '900 Front Street, Suite 100',
+          city: 'Santa Cruz',
+          state: 'CA',
+          zipCode: '95060'
+        },
         phone: '831-429-1976'
       }
     ]
@@ -114,11 +116,13 @@ export const santaCruzStateReps: Representative[] = [
     termEnd: '2024-12-02',
     officeLocations: [
       {
-        type: 'district',
-        address: '701 Ocean Street, Room 318A',
-        city: 'Santa Cruz',
-        state: 'CA',
-        zip: '95060',
+        type: 'District' as const,
+        address: {
+          street: '701 Ocean Street, Room 318A',
+          city: 'Santa Cruz',
+          state: 'CA',
+          zipCode: '95060'
+        },
         phone: '831-425-0401'
       }
     ]
@@ -173,11 +177,13 @@ export const santaCruzLocalReps: Representative[] = [
     termEnd: '2026-12-01',
     officeLocations: [
       {
-        type: 'district',
-        address: '809 Center Street',
-        city: 'Santa Cruz',
-        state: 'CA',
-        zip: '95060',
+        type: 'District' as const,
+        address: {
+          street: '809 Center Street',
+          city: 'Santa Cruz',
+          state: 'CA',
+          zipCode: '95060'
+        },
         phone: '831-420-5020'
       }
     ]

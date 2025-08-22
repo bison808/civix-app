@@ -107,7 +107,7 @@ export default function DebugPage() {
             <Button onClick={simulateRegistration} variant="secondary">
               Simulate Registration
             </Button>
-            <Button onClick={clearAll} variant="negative">
+            <Button onClick={clearAll} variant="danger">
               Clear All Data
             </Button>
           </div>

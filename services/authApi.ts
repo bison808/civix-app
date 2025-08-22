@@ -392,6 +392,14 @@ class AuthApiService {
     }
   }
 
+  // Check if user is authenticated (has session)
+  isAuthenticated(): boolean {
+    const sessionToken = this.getCookie('sessionToken');
+    const anonymousId = this.getCookie('anonymousId');
+    
+    return !!(sessionToken && anonymousId);
+  }
+
   // New method to check if user is authenticated according to middleware
   isAuthenticatedForMiddleware(): boolean {
     const sessionToken = this.getCookie('sessionToken');
