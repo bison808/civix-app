@@ -401,9 +401,438 @@ export const US_SENATORS: Record<string, Representative[]> = {
       termEnd: '2031-01-03'
     }
   ],
-  // ... Continue for all 50 states
-  
-  // Adding more key states
+  ID: [
+    {
+      id: 'sen-id-crapo',
+      name: 'Mike Crapo',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'ID',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-6142',
+        website: 'https://www.crapo.senate.gov',
+        email: 'senator@crapo.senate.gov'
+      },
+      socialMedia: { twitter: '@MikeCrapo' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    },
+    {
+      id: 'sen-id-risch',
+      name: 'Jim Risch',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'ID',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-2752',
+        website: 'https://www.risch.senate.gov',
+        email: 'senator@risch.senate.gov'
+      },
+      socialMedia: { twitter: '@SenatorRisch' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    }
+  ],
+  IL: [
+    {
+      id: 'sen-il-durbin',
+      name: 'Dick Durbin',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'IL',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-2152',
+        website: 'https://www.durbin.senate.gov',
+        email: 'senator@durbin.senate.gov'
+      },
+      socialMedia: { twitter: '@SenatorDurbin' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    },
+    {
+      id: 'sen-il-duckworth',
+      name: 'Tammy Duckworth',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'IL',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-2854',
+        website: 'https://www.duckworth.senate.gov',
+        email: 'senator@duckworth.senate.gov'
+      },
+      socialMedia: { twitter: '@SenDuckworth' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    }
+  ],
+  IN: [
+    {
+      id: 'sen-in-young',
+      name: 'Todd Young',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'IN',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-5623',
+        website: 'https://www.young.senate.gov',
+        email: 'senator@young.senate.gov'
+      },
+      socialMedia: { twitter: '@SenToddYoung' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    },
+    {
+      id: 'sen-in-banks',
+      name: 'Jim Banks',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'IN',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4814',
+        website: 'https://www.banks.senate.gov',
+        email: 'senator@banks.senate.gov'
+      },
+      socialMedia: { twitter: '@SenJimBanks' },
+      committees: [],
+      termStart: '2025-01-03',
+      termEnd: '2031-01-03'
+    }
+  ],
+  IA: [
+    {
+      id: 'sen-ia-grassley',
+      name: 'Chuck Grassley',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'IA',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-3744',
+        website: 'https://www.grassley.senate.gov',
+        email: 'senator@grassley.senate.gov'
+      },
+      socialMedia: { twitter: '@ChuckGrassley' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    },
+    {
+      id: 'sen-ia-ernst',
+      name: 'Joni Ernst',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'IA',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-3254',
+        website: 'https://www.ernst.senate.gov',
+        email: 'senator@ernst.senate.gov'
+      },
+      socialMedia: { twitter: '@SenJoniErnst' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    }
+  ],
+  KS: [
+    {
+      id: 'sen-ks-moran',
+      name: 'Jerry Moran',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'KS',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-6521',
+        website: 'https://www.moran.senate.gov',
+        email: 'senator@moran.senate.gov'
+      },
+      socialMedia: { twitter: '@JerryMoran' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    },
+    {
+      id: 'sen-ks-marshall',
+      name: 'Roger Marshall',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'KS',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4774',
+        website: 'https://www.marshall.senate.gov',
+        email: 'senator@marshall.senate.gov'
+      },
+      socialMedia: { twitter: '@RogerMarshallMD' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    }
+  ],
+  KY: [
+    {
+      id: 'sen-ky-mcconnell',
+      name: 'Mitch McConnell',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'KY',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-2541',
+        website: 'https://www.mcconnell.senate.gov',
+        email: 'senator@mcconnell.senate.gov'
+      },
+      socialMedia: { twitter: '@LeaderMcConnell' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    },
+    {
+      id: 'sen-ky-paul',
+      name: 'Rand Paul',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'KY',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4343',
+        website: 'https://www.paul.senate.gov',
+        email: 'senator@paul.senate.gov'
+      },
+      socialMedia: { twitter: '@RandPaul' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    }
+  ],
+  LA: [
+    {
+      id: 'sen-la-cassidy',
+      name: 'Bill Cassidy',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'LA',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-5824',
+        website: 'https://www.cassidy.senate.gov',
+        email: 'senator@cassidy.senate.gov'
+      },
+      socialMedia: { twitter: '@BillCassidy' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    },
+    {
+      id: 'sen-la-kennedy',
+      name: 'John Kennedy',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'LA',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4623',
+        website: 'https://www.kennedy.senate.gov',
+        email: 'senator@kennedy.senate.gov'
+      },
+      socialMedia: { twitter: '@SenJohnKennedy' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    }
+  ],
+  ME: [
+    {
+      id: 'sen-me-collins',
+      name: 'Susan Collins',
+      title: 'Senator',
+      party: 'Republican',
+      state: 'ME',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-2523',
+        website: 'https://www.collins.senate.gov',
+        email: 'senator@collins.senate.gov'
+      },
+      socialMedia: { twitter: '@SenatorCollins' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    },
+    {
+      id: 'sen-me-king',
+      name: 'Angus King',
+      title: 'Senator',
+      party: 'Independent',
+      state: 'ME',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-5344',
+        website: 'https://www.king.senate.gov',
+        email: 'senator@king.senate.gov'
+      },
+      socialMedia: { twitter: '@SenAngusKing' },
+      committees: [],
+      termStart: '2025-01-03',
+      termEnd: '2031-01-03'
+    }
+  ],
+  MD: [
+    {
+      id: 'sen-md-cardin',
+      name: 'Ben Cardin',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MD',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4524',
+        website: 'https://www.cardin.senate.gov',
+        email: 'senator@cardin.senate.gov'
+      },
+      socialMedia: { twitter: '@SenatorCardin' },
+      committees: [],
+      termStart: '2025-01-03',
+      termEnd: '2031-01-03'
+    },
+    {
+      id: 'sen-md-vanhollen',
+      name: 'Chris Van Hollen',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MD',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4654',
+        website: 'https://www.vanhollen.senate.gov',
+        email: 'senator@vanhollen.senate.gov'
+      },
+      socialMedia: { twitter: '@ChrisVanHollen' },
+      committees: [],
+      termStart: '2023-01-03',
+      termEnd: '2029-01-03'
+    }
+  ],
+  MA: [
+    {
+      id: 'sen-ma-warren',
+      name: 'Elizabeth Warren',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MA',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-4543',
+        website: 'https://www.warren.senate.gov',
+        email: 'senator@warren.senate.gov'
+      },
+      socialMedia: { twitter: '@SenWarren' },
+      committees: [],
+      termStart: '2025-01-03',
+      termEnd: '2031-01-03'
+    },
+    {
+      id: 'sen-ma-markey',
+      name: 'Ed Markey',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MA',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-2742',
+        website: 'https://www.markey.senate.gov',
+        email: 'senator@markey.senate.gov'
+      },
+      socialMedia: { twitter: '@SenMarkey' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    }
+  ],
+  MI: [
+    {
+      id: 'sen-mi-slotkin',
+      name: 'Elissa Slotkin',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MI',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-6221',
+        website: 'https://www.slotkin.senate.gov',
+        email: 'senator@slotkin.senate.gov'
+      },
+      socialMedia: { twitter: '@SenSlotkin' },
+      committees: [],
+      termStart: '2025-01-03',
+      termEnd: '2031-01-03'
+    },
+    {
+      id: 'sen-mi-peters',
+      name: 'Gary Peters',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MI',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-6221',
+        website: 'https://www.peters.senate.gov',
+        email: 'senator@peters.senate.gov'
+      },
+      socialMedia: { twitter: '@SenGaryPeters' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    }
+  ],
+  MN: [
+    {
+      id: 'sen-mn-klobuchar',
+      name: 'Amy Klobuchar',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MN',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-3244',
+        website: 'https://www.klobuchar.senate.gov',
+        email: 'senator@klobuchar.senate.gov'
+      },
+      socialMedia: { twitter: '@amyklobuchar' },
+      committees: [],
+      termStart: '2025-01-03',
+      termEnd: '2031-01-03'
+    },
+    {
+      id: 'sen-mn-smith',
+      name: 'Tina Smith',
+      title: 'Senator',
+      party: 'Democrat',
+      state: 'MN',
+      chamber: 'Senate',
+      contactInfo: {
+        phone: '202-224-5641',
+        website: 'https://www.smith.senate.gov',
+        email: 'senator@smith.senate.gov'
+      },
+      socialMedia: { twitter: '@SenTinaSmith' },
+      committees: [],
+      termStart: '2021-01-03',
+      termEnd: '2027-01-03'
+    }
+  ],
   NY: [
     {
       id: 'sen-ny-schumer',

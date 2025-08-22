@@ -38,7 +38,18 @@ const ZIP_LOCATIONS: Record<string, { city: string; state: string; county?: stri
   
   // Massachusetts
   '02108': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02109': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02110': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02111': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02112': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02113': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02114': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02115': { city: 'Boston', state: 'MA', county: 'Suffolk' },
+  '02116': { city: 'Boston', state: 'MA', county: 'Suffolk' },
   '02139': { city: 'Cambridge', state: 'MA', county: 'Middlesex' },
+  '01002': { city: 'Amherst', state: 'MA', county: 'Hampshire' },
+  '01701': { city: 'Framingham', state: 'MA', county: 'Middlesex' },
+  '01801': { city: 'Woburn', state: 'MA', county: 'Middlesex' },
   
   // Arizona
   '85001': { city: 'Phoenix', state: 'AZ', county: 'Maricopa' },
