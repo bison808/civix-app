@@ -32,6 +32,8 @@ const nextConfig = {
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    // Disable features that may cause Netlify build issues
+    serverComponentsExternalPackages: ['@tanstack/react-query'],
   },
   
   // Headers for caching and security
@@ -74,55 +76,11 @@ const nextConfig = {
     ]
   },
   
-  // Webpack optimizations
-  webpack: (config, { isServer }) => {
-    // Optimize bundle splitting
-    if (!isServer) {
-      config.optimization.splitChunks = {
-        chunks: 'all',
-        cacheGroups: {
-          default: false,
-          vendors: false,
-          framework: {
-            name: 'framework',
-            chunks: 'all',
-            test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
-            priority: 40,
-            enforce: true,
-          },
-          lib: {
-            test(module) {
-              return module.size() > 160000 &&
-                /node_modules[/\\]/.test(module.identifier());
-            },
-            name(module) {
-              const hash = require('crypto').createHash('sha1');
-              hash.update(module.identifier());
-              return hash.digest('hex').substring(0, 8);
-            },
-            priority: 30,
-            minChunks: 1,
-            reuseExistingChunk: true,
-          },
-          commons: {
-            name: 'commons',
-            minChunks: 2,
-            priority: 20,
-          },
-          shared: {
-            name(module, chunks) {
-              return 'shared';
-            },
-            priority: 10,
-            minChunks: 2,
-            reuseExistingChunk: true,
-          },
-        },
-        maxAsyncRequests: 25,
-        maxInitialRequests: 20,
-      };
-    }
-    
+  // Disable experimental features for stable builds
+  experimental: {},
+  
+  // Minimal webpack config for Netlify compatibility
+  webpack: (config) => {
     return config;
   },
 }

@@ -7,6 +7,9 @@ import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistratio
 import { WebVitalsMonitor } from '@/components/performance/WebVitals';
 import './globals.css';
 
+// Force dynamic rendering to avoid React Query SSR issues
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({ 
   subsets: ['latin'],
   display: 'swap', // Optimize font loading

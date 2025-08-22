@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode, useEffect } from 'react';
 import { persistQueryClient } from '@tanstack/react-query-persist-client';
 import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
 
@@ -52,7 +52,11 @@ export function QueryProvider({ children }: QueryProviderProps) {
       },
     });
 
-    // Enable persistence for offline support
+    return client;
+  });
+
+  // Initialize persistence after mount to avoid SSR issues
+  useEffect(() => {
     if (typeof window !== 'undefined') {
       const persister = createSyncStoragePersister({
         storage: window.localStorage,
@@ -60,7 +64,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
       });
 
       persistQueryClient({
-        queryClient: client,
+        queryClient,
         persister,
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
         dehydrateOptions: {
@@ -71,9 +75,7 @@ export function QueryProvider({ children }: QueryProviderProps) {
         },
       });
     }
-
-    return client;
-  });
+  }, [queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
