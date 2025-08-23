@@ -80,12 +80,13 @@ export default function MobileNav({ className }: MobileNavProps) {
     <>
       {/* Mobile Header Bar - Fixed at top */}
       <header className={cn(
-        "fixed top-0 left-0 right-0 z-[100]",
+        "fixed top-0 left-0 right-0 z-[9999]",
         "h-14 bg-white border-b border-gray-200",
         "flex items-center justify-between px-4 safe-top",
         "md:hidden",
         className
-      )}>
+      )}
+      style={{ zIndex: 9999 }}>
         {/* Logo/Title */}
         <div className="flex items-center gap-3">
           <button
@@ -118,11 +119,13 @@ export default function MobileNav({ className }: MobileNavProps) {
 
       {/* Mobile Bottom Navigation - Fixed at bottom */}
       <nav className={cn(
-        "fixed bottom-0 left-0 right-0 z-[100]",
+        "fixed bottom-0 left-0 right-0 z-[9999]", // Maximum z-index
         "h-16 bg-white border-t border-gray-200",
         "flex items-center justify-around safe-bottom",
-        "md:hidden"
-      )}>
+        "md:hidden" // Only show on mobile
+      )}
+      style={{ display: 'flex !important', zIndex: 9999 }} // Force inline styles
+      >
         {navItems.map((item) => {
           const Icon = item.icon;
           const active = isActive(item.path);
