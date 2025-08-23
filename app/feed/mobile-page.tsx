@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import MobileNav from '@/components/navigation/MobileNav';
 import MobileBillCard from '@/components/bills/MobileBillCard';
 import EngagementDashboard from '@/components/engagement/EngagementDashboard';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
@@ -77,9 +76,6 @@ export default function MobileFeedPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50 flex flex-col">
-        {/* Mobile Navigation Header */}
-        <MobileNav />
-        
         {/* Main Content Area - Accounts for fixed header and bottom nav */}
         <div className="flex-1 pt-14 pb-16 overflow-hidden flex flex-col">
           {/* Search & Filters - Sticky */}

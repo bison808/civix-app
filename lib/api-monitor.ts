@@ -1,5 +1,3 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-
 interface APIMetric {
   endpoint: string;
   method: string;
@@ -151,65 +149,51 @@ class APIMonitor {
 // Create singleton instance
 export const apiMonitor = new APIMonitor();
 
-// Create monitored axios instance
-export function createMonitoredAxios(baseURL: string): AxiosInstance {
-  const instance = axios.create({ baseURL });
-
-  // Request interceptor
-  instance.interceptors.request.use(
-    (config: any) => {
-      // Add timing marker
-      config.metadata = { startTime: Date.now() };
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
-  // Response interceptor
-  instance.interceptors.response.use(
-    (response: AxiosResponse) => {
-      const config: any = response.config;
+// Create monitored fetch wrapper
+export function createMonitoredFetch(baseURL: string) {
+  return async (path: string, options?: RequestInit): Promise<Response> => {
+    const startTime = Date.now();
+    const url = `${baseURL}${path}`;
+    const method = options?.method || 'GET';
+    
+    try {
+      const response = await fetch(url, options);
+      const responseTime = Date.now() - startTime;
       
-      if (config.metadata) {
-        const responseTime = Date.now() - config.metadata.startTime;
-        
-        apiMonitor.recordMetric({
-          endpoint: config.url || '',
-          method: config.method?.toUpperCase() || 'GET',
-          responseTime,
-          statusCode: response.status,
-          timestamp: Date.now(),
-          size: JSON.stringify(response.data).length,
-          cached: response.headers['x-cache'] === 'HIT' || response.status === 304
-        });
+      // Get response size if possible
+      let size: number | undefined;
+      const contentLength = response.headers.get('content-length');
+      if (contentLength) {
+        size = parseInt(contentLength, 10);
       }
+      
+      apiMonitor.recordMetric({
+        endpoint: path,
+        method: method.toUpperCase(),
+        responseTime,
+        statusCode: response.status,
+        timestamp: Date.now(),
+        size,
+        cached: response.headers.get('x-cache') === 'HIT' || response.status === 304
+      });
       
       return response;
-    },
-    (error) => {
-      const config: any = error.config;
+    } catch (error) {
+      const responseTime = Date.now() - startTime;
       
-      if (config && config.metadata) {
-        const responseTime = Date.now() - config.metadata.startTime;
-        
-        apiMonitor.recordMetric({
-          endpoint: config.url || '',
-          method: config.method?.toUpperCase() || 'GET',
-          responseTime,
-          statusCode: error.response?.status || 0,
-          timestamp: Date.now(),
-          cached: false,
-          error: error.message
-        });
-      }
+      apiMonitor.recordMetric({
+        endpoint: path,
+        method: method.toUpperCase(),
+        responseTime,
+        statusCode: 0,
+        timestamp: Date.now(),
+        cached: false,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
       
-      return Promise.reject(error);
+      throw error;
     }
-  );
-
-  return instance;
+  };
 }
 
 // Hook for React components

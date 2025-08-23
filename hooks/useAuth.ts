@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import authService from '../services/auth.service';
+import { authService } from '../services/auth.service';
 import {
   User,
   LoginData,
@@ -60,8 +60,8 @@ export function useAuth() {
   });
 
   const updateUserMutation = useMutation({
-    mutationFn: ({ userId, data }: { userId: string; data: Partial<User> }) =>
-      authService.updateUser(userId, data),
+    mutationFn: (data: Partial<User>) =>
+      authService.updateProfile(data),
     onSuccess: (updatedUser) => {
       queryClient.setQueryData(['currentUser'], updatedUser);
     },
@@ -73,8 +73,9 @@ export function useAuth() {
 
   const refreshToken = useCallback(async () => {
     try {
-      await authService.refreshToken();
-      setIsAuthenticated(true);
+      // Check if token is still valid by getting current user
+      const user = await authService.getCurrentUser();
+      setIsAuthenticated(!!user);
     } catch (error) {
       setIsAuthenticated(false);
       router.push('/onboarding');

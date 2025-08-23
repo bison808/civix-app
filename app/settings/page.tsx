@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, Bell, Shield, Eye, Type, LogOut } from 'lucide-react';
+import { Bell, Shield, Eye, Type, LogOut } from 'lucide-react';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
 import { cn } from '@/lib/utils';
@@ -49,17 +49,11 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col">
-      {/* Header */}
-      <header className="flex items-center gap-4 px-4 py-3 border-b border-gray-200 bg-white safe-top">
-        <button
-          onClick={() => router.back()}
-          className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h1 className="flex-1 text-lg font-semibold">Settings</h1>
-      </header>
+    <div className="flex-1 flex flex-col pt-14 pb-16">
+      {/* Page Title */}
+      <div className="px-4 py-3 bg-white border-b border-gray-200">
+        <h1 className="text-lg font-semibold">Settings</h1>
+      </div>
 
       {/* Content */}
       <div className="flex-1 overflow-auto px-4 py-4 space-y-4">

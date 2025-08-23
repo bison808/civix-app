@@ -10,7 +10,6 @@ import ZipDisplay from '@/components/ZipDisplay';
 import VerificationBadge from '@/components/VerificationBadge';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import EngagementDashboard from '@/components/engagement/EngagementDashboard';
-import MobileNav from '@/components/navigation/MobileNav';
 import FirstTimeUserSetup from '@/components/onboarding/FirstTimeUserSetup';
 import { useAuth } from '@/contexts/AuthContext';
 import { Bill } from '@/types';
@@ -73,9 +72,6 @@ export default function EnhancedFeedPage() {
   return (
     <ProtectedRoute>
       <div className="flex-1 flex flex-col">
-        {/* Mobile Navigation for small screens */}
-        {isMobile && <MobileNav />}
-        
         {/* Desktop Header */}
         {!isMobile && (
           <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white safe-top">

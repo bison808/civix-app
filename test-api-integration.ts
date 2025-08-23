@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 
-import authService from './services/auth.service';
-import representativesService from './services/representatives.service';
-import billsService from './services/bills.service';
-import feedbackService from './services/feedback.service';
+import { authService } from './services/auth.service';
+import { representativesService } from './services/representatives.service';
+import { billsService } from './services/bills.service';
+import { feedbackService } from './services/feedback.service';
 
 const TEST_ZIP_CODE = '10001'; // New York ZIP for testing
 const TEST_EMAIL = 'test@civix.com';

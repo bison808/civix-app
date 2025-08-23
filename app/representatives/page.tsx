@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { ChevronLeft, Search, Filter, SortAsc, Users, Building2, MapPin } from 'lucide-react';
+import { Search, Filter, SortAsc, Users, Building2, MapPin } from 'lucide-react';
 import Button from '@/components/core/Button';
 import RepresentativeCard from '@/components/representatives/RepresentativeCard';
 import AggregatedFeedback from '@/components/feedback/AggregatedFeedback';
@@ -11,7 +10,6 @@ import { api } from '@/services/api';
 import { cn } from '@/lib/utils';
 
 export default function RepresentativesPage() {
-  const router = useRouter();
   const [representatives, setRepresentatives] = useState<Representative[]>([]);
   const [filteredReps, setFilteredReps] = useState<Representative[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,29 +108,25 @@ export default function RepresentativesPage() {
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-gray-50">
-      {/* Header */}
-      <header className="flex items-center gap-4 px-4 py-3 border-b border-gray-200 bg-white safe-top">
-        <button
-          onClick={() => router.back()}
-          className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h1 className="flex-1 text-lg font-semibold">Your Representatives</h1>
-        <button
-          onClick={() => setShowAggregatedFeedback(!showAggregatedFeedback)}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <Users size={20} />
-        </button>
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <Filter size={20} />
-        </button>
-      </header>
+    <div className="flex-1 flex flex-col bg-gray-50 pt-14 pb-16">
+      {/* Page Title & Actions */}
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
+        <h1 className="text-lg font-semibold">Your Representatives</h1>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowAggregatedFeedback(!showAggregatedFeedback)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Users size={20} />
+          </button>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <Filter size={20} />
+          </button>
+        </div>
+      </div>
 
       {/* Search Bar */}
       <div className="px-4 py-3 bg-white border-b border-gray-200">

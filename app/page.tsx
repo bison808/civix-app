@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import Button from '@/components/core/Button';
 import { CivixLogo } from '@/components/CivixLogo';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
@@ -10,6 +10,9 @@ import Tooltip from '@/components/ui/Tooltip';
 import { authApi } from '@/services/authApi';
 import { MapPin, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+// Import Framer Motion normally for now - will optimize later
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function EnhancedLandingPage() {
   const router = useRouter();

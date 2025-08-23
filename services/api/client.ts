@@ -1,5 +1,3 @@
-import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from 'axios';
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost';
 
 const API_ENDPOINTS = {
@@ -15,11 +13,20 @@ interface APIError {
   details?: any;
 }
 
+interface FetchClient {
+  baseURL: string;
+  get: (path: string, options?: RequestInit) => Promise<Response>;
+  post: (path: string, data?: any, options?: RequestInit) => Promise<Response>;
+  put: (path: string, data?: any, options?: RequestInit) => Promise<Response>;
+  patch: (path: string, data?: any, options?: RequestInit) => Promise<Response>;
+  delete: (path: string, options?: RequestInit) => Promise<Response>;
+}
+
 class APIClient {
-  private authClient: AxiosInstance;
-  private aiEngineClient: AxiosInstance;
-  private dataPipelineClient: AxiosInstance;
-  private communicationsClient: AxiosInstance;
+  private authClient: FetchClient;
+  private aiEngineClient: FetchClient;
+  private dataPipelineClient: FetchClient;
+  private communicationsClient: FetchClient;
 
   constructor() {
     this.authClient = this.createClient(API_ENDPOINTS.AUTH);
@@ -28,89 +35,121 @@ class APIClient {
     this.communicationsClient = this.createClient(API_ENDPOINTS.COMMUNICATIONS);
   }
 
-  private createClient(baseURL: string): AxiosInstance {
-    const client = axios.create({
-      baseURL,
-      timeout: 30000,
-      headers: {
+  private createClient(baseURL: string): FetchClient {
+    const makeRequest = async (
+      method: string,
+      path: string,
+      data?: any,
+      options?: RequestInit
+    ): Promise<Response> => {
+      const url = `${baseURL}${path}`;
+      
+      const headers: Record<string, string> = {
         'Content-Type': 'application/json',
-      },
-    });
+      };
 
-    client.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
-        if (typeof window !== 'undefined') {
-          const token = localStorage.getItem('auth_token');
-          if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-          }
+      if (typeof window !== 'undefined') {
+        const token = localStorage.getItem('auth_token');
+        if (token) {
+          headers.Authorization = `Bearer ${token}`;
         }
-        return config;
-      },
-      (error: AxiosError) => {
-        return Promise.reject(error);
       }
-    );
 
-    client.interceptors.response.use(
-      (response) => response,
-      async (error: AxiosError<APIError>) => {
-        if (error.response) {
-          const { status, data } = error.response;
+      // Merge with options headers if provided
+      if (options?.headers) {
+        Object.assign(headers, options.headers);
+      }
+
+      const config: RequestInit = {
+        method,
+        headers,
+        ...options,
+      };
+
+      if (data && (method === 'POST' || method === 'PUT' || method === 'PATCH')) {
+        config.body = JSON.stringify(data);
+      }
+
+      try {
+        const response = await fetch(url, config);
+        
+        if (!response.ok) {
+          const status = response.status;
+          let errorMessage = 'An unexpected error occurred';
           
+          try {
+            const errorData = await response.json() as APIError;
+            errorMessage = errorData.message || errorMessage;
+          } catch {
+            // If response isn't JSON, use status text
+            errorMessage = response.statusText || errorMessage;
+          }
+
           if (status === 401) {
             if (typeof window !== 'undefined') {
               localStorage.removeItem('auth_token');
               localStorage.removeItem('user');
               window.location.href = '/onboarding';
             }
-            return Promise.reject(new Error('Session expired. Please log in again.'));
+            throw new Error('Session expired. Please log in again.');
           }
 
           if (status === 403) {
-            return Promise.reject(new Error('You do not have permission to perform this action.'));
+            throw new Error('You do not have permission to perform this action.');
           }
 
           if (status === 404) {
-            return Promise.reject(new Error('The requested resource was not found.'));
+            throw new Error('The requested resource was not found.');
           }
 
           if (status === 429) {
-            return Promise.reject(new Error('Too many requests. Please try again later.'));
+            throw new Error('Too many requests. Please try again later.');
           }
 
           if (status >= 500) {
-            return Promise.reject(new Error('Server error. Please try again later.'));
+            throw new Error('Server error. Please try again later.');
           }
 
-          const errorMessage = data?.message || 'An unexpected error occurred';
-          return Promise.reject(new Error(errorMessage));
+          throw new Error(errorMessage);
         }
 
-        if (error.request) {
-          return Promise.reject(new Error('Network error. Please check your connection.'));
+        return response;
+      } catch (error) {
+        if (error instanceof TypeError && error.message === 'Failed to fetch') {
+          throw new Error('Network error. Please check your connection.');
         }
-
-        return Promise.reject(new Error('An unexpected error occurred'));
+        throw error;
       }
-    );
+    };
 
-    return client;
+    return {
+      baseURL,
+      get: (path: string, options?: RequestInit) => 
+        makeRequest('GET', path, undefined, options),
+      post: (path: string, data?: any, options?: RequestInit) => 
+        makeRequest('POST', path, data, options),
+      put: (path: string, data?: any, options?: RequestInit) => 
+        makeRequest('PUT', path, data, options),
+      patch: (path: string, data?: any, options?: RequestInit) => 
+        makeRequest('PATCH', path, data, options),
+      delete: (path: string, options?: RequestInit) => 
+        makeRequest('DELETE', path, undefined, options),
+    };
   }
 
-  public getAuthClient(): AxiosInstance {
+  public getAuthClient(): FetchClient {
     return this.authClient;
   }
 
-  public getAIEngineClient(): AxiosInstance {
+  public getAIEngineClient(): FetchClient {
     return this.aiEngineClient;
   }
 
-  public getDataPipelineClient(): AxiosInstance {
+  public getDataPipelineClient(): FetchClient {
     return this.dataPipelineClient;
   }
 
-  public getCommunicationsClient(): AxiosInstance {
+  public getCommunicationsClient(): FetchClient {
     return this.communicationsClient;
   }
 

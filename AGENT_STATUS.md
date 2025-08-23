@@ -1,16 +1,70 @@
 # CITZN Development Team - Agent Status & Task Assignments
 
-## Last Updated: January 22, 2025 - 1:15 PM PST
+## Last Updated: January 22, 2025 - 1:35 PM PST
+
+## 🚨 CRITICAL SPRINT: Performance & Data Accuracy
 
 ## 🚨 ACTIVE ASSIGNMENTS
 
-### 🐛 Bug Hunter Agent
+### ⚡ Performance Engineer Agent
+**Status:** ACTIVE - CRITICAL FIX 🔴  
+**Current Task:** Bundle Size Reduction & Dynamic Route Fix  
+**Priority:** CRITICAL (Priority 1)  
+**Started:** Jan 22, 2025 - 1:35 PM  
+**Expected Completion:** Jan 22, 2025 - 1:45 PM  
+**Progress:** 🔄 IN PROGRESS
+
+**Critical Issues:**
+- 🔴 Bundle size: 243KB (exceeds 200KB limit)
+- 🔴 force-dynamic causing 500ms delays
+- 🔴 Blocking Vercel deployment
+
+**Actions in Progress:**
+- Removing force-dynamic from routes
+- Code splitting implementation
+- Tree shaking unused imports
+- Optimizing dependency bundles
+
+---
+
+### 📊 Data Agent
+**Status:** ACTIVE - CRITICAL FIX 🔴  
+**Current Task:** H.R. 1 Bill Data Accuracy  
+**Priority:** CRITICAL (Priority 2)  
+**Started:** Jan 22, 2025 - 1:35 PM  
+**Expected Completion:** Jan 22, 2025 - 1:45 PM  
+**Progress:** 🔄 IN PROGRESS
+
+**Data Issues:**
+- 🔴 H.R. 1 showing wrong bill title
+- 🔴 Displaying 2024 data instead of 2025
+- 🔴 Incorrect bill information affecting user trust
+
+**Actions in Progress:**
+- Updating Congress API endpoint for 2025 session
+- Fixing bill data mapping
+- Correcting title extraction logic
+- Validating all bill data accuracy
+
+---
+
+### 🔧 Debug Agent (Navigation)
 **Status:** COMPLETED ✅  
-**Current Task:** Fix Authentication State Persistence  
+**Previous Task:** Navigation Z-Index Fix  
+**Completed:** Jan 22, 2025 - 1:32 PM  
+**Progress:** ✅ NEEDS MANUAL VERIFICATION
+
+**Fix Applied:**
+- ✅ Z-index increased to z-[60]
+- ✅ File: `components/navigation/MobileNav.tsx`
+- 🔄 Requires browser test at localhost:3000
+
+### 🐛 Bug Hunter Agent  
+**Status:** DEPLOYED ✅  
+**Previous Task:** Fix Authentication State Persistence  
 **Priority:** HIGH  
-**Started:** Jan 22, 2025 - 12:54 PM  
 **Completed:** Jan 22, 2025 - 1:10 PM  
-**Progress:** ✅ READY FOR DEPLOYMENT
+**Progress:** ✅ LIVE IN PRODUCTION
 
 **Task Details:**
 - Issue: Users losing authentication state on page refresh

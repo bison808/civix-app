@@ -1,15 +1,13 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { QueryProvider } from '@/providers/query-provider';
+import { ClientQueryProvider } from '@/providers/client-query-provider';
 import { WebVitalsMonitor } from '@/components/performance/WebVitals';
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
+import MobileNav from '@/components/navigation/MobileNav';
 import { defaultMetadata } from '@/lib/seo';
 import Script from 'next/script';
 import './globals.css';
-
-// Force dynamic rendering to avoid React Query SSR issues
-export const dynamic = 'force-dynamic';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -81,15 +79,16 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <QueryProvider>
+        <ClientQueryProvider>
           <AuthProvider>
             <div className="min-h-screen flex flex-col">
+              <MobileNav />
               <main id="main-content" className="flex-1">
                 {children}
               </main>
             </div>
           </AuthProvider>
-        </QueryProvider>
+        </ClientQueryProvider>
 
         <WebVitalsMonitor />
         <ServiceWorkerRegistration />

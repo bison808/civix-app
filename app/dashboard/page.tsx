@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
-  ChevronLeft, TrendingUp, Users, FileText, Activity, 
+  TrendingUp, Users, FileText, Activity, 
   ThumbsUp, ThumbsDown, AlertCircle, CheckCircle 
 } from 'lucide-react';
 import Card from '@/components/core/Card';
@@ -99,18 +99,12 @@ export default function DashboardPage() {
   );
 
   return (
-    <div className="flex-1 flex flex-col">
-      {/* Header */}
-      <header className="flex items-center gap-4 px-4 py-3 border-b border-gray-200 bg-white safe-top">
-        <button
-          onClick={() => router.back()}
-          className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <ChevronLeft size={24} />
-        </button>
-        <h1 className="flex-1 text-lg font-semibold">Dashboard</h1>
+    <div className="flex-1 flex flex-col pt-14 pb-16">
+      {/* Page Title */}
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
+        <h1 className="text-lg font-semibold">Dashboard</h1>
         <CivixLogo size="sm" />
-      </header>
+      </div>
 
       {/* Content */}
       <div className="flex-1 overflow-auto px-4 py-4">

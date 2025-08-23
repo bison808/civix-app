@@ -610,9 +610,9 @@ class CongressApiService {
       {
         id: 'hr-1-119',
         billNumber: 'H.R. 1',
-        title: 'American Energy Independence Act of 2025',
-        shortTitle: 'Energy Independence Act',
-        summary: 'This comprehensive energy legislation aims to achieve American energy independence by 2030 through increased domestic production of oil, natural gas, and renewable energy sources. The bill includes provisions for streamlining permitting processes, investing in clean energy infrastructure, and reducing regulatory barriers.',
+        title: 'One Big Beautiful Bill Act',
+        shortTitle: 'One Big Beautiful Bill',
+        summary: 'Comprehensive budget reconciliation legislation combining tax cuts, border security funding, and energy production expansion. This massive bill uses the reconciliation process to pass major policy changes with simple majority votes.',
         status: {
           stage: 'Committee',
           detail: 'Referred to House Committee on Energy and Commerce',
@@ -644,13 +644,13 @@ class CongressApiService {
         aiSummary: {
           id: 'summary-hr-1-119',
           billId: 'hr-1-119',
-          title: 'American Energy Independence Act of 2025',
-          simpleSummary: 'Makes America energy independent by increasing domestic oil, gas, and renewable energy production while creating millions of jobs.',
+          title: 'One Big Beautiful Bill Act',
+          simpleSummary: 'Combines major Republican priorities including tax cuts, border security, and energy production into one massive reconciliation bill.',
           keyPoints: [
-            'Expands domestic drilling permits by 40%',
-            'Invests $100 billion in renewable energy',
-            'Creates estimated 2 million energy jobs',
-            'Reduces energy costs by 25% by 2030'
+            'Extends Trump tax cuts permanently',
+            'Allocates $100 billion for border security',
+            'Expands domestic energy production',
+            'Uses reconciliation to bypass filibuster'
           ],
           pros: [
             'Lower energy costs for families',
@@ -852,8 +852,8 @@ class CongressApiService {
       {
         id: 'hr-1-119',
         billNumber: 'H.R. 1',
-        title: 'Tax Relief for American Families and Workers Act of 2025',
-        summary: 'To provide tax relief for working families, expand the child tax credit, and strengthen business incentives for domestic investment.',
+        title: 'One Big Beautiful Bill Act',
+        summary: 'Comprehensive tax reform and budget reconciliation bill including provisions for permanent tax relief for middle-class families and workers.',
         sponsor: {
           id: 'S001195',
           name: 'Jason Smith',
@@ -895,8 +895,8 @@ class CongressApiService {
         aiSummary: {
           id: 'summary-hr-1-119',
           billId: 'hr-1-119',
-          title: 'Tax Relief for American Families and Workers Act of 2025',
-          simpleSummary: 'This bill would expand tax credits for families with children and provide incentives for businesses to invest in American manufacturing and jobs.',
+          title: 'One Big Beautiful Bill Act',
+          simpleSummary: 'Major budget reconciliation bill that includes tax cuts, border security funding, and energy production expansion in a single comprehensive package.',
           keyPoints: [
             'Expands Child Tax Credit to $2,000 per child',
             'Provides bonus depreciation for manufacturing equipment',

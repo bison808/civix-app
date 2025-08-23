@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { ChevronLeft, Share2, Calendar, Users, FileText } from 'lucide-react';
+import { Share2, Calendar, Users, FileText } from 'lucide-react';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
 import FeedbackButton from '@/components/feedback/FeedbackButton';
@@ -68,25 +68,19 @@ export default function BillDetailPage() {
 
   if (!bill) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center px-4">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 pt-14 pb-16">
         <p className="text-gray-500 mb-4">Bill not found</p>
-        <Button variant="outline" onClick={() => router.back()}>
-          Go Back
+        <Button variant="outline" onClick={() => router.push('/feed')}>
+          Return to Feed
         </Button>
       </div>
     );
   }
 
   return (
-    <div className="flex-1 flex flex-col">
-      {/* Header */}
-      <header className="flex items-center gap-4 px-4 py-3 border-b border-gray-200 bg-white safe-top">
-        <button
-          onClick={() => router.back()}
-          className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
-        >
-          <ChevronLeft size={24} />
-        </button>
+    <div className="flex-1 flex flex-col pt-14 pb-16">
+      {/* Page Header */}
+      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
         <div className="flex-1">
           <h1 className="text-lg font-semibold truncate">{bill.billNumber}</h1>
         </div>
@@ -96,7 +90,7 @@ export default function BillDetailPage() {
         >
           <Share2 size={20} />
         </button>
-      </header>
+      </div>
 
       {/* Content */}
       <div className="flex-1 overflow-auto">
