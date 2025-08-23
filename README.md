@@ -150,3 +150,4 @@ Replace `services/api.ts` with real endpoints in Week 2.
 
 ## Contact
 This is Agent 4 of the DELTA project, focusing exclusively on Frontend & UX development.// Force redeploy Fri Aug 22 04:31:48 PM PDT 2025
+// Force Vercel redeploy Fri Aug 22 05:04:18 PM PDT 2025
