@@ -50,11 +50,6 @@ export default function SettingsPage() {
 
   return (
     <div className="flex-1 flex flex-col pt-14 pb-16">
-      {/* Page Title */}
-      <div className="px-4 py-3 bg-white border-b border-gray-200">
-        <h1 className="text-lg font-semibold">Settings</h1>
-      </div>
-
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 pb-20">
         {/* Notifications */}

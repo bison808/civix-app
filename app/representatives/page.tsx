@@ -109,24 +109,6 @@ export default function RepresentativesPage() {
 
   return (
     <div className="flex-1 flex flex-col bg-gray-50 pt-14 pb-16">
-      {/* Page Title & Actions */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
-        <h1 className="text-lg font-semibold">Your Representatives</h1>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowAggregatedFeedback(!showAggregatedFeedback)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <Users size={20} />
-          </button>
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <Filter size={20} />
-          </button>
-        </div>
-      </div>
 
       {/* Search Bar */}
       <div className="px-4 py-3 bg-white border-b border-gray-200">

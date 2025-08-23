@@ -100,12 +100,6 @@ export default function DashboardPage() {
 
   return (
     <div className="flex-1 flex flex-col pt-14 pb-16">
-      {/* Page Title */}
-      <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
-        <h1 className="text-lg font-semibold">Dashboard</h1>
-        <CivixLogo size="sm" />
-      </div>
-
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-4 py-4 pb-20">
         {loading ? (
