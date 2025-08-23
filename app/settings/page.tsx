@@ -14,6 +14,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function SettingsPage() {
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [settings, setSettings] = useState({
     notifications: {
       newBills: true,
@@ -53,8 +54,6 @@ export default function SettingsPage() {
     router.push('/');
   };
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  
   return (
     <div className="flex-1 flex flex-col">
       {/* Desktop Header - Same as Feed */}
@@ -80,7 +79,7 @@ export default function SettingsPage() {
       )}
       
       {/* Content */}
-      <div className={isMobile ? "flex-1 overflow-y-auto px-4 py-4 space-y-4 pt-14 pb-16" : "flex-1 overflow-y-auto px-4 py-4 space-y-4">
+      <div className={isMobile ? "flex-1 overflow-y-auto px-4 py-4 space-y-4 pt-14 pb-16" : "flex-1 overflow-y-auto px-4 py-4 space-y-4"}>
         {/* Notifications */}
         <Card variant="default" padding="md">
           <div className="flex items-center gap-2 mb-4">

@@ -18,6 +18,7 @@ import { api } from '@/services/api';
 
 export default function DashboardPage() {
   const router = useRouter();
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [bills, setBills] = useState<Bill[]>([]);
   const [representatives, setRepresentatives] = useState<Representative[]>([]);
   const [loading, setLoading] = useState(true);
@@ -103,8 +104,6 @@ export default function DashboardPage() {
     </Card>
   );
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  
   return (
     <div className="flex-1 flex flex-col">
       {/* Desktop Header - Same as Feed */}
@@ -130,7 +129,7 @@ export default function DashboardPage() {
       )}
       
       {/* Content */}
-      <div className={isMobile ? "flex-1 overflow-y-auto px-4 py-4 pt-14 pb-16" : "flex-1 overflow-y-auto px-4 py-4">
+      <div className={isMobile ? "flex-1 overflow-y-auto px-4 py-4 pt-14 pb-16" : "flex-1 overflow-y-auto px-4 py-4"}>
         {loading ? (
           <div className="space-y-4">
             <div className="bg-gray-100 rounded-lg h-32 animate-pulse" />

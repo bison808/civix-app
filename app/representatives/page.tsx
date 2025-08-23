@@ -15,6 +15,7 @@ import VerificationBadge from '@/components/VerificationBadge';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export default function RepresentativesPage() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const [representatives, setRepresentatives] = useState<Representative[]>([]);
   const [filteredReps, setFilteredReps] = useState<Representative[]>([]);
   const [loading, setLoading] = useState(true);
@@ -112,8 +113,6 @@ export default function RepresentativesPage() {
     // Would submit feedback to API
   };
 
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  
   return (
     <div className="flex-1 flex flex-col bg-gray-50">
       {/* Desktop Header - Same as Feed */}
