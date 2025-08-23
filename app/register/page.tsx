@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
-import { CivixLogo } from '@/components/CivixLogo';
+import { CitznLogo } from '@/components/CitznLogo';
 import { authApi, RegisterRequest } from '@/services/authApi';
 
 export default function RegisterPage() {
@@ -130,7 +130,7 @@ export default function RegisterPage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gray-50">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
-          <CivixLogo size="lg" showTagline={false} />
+          <CitznLogo size="lg" showTagline={false} />
           <h1 className="mt-4 text-2xl font-bold text-gray-900">Create Your Account</h1>
           <p className="mt-2 text-sm text-gray-600">
             {location ? `${location.city}, ${location.state} ${zipCode}` : zipCode}

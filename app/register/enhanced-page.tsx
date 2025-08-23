@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
-import { CivixLogo } from '@/components/CivixLogo';
+import { CitznLogo } from '@/components/CitznLogo';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import WelcomeAnimation from '@/components/onboarding/WelcomeAnimation';
 import Tooltip from '@/components/ui/Tooltip';
@@ -246,7 +246,7 @@ export default function EnhancedRegisterPage() {
         >
           {/* Header */}
           <div className="text-center">
-            <CivixLogo size="lg" showTagline={false} />
+            <CitznLogo size="lg" showTagline={false} />
             <h1 className="mt-4 text-2xl font-bold text-gray-900">Choose Your Privacy Level</h1>
             <p className="mt-2 text-sm text-gray-600">
               {location ? `${location.city}, ${location.state} ${zipCode}` : zipCode}

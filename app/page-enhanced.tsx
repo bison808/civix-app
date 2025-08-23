@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Button from '@/components/core/Button';
-import { CivixLogo } from '@/components/CivixLogo';
+import { CitznLogo } from '@/components/CitznLogo';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import Tooltip from '@/components/ui/Tooltip';
 import { authApi } from '@/services/authApi';
@@ -130,7 +130,7 @@ export default function EnhancedLandingPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <CivixLogo size="xl" showTagline={true} animated={true} />
+            <CitznLogo size="xl" showTagline={true} animated={true} />
             
             {/* Welcome message for first-time users */}
             {isFirstTime && (

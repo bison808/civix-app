@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
-interface CivixLogoProps {
+interface CitznLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   showTagline?: boolean;
   animated?: boolean;
 }
 
-export const CivixLogo: React.FC<CivixLogoProps> = ({ 
+export const CitznLogo: React.FC<CitznLogoProps> = ({ 
   size = 'md', 
   showTagline = false,
   animated = false 
@@ -76,4 +76,4 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   );
 };
 
-export default CivixLogo;
+export default CitznLogo;
