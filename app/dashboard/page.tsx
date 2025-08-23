@@ -107,7 +107,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-auto px-4 py-4">
+      <div className="flex-1 overflow-y-auto px-4 py-4 pb-20">
         {loading ? (
           <div className="space-y-4">
             <div className="bg-gray-100 rounded-lg h-32 animate-pulse" />
@@ -238,43 +238,6 @@ export default function DashboardPage() {
           </div>
         )}
       </div>
-
-      {/* Bottom Navigation */}
-      <nav className="flex items-center justify-around border-t border-gray-200 bg-white safe-bottom">
-        <button 
-          className="flex-1 py-3 text-gray-500"
-          onClick={() => router.push('/feed')}
-        >
-          <div className="flex flex-col items-center">
-            <div className="w-6 h-6 bg-gray-300 rounded" />
-            <span className="text-xs mt-1">Feed</span>
-          </div>
-        </button>
-        <button className="flex-1 py-3 text-delta">
-          <div className="flex flex-col items-center">
-            <div className="w-6 h-6 bg-delta rounded" />
-            <span className="text-xs mt-1">Dashboard</span>
-          </div>
-        </button>
-        <button 
-          className="flex-1 py-3 text-gray-500"
-          onClick={() => router.push('/representatives')}
-        >
-          <div className="flex flex-col items-center">
-            <div className="w-6 h-6 bg-gray-300 rounded" />
-            <span className="text-xs mt-1">Reps</span>
-          </div>
-        </button>
-        <button 
-          className="flex-1 py-3 text-gray-500"
-          onClick={() => router.push('/settings')}
-        >
-          <div className="flex flex-col items-center">
-            <div className="w-6 h-6 bg-gray-300 rounded" />
-            <span className="text-xs mt-1">Settings</span>
-          </div>
-        </button>
-      </nav>
     </div>
   );
 }
