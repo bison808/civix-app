@@ -56,7 +56,7 @@ export default function SettingsPage() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-auto px-4 py-4 space-y-4">
+      <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 pb-20">
         {/* Notifications */}
         <Card variant="default" padding="md">
           <div className="flex items-center gap-2 mb-4">

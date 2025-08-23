@@ -210,8 +210,8 @@ export default function RepresentativesPage() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-auto">
-        <div className="p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto">
+        <div className="p-4 space-y-4 pb-20">
           {/* Aggregated Feedback Panel */}
           {showAggregatedFeedback && filteredReps.length > 0 && (
             <div className="mb-4">
