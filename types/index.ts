@@ -2,6 +2,9 @@ export * from './auth.types';
 export * from './representatives.types';
 export * from './bills.types';
 export * from './feedback.types';
+export * from './districts.types';
+export * from './california-state.types';
+export * from './county.types';
 
 export interface PersonalImpact {
   category: 'financial' | 'healthcare' | 'education' | 'environment' | 'safety' | 'rights';

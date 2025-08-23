@@ -1,5 +1,7 @@
-// Google Civic Information API Service - Fetches real local government officials
+// Enhanced Civic Information API Service - Integrates Municipal and School District data
 import { Representative } from '@/types';
+import { municipalApi, CityInfo, CityOfficials } from './municipalApi';
+import { schoolDistrictApi, SchoolDistrict } from './schoolDistrictApi';
 
 // Known mayor data for major cities (fallback when API is unavailable)
 const KNOWN_MAYORS: Record<string, { name: string; party?: string; phone?: string; website?: string }> = {
@@ -57,7 +59,88 @@ export class CivicInfoService {
   private cache: Map<string, { data: any; timestamp: number }> = new Map();
   private CACHE_DURATION = 1000 * 60 * 60 * 24 * 7; // 7 days cache for local officials
 
-  // Get real local officials based on city and state
+  // Enhanced method to get all local officials including municipal and school board
+  async getAllLocalRepresentatives(zipCode: string): Promise<Representative[]> {
+    const cacheKey = `all-local-${zipCode}`;
+    const cached = this.getFromCache(cacheKey);
+    if (cached) return cached;
+
+    const allRepresentatives: Representative[] = [];
+
+    try {
+      // Get municipal representatives (mayors, city council)
+      const municipalReps = await municipalApi.getMunicipalRepresentatives(zipCode);
+      allRepresentatives.push(...municipalReps);
+
+      // Get school board representatives
+      const schoolBoardReps = await schoolDistrictApi.getSchoolBoardRepresentatives(zipCode);
+      allRepresentatives.push(...schoolBoardReps);
+
+      // Get city info for context
+      const cityInfo = await municipalApi.getCityForZip(zipCode);
+      if (cityInfo && cityInfo.incorporated) {
+        // For incorporated cities, also get any legacy data
+        const legacyOfficials = await this.getLocalOfficials(cityInfo.name, 'CA', zipCode);
+        // Merge without duplicates
+        const existingIds = new Set(allRepresentatives.map(rep => rep.id));
+        const newLegacyOfficials = legacyOfficials.filter(official => !existingIds.has(official.id));
+        allRepresentatives.push(...newLegacyOfficials);
+      }
+
+      this.setCache(cacheKey, allRepresentatives);
+      return allRepresentatives;
+    } catch (error) {
+      console.error('Failed to get all local representatives:', error);
+      // Fallback to legacy method
+      const city = await this.getCityFromZipCode(zipCode);
+      if (city) {
+        return await this.getLocalOfficials(city, 'CA', zipCode);
+      }
+      return [];
+    }
+  }
+
+  // Get comprehensive local government information
+  async getLocalGovernmentInfo(zipCode: string): Promise<{
+    cityInfo: CityInfo | null;
+    cityOfficials: CityOfficials | null;
+    schoolDistricts: SchoolDistrict[];
+    representatives: Representative[];
+  }> {
+    const cacheKey = `local-gov-info-${zipCode}`;
+    const cached = this.getFromCache(cacheKey);
+    if (cached) return cached;
+
+    try {
+      const [cityInfo, schoolDistricts, representatives] = await Promise.all([
+        municipalApi.getCityForZip(zipCode),
+        schoolDistrictApi.getSchoolDistrictsForZip(zipCode),
+        this.getAllLocalRepresentatives(zipCode)
+      ]);
+
+      const cityOfficials = cityInfo ? await municipalApi.getMayorAndCouncil(cityInfo.name) : null;
+
+      const result = {
+        cityInfo,
+        cityOfficials,
+        schoolDistricts,
+        representatives
+      };
+
+      this.setCache(cacheKey, result);
+      return result;
+    } catch (error) {
+      console.error('Failed to get local government info:', error);
+      return {
+        cityInfo: null,
+        cityOfficials: null,
+        schoolDistricts: [],
+        representatives: []
+      };
+    }
+  }
+
+  // Get real local officials based on city and state (legacy method)
   async getLocalOfficials(city: string, state: string, zipCode?: string): Promise<Representative[]> {
     const cacheKey = `local-${city}-${state}`;
     
@@ -201,6 +284,56 @@ export class CivicInfoService {
 
   private setCache(key: string, data: any): void {
     this.cache.set(key, { data, timestamp: Date.now() });
+  }
+
+  // Helper method to get city name from ZIP code
+  private async getCityFromZipCode(zipCode: string): Promise<string | null> {
+    try {
+      const cityInfo = await municipalApi.getCityForZip(zipCode);
+      return cityInfo?.name || null;
+    } catch (error) {
+      console.error('Failed to get city from ZIP code:', error);
+      return null;
+    }
+  }
+
+  // Get ZIP codes for a city (reverse lookup)
+  async getZipCodesForCity(cityName: string): Promise<string[]> {
+    const cacheKey = `zips-${cityName}`;
+    const cached = this.getFromCache(cacheKey);
+    if (cached) return cached;
+
+    try {
+      const cityInfo = await municipalApi.getCityForZip(''); // This would need to be enhanced
+      // For now, return empty array - would need city-to-ZIP lookup
+      return [];
+    } catch (error) {
+      console.error('Failed to get ZIP codes for city:', error);
+      return [];
+    }
+  }
+
+  // Get local government summary
+  async getLocalGovernmentSummary(zipCode: string): Promise<{
+    cityType: 'Incorporated' | 'Unincorporated';
+    cityName: string;
+    county: string;
+    mayorName?: string;
+    councilMembers: number;
+    schoolDistricts: number;
+    population?: number;
+  }> {
+    const govInfo = await this.getLocalGovernmentInfo(zipCode);
+    
+    return {
+      cityType: govInfo.cityInfo?.incorporated ? 'Incorporated' : 'Unincorporated',
+      cityName: govInfo.cityInfo?.name || 'Unknown',
+      county: govInfo.cityInfo?.county || 'Unknown',
+      mayorName: govInfo.cityOfficials?.mayor?.name,
+      councilMembers: govInfo.cityOfficials?.cityCouncil?.length || 0,
+      schoolDistricts: govInfo.schoolDistricts.length,
+      population: govInfo.cityInfo?.population
+    };
   }
 }
 
