@@ -110,7 +110,13 @@ export default function MobileNav({ className }: MobileNavProps) {
           >
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className="font-bold text-base text-delta">CITZN</span>
+          <img 
+            src="/citzn.svg" 
+            alt="CITZN" 
+            className="h-6 w-auto"
+            width="auto"
+            height="24"
+          />
           <div className="h-4 w-px bg-gray-300" />
           <ZipDisplay showChangeButton={false} />
           <VerificationBadge size="sm" showLabel={false} />
@@ -194,7 +200,13 @@ export default function MobileNav({ className }: MobileNavProps) {
         {/* Menu Header */}
         <div className="p-4 border-b border-gray-200 safe-top">
           <div className="flex items-center justify-between mb-4">
-            <span className="font-bold text-xl text-delta">CITZN</span>
+            <img 
+              src="/citzn.svg" 
+              alt="CITZN" 
+              className="h-8 w-auto"
+              width="auto"
+              height="32"
+            />
             <button
               onClick={() => setIsMenuOpen(false)}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
