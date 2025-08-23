@@ -80,7 +80,7 @@ export default function MobileNav({ className }: MobileNavProps) {
     <>
       {/* Mobile Header Bar - Fixed at top */}
       <header className={cn(
-        "fixed top-0 left-0 right-0 z-[60]",
+        "fixed top-0 left-0 right-0 z-[100]",
         "h-14 bg-white border-b border-gray-200",
         "flex items-center justify-between px-4 safe-top",
         "md:hidden",
@@ -118,7 +118,7 @@ export default function MobileNav({ className }: MobileNavProps) {
 
       {/* Mobile Bottom Navigation - Fixed at bottom */}
       <nav className={cn(
-        "fixed bottom-0 left-0 right-0 z-[60]",
+        "fixed bottom-0 left-0 right-0 z-[100]",
         "h-16 bg-white border-t border-gray-200",
         "flex items-center justify-around safe-bottom",
         "md:hidden"
