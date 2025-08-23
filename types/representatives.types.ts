@@ -20,6 +20,7 @@ export interface Representative {
   jurisdiction: string;
   governmentType: 'city' | 'county' | 'state' | 'federal' | 'district' | 'special';
   jurisdictionScope?: 'citywide' | 'countywide' | 'statewide' | 'national' | 'district';
+  jurisdictionType?: 'incorporated_city' | 'unincorporated_area' | 'special_district';
 }
 
 export interface ContactInfo {

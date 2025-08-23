@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { 
   Home, 
@@ -33,23 +33,44 @@ export default function MobileNav({ className }: MobileNavProps) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // Close menu on route change
+  // Ensure component is mounted on client to prevent hydration mismatches
   useEffect(() => {
-    setIsMenuOpen(false);
+    setIsClient(true);
+  }, []);
+
+  // Close menu on route change with error handling
+  useEffect(() => {
+    try {
+      setIsMenuOpen(false);
+    } catch (error) {
+      console.warn('Error closing menu on route change:', error);
+    }
   }, [pathname]);
 
-  // Prevent body scroll when menu is open
+  // Prevent body scroll when menu is open with cleanup
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+    if (!isClient || typeof window === 'undefined') return;
+    
+    try {
+      if (isMenuOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
+    } catch (error) {
+      console.warn('Error managing body scroll:', error);
     }
+    
     return () => {
-      document.body.style.overflow = 'unset';
+      try {
+        document.body.style.overflow = 'unset';
+      } catch (error) {
+        console.warn('Error resetting body scroll:', error);
+      }
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isClient]);
 
   const navItems = [
     { 
@@ -78,7 +99,34 @@ export default function MobileNav({ className }: MobileNavProps) {
     },
   ];
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = useCallback((path: string) => {
+    try {
+      return pathname === path;
+    } catch (error) {
+      console.warn('Error checking active path:', error);
+      return false;
+    }
+  }, [pathname]);
+
+  const handleNavigation = useCallback((path: string) => {
+    try {
+      router.push(path);
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Fallback to window.location for critical navigation
+      if (typeof window !== 'undefined') {
+        window.location.href = path;
+      }
+    }
+  }, [router]);
+
+  const handleMenuToggle = useCallback(() => {
+    try {
+      setIsMenuOpen(prev => !prev);
+    } catch (error) {
+      console.warn('Error toggling menu:', error);
+    }
+  }, []);
 
   // Don't show navigation on landing, register, or onboarding pages
   const shouldHideNav = pathname === '/' || 
@@ -86,8 +134,19 @@ export default function MobileNav({ className }: MobileNavProps) {
                         pathname.startsWith('/onboarding') || 
                         pathname === '/login';
   
-  if (shouldHideNav) {
+  // Don't render until client-side hydration is complete
+  if (!isClient || shouldHideNav) {
     return null;
+  }
+
+  // Fallback rendering for critical navigation if component encounters issues
+  if (!navItems || navItems.length === 0) {
+    console.warn('Navigation items not available, rendering fallback navigation');
+    return (
+      <nav className="mobile-nav-critical flex items-center justify-center md:hidden">
+        <p className="text-sm text-gray-500">Navigation loading...</p>
+      </nav>
+    );
   }
 
   return (
@@ -104,7 +163,7 @@ export default function MobileNav({ className }: MobileNavProps) {
         {/* Left Side - Logo, ZIP, Verification */}
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={handleMenuToggle}
             className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
             aria-label="Toggle menu"
           >
@@ -142,13 +201,22 @@ export default function MobileNav({ className }: MobileNavProps) {
       </header>
 
       {/* Mobile Bottom Navigation - Fixed at bottom */}
-      <nav className={cn(
-        "fixed bottom-0 left-0 right-0 z-[9999]", // Maximum z-index
-        "h-16 bg-white border-t border-gray-200",
-        "flex items-center justify-around safe-bottom",
-        "md:hidden" // Only show on mobile
-      )}
-      style={{ display: 'flex !important', zIndex: 9999 }} // Force inline styles
+      <nav 
+        className={cn(
+          "mobile-nav-critical", // Critical CSS class with !important rules
+          "flex items-center justify-around safe-bottom",
+          "md:hidden" // Only show on mobile
+        )}
+        style={{ 
+          display: 'flex', 
+          zIndex: 9999,
+          position: 'fixed',
+          bottom: '0px',
+          left: '0px',
+          right: '0px'
+        } as React.CSSProperties}
+        role="navigation"
+        aria-label="Main navigation"
       >
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -157,7 +225,7 @@ export default function MobileNav({ className }: MobileNavProps) {
           return (
             <button
               key={item.path}
-              onClick={() => router.push(item.path)}
+              onClick={() => handleNavigation(item.path)}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center",
                 "py-2 px-1 relative transition-colors",
@@ -245,7 +313,7 @@ export default function MobileNav({ className }: MobileNavProps) {
                 <button
                   key={item.path}
                   onClick={() => {
-                    router.push(item.path);
+                    handleNavigation(item.path);
                     setIsMenuOpen(false);
                   }}
                   className={cn(
@@ -267,7 +335,7 @@ export default function MobileNav({ className }: MobileNavProps) {
             <div className="border-t border-gray-200 mt-4 pt-4">
               <button
                 onClick={() => {
-                  router.push('/help');
+                  handleNavigation('/help');
                   setIsMenuOpen(false);
                 }}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 text-gray-700 min-h-[48px]"
@@ -279,8 +347,13 @@ export default function MobileNav({ className }: MobileNavProps) {
               
               <button
                 onClick={() => {
-                  logout();
-                  setIsMenuOpen(false);
+                  try {
+                    logout();
+                    setIsMenuOpen(false);
+                  } catch (error) {
+                    console.error('Error during logout:', error);
+                    setIsMenuOpen(false);
+                  }
                 }}
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 text-red-600 min-h-[48px]"
               >

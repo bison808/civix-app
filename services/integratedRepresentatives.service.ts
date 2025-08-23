@@ -10,6 +10,8 @@ import { representativesService } from './representatives.service';
 import { federalRepresentativesService } from './federalRepresentatives.service';
 import { zipDistrictMappingService } from './zipDistrictMapping';
 import { getCaliforniaFederalReps } from './californiaFederalReps';
+import { jurisdictionService } from './jurisdictionService';
+import { JurisdictionDetectionResult } from '@/types/jurisdiction.types';
 
 interface UnifiedRepresentativeResult {
   federal: FederalRepresentative[];
@@ -20,6 +22,13 @@ interface UnifiedRepresentativeResult {
     federal: number;
     state: number;
     local: number;
+  };
+  jurisdiction?: JurisdictionDetectionResult;
+  areaInfo?: {
+    title: string;
+    description: string;
+    governmentStructure: string;
+    representatives: string;
   };
 }
 
@@ -36,6 +45,7 @@ class IntegratedRepresentativesService {
 
   /**
    * Get all representatives for a ZIP code (federal, state, and local)
+   * Now includes jurisdiction-aware filtering
    */
   async getAllRepresentativesByZipCode(
     zipCode: string,
@@ -49,22 +59,33 @@ class IntegratedRepresentativesService {
     }
 
     try {
-      // Get all representative types in parallel
-      const [federalReps, stateLocalReps] = await Promise.all([
-        this.getFederalRepresentatives(zipCode, options),
-        this.getStateAndLocalRepresentatives(zipCode)
+      // Step 1: Get district mapping for jurisdiction detection
+      const districtMapping = await zipDistrictMappingService.getDistrictsForZipCode(zipCode);
+      
+      // Step 2: Detect jurisdiction type
+      const jurisdiction = await jurisdictionService.detectJurisdiction(zipCode, districtMapping);
+      const rules = jurisdictionService.getRepresentativeRules(jurisdiction);
+      const areaInfo = jurisdictionService.getAreaDescription(jurisdiction);
+
+      // Step 3: Get representatives based on applicable levels
+      const [federalReps, stateReps, localReps] = await Promise.all([
+        this.getFederalRepresentatives(zipCode, options, rules),
+        this.getStateRepresentatives(zipCode, rules),
+        this.getLocalRepresentatives(zipCode, rules)
       ]);
 
       const result: UnifiedRepresentativeResult = {
         federal: federalReps,
-        state: stateLocalReps.state,
-        local: stateLocalReps.local,
-        total: federalReps.length + stateLocalReps.state.length + stateLocalReps.local.length,
+        state: stateReps,
+        local: localReps,
+        total: federalReps.length + stateReps.length + localReps.length,
         breakdown: {
           federal: federalReps.length,
-          state: stateLocalReps.state.length,
-          local: stateLocalReps.local.length
-        }
+          state: stateReps.length,
+          local: localReps.length
+        },
+        jurisdiction,
+        areaInfo
       };
 
       if (options.cacheResults !== false) {
@@ -88,10 +109,12 @@ class IntegratedRepresentativesService {
 
   /**
    * Get only federal representatives (Senators + House Rep)
+   * Now jurisdiction-aware but federal reps apply to all areas
    */
   async getFederalRepresentatives(
     zipCode: string,
-    options: RepresentativeSearchOptions = {}
+    options: RepresentativeSearchOptions = {},
+    rules?: any
   ): Promise<FederalRepresentative[]> {
     try {
       // Use California-specific service for enhanced data
@@ -121,26 +144,51 @@ class IntegratedRepresentativesService {
   }
 
   /**
-   * Get state and local representatives
+   * Get state representatives - always applicable
    */
-  async getStateAndLocalRepresentatives(zipCode: string): Promise<{
-    state: Representative[];
-    local: Representative[];
-  }> {
+  async getStateRepresentatives(
+    zipCode: string, 
+    rules?: any
+  ): Promise<Representative[]> {
     try {
-      // Use existing ZIP district mapping service
       const allReps = await zipDistrictMappingService.getRepresentativesByZipCode(zipCode);
-      
       const stateReps = allReps.filter(rep => rep.level === 'state');
-      const localReps = allReps.filter(rep => rep.level === 'county' || rep.level === 'local');
-
-      return {
-        state: stateReps.map(rep => this.convertDistrictRepToStandard(rep)),
-        local: localReps.map(rep => this.convertDistrictRepToStandard(rep))
-      };
+      return stateReps.map(rep => this.convertDistrictRepToStandard(rep));
     } catch (error) {
-      console.error('Error getting state/local representatives:', error);
-      return { state: [], local: [] };
+      console.error('Error getting state representatives:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get local representatives - filtered based on jurisdiction type
+   */
+  async getLocalRepresentatives(
+    zipCode: string, 
+    rules?: any
+  ): Promise<Representative[]> {
+    try {
+      // Check if local representatives are applicable for this jurisdiction
+      if (rules && !rules.jurisdiction.hasLocalRepresentatives) {
+        console.log(`No local representatives for ${rules.jurisdiction.name} (unincorporated area)`);
+        return [];
+      }
+
+      const allReps = await zipDistrictMappingService.getRepresentativesByZipCode(zipCode);
+      let localReps = allReps.filter(rep => rep.level === 'county' || rep.level === 'local');
+
+      // For incorporated cities, include municipal representatives
+      if (rules && rules.jurisdiction.hasLocalRepresentatives) {
+        // Keep all local reps including city-level ones
+      } else {
+        // For unincorporated areas, only keep county-level representatives
+        localReps = localReps.filter(rep => rep.level === 'county');
+      }
+
+      return localReps.map(rep => this.convertDistrictRepToStandard(rep));
+    } catch (error) {
+      console.error('Error getting local representatives:', error);
+      return [];
     }
   }
 
@@ -327,13 +375,48 @@ class IntegratedRepresentativesService {
   }
 
   /**
+   * Get jurisdiction information for a ZIP code
+   */
+  async getJurisdictionInfo(zipCode: string): Promise<{
+    jurisdiction: JurisdictionDetectionResult;
+    areaInfo: {
+      title: string;
+      description: string;
+      governmentStructure: string;
+      representatives: string;
+    };
+    applicableLevels: string[];
+    excludedLevels: string[];
+  }> {
+    try {
+      const districtMapping = await zipDistrictMappingService.getDistrictsForZipCode(zipCode);
+      const jurisdiction = await jurisdictionService.detectJurisdiction(zipCode, districtMapping);
+      const rules = jurisdictionService.getRepresentativeRules(jurisdiction);
+      const areaInfo = jurisdictionService.getAreaDescription(jurisdiction);
+
+      return {
+        jurisdiction,
+        areaInfo,
+        applicableLevels: rules.applicableLevels
+          .filter(level => level.applicable)
+          .map(level => level.level),
+        excludedLevels: rules.excludedLevels
+      };
+    } catch (error) {
+      console.error('Error getting jurisdiction info:', error);
+      throw error;
+    }
+  }
+
+  /**
    * Refresh all cached data
    */
   async refreshAllData(): Promise<void> {
     this.cache.clear();
     await Promise.all([
       federalRepresentativesService.refreshAllData(),
-      zipDistrictMappingService.clearAllCaches()
+      zipDistrictMappingService.clearAllCaches(),
+      jurisdictionService.clearCache()
     ]);
     console.log('All representative data refreshed');
   }

@@ -176,8 +176,7 @@ const nextConfig = {
       '@tanstack/react-query': require.resolve('@tanstack/react-query'),
     };
 
-    // Tree shaking optimizations
-    config.optimization.usedExports = true;
+    // Tree shaking optimizations - removed usedExports to fix webpack conflict
     config.optimization.sideEffects = false;
     
     // Add performance budgets

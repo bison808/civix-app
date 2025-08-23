@@ -11,6 +11,7 @@ export interface CityInfo {
   zipCodes: string[];
   area: number; // square miles
   incorporated: boolean;
+  jurisdictionType: 'incorporated_city' | 'unincorporated_area' | 'special_district';
 }
 
 export interface MunicipalOfficial {
@@ -91,7 +92,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['90001', '90002', '90003', '90004', '90005', '90006', '90007', '90008', '90010', '90011', '90012', '90013', '90014', '90015', '90016', '90017', '90018', '90019', '90020', '90021', '90022', '90023', '90024', '90025', '90026', '90027', '90028', '90029', '90031', '90032', '90033', '90034', '90035', '90036', '90037', '90038', '90039', '90040', '90041', '90042', '90043', '90044', '90045', '90046', '90047', '90048', '90049', '90056', '90057', '90058', '90059', '90061', '90062', '90063', '90064', '90065', '90066', '90067', '90068', '90069', '90071', '90073', '90077', '90089', '90094', '90095', '90210', '90211', '90212', '90230', '90272', '90290', '90291', '90292', '90293', '90401', '90402', '90403', '90404', '90405', '90501', '90502', '90710', '90717', '90732', '90744', '90745', '90746', '90747', '90748', '91040', '91042', '91303', '91304', '91306', '91307', '91311', '91316', '91324', '91325', '91326', '91330', '91331', '91335', '91340', '91342', '91343', '91344', '91345', '91352', '91356', '91364', '91367', '91401', '91402', '91403', '91405', '91406', '91411', '91423', '91436', '91601', '91602', '91604', '91605', '91606', '91607', '91608'],
     area: 502.7,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'San Diego': {
     name: 'San Diego',
@@ -102,7 +104,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['92101', '92102', '92103', '92104', '92105', '92106', '92107', '92108', '92109', '92110', '92111', '92113', '92114', '92115', '92116', '92117', '92119', '92120', '92121', '92122', '92123', '92124', '92126', '92127', '92128', '92129', '92130', '92131', '92132', '92134', '92135', '92136', '92139', '92140', '92154', '92155', '92161', '92173', '92182', '92186', '92191', '92192', '92193', '92194', '92195', '92196', '92197', '92198', '92199'],
     area: 372.4,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'San Jose': {
     name: 'San Jose',
@@ -113,7 +116,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['95110', '95111', '95112', '95113', '95116', '95117', '95118', '95119', '95120', '95121', '95122', '95123', '95124', '95125', '95126', '95127', '95128', '95129', '95130', '95131', '95132', '95133', '95134', '95135', '95136', '95138', '95139', '95148', '95150', '95151', '95152', '95153', '95154', '95155', '95156', '95157', '95158', '95159', '95160', '95161', '95164', '95170', '95172', '95173', '95190', '95191', '95192', '95193', '95194', '95196'],
     area: 181.4,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'San Francisco': {
     name: 'San Francisco',
@@ -124,7 +128,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['94102', '94103', '94104', '94105', '94107', '94108', '94109', '94110', '94111', '94112', '94114', '94115', '94116', '94117', '94118', '94121', '94122', '94123', '94124', '94127', '94129', '94130', '94131', '94132', '94133', '94134', '94158', '94188'],
     area: 46.9,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'Fresno': {
     name: 'Fresno',
@@ -135,7 +140,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['93650', '93701', '93702', '93703', '93704', '93705', '93706', '93710', '93711', '93712', '93714', '93720', '93721', '93722', '93723', '93724', '93725', '93726', '93727', '93728', '93729', '93730', '93740', '93741', '93744', '93745', '93747', '93750', '93755', '93760', '93761', '93764', '93765', '93771', '93772', '93773', '93774', '93775', '93776', '93777', '93778', '93779', '93786', '93790', '93791', '93792', '93793', '93794'],
     area: 112.0,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'Sacramento': {
     name: 'Sacramento',
@@ -146,7 +152,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['94203', '94204', '94205', '94206', '94207', '94208', '94209', '94211', '94229', '94230', '94232', '94234', '94235', '94236', '94237', '94239', '94240', '94244', '94245', '94247', '94248', '94249', '94250', '94252', '94254', '94256', '94257', '94258', '94259', '94263', '94267', '94268', '94269', '94271', '94273', '94274', '94277', '94278', '94279', '94280', '94282', '94283', '94284', '94285', '94286', '94287', '94288', '94289', '94290', '94291', '94293', '94294', '94295', '94296', '94297', '94298', '94299', '95814', '95815', '95816', '95817', '95818', '95819', '95820', '95821', '95822', '95823', '95824', '95825', '95826', '95827', '95828', '95829', '95830', '95831', '95832', '95833', '95834', '95835', '95837', '95838', '95841', '95842', '95851', '95852', '95853', '95860', '95864', '95865', '95866', '95867', '95894'],
     area: 100.1,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'Long Beach': {
     name: 'Long Beach',
@@ -157,7 +164,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['90713', '90803', '90804', '90805', '90806', '90807', '90808', '90810', '90813', '90814', '90815', '90822', '90831', '90840', '90842', '90844', '90846', '90847', '90848', '90853'],
     area: 50.4,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'Oakland': {
     name: 'Oakland',
@@ -168,7 +176,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['94601', '94602', '94603', '94605', '94606', '94607', '94608', '94609', '94610', '94611', '94612', '94613', '94618', '94619', '94621', '94705'],
     area: 56.1,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'Anaheim': {
     name: 'Anaheim',
@@ -179,7 +188,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'District',
     zipCodes: ['92801', '92802', '92804', '92805', '92806', '92807', '92808', '92809', '92812', '92814', '92815', '92816', '92817', '92825', '92850', '92899'],
     area: 50.3,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   },
   'Bakersfield': {
     name: 'Bakersfield',
@@ -190,7 +200,8 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     councilStructure: 'Mixed',
     zipCodes: ['93301', '93304', '93305', '93306', '93307', '93308', '93309', '93311', '93312', '93313', '93314', '93380'],
     area: 151.2,
-    incorporated: true
+    incorporated: true,
+    jurisdictionType: 'incorporated_city'
   }
 };
 
@@ -1223,7 +1234,8 @@ export class MunicipalApi {
         councilStructure: 'At-Large',
         zipCodes: [zipCode],
         area: 0,
-        incorporated: false
+        incorporated: false,
+        jurisdictionType: 'unincorporated_area'
       };
       this.setCache(cacheKey, unincorporatedInfo);
       return unincorporatedInfo;
@@ -1306,37 +1318,88 @@ export class MunicipalApi {
   }
 
   // Convert municipal officials to Representative format for consistency
-  async getMunicipalRepresentatives(zipCode: string): Promise<Representative[]> {
+  async getMunicipalRepresentatives(zipCode: string, options: { includeCountyOnly?: boolean } = {}): Promise<Representative[]> {
     const representatives: Representative[] = [];
     const city = await this.getCityForZip(zipCode);
     
-    if (!city || !city.incorporated) {
+    if (!city) {
       return representatives;
     }
 
-    const officials = await this.getMayorAndCouncil(city.name);
-    if (!officials) {
+    // For unincorporated areas, only return county representatives (if requested)
+    if (!city.incorporated || city.jurisdictionType === 'unincorporated_area') {
+      if (options.includeCountyOnly) {
+        // TODO: Add county representatives logic here
+        // This would include county supervisors, sheriff, etc.
+        console.log(`Unincorporated area in ${city.county} - showing county representatives only`);
+      }
       return representatives;
     }
 
-    // Add mayor
-    representatives.push(this.convertToRepresentative(officials.mayor, city.name));
+    // For incorporated cities, return city officials
+    if (city.jurisdictionType === 'incorporated_city') {
+      const officials = await this.getMayorAndCouncil(city.name);
+      if (!officials) {
+        return representatives;
+      }
 
-    // Add city council members
-    for (const councilMember of officials.cityCouncil) {
-      representatives.push(this.convertToRepresentative(councilMember, city.name));
-    }
+      // Add mayor
+      representatives.push(this.convertToRepresentative(officials.mayor, city.name, city.jurisdictionType));
 
-    // Add city manager if exists
-    if (officials.cityManager) {
-      representatives.push(this.convertToRepresentative(officials.cityManager, city.name));
+      // Add city council members
+      for (const councilMember of officials.cityCouncil) {
+        representatives.push(this.convertToRepresentative(councilMember, city.name, city.jurisdictionType));
+      }
+
+      // Add city manager if exists
+      if (officials.cityManager) {
+        representatives.push(this.convertToRepresentative(officials.cityManager, city.name, city.jurisdictionType));
+      }
     }
 
     return representatives;
   }
 
+  // Get jurisdiction information for UI display and representative filtering
+  async getJurisdictionInfo(zipCode: string): Promise<{
+    cityName: string;
+    countyName: string;
+    incorporated: boolean;
+    jurisdictionType: 'incorporated_city' | 'unincorporated_area' | 'special_district';
+    showCityRepresentatives: boolean;
+    showCountyRepresentatives: boolean;
+    jurisdictionMessage: string;
+  } | null> {
+    const city = await this.getCityForZip(zipCode);
+    
+    if (!city) {
+      return null;
+    }
+
+    const incorporated = city.incorporated;
+    const showCityRepresentatives = incorporated && city.jurisdictionType === 'incorporated_city';
+    const showCountyRepresentatives = !incorporated || city.jurisdictionType === 'unincorporated_area';
+
+    let jurisdictionMessage = '';
+    if (incorporated) {
+      jurisdictionMessage = `${city.name} is an incorporated city in ${city.county} County. You have both city and county representatives.`;
+    } else {
+      jurisdictionMessage = `This ZIP code is in an unincorporated area of ${city.county} County. You have county representatives but no city representatives.`;
+    }
+
+    return {
+      cityName: city.name,
+      countyName: city.county,
+      incorporated,
+      jurisdictionType: city.jurisdictionType,
+      showCityRepresentatives,
+      showCountyRepresentatives,
+      jurisdictionMessage
+    };
+  }
+
   // Helper to convert MunicipalOfficial to Representative
-  private convertToRepresentative(official: MunicipalOfficial, cityName: string): Representative {
+  private convertToRepresentative(official: MunicipalOfficial, cityName: string, jurisdictionType?: string): Representative {
     return {
       id: official.id,
       name: official.name,
@@ -1360,7 +1423,8 @@ export class MunicipalApi {
       level: 'municipal',
       jurisdiction: cityName,
       governmentType: 'city',
-      jurisdictionScope: 'citywide'
+      jurisdictionScope: 'citywide',
+      jurisdictionType: jurisdictionType as any
     };
   }
 

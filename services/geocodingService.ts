@@ -109,7 +109,8 @@ class GeocodingService {
 
   private cleanupExpiredCache(): void {
     const now = Date.now();
-    for (const [key, entry] of this.cache.entries()) {
+    const entries = Array.from(this.cache.entries());
+    for (const [key, entry] of entries) {
       if (entry.expiresAt < now) {
         this.cache.delete(key);
       }
@@ -256,7 +257,7 @@ class GeocodingService {
 
     // If no API key and fallback allowed, use fallback data
     if (!this.config.apiKey && includeFallback) {
-      return this.getFallbackMapping(cleanZip);
+      return await this.getFallbackMapping(cleanZip);
     }
 
     try {
@@ -284,7 +285,7 @@ class GeocodingService {
       return mapping;
     } catch (error) {
       if (includeFallback) {
-        return this.getFallbackMapping(cleanZip);
+        return await this.getFallbackMapping(cleanZip);
       }
       
       if (error instanceof Error) {
@@ -299,9 +300,8 @@ class GeocodingService {
     }
   }
 
-  private getFallbackMapping(zipCode: string): ZipDistrictMapping {
-    // Basic fallback mapping for common CA ZIP code ranges
-    // This should be enhanced with actual district data
+  private async getFallbackMapping(zipCode: string): Promise<ZipDistrictMapping> {
+    // Enhanced fallback mapping that integrates with municipal API
     const zipNum = parseInt(zipCode);
     
     let congressionalDistrict = 1;
@@ -310,36 +310,130 @@ class GeocodingService {
     let county = 'Unknown County';
     let city = 'Unknown City';
 
-    // Rough mapping based on ZIP code ranges (this should be improved with real data)
+    // Try to get city information from municipal API first
+    try {
+      const { municipalApi } = await import('./municipalApi');
+      const cityInfo = await municipalApi.getCityForZip(zipCode);
+      
+      if (cityInfo) {
+        city = cityInfo.name;
+        county = cityInfo.county;
+        
+        // Set more accurate coordinates based on known city
+        const coordinates = this.getCityCoordinates(cityInfo.name);
+        
+        return {
+          zipCode,
+          congressionalDistrict: this.getCongressionalDistrict(zipCode),
+          stateSenateDistrict: this.getStateSenateDistrict(zipCode),
+          stateAssemblyDistrict: this.getStateAssemblyDistrict(zipCode),
+          county,
+          city,
+          coordinates,
+          accuracy: 0.8, // Higher accuracy when we have city data
+          source: 'fallback_with_municipal',
+          lastUpdated: new Date().toISOString()
+        };
+      }
+    } catch (error) {
+      console.warn('Failed to get municipal data for ZIP', zipCode, error);
+    }
+
+    // Fallback to basic ZIP code range mapping if municipal API fails
     if (zipCode.startsWith('90') || zipCode.startsWith('91')) {
       // Los Angeles area
       congressionalDistrict = Math.floor((zipNum - 90000) / 1000) + 25;
       county = 'Los Angeles County';
-      city = 'Los Angeles Area';
+      city = 'Los Angeles';
     } else if (zipCode.startsWith('94')) {
       // San Francisco Bay Area
       congressionalDistrict = 12;
       county = 'San Francisco County';
-      city = 'San Francisco Area';
+      city = 'San Francisco';
     } else if (zipCode.startsWith('95')) {
       // Sacramento/Central Valley
       congressionalDistrict = 7;
       county = 'Sacramento County';
-      city = 'Sacramento Area';
+      city = 'Sacramento';
     }
 
     return {
       zipCode,
       congressionalDistrict: Math.min(Math.max(congressionalDistrict, 1), 52), // CA has 52 districts
-      stateSenateDistrict: Math.min(Math.max(stateAssemblyDistrict, 1), 40), // CA has 40 senate districts
+      stateSenateDistrict: Math.min(Math.max(stateSenateDistrict, 1), 40), // CA has 40 senate districts
       stateAssemblyDistrict: Math.min(Math.max(stateAssemblyDistrict, 1), 80), // CA has 80 assembly districts
       county,
       city,
-      coordinates: [-119.4179, 36.7783], // Center of California
+      coordinates: this.getCityCoordinates(city),
       accuracy: 0.5,
       source: 'fallback',
       lastUpdated: new Date().toISOString()
     };
+  }
+
+  private getCityCoordinates(cityName: string): [number, number] {
+    // Known coordinates for major California cities
+    const cityCoordinates: Record<string, [number, number]> = {
+      'Los Angeles': [-118.2437, 34.0522],
+      'San Diego': [-117.1611, 32.7157],
+      'San Jose': [-121.8863, 37.3382],
+      'San Francisco': [-122.4194, 37.7749],
+      'Fresno': [-119.7871, 36.7378],
+      'Sacramento': [-121.4692, 38.5816],
+      'Long Beach': [-118.1937, 33.7701],
+      'Oakland': [-122.2711, 37.8044],
+      'Bakersfield': [-119.0187, 35.3733],
+      'Anaheim': [-117.9145, 33.8366],
+      'Unincorporated Area': [-119.4179, 36.7783] // Center of California
+    };
+
+    return cityCoordinates[cityName] || [-119.4179, 36.7783];
+  }
+
+  private getCongressionalDistrict(zipCode: string): number {
+    // Enhanced congressional district mapping for California
+    const zipNum = parseInt(zipCode);
+    
+    if (zipCode.startsWith('95')) {
+      // Sacramento area congressional districts
+      if (['95814', '95815', '95816', '95817', '95818', '95819', '95820', '95821', '95822', '95823', '95824', '95825'].includes(zipCode)) {
+        return 7; // Sacramento is primarily in CA-07
+      }
+      return 4; // Other Central Valley areas
+    }
+    
+    // Default fallback logic
+    if (zipCode.startsWith('90') || zipCode.startsWith('91')) {
+      return Math.min(Math.floor((zipNum - 90000) / 1000) + 25, 52);
+    } else if (zipCode.startsWith('94')) {
+      return 12;
+    }
+    
+    return 1;
+  }
+
+  private getStateSenateDistrict(zipCode: string): number {
+    // California State Senate districts (1-40)
+    if (zipCode.startsWith('95')) {
+      return 6; // Sacramento area is primarily SD-06
+    } else if (zipCode.startsWith('90') || zipCode.startsWith('91')) {
+      return Math.min(Math.floor((parseInt(zipCode) - 90000) / 2000) + 20, 40);
+    } else if (zipCode.startsWith('94')) {
+      return 11;
+    }
+    return 1;
+  }
+
+  private getStateAssemblyDistrict(zipCode: string): number {
+    // California State Assembly districts (1-80)
+    if (zipCode.startsWith('95')) {
+      return 7; // Sacramento area is primarily AD-07
+    } else if (zipCode.startsWith('90') || zipCode.startsWith('91')) {
+      return Math.min(Math.floor((parseInt(zipCode) - 90000) / 1000) + 40, 80);
+    } else if (zipCode.startsWith('94')) {
+      return 17;
+    }
+    return 1;
   }
 
   async batchProcessZipCodes(

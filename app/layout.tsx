@@ -5,6 +5,7 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { WebVitalsMonitor } from '@/components/performance/WebVitals';
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
 import MobileNav from '@/components/navigation/MobileNav';
+import { NavigationErrorBoundary } from '@/components/ErrorBoundary';
 import { defaultMetadata } from '@/lib/seo';
 import Script from 'next/script';
 import './globals.css';
@@ -80,7 +81,9 @@ export default function RootLayout({
         </a>
 
         <AuthProvider>
-          <MobileNav />
+          <NavigationErrorBoundary>
+            <MobileNav />
+          </NavigationErrorBoundary>
           <div className="min-h-screen flex flex-col">
             <main id="main-content" className="flex-1">
               {children}

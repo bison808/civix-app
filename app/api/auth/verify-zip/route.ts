@@ -10,6 +10,8 @@ const ZIP_LOCATIONS: Record<string, { city: string; state: string; county?: stri
   '94301': { city: 'Palo Alto', state: 'CA', county: 'Santa Clara' },
   '92101': { city: 'San Diego', state: 'CA', county: 'San Diego' },
   '95814': { city: 'Sacramento', state: 'CA', county: 'Sacramento' },
+  '95815': { city: 'Sacramento', state: 'CA', county: 'Sacramento' },
+  '95816': { city: 'Sacramento', state: 'CA', county: 'Sacramento' },
   
   // New York
   '10001': { city: 'New York', state: 'NY', county: 'New York' },
@@ -150,8 +152,26 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    const zipNum = parseInt(zipCode);
+    
+    // Validate ZIP code is within valid US ranges (00501-99950)
+    if (zipNum <= 500 || zipNum > 99950) {
+      return NextResponse.json(
+        { valid: false, error: 'Invalid ZIP code - not in valid US range' },
+        { status: 400 }
+      );
+    }
+    
     // Check if we have exact location data
     const location = ZIP_LOCATIONS[zipCode] || getStateFromZip(zipCode);
+    
+    // If fallback returns generic "United States", it's likely invalid
+    if (location.city === 'United States' && location.state === 'US') {
+      return NextResponse.json(
+        { valid: false, error: 'Invalid ZIP code - unknown location' },
+        { status: 400 }
+      );
+    }
     
     return NextResponse.json({
       valid: true,

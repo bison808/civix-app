@@ -7,7 +7,7 @@ export interface ZipDistrictMapping {
   city: string;
   coordinates: [number, number]; // [longitude, latitude]
   accuracy: number; // Geocodio accuracy score (0-1)
-  source: 'geocodio' | 'cache' | 'fallback';
+  source: 'geocodio' | 'cache' | 'fallback' | 'fallback_with_municipal';
   lastUpdated: string;
 }
 
@@ -27,7 +27,7 @@ export interface MultiDistrictMapping {
   city: string;
   coordinates: [number, number];
   accuracy: number;
-  source: 'geocodio' | 'cache' | 'fallback';
+  source: 'geocodio' | 'cache' | 'fallback' | 'fallback_with_municipal';
   lastUpdated: string;
 }
 
