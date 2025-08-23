@@ -103,30 +103,34 @@ export default function DashboardPage() {
     </Card>
   );
 
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  
   return (
-    <div className="flex-1 flex flex-col pt-14 pb-16">
+    <div className="flex-1 flex flex-col">
       {/* Desktop Header - Same as Feed */}
-      <header className="hidden md:flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white">
-        <div className="flex items-center gap-4">
-          <CivixLogo size="sm" />
-          <ZipDisplay showChangeButton={false} />
-          <VerificationBadge size="sm" showLabel={false} />
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <Search size={20} />
-          </button>
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
-            <Bell size={20} />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-          </button>
-          <UserMenu />
-        </div>
-      </header>
+      {!isMobile && (
+        <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white safe-top">
+          <div className="flex items-center gap-4">
+            <CivixLogo size="sm" />
+            <ZipDisplay showChangeButton={false} />
+            <VerificationBadge size="sm" showLabel={false} />
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+              <Search size={20} />
+            </button>
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
+              <Bell size={20} />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+            </button>
+            <UserMenu />
+          </div>
+        </header>
+      )}
       
       {/* Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 pb-20">
+      <div className={isMobile ? "flex-1 overflow-y-auto px-4 py-4 pt-14 pb-16" : "flex-1 overflow-y-auto px-4 py-4">
         {loading ? (
           <div className="space-y-4">
             <div className="bg-gray-100 rounded-lg h-32 animate-pulse" />
