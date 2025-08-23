@@ -96,16 +96,16 @@ export default function MobileNav({ className }: MobileNavProps) {
       <header className={cn(
         "fixed top-0 left-0 right-0 z-[9999]",
         "h-14 bg-white border-b border-gray-200",
-        "flex items-center justify-between px-4 safe-top",
+        "flex items-center justify-between pl-1 pr-4 safe-top",
         "md:hidden",
         className
       )}
       style={{ zIndex: 9999 }}>
         {/* Left Side - Logo, ZIP, Verification */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-1.5 -ml-1 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors flex-shrink-0"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -113,7 +113,7 @@ export default function MobileNav({ className }: MobileNavProps) {
           <img 
             src="/citzn.svg" 
             alt="CITZN" 
-            className="h-6 w-auto"
+            className="h-6 w-auto flex-shrink-0 ml-1"
             width="auto"
             height="24"
           />
