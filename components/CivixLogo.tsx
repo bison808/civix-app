@@ -26,7 +26,7 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   return (
     <div className="flex flex-col items-center">
       {!imageError ? (
-        <div style={{ width: sizeConfig.logo, height: sizeConfig.logo, position: 'relative' }}>
+        <div style={{ width: sizeConfig.logo, height: sizeConfig.logo, position: 'relative', paddingLeft: '4px' }}>
           <OptimizedImage
             src="/citzn-logo-optimized.webp"
             alt="CITZN"
