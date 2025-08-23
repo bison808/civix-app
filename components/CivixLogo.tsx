@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { OptimizedImage } from './OptimizedImage';
 
 interface CivixLogoProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   showTagline?: boolean;
   animated?: boolean;
 }
@@ -18,7 +18,8 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
     sm: { logo: 100, tagline: 'text-xs', text: 'text-2xl' },
     md: { logo: 150, tagline: 'text-sm', text: 'text-3xl' },
     lg: { logo: 200, tagline: 'text-base', text: 'text-4xl' },
-    xl: { logo: 250, tagline: 'text-lg', text: 'text-5xl' }
+    xl: { logo: 250, tagline: 'text-lg', text: 'text-5xl' },
+    '2xl': { logo: 320, tagline: 'text-xl', text: 'text-6xl' }
   };
 
   const sizeConfig = sizes[size];
@@ -33,7 +34,7 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
             width={sizeConfig.logo}
             height={sizeConfig.logo}
             className={`rounded-lg object-contain ${animated ? 'animate-pulse' : ''}`}
-            priority={size === 'lg' || size === 'xl'}
+            priority={size === 'lg' || size === 'xl' || size === '2xl'}
             sizes={`(max-width: 640px) ${sizeConfig.logo}px, (max-width: 1024px) ${sizeConfig.logo}px, ${sizeConfig.logo}px`}
           />
         </div>

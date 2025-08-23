@@ -126,7 +126,7 @@ export default function EnhancedLandingPage() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
-            <CivixLogo size="xl" showTagline={true} animated={true} />
+            <CivixLogo size="2xl" showTagline={true} animated={true} />
             
             {/* Welcome message for first-time users */}
             {isFirstTime && (
