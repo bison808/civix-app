@@ -26,13 +26,23 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   return (
     <div className="flex flex-col items-center">
       {!imageError ? (
-        <div style={{ width: sizeConfig.logo, height: sizeConfig.logo, position: 'relative' }}>
+        <div className="flex items-center justify-center" style={{ 
+          width: sizeConfig.logo + 10, // Add extra width to prevent cutoff
+          height: sizeConfig.logo,
+          position: 'relative'
+        }}>
           <OptimizedImage
             src="/citzn-logo-optimized.webp"
             alt="CITZN"
             width={sizeConfig.logo}
             height={sizeConfig.logo}
-            className={`rounded-lg object-contain ${animated ? 'animate-pulse' : ''}`}
+            className={`rounded-lg ${animated ? 'animate-pulse' : ''}`}
+            style={{ 
+              maxWidth: '100%',
+              height: 'auto',
+              objectFit: 'contain',
+              objectPosition: 'center'
+            }}
             priority={size === 'lg' || size === 'xl'}
             sizes={`(max-width: 640px) ${sizeConfig.logo}px, (max-width: 1024px) ${sizeConfig.logo}px, ${sizeConfig.logo}px`}
           />
