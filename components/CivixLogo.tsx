@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { OptimizedImage } from './OptimizedImage';
+import Image from 'next/image';
 
 interface CivixLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -15,10 +15,10 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   const [imageError, setImageError] = useState(false);
   
   const sizes = {
-    sm: { logo: 100, tagline: 'text-xs', text: 'text-2xl' },
-    md: { logo: 150, tagline: 'text-sm', text: 'text-3xl' },
-    lg: { logo: 200, tagline: 'text-base', text: 'text-4xl' },
-    xl: { logo: 250, tagline: 'text-lg', text: 'text-5xl' }
+    sm: { logo: 100, container: 110, tagline: 'text-xs', text: 'text-2xl' },
+    md: { logo: 150, container: 160, tagline: 'text-sm', text: 'text-3xl' },
+    lg: { logo: 200, container: 210, tagline: 'text-base', text: 'text-4xl' },
+    xl: { logo: 250, container: 260, tagline: 'text-lg', text: 'text-5xl' }
   };
 
   const sizeConfig = sizes[size];
@@ -26,25 +26,29 @@ export const CivixLogo: React.FC<CivixLogoProps> = ({
   return (
     <div className="flex flex-col items-center">
       {!imageError ? (
-        <div className="flex items-center justify-center" style={{ 
-          width: sizeConfig.logo + 10, // Add extra width to prevent cutoff
-          height: sizeConfig.logo,
-          position: 'relative'
-        }}>
-          <OptimizedImage
+        <div 
+          className="relative flex items-center justify-center overflow-visible"
+          style={{ 
+            width: sizeConfig.container,
+            height: sizeConfig.logo,
+            padding: '5px'
+          }}
+        >
+          <Image
             src="/citzn-logo-optimized.webp"
             alt="CITZN"
             width={sizeConfig.logo}
             height={sizeConfig.logo}
-            className={`rounded-lg ${animated ? 'animate-pulse' : ''}`}
+            className={`${animated ? 'animate-pulse' : ''}`}
             style={{ 
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: 'none',
+              width: `${sizeConfig.logo}px`,
+              height: `${sizeConfig.logo}px`,
               objectFit: 'contain',
-              objectPosition: 'center'
+              marginLeft: '5px' // Add left margin to compensate for cutoff
             }}
             priority={size === 'lg' || size === 'xl'}
-            sizes={`(max-width: 640px) ${sizeConfig.logo}px, (max-width: 1024px) ${sizeConfig.logo}px, ${sizeConfig.logo}px`}
+            onError={() => setImageError(true)}
           />
         </div>
       ) : (
