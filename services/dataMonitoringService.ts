@@ -368,7 +368,7 @@ class DataMonitoringService {
         status: 'critical',
         uptime: 0,
         lastHealthCheck: new Date().toISOString(),
-        issues: [`Health check failed: ${error.message}`]
+        issues: [`Health check failed: ${error instanceof Error ? error.message : String(error)}`]
       };
     }
   }
@@ -633,7 +633,7 @@ class DataMonitoringService {
       
       console.log(`Loaded ${this.metricsHistory.length} quality metrics and ${this.performanceHistory.length} performance metrics`);
     } catch (error) {
-      console.warn('Could not load historical metrics:', error.message);
+      console.warn('Could not load historical metrics:', error instanceof Error ? error.message : String(error));
     }
   }
 

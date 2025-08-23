@@ -220,7 +220,11 @@ export class OpenStatesService {
         },
         photoUrl: fields[indices.image] || undefined,
         termStart: '2023-01-01', // Default values
-        termEnd: '2025-01-01'
+        termEnd: '2025-01-01',
+        level: 'state',
+        jurisdiction: state,
+        governmentType: 'state',
+        jurisdictionScope: 'district'
       };
 
       representatives.push(rep);
@@ -367,7 +371,11 @@ export class OpenStatesService {
         },
         photoUrl: fields[indices.image] || undefined,
         termStart: '2023-01-01',
-        termEnd: '2025-01-01'
+        termEnd: '2025-01-01',
+        level: 'state',
+        jurisdiction: 'California',
+        governmentType: 'state',
+        jurisdictionScope: 'district'
       };
 
       legislators.push(rep);

@@ -235,7 +235,7 @@ class FederalRepresentativesService {
 
     if (filter.party) {
       results = results.filter(rep => 
-        rep.party.toLowerCase() === filter.party.toLowerCase()
+        rep.party.toLowerCase() === filter.party!.toLowerCase()
       );
     }
 

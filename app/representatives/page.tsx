@@ -41,8 +41,15 @@ export default function RepresentativesPage() {
       // Categorize representatives by level
       const enhancedData = data.map(rep => ({
         ...rep,
-        level: rep.title === 'Senator' || rep.title === 'Representative' ? 'federal' : 
-               rep.title.includes('State') ? 'state' : 'local',
+        level: (rep.title === 'Senator' || rep.title === 'Representative' ? 'federal' : 
+               rep.title.includes('State') ? 'state' : 'local') as 'federal' | 'state' | 'county' | 'municipal',
+        jurisdiction: rep.state || 'Unknown',
+        governmentType: (rep.title === 'Senator' || rep.title === 'Representative' ? 'federal' :
+                       rep.title.includes('State') ? 'state' : 
+                       rep.title.includes('County') || rep.title.includes('Supervisor') ? 'county' : 'city') as 'city' | 'county' | 'state' | 'federal' | 'district' | 'special',
+        jurisdictionScope: (rep.title === 'Senator' ? 'statewide' :
+                          rep.title === 'Representative' ? 'district' :
+                          rep.title.includes('State') ? 'statewide' : 'district') as 'citywide' | 'countywide' | 'statewide' | 'national' | 'district',
         approvalRating: Math.floor(Math.random() * 40) + 50,
         responsiveness: Math.floor(Math.random() * 30) + 60,
         totalFeedback: Math.floor(Math.random() * 2000) + 100
@@ -64,7 +71,7 @@ export default function RepresentativesPage() {
       filtered = filtered.filter(rep => 
         rep.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         rep.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        rep.district?.toLowerCase().includes(searchQuery.toLowerCase())
+        (typeof rep.district === 'string' ? rep.district.toLowerCase().includes(searchQuery.toLowerCase()) : rep.district?.toString().includes(searchQuery))
       );
     }
 

@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+})
+
 const nextConfig = {
   // Performance optimizations for civic platform
   reactStrictMode: true,
@@ -114,37 +118,79 @@ const nextConfig = {
     ]
   },
   
-  // Webpack optimizations for civic platform
+  // Webpack optimizations for civic platform with enhanced code splitting
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Bundle splitting for better caching
+    // Enhanced bundle splitting for better caching and performance
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
+        minSize: 20000,
+        maxSize: 244000,
         cacheGroups: {
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true,
+          },
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: 'vendors',
-            priority: 10,
+            priority: -10,
+            chunks: 'all',
           },
-          common: {
-            name: 'commons',
-            minChunks: 2,
-            priority: 5,
-            reuseExistingChunk: true,
+          // Political mapping services split
+          politicalMapping: {
+            test: /[\\/]services[\\/](california|county|zip|dataQuality)/,
+            name: 'political-mapping',
+            priority: 15,
+            chunks: 'all',
+          },
+          // Representative components split
+          representatives: {
+            test: /[\\/]components[\\/]representatives[\\/]/,
+            name: 'representatives',
+            priority: 12,
+            chunks: 'all',
+          },
+          // Large libraries split
+          reactQuery: {
+            test: /[\\/]node_modules[\\/]@tanstack[\\/]/,
+            name: 'react-query',
+            priority: 11,
+            chunks: 'all',
+          },
+          framerMotion: {
+            test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+            name: 'framer-motion',
+            priority: 10,
+            chunks: 'all',
           },
         },
       };
     }
     
-    // Performance optimizations
+    // Performance optimizations and aliases
     config.resolve.alias = {
       ...config.resolve.alias,
       // Optimize React Query for civic data
       '@tanstack/react-query': require.resolve('@tanstack/react-query'),
     };
+
+    // Tree shaking optimizations
+    config.optimization.usedExports = true;
+    config.optimization.sideEffects = false;
+    
+    // Add performance budgets
+    if (!dev) {
+      config.performance = {
+        maxAssetSize: 250000, // 250KB per asset
+        maxEntrypointSize: 350000, // 350KB for entry points
+        hints: 'warning',
+      };
+    }
     
     return config;
   },
 }
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig)

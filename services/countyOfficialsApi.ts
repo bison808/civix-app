@@ -172,7 +172,12 @@ class CountyOfficialsApi {
             zipCode: '90012'
           }
         },
-        photoUrl: 'https://bos.lacounty.gov/Assets/BOS/images/Board%20Members/Solis_Official.jpg'
+        photoUrl: 'https://bos.lacounty.gov/Assets/BOS/images/Board%20Members/Solis_Official.jpg',
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-supervisor-2',
@@ -192,7 +197,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-supervisor-3',
@@ -212,7 +222,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-supervisor-4',
@@ -232,7 +247,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-supervisor-5',
@@ -252,7 +272,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-sheriff',
@@ -271,7 +296,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-da',
@@ -290,7 +320,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'Los Angeles'
       },
       {
         id: 'la-assessor',
@@ -309,7 +344,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90012'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Los Angeles County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'Los Angeles'
       }
     ];
   }
@@ -335,7 +375,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92101'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'San Diego'
       },
       {
         id: 'sd-supervisor-2',
@@ -355,7 +400,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92101'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'San Diego'
       },
       {
         id: 'sd-supervisor-3',
@@ -375,7 +425,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92101'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'San Diego'
       },
       {
         id: 'sd-supervisor-4',
@@ -395,7 +450,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92101'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'San Diego'
       },
       {
         id: 'sd-supervisor-5',
@@ -415,7 +475,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92101'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'San Diego'
       },
       {
         id: 'sd-sheriff',
@@ -434,7 +499,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92123'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'San Diego'
       },
       {
         id: 'sd-da',
@@ -453,7 +523,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92101'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'San Diego County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'San Diego'
       }
     ];
   }
@@ -479,7 +554,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92701'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Orange'
       },
       {
         id: 'oc-supervisor-2',
@@ -499,7 +579,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92701'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Orange'
       },
       {
         id: 'oc-supervisor-3',
@@ -519,7 +604,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92701'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Orange'
       },
       {
         id: 'oc-supervisor-4',
@@ -539,7 +629,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92701'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Orange'
       },
       {
         id: 'oc-supervisor-5',
@@ -559,7 +654,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92701'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: 'Orange'
       },
       {
         id: 'oc-sheriff',
@@ -578,7 +678,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92703'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'Orange'
       },
       {
         id: 'oc-da',
@@ -597,7 +702,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '92701'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: 'Orange County',
+        governmentType: 'county' as const,
+        jurisdictionScope: 'countywide' as const,
+        countyName: 'Orange'
       }
     ];
   }
@@ -625,7 +735,12 @@ class CountyOfficialsApi {
             state: 'CA',
             zipCode: '90000'
           }
-        }
+        },
+        level: 'county' as const,
+        jurisdiction: `${countyName} County`,
+        governmentType: 'county' as const,
+        jurisdictionScope: 'district' as const,
+        countyName: countyName
       });
     }
 
@@ -646,7 +761,12 @@ class CountyOfficialsApi {
           state: 'CA',
           zipCode: '90000'
         }
-      }
+      },
+      level: 'county' as const,
+      jurisdiction: `${countyName} County`,
+      governmentType: 'county' as const,
+      jurisdictionScope: 'countywide' as const,
+      countyName: countyName
     });
 
     // Add district attorney
@@ -666,7 +786,12 @@ class CountyOfficialsApi {
           state: 'CA',
           zipCode: '90000'
         }
-      }
+      },
+      level: 'county' as const,
+      jurisdiction: `${countyName} County`,
+      governmentType: 'county' as const,
+      jurisdictionScope: 'countywide' as const,
+      countyName: countyName
     });
 
     return officials;

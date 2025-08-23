@@ -3,9 +3,9 @@ export interface Representative {
   name: string;
   title: string;
   party: 'Democrat' | 'Republican' | 'Independent' | 'Other';
-  chamber: 'House' | 'Senate';
+  chamber: 'House' | 'Senate' | 'Local' | 'assembly' | 'senate' | 'executive';
   state: string;
-  district?: string;
+  district?: string | number;
   photoUrl?: string;
   contactInfo: ContactInfo;
   socialMedia?: SocialMediaLinks;
@@ -15,6 +15,11 @@ export interface Representative {
   termStart: string;
   termEnd: string;
   officeLocations?: OfficeLocation[];
+  // Name collision resolution fields
+  level: 'federal' | 'state' | 'county' | 'municipal';
+  jurisdiction: string;
+  governmentType: 'city' | 'county' | 'state' | 'federal' | 'district' | 'special';
+  jurisdictionScope?: 'citywide' | 'countywide' | 'statewide' | 'national' | 'district';
 }
 
 export interface ContactInfo {

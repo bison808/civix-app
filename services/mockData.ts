@@ -252,7 +252,11 @@ export const mockCARepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2021-01-20',
     termEnd: '2027-01-01',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'California',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   },
   {
     id: 'rep-2',
@@ -275,7 +279,11 @@ export const mockCARepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2023-10-03',
     termEnd: '2025-01-01',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'California',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   },
   {
     id: 'rep-3',
@@ -298,7 +306,11 @@ export const mockCARepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2023-01-03',
     termEnd: '2025-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'California',
+    governmentType: 'federal',
+    jurisdictionScope: 'district'
   }
 ];
 
@@ -325,7 +337,11 @@ export const mockTXRepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2020-01-03',
     termEnd: '2027-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'Texas',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   },
   {
     id: 'rep-tx-2',
@@ -348,7 +364,11 @@ export const mockTXRepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2024-01-03',
     termEnd: '2031-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'Texas',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   }
 ];
 
@@ -375,7 +395,11 @@ export const mockNYRepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2022-01-03',
     termEnd: '2029-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'New York',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   },
   {
     id: 'rep-ny-2',
@@ -398,7 +422,11 @@ export const mockNYRepresentatives: Representative[] = [
     biography: undefined,
     termStart: '2024-01-03',
     termEnd: '2031-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'New York',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   }
 ];
 

@@ -21,6 +21,12 @@ export interface CountyOfficial {
   party?: string;
   photoUrl?: string;
   biography?: string;
+  // Name collision resolution fields
+  level: 'county';
+  jurisdiction: string;
+  governmentType: 'county';
+  jurisdictionScope: 'countywide' | 'district';
+  countyName: string;
 }
 
 export interface SupervisorDistrict {
@@ -85,4 +91,18 @@ export interface CountyFilter {
   population?: { min?: number; max?: number };
   region?: 'Northern' | 'Central' | 'Southern';
   searchTerm?: string;
+}
+
+export interface CountyDistrict {
+  id: string;
+  name: string;
+  type: 'Supervisor' | 'School' | 'Water' | 'Fire' | 'Other';
+  districtNumber: number;
+  county: string;
+  zipCodes: string[];
+  population?: number;
+  representative?: CountyOfficial;
+  boundaries?: string; // GeoJSON or description
+  website?: string;
+  contactInfo?: CountyContactInfo;
 }

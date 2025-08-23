@@ -440,7 +440,7 @@ class DataCorrectionsService {
       console.log(`Correction ${correctionId} implemented successfully`);
 
     } catch (error) {
-      result.errors.push(error.message);
+      result.errors.push(error instanceof Error ? error.message : String(error));
       console.error(`Failed to implement correction ${correctionId}:`, error);
     }
 
@@ -529,7 +529,7 @@ class DataCorrectionsService {
         }
       } catch (error) {
         result.failed++;
-        result.errors.push(`${correctionId}: ${error.message}`);
+        result.errors.push(`${correctionId}: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
 
@@ -620,7 +620,7 @@ class DataCorrectionsService {
       
       console.log(`Loaded ${corrections.length} existing corrections`);
     } catch (error) {
-      console.warn('Could not load existing corrections:', error.message);
+      console.warn('Could not load existing corrections:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -635,7 +635,7 @@ class DataCorrectionsService {
       
       console.log(`Loaded ${workflows.length} correction workflows`);
     } catch (error) {
-      console.warn('Could not load correction workflows:', error.message);
+      console.warn('Could not load correction workflows:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -650,7 +650,7 @@ class DataCorrectionsService {
       
       console.log(`Loaded ${batches.length} correction batches`);
     } catch (error) {
-      console.warn('Could not load correction batches:', error.message);
+      console.warn('Could not load correction batches:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -861,7 +861,7 @@ class DataCorrectionsService {
     try {
       await dataPipelineAPI.post('/api/system/corrections', correction);
     } catch (error) {
-      console.warn(`Failed to persist correction ${correction.id}:`, error.message);
+      console.warn(`Failed to persist correction ${correction.id}:`, error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -869,7 +869,7 @@ class DataCorrectionsService {
     try {
       await dataPipelineAPI.post('/api/system/correction-batches', batch);
     } catch (error) {
-      console.warn(`Failed to persist batch ${batch.id}:`, error.message);
+      console.warn(`Failed to persist batch ${batch.id}:`, error instanceof Error ? error.message : String(error));
     }
   }
 

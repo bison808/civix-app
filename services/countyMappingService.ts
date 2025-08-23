@@ -1,4 +1,5 @@
 import { dataPipelineAPI } from './api/client';
+import { geocodingService } from './geocodingService';
 import {
   County,
   CountyInfo,
@@ -6,7 +7,9 @@ import {
   SupervisorDistrict,
   CountySearchResult,
   CountyFilter,
+  CountyDistrict,
 } from '../types/county.types';
+import { Representative } from '../types/representatives.types';
 
 // California County ZIP code mappings (major counties with sample ZIP codes)
 const CALIFORNIA_COUNTY_ZIP_MAPPING: Record<string, string[]> = {
@@ -324,7 +327,12 @@ class CountyMappingService {
             phone: '311',
             website: CALIFORNIA_COUNTIES.find(c => c.name === countyName)?.website || 'https://www.ca.gov',
             email: `supervisor${i}@${countyName.toLowerCase()}county.gov`
-          }
+          },
+          level: 'county' as const,
+          jurisdiction: `${countyName} County`,
+          governmentType: 'county' as const,
+          jurisdictionScope: 'district' as const,
+          countyName: countyName
         },
         zipCodes: [],
         population: 0
@@ -413,6 +421,289 @@ class CountyMappingService {
 
   private setCache(key: string, data: any): void {
     this.cache.set(key, { data, timestamp: Date.now() });
+  }
+
+  /**
+   * Get county information from ZIP code
+   */
+  async getCountyFromZipCode(zipCode: string): Promise<CountyInfo | null> {
+    try {
+      // First try the existing method which has all the logic
+      return await this.getCountyForZip(zipCode);
+    } catch (error) {
+      console.error(`Error getting county from ZIP ${zipCode}:`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Get all districts within a county
+   */
+  async getCountyDistricts(county: string): Promise<CountyDistrict[]> {
+    const cacheKey = `county-districts-${county}`;
+    
+    // Check cache first
+    const cached = this.getFromCache(cacheKey);
+    if (cached) return cached;
+
+    try {
+      // Try to get from API first
+      const response = await dataPipelineAPI.get(`/api/counties/${encodeURIComponent(county)}/all-districts`);
+      const result = await response.json();
+      
+      this.setCache(cacheKey, result);
+      return result;
+    } catch (error) {
+      console.warn(`Failed to get districts for ${county}, using default data:`, error);
+      
+      // Fallback to generating default district data
+      const districts: CountyDistrict[] = [];
+      
+      // Get supervisor districts first
+      try {
+        const supervisorDistricts = await this.getSupervisorDistricts(county);
+        supervisorDistricts.forEach((superDist, index) => {
+          districts.push({
+            id: `${county.toLowerCase()}-supervisor-${superDist.district}`,
+            name: `${county} County Supervisor District ${superDist.district}`,
+            type: 'Supervisor',
+            districtNumber: superDist.district,
+            county: county,
+            zipCodes: superDist.zipCodes,
+            population: superDist.population,
+            representative: superDist.supervisor,
+            website: superDist.supervisor.contactInfo.website,
+            contactInfo: superDist.supervisor.contactInfo
+          });
+        });
+      } catch (error) {
+        console.warn(`Failed to get supervisor districts for ${county}:`, error);
+      }
+
+      // Add default school districts (placeholder data)
+      for (let i = 1; i <= 3; i++) {
+        districts.push({
+          id: `${county.toLowerCase()}-school-${i}`,
+          name: `${county} County School District ${i}`,
+          type: 'School',
+          districtNumber: i,
+          county: county,
+          zipCodes: [],
+          population: 0,
+          website: `https://www.${county.toLowerCase()}schools${i}.edu`,
+          contactInfo: {
+            phone: '(555) 555-0000',
+            email: `info@${county.toLowerCase()}schools${i}.edu`,
+            website: `https://www.${county.toLowerCase()}schools${i}.edu`
+          }
+        });
+      }
+
+      // Add water district (placeholder data)
+      districts.push({
+        id: `${county.toLowerCase()}-water-1`,
+        name: `${county} County Water District`,
+        type: 'Water',
+        districtNumber: 1,
+        county: county,
+        zipCodes: [],
+        population: 0,
+        website: `https://www.${county.toLowerCase()}water.org`,
+        contactInfo: {
+          phone: '(555) 555-1000',
+          email: `info@${county.toLowerCase()}water.org`,
+          website: `https://www.${county.toLowerCase()}water.org`
+        }
+      });
+
+      // Add fire protection district (placeholder data) 
+      districts.push({
+        id: `${county.toLowerCase()}-fire-1`,
+        name: `${county} County Fire Protection District`,
+        type: 'Fire',
+        districtNumber: 1,
+        county: county,
+        zipCodes: [],
+        population: 0,
+        website: `https://www.${county.toLowerCase()}fire.org`,
+        contactInfo: {
+          phone: '(555) 555-2000',
+          email: `info@${county.toLowerCase()}fire.org`,
+          website: `https://www.${county.toLowerCase()}fire.org`
+        }
+      });
+      
+      this.setCache(cacheKey, districts);
+      return districts;
+    }
+  }
+
+  /**
+   * Resolve name collision between city and county (e.g., Sacramento City vs Sacramento County)
+   */
+  resolveNameCollision(cityName: string, countyName: string): {
+    cityOfficials: Representative[];
+    countyOfficials: CountyOfficial[];
+  } {
+    try {
+      // Implementation would get actual officials from respective services
+      const result = {
+        cityOfficials: [] as Representative[],
+        countyOfficials: [] as CountyOfficial[]
+      };
+
+      // Example differentiation logic
+      if (cityName.toLowerCase() === countyName.toLowerCase()) {
+        console.log(`Name collision detected: ${cityName} City vs ${countyName} County`);
+        
+        // City officials would be fetched from municipal API
+        // County officials from county mapping service
+        // This would be populated with actual API calls
+        
+        return result;
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error resolving name collision:', error);
+      return {
+        cityOfficials: [],
+        countyOfficials: []
+      };
+    }
+  }
+
+  /**
+   * Detect if a location name has potential collisions
+   */
+  detectPotentialCollisions(locationName: string): {
+    hasCollision: boolean;
+    collisionType: 'city-county' | 'city-city' | 'county-county' | 'none';
+    alternativeNames: string[];
+  } {
+    try {
+      const normalizedName = locationName.toLowerCase().trim();
+      
+      // Common California city-county collisions
+      const knownCollisions = [
+        'sacramento', 'orange', 'fresno', 'san francisco', 'san diego',
+        'los angeles', 'santa clara', 'santa cruz', 'sonoma', 'napa',
+        'monterey', 'santa barbara', 'ventura', 'riverside', 'san bernardino'
+      ];
+
+      if (knownCollisions.includes(normalizedName)) {
+        return {
+          hasCollision: true,
+          collisionType: 'city-county',
+          alternativeNames: [
+            `${locationName} City`,
+            `${locationName} County`,
+            `City of ${locationName}`,
+            `${locationName} County Government`
+          ]
+        };
+      }
+
+      return {
+        hasCollision: false,
+        collisionType: 'none',
+        alternativeNames: []
+      };
+    } catch (error) {
+      console.error('Error detecting potential collisions:', error);
+      return {
+        hasCollision: false,
+        collisionType: 'none',
+        alternativeNames: []
+      };
+    }
+  }
+
+  /**
+   * Get official classification to help distinguish municipal vs county officials
+   */
+  classifyOfficialByTitle(title: string, jurisdiction: string): {
+    level: 'municipal' | 'county' | 'state' | 'federal' | 'special';
+    governmentType: 'city' | 'county' | 'state' | 'federal' | 'district' | 'special';
+    confidence: number;
+  } {
+    try {
+      const normalizedTitle = title.toLowerCase();
+      
+      // Municipal/City officials
+      if (normalizedTitle.includes('mayor') || 
+          normalizedTitle.includes('council') || 
+          normalizedTitle.includes('city') ||
+          normalizedTitle.includes('municipal')) {
+        return {
+          level: 'municipal',
+          governmentType: 'city',
+          confidence: 0.95
+        };
+      }
+
+      // County officials  
+      if (normalizedTitle.includes('supervisor') || 
+          normalizedTitle.includes('sheriff') || 
+          normalizedTitle.includes('district attorney') ||
+          normalizedTitle.includes('county') ||
+          normalizedTitle.includes('assessor') ||
+          normalizedTitle.includes('auditor')) {
+        return {
+          level: 'county',
+          governmentType: 'county',
+          confidence: 0.95
+        };
+      }
+
+      // State officials
+      if (normalizedTitle.includes('state') || 
+          normalizedTitle.includes('assembly') || 
+          normalizedTitle.includes('senate') && !normalizedTitle.includes('u.s.')) {
+        return {
+          level: 'state',
+          governmentType: 'state',
+          confidence: 0.90
+        };
+      }
+
+      // Federal officials
+      if (normalizedTitle.includes('congress') || 
+          normalizedTitle.includes('representative') || 
+          normalizedTitle.includes('senator') ||
+          normalizedTitle.includes('u.s.')) {
+        return {
+          level: 'federal',
+          governmentType: 'federal',
+          confidence: 0.95
+        };
+      }
+
+      // Special districts
+      if (normalizedTitle.includes('district') ||
+          normalizedTitle.includes('board') ||
+          normalizedTitle.includes('trustee')) {
+        return {
+          level: 'special',
+          governmentType: 'district',
+          confidence: 0.70
+        };
+      }
+
+      // Default to county if unsure (common in California)
+      return {
+        level: 'county',
+        governmentType: 'county',
+        confidence: 0.50
+      };
+    } catch (error) {
+      console.error('Error classifying official by title:', error);
+      return {
+        level: 'county',
+        governmentType: 'county',
+        confidence: 0.0
+      };
+    }
   }
 }
 

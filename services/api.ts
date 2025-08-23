@@ -170,6 +170,10 @@ export const api = {
                 state: congressReps[0]?.state || 'US',
                 district: location?.city || 'Local',
                 chamber: 'Local' as any,
+                level: 'municipal' as const,
+                jurisdiction: location?.city || 'Your City',
+                governmentType: 'city' as const,
+                jurisdictionScope: 'citywide' as const,
                 contactInfo: {
                   phone: '311',
                   website: `https://www.${(location?.city || 'local').toLowerCase().replace(/\s+/g, '')}.gov`,

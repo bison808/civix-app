@@ -27,7 +27,11 @@ export const santaCruzFederalReps: Representative[] = [
     biography: undefined,
     termStart: '2021-01-20',
     termEnd: '2029-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'California',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   },
   {
     id: 'sen-ca-schiff',
@@ -50,7 +54,11 @@ export const santaCruzFederalReps: Representative[] = [
     biography: undefined,
     termStart: '2025-01-03',
     termEnd: '2031-01-03',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'federal',
+    jurisdiction: 'California',
+    governmentType: 'federal',
+    jurisdictionScope: 'statewide'
   },
   {
     id: 'rep-ca-18',
@@ -87,7 +95,11 @@ export const santaCruzFederalReps: Representative[] = [
         },
         phone: '831-429-1976'
       }
-    ]
+    ],
+    level: 'federal',
+    jurisdiction: 'California',
+    governmentType: 'federal',
+    jurisdictionScope: 'district'
   }
 ];
 
@@ -125,7 +137,11 @@ export const santaCruzStateReps: Representative[] = [
         },
         phone: '831-425-0401'
       }
-    ]
+    ],
+    level: 'state',
+    jurisdiction: 'California',
+    governmentType: 'state',
+    jurisdictionScope: 'district'
   },
   {
     id: 'state-asm-29',
@@ -148,7 +164,11 @@ export const santaCruzStateReps: Representative[] = [
     biography: 'Speaker of the California State Assembly, representing District 29 including parts of Santa Cruz County',
     termStart: '2023-06-30',
     termEnd: '2024-11-30',
-    officeLocations: undefined
+    officeLocations: undefined,
+    level: 'state',
+    jurisdiction: 'California',
+    governmentType: 'state',
+    jurisdictionScope: 'district'
   }
 ];
 
@@ -186,6 +206,10 @@ export const santaCruzLocalReps: Representative[] = [
         },
         phone: '831-420-5020'
       }
-    ]
+    ],
+    level: 'municipal',
+    jurisdiction: 'Santa Cruz',
+    governmentType: 'city',
+    jurisdictionScope: 'citywide'
   }
 ];

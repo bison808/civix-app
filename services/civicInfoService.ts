@@ -164,6 +164,10 @@ export class CivicInfoService {
         state: state,
         district: city,
         chamber: 'Local' as any,
+        level: 'municipal' as const,
+        jurisdiction: city,
+        governmentType: 'city' as const,
+        jurisdictionScope: 'citywide' as const,
         contactInfo: {
           phone: mayorData.phone || '311',
           website: mayorData.website || `https://www.${city.toLowerCase().replace(/\s+/g, '')}.gov`,
@@ -186,6 +190,10 @@ export class CivicInfoService {
           state: state,
           district: `District ${i}`,
           chamber: 'Local' as any,
+          level: 'municipal' as const,
+          jurisdiction: city,
+          governmentType: 'city' as const,
+          jurisdictionScope: 'district' as const,
           contactInfo: {
             phone: mayorData.phone || '311',
             website: `${mayorData.website}/council` || `https://www.${city.toLowerCase().replace(/\s+/g, '')}.gov/council`,
@@ -207,6 +215,10 @@ export class CivicInfoService {
         state: state,
         district: city,
         chamber: 'Local' as any,
+        level: 'municipal' as const,
+        jurisdiction: city,
+        governmentType: 'city' as const,
+        jurisdictionScope: 'citywide' as const,
         contactInfo: {
           phone: '311',
           website: `https://www.${city.toLowerCase().replace(/\s+/g, '')}.gov`,
@@ -229,6 +241,10 @@ export class CivicInfoService {
           state: state,
           district: `District ${i}`,
           chamber: 'Local' as any,
+          level: 'municipal' as const,
+          jurisdiction: city,
+          governmentType: 'city' as const,
+          jurisdictionScope: 'district' as const,
           contactInfo: {
             phone: '311',
             website: `https://www.${city.toLowerCase().replace(/\s+/g, '')}.gov/council`,

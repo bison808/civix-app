@@ -1,4 +1,5 @@
 import { dataPipelineAPI } from './api/client';
+import { dataMonitoringService } from './dataMonitoringService';
 import { Representative } from '../types/representatives.types';
 
 // Data Quality Interfaces
@@ -78,9 +79,10 @@ class DataQualityService {
    * Validates a single representative's data
    */
   async validateRepresentativeData(rep: Representative): Promise<ValidationResult> {
-    const errors: ValidationError[] = [];
-    const warnings: ValidationWarning[] = [];
-    let confidence = 100;
+    try {
+      const errors: ValidationError[] = [];
+      const warnings: ValidationWarning[] = [];
+      let confidence = 100;
 
     // Critical field validation
     if (!rep.id) {
@@ -157,13 +159,28 @@ class DataQualityService {
       confidence -= 2;
     }
 
-    return {
-      isValid: errors.length === 0,
-      errors,
-      warnings,
-      confidence: Math.max(0, confidence),
-      lastValidated: new Date().toISOString()
-    };
+      return {
+        isValid: errors.length === 0,
+        errors,
+        warnings,
+        confidence: Math.max(0, confidence),
+        lastValidated: new Date().toISOString()
+      };
+    } catch (error) {
+      console.error('Error validating representative data:', error);
+      return {
+        isValid: false,
+        errors: [{
+          type: 'invalid_format',
+          field: 'validation_error',
+          message: 'Validation process failed',
+          severity: 'critical'
+        }],
+        warnings: [],
+        confidence: 0,
+        lastValidated: new Date().toISOString()
+      };
+    }
   }
 
   /**

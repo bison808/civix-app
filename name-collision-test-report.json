@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-08-23T20:52:19.579Z",
+  "summary": {
+    "totalTests": 17,
+    "passed": 14,
+    "failed": 3
+  },
+  "nameCollisionTests": {},
+  "dataStructureTests": {},
+  "recommendations": [
+    "Create integration tests with real collision scenarios",
+    "Add monitoring for misclassified officials"
+  ],
+  "completedAt": "2025-08-23T20:52:19.590Z",
+  "successRate": 82,
+  "collisionHandlingStatus": "GOOD",
+  "criticalIssues": []
+}

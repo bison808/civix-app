@@ -97,7 +97,7 @@ class DataQualityOrchestrator {
     } catch (error) {
       console.error('❌ Failed to initialize Data Quality System:', error);
       this.system.systemStatus = 'critical';
-      throw new Error(`System initialization failed: ${error.message}`);
+      throw new Error(`System initialization failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -274,7 +274,7 @@ class DataQualityOrchestrator {
       return {
         overall: 'critical',
         services: serviceStatus,
-        issues: [`Health check failed: ${error.message}`]
+        issues: [`Health check failed: ${error instanceof Error ? error.message : String(error)}`]
       };
     }
   }

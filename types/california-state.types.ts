@@ -27,7 +27,7 @@ export interface StateBill {
   billNumber: string;
   title: string;
   summary: string;
-  status: BillStatus;
+  status: StateBillStatus;
   introducedDate: string;
   lastActionDate: string;
   chamber: 'assembly' | 'senate';
@@ -38,7 +38,7 @@ export interface StateBill {
   votes?: BillVote[];
 }
 
-export interface BillStatus {
+export interface StateBillStatus {
   stage: 'introduced' | 'committee' | 'floor' | 'passed' | 'signed' | 'vetoed' | 'failed';
   description: string;
   date: string;

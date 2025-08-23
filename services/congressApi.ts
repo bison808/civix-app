@@ -288,7 +288,7 @@ class CongressApiService {
     } catch (error) {
       console.error('Failed to fetch bills from Congress API:', error);
       if (error instanceof TypeError) {
-        console.error('Network or parsing error:', error.message);
+        console.error('Network or parsing error:', error instanceof Error ? error.message : String(error));
       } else if (error instanceof Error) {
         console.error('API error details:', error.message, error.stack);
       }
@@ -362,9 +362,9 @@ class CongressApiService {
     } catch (error) {
       console.error('Failed to fetch bill details:', error);
       if (error instanceof TypeError) {
-        console.error('Network error for bill details:', error.message);
+        console.error('Network error for bill details:', error instanceof Error ? error.message : String(error));
       } else if (error instanceof SyntaxError) {
-        console.error('JSON parsing error for bill details:', error.message);
+        console.error('JSON parsing error for bill details:', error instanceof Error ? error.message : String(error));
       }
       
       // Try to find the bill in our current Congress bills

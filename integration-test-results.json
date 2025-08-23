@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-08-23T20:52:28.130Z",
+  "summary": {
+    "totalTests": 31,
+    "passed": 22,
+    "failed": 9,
+    "errors": []
+  },
+  "performance": {
+    "averageResponseTime": 7,
+    "operationTimes": [
+      {
+        "operation": "zip_verification",
+        "zipCode": "90210",
+        "duration": 45,
+        "success": false
+      },
+      {
+        "operation": "zip_verification",
+        "zipCode": "94102",
+        "duration": 1,
+        "success": false
+      },
+      {
+        "operation": "zip_verification",
+        "zipCode": "95814",
+        "duration": 1,
+        "success": false
+      },
+      {
+        "operation": "zip_verification",
+        "zipCode": "92101",
+        "duration": 1,
+        "success": false
+      },
+      {
+        "operation": "zip_verification",
+        "zipCode": "95110",
+        "duration": 1,
+        "success": false
+      },
+      {
+        "operation": "zip_verification",
+        "zipCode": "93514",
+        "duration": 1,
+        "success": false
+      },
+      {
+        "operation": "zip_verification",
+        "zipCode": "99999",
+        "duration": 1,
+        "success": false
+      }
+    ]
+  },
+  "integrationTests": {},
+  "completedAt": "2025-08-23T20:52:28.191Z",
+  "successRate": 71,
+  "recommendations": [
+    "Review failed tests and implement necessary fixes",
+    "Success rate below 80% - investigate failing components"
+  ]
+}

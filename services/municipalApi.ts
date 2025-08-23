@@ -181,39 +181,6 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
     area: 50.3,
     incorporated: true
   },
-  'Sacramento': {
-    name: 'Sacramento',
-    county: 'Sacramento',
-    population: 524943,
-    incorporationDate: '1850-02-27',
-    governanceType: 'Mayor-Council',
-    councilStructure: 'District',
-    zipCodes: ['95814', '95815', '95816', '95817', '95818', '95819', '95820', '95821', '95822', '95823', '95824', '95825', '95826', '95827', '95828', '95829', '95830', '95831', '95832', '95833', '95834', '95835', '95837', '95838', '95841', '95842'],
-    area: 100.1,
-    incorporated: true
-  },
-  'Long Beach': {
-    name: 'Long Beach',
-    county: 'Los Angeles',
-    population: 466742,
-    incorporationDate: '1897-12-13',
-    governanceType: 'Mayor-Council',
-    councilStructure: 'District',
-    zipCodes: ['90802', '90803', '90804', '90805', '90806', '90807', '90808', '90810', '90813', '90814', '90815', '90822'],
-    area: 50.4,
-    incorporated: true
-  },
-  'Oakland': {
-    name: 'Oakland',
-    county: 'Alameda',
-    population: 440646,
-    incorporationDate: '1852-05-04',
-    governanceType: 'Mayor-Council',
-    councilStructure: 'District',
-    zipCodes: ['94601', '94602', '94603', '94605', '94606', '94607', '94608', '94609', '94610', '94611', '94612', '94613', '94618', '94619', '94621'],
-    area: 56.1,
-    incorporated: true
-  },
   'Bakersfield': {
     name: 'Bakersfield',
     county: 'Kern',
@@ -1389,7 +1356,11 @@ export class MunicipalApi {
       committees: official.committees?.map(c => ({ id: c, name: c, role: 'Member' as any })),
       biography: official.biography,
       termStart: official.termStart,
-      termEnd: official.termEnd
+      termEnd: official.termEnd,
+      level: 'municipal',
+      jurisdiction: cityName,
+      governmentType: 'city',
+      jurisdictionScope: 'citywide'
     };
   }
 

@@ -728,7 +728,11 @@ export class SchoolDistrictApi {
       committees: member.committees?.map(c => ({ id: c, name: c, role: 'Member' as any })),
       biography: member.biography,
       termStart: member.termStart,
-      termEnd: member.termEnd
+      termEnd: member.termEnd,
+      level: 'municipal',
+      jurisdiction: district.name,
+      governmentType: 'special',
+      jurisdictionScope: 'district'
     };
   }
 
@@ -752,7 +756,11 @@ export class SchoolDistrictApi {
       committees: member.committees?.map(c => ({ id: c, name: c, role: 'Member' as any })),
       biography: member.biography,
       termStart: member.termStart,
-      termEnd: member.termEnd
+      termEnd: member.termEnd,
+      level: 'municipal',
+      jurisdiction: district.name,
+      governmentType: 'special',
+      jurisdictionScope: 'district'
     };
   }
 

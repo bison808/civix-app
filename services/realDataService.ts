@@ -101,7 +101,11 @@ export class RealDataService {
         },
         socialMedia: {},
         termStart: '2023-01-01',
-        termEnd: '2027-01-01'
+        termEnd: '2027-01-01',
+        level: 'state',
+        jurisdiction: state,
+        governmentType: 'state',
+        jurisdictionScope: 'district'
       },
       {
         id: `state-rep-${state}-1`,
@@ -118,7 +122,11 @@ export class RealDataService {
         },
         socialMedia: {},
         termStart: '2023-01-01',
-        termEnd: '2025-01-01'
+        termEnd: '2025-01-01',
+        level: 'state',
+        jurisdiction: state,
+        governmentType: 'state',
+        jurisdictionScope: 'district'
       }
     ];
     
@@ -138,7 +146,11 @@ export class RealDataService {
         },
         socialMedia: {},
         termStart: '2022-01-01',
-        termEnd: '2026-01-01'
+        termEnd: '2026-01-01',
+        level: 'municipal',
+        jurisdiction: city,
+        governmentType: 'city',
+        jurisdictionScope: 'citywide'
       },
       {
         id: `council-${city}-1`,
@@ -155,7 +167,11 @@ export class RealDataService {
         },
         socialMedia: {},
         termStart: '2023-01-01',
-        termEnd: '2025-01-01'
+        termEnd: '2025-01-01',
+        level: 'municipal',
+        jurisdiction: city,
+        governmentType: 'city',
+        jurisdictionScope: 'district'
       }
     ];
     

@@ -301,7 +301,7 @@ class IntegratedRepresentativesService {
       };
 
       // If federal representative, get enhanced data
-      if ('bioguideId' in rep) {
+      if ('bioguideId' in rep && typeof rep.bioguideId === 'string') {
         const [votingRecord, sponsoredBills, recentVotes] = await Promise.all([
           this.getRepresentativeVotingRecord(rep.bioguideId),
           this.getRepresentativeBills(rep.bioguideId, 'sponsored'),
@@ -311,7 +311,7 @@ class IntegratedRepresentativesService {
         profile.votingRecord = votingRecord;
         profile.sponsoredBills = sponsoredBills;
         profile.recentVotes = recentVotes;
-        profile.committees = rep.committeeMemberships;
+        profile.committees = (rep as any).committeeMemberships || [];
       }
 
       // Get district information
@@ -436,7 +436,11 @@ class IntegratedRepresentativesService {
       committees: rep.committees || [],
       termStart: rep.termStart,
       termEnd: rep.termEnd,
-      biography: rep.biography
+      biography: rep.biography,
+      level: rep.level || this.inferLevel(rep),
+      jurisdiction: rep.jurisdiction || this.inferJurisdiction(rep),
+      governmentType: rep.governmentType || this.inferGovernmentType(rep),
+      jurisdictionScope: rep.jurisdictionScope || this.inferJurisdictionScope(rep)
     };
   }
 
@@ -456,6 +460,63 @@ class IntegratedRepresentativesService {
     return rep.title?.toLowerCase().includes('state') ||
            rep.title?.toLowerCase().includes('assembly') ||
            rep.title?.toLowerCase().includes('senator');
+  }
+
+  private inferLevel(rep: any): 'federal' | 'state' | 'county' | 'municipal' {
+    if (rep.chamber === 'House' || rep.chamber === 'Senate') {
+      return 'federal';
+    }
+    if (rep.chamber === 'assembly' || rep.chamber === 'senate') {
+      return 'state';
+    }
+    if (rep.title?.toLowerCase().includes('county') || rep.title?.toLowerCase().includes('supervisor')) {
+      return 'county';
+    }
+    if (rep.title?.toLowerCase().includes('mayor') || rep.title?.toLowerCase().includes('city')) {
+      return 'municipal';
+    }
+    return 'state'; // default fallback
+  }
+
+  private inferJurisdiction(rep: any): string {
+    if (rep.level === 'federal' || this.inferLevel(rep) === 'federal') {
+      return `${rep.state} - District ${rep.district || 'At Large'}`;
+    }
+    if (rep.level === 'state' || this.inferLevel(rep) === 'state') {
+      return `${rep.state} - ${rep.chamber === 'assembly' ? 'Assembly' : 'Senate'} District ${rep.district}`;
+    }
+    if (rep.level === 'county' || this.inferLevel(rep) === 'county') {
+      return `${rep.state} County`;
+    }
+    return `${rep.state}`;
+  }
+
+  private inferGovernmentType(rep: any): 'city' | 'county' | 'state' | 'federal' | 'district' | 'special' {
+    const level = rep.level || this.inferLevel(rep);
+    switch (level) {
+      case 'federal': return 'federal';
+      case 'state': return 'state';
+      case 'county': return 'county';
+      case 'municipal': return 'city';
+      default: return 'state';
+    }
+  }
+
+  private inferJurisdictionScope(rep: any): 'citywide' | 'countywide' | 'statewide' | 'national' | 'district' | undefined {
+    const level = rep.level || this.inferLevel(rep);
+    if (level === 'federal') {
+      return rep.district ? 'district' : 'national';
+    }
+    if (level === 'state') {
+      return rep.district ? 'district' : 'statewide';
+    }
+    if (level === 'county') {
+      return rep.district ? 'district' : 'countywide';
+    }
+    if (level === 'municipal') {
+      return rep.district ? 'district' : 'citywide';
+    }
+    return 'district';
   }
 
   private getFromCache(key: string): any {

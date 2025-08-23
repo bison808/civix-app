@@ -436,7 +436,7 @@ class DataRecoveryService {
       return {
         success: false,
         recordsRestored: 0,
-        errors: [error.message]
+        errors: [error instanceof Error ? error.message : String(error)]
       };
     }
   }
@@ -458,7 +458,7 @@ class DataRecoveryService {
           'system',
           'high',
           'Backup Failure',
-          `Automated backup failed: ${error.message}`
+          `Automated backup failed: ${error instanceof Error ? error.message : String(error)}`
         );
       }
     }, intervalMs);
@@ -713,7 +713,7 @@ class DataRecoveryService {
           };
         }
       } catch (error) {
-        console.warn(`Fallback ${fallback.name} failed:`, error.message);
+        console.warn(`Fallback ${fallback.name} failed:`, error instanceof Error ? error.message : String(error));
       }
     }
     
@@ -765,7 +765,7 @@ class DataRecoveryService {
       
       console.log(`Loaded ${plans.length} existing recovery plans`);
     } catch (error) {
-      console.warn('Could not load existing recovery plans:', error.message);
+      console.warn('Could not load existing recovery plans:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -778,7 +778,7 @@ class DataRecoveryService {
     try {
       await dataPipelineAPI.post('/api/system/recovery-plans', plan);
     } catch (error) {
-      console.warn(`Failed to persist recovery plan ${plan.id}:`, error.message);
+      console.warn(`Failed to persist recovery plan ${plan.id}:`, error instanceof Error ? error.message : String(error));
     }
   }
 

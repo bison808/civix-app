@@ -190,6 +190,175 @@ export const a11y = {
       return rect.width >= 44 && rect.height >= 44;
     },
   },
+
+  // Political mapping specific accessibility helpers
+  political: {
+    // Generate accessible labels for representative cards
+    getRepresentativeCardLabel: (representative: {
+      name: string;
+      title: string;
+      party: string;
+      district?: string | number;
+      level: string;
+      approvalRating?: number;
+    }): string => {
+      const district = representative.district ? `, District ${representative.district}` : '';
+      const approval = representative.approvalRating ? `, ${representative.approvalRating}% approval rating` : '';
+      return `${representative.name}, ${representative.title}${district}, ${representative.party} party, ${representative.level} level${approval}`;
+    },
+
+    // Generate accessible descriptions for government levels
+    getGovernmentLevelDescription: (level: string, count: number): string => {
+      const descriptions = {
+        federal: 'Federal government representatives including US Congress and Executive branch',
+        state: 'State government representatives including Governor and State Legislature', 
+        county: 'County government representatives including Supervisors and Sheriff',
+        municipal: 'City and local government representatives including Mayor and City Council'
+      };
+      
+      const description = descriptions[level as keyof typeof descriptions] || 'Government representatives';
+      return `${description}. ${count} representative${count !== 1 ? 's' : ''} found.`;
+    },
+
+    // Announce filter changes
+    announceFilterChange: (filterType: string, value: string, resultCount: number) => {
+      const message = value === 'all' || !value 
+        ? `Filter cleared for ${filterType}. Showing ${resultCount} representatives.`
+        : `Filtered by ${filterType}: ${value}. Showing ${resultCount} representatives.`;
+      
+      a11y.announce(message, 'polite');
+    },
+
+    // Generate contact method labels
+    getContactActionLabel: (method: 'email' | 'phone' | 'website', representativeName: string): string => {
+      const actions = {
+        email: 'Send email to',
+        phone: 'Call',
+        website: 'Visit official website for'
+      };
+      
+      return `${actions[method]} ${representativeName}`;
+    },
+
+    // Get ZIP code validation messages
+    getZipValidationMessage: (validationState: 'valid' | 'invalid' | 'out-of-state' | 'none'): string => {
+      const messages = {
+        valid: 'Valid California ZIP code entered',
+        invalid: 'Please enter a valid 5-digit ZIP code',
+        'out-of-state': 'Please enter a California ZIP code to find your representatives',
+        none: ''
+      };
+      
+      return messages[validationState];
+    },
+
+    // Navigation announcements for screen readers
+    announceNavigation: (fromLevel: string, toLevel: string) => {
+      const message = `Navigated from ${fromLevel} to ${toLevel} representatives`;
+      a11y.announce(message, 'polite');
+    },
+
+    // Sort and order announcements
+    announceSortChange: (sortBy: string, sortOrder: string, resultCount: number) => {
+      const message = `Representatives sorted by ${sortBy} in ${sortOrder} order. ${resultCount} results.`;
+      a11y.announce(message, 'polite');
+    },
+
+    // Loading state announcements
+    announceLoadingState: (isLoading: boolean, context: string = 'representatives') => {
+      if (isLoading) {
+        a11y.announce(`Loading ${context}...`, 'assertive');
+      }
+    },
+
+    // Error state announcements
+    announceError: (errorMessage: string) => {
+      a11y.announce(`Error: ${errorMessage}`, 'assertive');
+    }
+  },
+
+  // Enhanced keyboard navigation for political UI
+  governmentNavigation: {
+    // Handle government level carousel navigation
+    handleLevelCarousel: (
+      event: KeyboardEvent,
+      levels: string[],
+      currentIndex: number,
+      onNavigate: (newIndex: number) => void
+    ) => {
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault();
+          const prevIndex = currentIndex > 0 ? currentIndex - 1 : levels.length - 1;
+          onNavigate(prevIndex);
+          a11y.political.announceNavigation(levels[currentIndex], levels[prevIndex]);
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          const nextIndex = currentIndex < levels.length - 1 ? currentIndex + 1 : 0;
+          onNavigate(nextIndex);
+          a11y.political.announceNavigation(levels[currentIndex], levels[nextIndex]);
+          break;
+        case 'Home':
+          event.preventDefault();
+          onNavigate(0);
+          a11y.political.announceNavigation(levels[currentIndex], levels[0]);
+          break;
+        case 'End':
+          event.preventDefault();
+          const lastIndex = levels.length - 1;
+          onNavigate(lastIndex);
+          a11y.political.announceNavigation(levels[currentIndex], levels[lastIndex]);
+          break;
+      }
+    },
+
+    // Handle representative card list navigation
+    handleRepresentativeListNavigation: (
+      event: KeyboardEvent,
+      currentIndex: number,
+      totalItems: number,
+      onNavigate: (newIndex: number) => void
+    ) => {
+      let newIndex = currentIndex;
+
+      switch (event.key) {
+        case 'ArrowDown':
+        case 'j': // Vim-style navigation
+          event.preventDefault();
+          newIndex = currentIndex < totalItems - 1 ? currentIndex + 1 : 0;
+          break;
+        case 'ArrowUp':
+        case 'k': // Vim-style navigation
+          event.preventDefault();
+          newIndex = currentIndex > 0 ? currentIndex - 1 : totalItems - 1;
+          break;
+        case 'Home':
+        case 'g':
+          event.preventDefault();
+          newIndex = 0;
+          break;
+        case 'End':
+        case 'G':
+          event.preventDefault();
+          newIndex = totalItems - 1;
+          break;
+        case 'PageDown':
+          event.preventDefault();
+          newIndex = Math.min(currentIndex + 5, totalItems - 1);
+          break;
+        case 'PageUp':
+          event.preventDefault();
+          newIndex = Math.max(currentIndex - 5, 0);
+          break;
+      }
+
+      if (newIndex !== currentIndex) {
+        onNavigate(newIndex);
+        a11y.announce(`Representative ${newIndex + 1} of ${totalItems}`, 'polite');
+      }
+    }
+  }
 };
 
 // Export individual utilities for tree-shaking

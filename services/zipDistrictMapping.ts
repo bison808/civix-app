@@ -294,7 +294,7 @@ class ZipDistrictMappingService {
     return {
       ...rep,
       level,
-      districtNumber: rep.district ? parseInt(rep.district) : undefined,
+      districtNumber: rep.district ? (typeof rep.district === 'number' ? rep.district : parseInt(rep.district)) : undefined,
       jurisdictions: [zipCode]
     } as RepresentativeWithDistrict;
   }

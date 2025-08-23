@@ -209,7 +209,7 @@ class DataUpdateScheduler {
     } catch (error) {
       result.errors.push({
         type: 'api_failure',
-        message: `State update failed: ${error.message}`,
+        message: `State update failed: ${error instanceof Error ? error.message : String(error)}`,
         retryable: true,
         timestamp: new Date().toISOString()
       });
@@ -255,7 +255,7 @@ class DataUpdateScheduler {
     } catch (error) {
       result.errors.push({
         type: 'api_failure',
-        message: `County update failed: ${error.message}`,
+        message: `County update failed: ${error instanceof Error ? error.message : String(error)}`,
         retryable: true,
         timestamp: new Date().toISOString()
       });
@@ -307,7 +307,7 @@ class DataUpdateScheduler {
     } catch (error) {
       result.errors.push({
         type: 'api_failure',
-        message: `Local update failed: ${error.message}`,
+        message: `Local update failed: ${error instanceof Error ? error.message : String(error)}`,
         retryable: true,
         timestamp: new Date().toISOString()
       });
@@ -406,7 +406,7 @@ class DataUpdateScheduler {
       
       console.log(`Loaded ${existingJobs.length} existing jobs`);
     } catch (error) {
-      console.warn('Could not load existing jobs:', error.message);
+      console.warn('Could not load existing jobs:', error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -507,7 +507,7 @@ class DataUpdateScheduler {
         recordsRemoved: 0,
         errors: [{
           type: 'api_failure',
-          message: error.message,
+          message: error instanceof Error ? error.message : String(error),
           retryable: true,
           timestamp: new Date().toISOString()
         }],
@@ -603,7 +603,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `Congress API update failed: ${error.message}`,
+          message: `Congress API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -621,7 +621,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `Senate API update failed: ${error.message}`,
+          message: `Senate API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -639,7 +639,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `OpenStates API update failed: ${error.message}`,
+          message: `OpenStates API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -657,7 +657,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `State-specific API update failed: ${error.message}`,
+          message: `State-specific API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -675,7 +675,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `County API update failed: ${error.message}`,
+          message: `County API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -693,7 +693,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `Municipal API update failed: ${error.message}`,
+          message: `Municipal API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -711,7 +711,7 @@ class DataUpdateScheduler {
         recordsAdded: 0,
         errors: [{
           type: 'api_failure',
-          message: `School district API update failed: ${error.message}`,
+          message: `School district API update failed: ${error instanceof Error ? error.message : String(error)}`,
           retryable: true,
           timestamp: new Date().toISOString()
         }]
@@ -731,7 +731,7 @@ class DataUpdateScheduler {
       }
       
     } catch (error) {
-      console.warn(`Data validation failed for ${category}:`, error.message);
+      console.warn(`Data validation failed for ${category}:`, error instanceof Error ? error.message : String(error));
     }
   }
 
@@ -739,7 +739,7 @@ class DataUpdateScheduler {
     try {
       await dataPipelineAPI.post('/api/system/update-jobs', job);
     } catch (error) {
-      console.warn(`Failed to persist job state for ${job.id}:`, error.message);
+      console.warn(`Failed to persist job state for ${job.id}:`, error instanceof Error ? error.message : String(error));
     }
   }
 }

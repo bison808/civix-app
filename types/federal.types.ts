@@ -5,6 +5,20 @@
 
 import { Representative, VotingRecord, Committee, IssueScore } from './representatives.types';
 
+// Additional federal-specific interfaces
+export interface CommitteeMembership {
+  committeeId: string;
+  committeeName: string;
+  role: 'Chair' | 'Ranking Member' | 'Member' | 'Vice Chair';
+  chamber: 'House' | 'Senate' | 'Joint';
+  jurisdiction: string[];
+  website?: string;
+  startDate: string;
+  endDate?: string;
+  isSubcommittee: boolean;
+  parentCommittee?: string;
+}
+
 // Enhanced federal representative with additional congressional data
 export interface FederalRepresentative extends Representative {
   bioguideId: string; // Official bioguide ID from Congress
