@@ -1,13 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Search, Filter, SortAsc, Users, Building2, MapPin } from 'lucide-react';
+import { Search, Filter, SortAsc, Users, Building2, MapPin, Bell } from 'lucide-react';
 import Button from '@/components/core/Button';
 import RepresentativeCard from '@/components/representatives/RepresentativeCard';
 import AggregatedFeedback from '@/components/feedback/AggregatedFeedback';
 import { Representative } from '@/types';
 import { api } from '@/services/api';
 import { cn } from '@/lib/utils';
+import { CivixLogo } from '@/components/CivixLogo';
+import UserMenu from '@/components/UserMenu';
+import ZipDisplay from '@/components/ZipDisplay';
+import VerificationBadge from '@/components/VerificationBadge';
 
 export default function RepresentativesPage() {
   const [representatives, setRepresentatives] = useState<Representative[]>([]);
@@ -109,6 +113,25 @@ export default function RepresentativesPage() {
 
   return (
     <div className="flex-1 flex flex-col bg-gray-50 pt-14 pb-16">
+      {/* Desktop Header - Same as Feed */}
+      <header className="hidden md:flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white">
+        <div className="flex items-center gap-4">
+          <CivixLogo size="sm" />
+          <ZipDisplay showChangeButton={false} />
+          <VerificationBadge size="sm" showLabel={false} />
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <Search size={20} />
+          </button>
+          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
+            <Bell size={20} />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+          </button>
+          <UserMenu />
+        </div>
+      </header>
 
       {/* Search Bar */}
       <div className="px-4 py-3 bg-white border-b border-gray-200">

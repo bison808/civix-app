@@ -4,12 +4,17 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   TrendingUp, Users, FileText, Activity, 
-  ThumbsUp, ThumbsDown, AlertCircle, CheckCircle 
+  ThumbsUp, ThumbsDown, AlertCircle, CheckCircle,
+  Search, Bell
 } from 'lucide-react';
 import Card from '@/components/core/Card';
+import { CivixLogo } from '@/components/CivixLogo';
+import UserMenu from '@/components/UserMenu';
+import ZipDisplay from '@/components/ZipDisplay';
+import VerificationBadge from '@/components/VerificationBadge';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { Bill, Representative } from '@/types';
 import { api } from '@/services/api';
-import { CivixLogo } from '@/components/CivixLogo';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -100,6 +105,26 @@ export default function DashboardPage() {
 
   return (
     <div className="flex-1 flex flex-col pt-14 pb-16">
+      {/* Desktop Header - Same as Feed */}
+      <header className="hidden md:flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white">
+        <div className="flex items-center gap-4">
+          <CivixLogo size="sm" />
+          <ZipDisplay showChangeButton={false} />
+          <VerificationBadge size="sm" showLabel={false} />
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <Search size={20} />
+          </button>
+          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
+            <Bell size={20} />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+          </button>
+          <UserMenu />
+        </div>
+      </header>
+      
       {/* Content */}
       <div className="flex-1 overflow-y-auto px-4 py-4 pb-20">
         {loading ? (
