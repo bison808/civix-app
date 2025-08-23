@@ -30,6 +30,12 @@ export default function MobileNav({ className }: MobileNavProps) {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Don't show navigation on landing, register, or onboarding pages
+  const hideNavRoutes = ['/', '/register', '/onboarding', '/login'];
+  if (hideNavRoutes.includes(pathname)) {
+    return null;
+  }
+
   // Close menu on route change
   useEffect(() => {
     setIsMenuOpen(false);
