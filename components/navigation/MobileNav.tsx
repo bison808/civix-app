@@ -111,7 +111,7 @@ export default function MobileNav({ className }: MobileNavProps) {
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
           <img 
-            src="/citzn.svg" 
+            src="/citzn-logo-new.webp" 
             alt="CITZN" 
             className="h-6 w-auto flex-shrink-0 ml-1"
             width="auto"
@@ -201,7 +201,7 @@ export default function MobileNav({ className }: MobileNavProps) {
         <div className="p-4 border-b border-gray-200 safe-top">
           <div className="flex items-center justify-between mb-4">
             <img 
-              src="/citzn.svg" 
+              src="/citzn-logo-new.webp" 
               alt="CITZN" 
               className="h-8 w-auto"
               width="auto"
