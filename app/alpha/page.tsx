@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock, ArrowRight } from 'lucide-react';
-import { CitznLogo } from '@/components/CitznLogo';
+import { CivixLogo } from '@/components/CivixLogo';
 import Button from '@/components/core/Button';
 
 export default function AlphaAccessPage() {
@@ -55,7 +55,7 @@ export default function AlphaAccessPage() {
         <div className="bg-white rounded-2xl shadow-xl p-8">
           {/* Logo */}
           <div className="text-center mb-8">
-            <CitznLogo size="xl" animated={true} />
+            <CivixLogo size="xl" animated={true} />
           </div>
 
           {isValid ? (

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, Bell, Menu } from 'lucide-react';
 import BillFeed from '@/components/bills/BillFeed';
-import { CitznLogo } from '@/components/CitznLogo';
+import { CivixLogo } from '@/components/CivixLogo';
 import UserMenu from '@/components/UserMenu';
 import ZipDisplay from '@/components/ZipDisplay';
 import VerificationBadge from '@/components/VerificationBadge';
@@ -63,7 +63,7 @@ export default function FeedPage() {
         {!isMobile && (
           <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white safe-top">
             <div className="flex items-center gap-4">
-              <CitznLogo size="sm" />
+              <CivixLogo size="sm" />
               <ZipDisplay showChangeButton={false} />
               <VerificationBadge size="sm" showLabel={false} />
             </div>

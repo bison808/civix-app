@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
-import { CitznLogo } from '@/components/CitznLogo';
+import { CivixLogo } from '@/components/CivixLogo';
 import { authApi } from '@/services/authApi';
 
 export default function LoginPage() {
@@ -63,7 +63,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gray-50">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
-          <CitznLogo size="lg" showTagline={false} />
+          <CivixLogo size="lg" showTagline={false} />
           <h1 className="mt-4 text-2xl font-bold text-gray-900">Welcome Back</h1>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to continue to your civic dashboard

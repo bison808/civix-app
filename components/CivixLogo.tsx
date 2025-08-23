@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
+import { OptimizedImage } from './OptimizedImage';
 
-interface CitznLogoProps {
+interface CivixLogoProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   showTagline?: boolean;
   animated?: boolean;
 }
 
-export const CitznLogo: React.FC<CitznLogoProps> = ({ 
+export const CivixLogo: React.FC<CivixLogoProps> = ({ 
   size = 'md', 
   showTagline = false,
   animated = false 
@@ -15,10 +15,10 @@ export const CitznLogo: React.FC<CitznLogoProps> = ({
   const [imageError, setImageError] = useState(false);
   
   const sizes = {
-    sm: { logo: 100, container: 110, tagline: 'text-xs', text: 'text-2xl' },
-    md: { logo: 150, container: 160, tagline: 'text-sm', text: 'text-3xl' },
-    lg: { logo: 200, container: 210, tagline: 'text-base', text: 'text-4xl' },
-    xl: { logo: 250, container: 260, tagline: 'text-lg', text: 'text-5xl' }
+    sm: { logo: 100, tagline: 'text-xs', text: 'text-2xl' },
+    md: { logo: 150, tagline: 'text-sm', text: 'text-3xl' },
+    lg: { logo: 200, tagline: 'text-base', text: 'text-4xl' },
+    xl: { logo: 250, tagline: 'text-lg', text: 'text-5xl' }
   };
 
   const sizeConfig = sizes[size];
@@ -26,29 +26,15 @@ export const CitznLogo: React.FC<CitznLogoProps> = ({
   return (
     <div className="flex flex-col items-center">
       {!imageError ? (
-        <div 
-          className="relative flex items-center justify-center overflow-visible"
-          style={{ 
-            width: sizeConfig.container,
-            height: sizeConfig.logo,
-            padding: '5px'
-          }}
-        >
-          <Image
+        <div style={{ width: sizeConfig.logo, height: sizeConfig.logo, position: 'relative' }}>
+          <OptimizedImage
             src="/citzn-logo-optimized.webp"
             alt="CITZN"
             width={sizeConfig.logo}
             height={sizeConfig.logo}
-            className={`${animated ? 'animate-pulse' : ''}`}
-            style={{ 
-              maxWidth: 'none',
-              width: `${sizeConfig.logo}px`,
-              height: `${sizeConfig.logo}px`,
-              objectFit: 'contain',
-              marginLeft: '5px' // Add left margin to compensate for cutoff
-            }}
+            className={`rounded-lg object-contain ${animated ? 'animate-pulse' : ''}`}
             priority={size === 'lg' || size === 'xl'}
-            onError={() => setImageError(true)}
+            sizes={`(max-width: 640px) ${sizeConfig.logo}px, (max-width: 1024px) ${sizeConfig.logo}px, ${sizeConfig.logo}px`}
           />
         </div>
       ) : (
@@ -76,4 +62,4 @@ export const CitznLogo: React.FC<CitznLogoProps> = ({
   );
 };
 
-export default CitznLogo;
+export default CivixLogo;

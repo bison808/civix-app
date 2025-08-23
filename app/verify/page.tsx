@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
-import { CitznLogo } from '@/components/CitznLogo';
+import { CivixLogo } from '@/components/CivixLogo';
 import { authApi } from '@/services/authApi';
 
 export default function VerifyPage() {
@@ -83,7 +83,7 @@ export default function VerifyPage() {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gray-50">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
-          <CitznLogo size="lg" showTagline={false} />
+          <CivixLogo size="lg" showTagline={false} />
           <h1 className="mt-4 text-2xl font-bold text-gray-900">
             {currentZip ? 'Update Your Location' : 'Verify Your Location'}
           </h1>
