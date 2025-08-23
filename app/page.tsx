@@ -53,15 +53,8 @@ export default function EnhancedLandingPage() {
         setShowConfirmation(true);
         setCurrentStep(1);
         
-        // Auto-proceed after showing confirmation
-        setTimeout(() => {
-          const hasValidSession = authApi.isAuthenticatedForMiddleware();
-          if (hasValidSession) {
-            router.push('/feed');
-          } else {
-            router.push('/register');
-          }
-        }, 2500);
+        // Don't auto-proceed - let user click Continue button
+        // This allows proper choice between anonymous browsing and registration
       } else {
         setError('Please enter a valid 5-digit ZIP code');
         // Shake animation for error
@@ -194,37 +187,35 @@ export default function EnhancedLandingPage() {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.5 }}
+                  className="space-y-3"
                 >
                   <Button
-                    onClick={handleContinue}
+                    onClick={() => router.push('/feed')}
                     variant="primary"
                     size="lg"
                     fullWidth
                     className="group"
                   >
-                    <span>Continue to Registration</span>
+                    <span>Browse Bills & Representatives</span>
                     <ArrowRight className="inline ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
+                  
+                  <Button
+                    onClick={() => router.push('/register')}
+                    variant="outline"
+                    size="lg"
+                    fullWidth
+                    className="group"
+                  >
+                    <span>Create Account to Vote</span>
+                    <ArrowRight className="inline ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  
+                  <p className="text-xs text-center text-gray-500 mt-2">
+                    You can browse anonymously or create an account for voting
+                  </p>
                 </motion.div>
 
-                {/* Loading dots animation */}
-                <div className="flex justify-center gap-2">
-                  {[0, 1, 2].map((i) => (
-                    <motion.div
-                      key={i}
-                      className="w-2 h-2 bg-delta rounded-full"
-                      animate={{ 
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 1, 0.5]
-                      }}
-                      transition={{ 
-                        duration: 1,
-                        delay: i * 0.2,
-                        repeat: Infinity
-                      }}
-                    />
-                  ))}
-                </div>
               </motion.div>
             ) : (
               /* ZIP Code Form with Enhanced UX */

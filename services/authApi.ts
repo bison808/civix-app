@@ -212,6 +212,21 @@ class AuthApiService {
         defaultData = { city: 'Unknown City', state: 'IL', county: 'Illinois' };
       } else if (zipNum >= 33000 && zipNum <= 34999) {
         defaultData = { city: 'Unknown City', state: 'FL', county: 'Florida' };
+      } else if (zipNum >= 80000 && zipNum <= 81999) {
+        // Colorado ZIP codes
+        if (zipNum >= 80200 && zipNum <= 80299) {
+          defaultData = { city: 'Denver', state: 'CO', county: 'Denver County' };
+        } else if (zipNum >= 80100 && zipNum <= 80199) {
+          defaultData = { city: 'Denver', state: 'CO', county: 'Denver County' };
+        } else if (zipNum >= 80000 && zipNum <= 80099) {
+          defaultData = { city: 'Denver', state: 'CO', county: 'Denver County' };
+        } else if (zipNum >= 80300 && zipNum <= 80399) {
+          defaultData = { city: 'Boulder', state: 'CO', county: 'Boulder County' };
+        } else if (zipNum >= 80900 && zipNum <= 80999) {
+          defaultData = { city: 'Colorado Springs', state: 'CO', county: 'El Paso County' };
+        } else {
+          defaultData = { city: 'Unknown City', state: 'CO', county: 'Colorado' };
+        }
       }
     }
     
