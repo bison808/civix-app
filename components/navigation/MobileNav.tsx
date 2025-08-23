@@ -15,10 +15,14 @@ import {
   LogOut,
   BarChart3,
   HelpCircle,
-  ChevronRight
+  ChevronRight,
+  MapPin
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
+import ZipDisplay from '@/components/ZipDisplay';
+import VerificationBadge from '@/components/VerificationBadge';
+import UserMenu from '@/components/UserMenu';
 
 interface MobileNavProps {
   className?: string;
@@ -97,33 +101,37 @@ export default function MobileNav({ className }: MobileNavProps) {
         className
       )}
       style={{ zIndex: 9999 }}>
-        {/* Logo/Title */}
-        <div className="flex items-center gap-3">
+        {/* Left Side - Logo, ZIP, Verification */}
+        <div className="flex items-center gap-2">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 -ml-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 -ml-1 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <span className="font-bold text-lg text-delta">CITZN</span>
+          <span className="font-bold text-base text-delta">CITZN</span>
+          <div className="h-4 w-px bg-gray-300" />
+          <ZipDisplay showChangeButton={false} />
+          <VerificationBadge size="sm" showLabel={false} />
         </div>
 
-        {/* Right Actions */}
+        {/* Right Side - Search, Notifications, User */}
         <div className="flex items-center gap-1">
           <button 
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Search"
           >
-            <Search size={20} />
+            <Search size={18} />
           </button>
           <button 
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
             aria-label="Notifications"
           >
-            <Bell size={20} />
+            <Bell size={18} />
             <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
           </button>
+          <UserMenu />
         </div>
       </header>
 
