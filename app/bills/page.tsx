@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { FileText, Users, TrendingUp, Calendar, AlertCircle } from 'lucide-react';
 import Card from '@/components/core/Card';
 import Button from '@/components/core/Button';
-import { CivixLogo } from '@/components/CivixLogo';
 import StandardPageLayout from '@/components/layout/StandardPageLayout';
 import StandardPageHeader from '@/components/layout/StandardPageHeader';
 import { useAuth } from '@/contexts/AuthContext';

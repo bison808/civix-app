@@ -5,6 +5,7 @@ export interface ZipDistrictMapping {
   stateAssemblyDistrict: number;
   county: string;
   city: string;
+  state: string;
   coordinates: [number, number]; // [longitude, latitude]
   accuracy: number; // Geocodio accuracy score (0-1)
   source: 'geocodio' | 'cache' | 'fallback' | 'fallback_with_municipal';
@@ -25,6 +26,7 @@ export interface MultiDistrictMapping {
   };
   county: string;
   city: string;
+  state: string;
   coordinates: [number, number];
   accuracy: number;
   source: 'geocodio' | 'cache' | 'fallback' | 'fallback_with_municipal';

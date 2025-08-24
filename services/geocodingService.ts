@@ -190,6 +190,7 @@ class GeocodingService {
       zipCode,
       county: result.fields.county?.name || result.address_components.county,
       city: result.address_components.city,
+      state: result.address_components.state, // Add state information
       coordinates: [result.location.lng, result.location.lat] as [number, number],
       accuracy: result.accuracy,
       source: 'geocodio' as const,
@@ -261,14 +262,14 @@ class GeocodingService {
     }
 
     try {
-      // Make API request
-      const url = `${this.config.baseUrl}/geocode?postal_code=${cleanZip}&state=CA&fields=cd,stateleg_next`;
+      // Make API request for ALL US ZIP codes (removed state=CA restriction)
+      const url = `${this.config.baseUrl}/geocode?postal_code=${cleanZip}&fields=cd,stateleg_next`;
       const response = await this.makeGeocodioRequest(url);
 
       if (!response.results || response.results.length === 0) {
         throw {
           error: 'ZIP_NOT_FOUND' as DistrictMappingError,
-          message: 'ZIP code not found in California',
+          message: 'ZIP code not found',
           zipCode: cleanZip
         } as DistrictMappingErrorResponse;
       }

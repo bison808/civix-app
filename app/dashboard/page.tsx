@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import Card from '@/components/core/Card';
 import Button from '@/components/core/Button';
-import { CivixLogo } from '@/components/CivixLogo';
 import StandardPageLayout from '@/components/layout/StandardPageLayout';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -38,16 +37,13 @@ const DashboardPlaceholderPage = () => {
     <StandardPageLayout>
       {/* Welcome Header */}
       <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Welcome back!
-            </h1>
-            <p className="text-gray-600">
-              Here's your civic engagement overview
-            </p>
-          </div>
-          <CivixLogo size="sm" />
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Welcome back!
+          </h1>
+          <p className="text-gray-600">
+            Here's your civic engagement overview
+          </p>
         </div>
       </div>
 
