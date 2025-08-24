@@ -10,7 +10,7 @@ const nextConfig = {
   
   // TypeScript configuration for comprehensive platform
   typescript: {
-    // Temporarily ignore comprehensive feature type conflicts during optimization
+    // Temporarily ignore comprehensive feature type conflicts during SSR optimization
     ignoreBuildErrors: true,
   },
   

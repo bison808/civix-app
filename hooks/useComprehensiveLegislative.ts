@@ -154,14 +154,21 @@ const useCommitteeDetails = (committeeId: number) => {
 };
 
 /**
- * Hook for state committees list
+ * Hook for state committees list - CLIENT-SIDE SAFE
  */
 const useStateCommittees = (stateId: string = 'CA') => {
   const [committees, setCommittees] = useState<CommitteeInfo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const fetchCommittees = useCallback(async () => {
+    if (!isClient) return; // CLIENT-SIDE SAFETY
+    
     setLoading(true);
     setError(null);
 
@@ -173,15 +180,17 @@ const useStateCommittees = (stateId: string = 'CA') => {
     } finally {
       setLoading(false);
     }
-  }, [stateId]);
+  }, [stateId, isClient]);
 
   useEffect(() => {
-    fetchCommittees();
+    if (isClient) {
+      fetchCommittees();
+    }
   }, [fetchCommittees]);
 
   return {
     committees,
-    loading,
+    loading: !isClient || loading,
     error,
     refetch: fetchCommittees,
   };
@@ -373,14 +382,21 @@ const useDocumentContent = () => {
 // ========================================================================================
 
 /**
- * Hook for legislative calendar events
+ * Hook for legislative calendar events - CLIENT-SIDE SAFE
  */
 const useLegislativeCalendar = (stateId: string = 'CA', days: number = 30) => {
   const [events, setEvents] = useState<LegislativeCalendarEvent[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const fetchCalendar = useCallback(async () => {
+    if (!isClient) return; // CLIENT-SIDE SAFETY
+    
     setLoading(true);
     setError(null);
 
@@ -392,15 +408,17 @@ const useLegislativeCalendar = (stateId: string = 'CA', days: number = 30) => {
     } finally {
       setLoading(false);
     }
-  }, [stateId, days]);
+  }, [stateId, days, isClient]);
 
   useEffect(() => {
-    fetchCalendar();
+    if (isClient) {
+      fetchCalendar();
+    }
   }, [fetchCalendar]);
 
   return {
     events,
-    loading,
+    loading: !isClient || loading,
     error,
     refetch: fetchCalendar,
   };
