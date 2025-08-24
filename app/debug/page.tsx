@@ -2,9 +2,16 @@
 
 export const dynamic = 'force-dynamic';
 
-// Restrict debug dashboard to development only
-if (process.env.NODE_ENV === 'production') {
-  export default function DebugPageProduction() {
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { api } from '@/services/api';
+import { authApi } from '@/services/authApi';
+import Button from '@/components/core/Button';
+import { CheckCircle, Clock, AlertCircle, Code, Users, FileText, Calendar } from 'lucide-react';
+
+export default function DebugPage() {
+  // Restrict debug dashboard to development only
+  if (process.env.NODE_ENV === 'production') {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center p-8">
@@ -17,16 +24,7 @@ if (process.env.NODE_ENV === 'production') {
       </div>
     );
   }
-}
 
-import { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { api } from '@/services/api';
-import { authApi } from '@/services/authApi';
-import Button from '@/components/core/Button';
-import { CheckCircle, Clock, AlertCircle, Code, Users, FileText, Calendar } from 'lucide-react';
-
-export default function DebugPage() {
   const { user, checkSession } = useAuth();
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(false);
