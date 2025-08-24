@@ -1,55 +1,24 @@
 // Auth API Service - Connects to Agent 3 Auth Backend
 import { realDataService } from './realDataService';
+import { 
+  RegisterRequest, 
+  RegisterResponse, 
+  LoginRequest, 
+  LoginResponse, 
+  SessionValidation 
+} from '@/types/auth.types';
+
+// Re-export for backwards compatibility
+export { RegisterRequest, RegisterResponse, LoginRequest, LoginResponse, SessionValidation };
 
 const AUTH_API_URL = process.env.NEXT_PUBLIC_AUTH_API_URL || 'http://localhost:3003';
 const USE_REAL_DATA = true;
-
-export interface RegisterRequest {
-  zipCode: string;
-  acceptTerms: boolean;
-  optionalIdentity?: {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-  };
-  privacySettings?: {
-    dataRetentionDays?: number;
-    allowAnalytics?: boolean;
-    allowPublicProfile?: boolean;
-  };
-}
-
-export interface RegisterResponse {
-  success: boolean;
-  anonymousId: string;
-  sessionToken: string;
-}
 
 export interface VerifyZipResponse {
   valid: boolean;
   city?: string;
   state?: string;
   county?: string;
-}
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface LoginResponse {
-  success: boolean;
-  sessionToken: string;
-  anonymousId: string;
-  userId?: string;
-  verificationStatus?: 'anonymous' | 'verified' | 'revealed';
-}
-
-export interface SessionValidation {
-  valid: boolean;
-  anonymousId?: string;
-  userId?: string;
-  verificationStatus?: string;
 }
 
 class AuthApiService {
@@ -239,33 +208,45 @@ class AuthApiService {
   }
 
   async register(data: RegisterRequest): Promise<RegisterResponse> {
-    // Production registration without requiring backend authentication
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Generate unique IDs for the session
-      const timestamp = Date.now();
-      const randomId = Math.random().toString(36).substring(7);
-      const anonymousId = `anon_${timestamp}_${randomId}`;
-      const sessionToken = `session_${timestamp}_${randomId}`;
-      
-      // Store session immediately upon successful registration
-      this.storeSession({
-        anonymousId,
-        sessionToken,
-        verificationLevel: 'anonymous',
-        zipCode: data.zipCode
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          zipCode: data.zipCode,
+        }),
       });
-      
-      // Return successful registration
-      return {
-        success: true,
-        anonymousId,
-        sessionToken,
-      };
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Store session
+        this.storeSession({
+          sessionToken: result.sessionToken,
+          anonymousId: result.anonymousId,
+          verificationLevel: 'authenticated',
+          zipCode: result.user.zipCode,
+          email: result.user.email,
+        });
+
+        return {
+          success: true,
+          anonymousId: result.anonymousId,
+          sessionToken: result.sessionToken,
+        };
+      } else {
+        return {
+          success: false,
+          anonymousId: '',
+          sessionToken: '',
+        };
+      }
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('Registration API error:', error);
       return {
         success: false,
         anonymousId: '',
@@ -275,48 +256,53 @@ class AuthApiService {
   }
 
   async login(data: LoginRequest): Promise<LoginResponse> {
-    // Since the backend uses anonymous registration, we'll simulate login
-    // by creating a new anonymous session or retrieving an existing one
-    const storedSession = this.getStoredSession();
-    
-    if (storedSession && storedSession.email === data.email) {
-      // Re-store the session to refresh cookies
-      this.storeSession(storedSession);
-      
-      // Return existing session
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Store session
+        this.storeSession({
+          sessionToken: result.sessionToken,
+          anonymousId: result.anonymousId,
+          verificationLevel: 'authenticated',
+          zipCode: result.user.zipCode,
+          email: result.user.email,
+        });
+
+        return {
+          success: true,
+          sessionToken: result.sessionToken,
+          anonymousId: result.anonymousId,
+          verificationStatus: 'authenticated',
+        };
+      } else {
+        return {
+          success: false,
+          sessionToken: '',
+          anonymousId: '',
+          verificationStatus: 'anonymous',
+        };
+      }
+    } catch (error) {
+      console.error('Login API error:', error);
       return {
-        success: true,
-        sessionToken: storedSession.sessionToken,
-        anonymousId: storedSession.anonymousId,
-        verificationStatus: storedSession.verificationStatus || 'anonymous',
+        success: false,
+        sessionToken: '',
+        anonymousId: '',
+        verificationStatus: 'anonymous',
       };
     }
-
-    // Create new anonymous session with email attached
-    const registerData: RegisterRequest = {
-      zipCode: localStorage.getItem('userZipCode') || '00000',
-      acceptTerms: true,
-      optionalIdentity: {
-        email: data.email,
-      },
-    };
-
-    const response = await this.register(registerData);
-    
-    // Store session with email for future "login"
-    this.storeSession({
-      ...response,
-      email: data.email,
-      verificationStatus: 'anonymous',
-      zipCode: localStorage.getItem('userZipCode') || '00000',
-    });
-
-    return {
-      success: response.success,
-      sessionToken: response.sessionToken,
-      anonymousId: response.anonymousId,
-      verificationStatus: 'anonymous',
-    };
   }
 
   async validateSession(sessionToken: string): Promise<SessionValidation> {

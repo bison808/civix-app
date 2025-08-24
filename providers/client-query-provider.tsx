@@ -1,39 +1,44 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+
+// OPTIMIZED: React Query with intelligent async loading
+const ReactQueryProvider = dynamic(
+  () => import('./react-query-dynamic').then(mod => ({ default: mod.ReactQueryProvider })),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="react-query-loading">
+        <span>Loading state management...</span>
+      </div>
+    )
+  }
+);
 
 export function ClientQueryProvider({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000, // 1 minute
-            gcTime: 5 * 60 * 1000, // 5 minutes (was cacheTime)
-            refetchOnWindowFocus: false,
-            retry: 1,
-          },
-        },
-      })
-  );
-
   const [isClient, setIsClient] = useState(false);
+  const [enableQuery, setEnableQuery] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    
+    // Enable React Query after initial page load to prevent main bundle bloat
+    const timer = setTimeout(() => {
+      setEnableQuery(true);
+    }, 100); // Small delay for performance optimization
+    
+    return () => clearTimeout(timer);
   }, []);
 
-  // Don't render QueryClientProvider during SSR
-  if (!isClient) {
+  // Don't load React Query during SSR or initial render
+  if (!isClient || !enableQuery) {
     return <>{children}</>;
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <ReactQueryProvider>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </ReactQueryProvider>
   );
 }

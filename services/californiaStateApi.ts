@@ -335,9 +335,19 @@ class CaliforniaStateApi {
     if (cached) return cached;
 
     try {
-      // This would call the redistricting or civic info API
-      // For now, return null
-      return null;
+      // AGENT SARAH FIX: Use comprehensive California district boundary service
+      const { californiaDistrictBoundaryService } = await import('./californiaDistrictBoundaryService');
+      const districtData = await californiaDistrictBoundaryService.getDistrictsForZipCode(zipCode);
+      
+      const result = {
+        assembly: districtData.assemblyDistrict,
+        senate: districtData.senateDistrict
+      };
+
+      console.log(`✅ ZIP ${zipCode} mapped to Assembly District ${result.assembly}, Senate District ${result.senate} (accuracy: ${districtData.accuracy})`);
+      
+      this.setCache(cacheKey, result);
+      return result;
     } catch (error) {
       console.error('Failed to find district by ZIP:', error);
       return null;

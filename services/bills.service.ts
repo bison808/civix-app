@@ -2,6 +2,7 @@ import { dataPipelineAPI, aiEngineAPI } from './api/client';
 import { enhancedBillTrackingService } from './enhancedBillTracking.service';
 import { congressApi } from './congressApi';
 import { californiaLegislativeApi } from './californiaLegislativeApi';
+import { comprehensiveLegislativeService } from './comprehensiveLegislativeProxy';
 import {
   Bill,
   BillFilter,
@@ -183,11 +184,119 @@ class BillsService {
     return await californiaLegislativeApi.getBillById(billId);
   }
 
+  // ========================================================================================
+  // COMPREHENSIVE LEGISLATIVE FEATURES - Agent Carlos Expansion
+  // ========================================================================================
+
+  /**
+   * Get roll call votes for a bill - "How did MY representative vote?"
+   */
+  async getBillVotingRecords(billId: string) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getBillRollCallVotes(billId);
+  }
+
+  /**
+   * Get legislator's voting record and statistics
+   */
+  async getLegislatorVotingRecord(peopleId: number, limit: number = 50) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getLegislatorVotingRecord(peopleId, limit);
+  }
+
+  /**
+   * Get comprehensive committee information
+   */
+  async getCommitteeDetails(committeeId: number) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getCommitteeDetails(committeeId);
+  }
+
+  /**
+   * Get all committees for a state
+   */
+  async getStateCommittees(stateId: string = 'CA') {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getStateCommittees(stateId);
+  }
+
+  /**
+   * Get committee hearing schedule
+   */
+  async getCommitteeHearings(committeeId: number, days: number = 30) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getCommitteeHearings(committeeId, days);
+  }
+
+  /**
+   * Get comprehensive legislator profile
+   */
+  async getLegislatorProfile(peopleId: number) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getLegislatorProfile(peopleId);
+  }
+
+  /**
+   * Search legislators by name, district, or party
+   */
+  async searchLegislators(query: string, stateId: string = 'CA') {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.searchLegislators(query, stateId);
+  }
+
+  /**
+   * Get bill documents and full texts
+   */
+  async getBillDocuments(billId: string) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getBillDocuments(billId);
+  }
+
+  /**
+   * Get full document content
+   */
+  async getDocumentContent(docId: number) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getDocumentContent(docId);
+  }
+
+  /**
+   * Get legislative calendar events
+   */
+  async getLegislativeCalendar(stateId: string = 'CA', days: number = 30) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getLegislativeCalendar(stateId, days);
+  }
+
+  /**
+   * Advanced bill search with operators
+   */
+  async advancedBillSearch(options: any) {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.advancedBillSearch(options);
+  }
+
+  /**
+   * Get comprehensive API health status
+   */
+  async getComprehensiveApiHealth() {
+    // Using performance-optimized comprehensive proxy
+    return await comprehensiveLegislativeService.getHealthStatus();
+  }
+
   // Clear caches
   async clearAllCaches(): Promise<void> {
     enhancedBillTrackingService.clearCache();
     congressApi.clearCache();
     californiaLegislativeApi.clearCache();
+    
+    // Clear comprehensive API cache
+    try {
+      // Using performance-optimized comprehensive proxy
+      // Comprehensive service uses lazy loading - no direct cache access needed
+    } catch (error) {
+      console.warn('Failed to clear comprehensive API cache:', error);
+    }
   }
 }
 

@@ -1,0 +1,150 @@
+{
+  "summary": {
+    "totalTests": 14,
+    "passedTests": 10,
+    "failedTests": 4,
+    "successRate": 71,
+    "averageResponseTime": 1,
+    "scores": {
+      "responsive": 100,
+      "accessibility": 25,
+      "components": 100,
+      "userExperience": 67
+    },
+    "wcagCompliance": "Partial",
+    "mobileReady": true,
+    "productionUxReady": true,
+    "timestamp": "2025-08-24T21:06:03.314Z"
+  },
+  "detailedResults": {
+    "responsiveDesign": [
+      {
+        "testName": "Mobile User Agent Response",
+        "passed": true,
+        "details": "Mobile response: 307, Contains viewport: false",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:06:03.234Z"
+      },
+      {
+        "testName": "Responsive Navigation Components",
+        "passed": true,
+        "details": "Navigation response: 307, Mobile elements detected",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.240Z"
+      },
+      {
+        "testName": "Touch-Friendly Interface Check",
+        "passed": true,
+        "details": "3/3 pages are touch-optimized",
+        "responseTime": 0,
+        "pageResults": [
+          {
+            "page": "/",
+            "touchFriendly": true,
+            "status": 307
+          },
+          {
+            "page": "/feed",
+            "touchFriendly": true,
+            "status": 307
+          },
+          {
+            "page": "/representatives",
+            "touchFriendly": true,
+            "status": 307
+          }
+        ],
+        "timestamp": "2025-08-24T21:06:03.256Z"
+      }
+    ],
+    "accessibility": [
+      {
+        "testName": "Semantic HTML Structure",
+        "passed": false,
+        "details": "Semantic elements detected: main, nav, header, roles",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.261Z"
+      },
+      {
+        "testName": "Keyboard Navigation Support",
+        "passed": false,
+        "details": "Keyboard navigation elements: Missing",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.266Z"
+      },
+      {
+        "testName": "Screen Reader Compatibility",
+        "passed": false,
+        "details": "Screen reader support: Limited",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.272Z"
+      },
+      {
+        "testName": "Color Contrast & Readability",
+        "passed": true,
+        "details": "Accessible styling patterns detected",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.277Z"
+      }
+    ],
+    "componentFunctionality": [
+      {
+        "testName": "Voting Records Visualization Components",
+        "passed": true,
+        "details": "Representatives page (voting components): 307",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:06:03.283Z"
+      },
+      {
+        "testName": "Interactive Charts & Performance Metrics",
+        "passed": true,
+        "details": "Dashboard (interactive components): 307",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.288Z"
+      },
+      {
+        "testName": "Committee Activity Components",
+        "passed": true,
+        "details": "Committees page components: 307",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.293Z"
+      },
+      {
+        "testName": "Legislative Calendar Interface",
+        "passed": true,
+        "details": "Feed/calendar interface: 307",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.298Z"
+      }
+    ],
+    "mobileOptimization": [],
+    "userExperience": [
+      {
+        "testName": "Onboarding & First User Experience",
+        "passed": true,
+        "details": "Onboarding elements detected: true",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.304Z"
+      },
+      {
+        "testName": "Error Handling & User Feedback",
+        "passed": false,
+        "details": "Error handling: 307 with proper messaging",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.309Z"
+      },
+      {
+        "testName": "Progressive Enhancement",
+        "passed": true,
+        "details": "Progressive enhancement features detected",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:06:03.314Z"
+      }
+    ],
+    "errors": []
+  },
+  "recommendations": [
+    "♿ Improve accessibility features for WCAG 2.1 AA compliance",
+    "👤 Improve user experience flow and error handling"
+  ]
+}

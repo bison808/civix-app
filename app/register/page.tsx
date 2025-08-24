@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
 import Card from '@/components/core/Card';
@@ -14,107 +14,58 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
     email: '',
+    password: '',
+    confirmPassword: '',
+    zipCode: '',
     acceptTerms: false,
-    stayAnonymous: true,
-    allowAnalytics: false,
-    dataRetentionDays: 365,
   });
-  
-  const [zipCode, setZipCode] = useState('');
-  const [location, setLocation] = useState<any>(null);
-
-  useEffect(() => {
-    // Get ZIP code from localStorage
-    const storedZip = localStorage.getItem('userZipCode');
-    const storedLocation = localStorage.getItem('userLocation');
-    
-    if (!storedZip) {
-      router.push('/');
-      return;
-    }
-    
-    setZipCode(storedZip);
-    if (storedLocation) {
-      setLocation(JSON.parse(storedLocation));
-    }
-  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.acceptTerms) {
-      setError('Please accept the terms and conditions');
-      return;
-    }
-
     setLoading(true);
     setError('');
 
+    // Validation
+    if (!formData.acceptTerms) {
+      setError('Please accept the terms and conditions');
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
     try {
       const registerData: RegisterRequest = {
-        zipCode,
+        email: formData.email,
+        password: formData.password,
+        zipCode: formData.zipCode,
         acceptTerms: formData.acceptTerms,
-        privacySettings: {
-          dataRetentionDays: formData.dataRetentionDays,
-          allowAnalytics: formData.allowAnalytics,
-          allowPublicProfile: !formData.stayAnonymous,
-        },
       };
-
-      // Only add optional identity if user provides it
-      if (!formData.stayAnonymous && (formData.firstName || formData.lastName || formData.email)) {
-        registerData.optionalIdentity = {
-          firstName: formData.firstName || undefined,
-          lastName: formData.lastName || undefined,
-          email: formData.email || undefined,
-        };
-      }
 
       const response = await authApi.register(registerData);
 
       if (response.success) {
-        // Store session info in localStorage and cookies
+        // Store ZIP code for immediate access
+        localStorage.setItem('userZipCode', formData.zipCode);
         localStorage.setItem('sessionToken', response.sessionToken);
         localStorage.setItem('anonymousId', response.anonymousId);
-        localStorage.setItem('userZipCode', zipCode);
-        localStorage.setItem('alphaAccess', 'granted');
         
-        // Store user data for immediate use
-        const userData = {
-          id: response.anonymousId,
-          email: formData.email || '',
-          name: `${formData.firstName || ''} ${formData.lastName || ''}`.trim() || 'Anonymous User',
-          zipCode: zipCode,
-          preferences: {
-            notifications: true,
-            emailUpdates: formData.allowAnalytics
-          },
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        };
-        localStorage.setItem('user', JSON.stringify(userData));
-        
-        // Store in cookies for middleware - ensure they're set properly
-        const isSecure = window.location.protocol === 'https:';
-        const cookieOptions = `path=/; max-age=86400; samesite=lax${isSecure ? '; secure' : ''}`;
-        
-        document.cookie = `sessionToken=${response.sessionToken}; ${cookieOptions}`;
-        document.cookie = `anonymousId=${response.anonymousId}; ${cookieOptions}`;
-        document.cookie = `verificationLevel=anonymous; ${cookieOptions}`;
-        document.cookie = `userZipCode=${zipCode}; ${cookieOptions}`;
-        
-        // Use router.push for better navigation
-        setTimeout(() => {
-          router.push('/dashboard');
-        }, 500);
+        // Redirect to dashboard
+        router.push('/dashboard');
       } else {
         setError('Registration failed. Please try again.');
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+    } catch (err: any) {
+      if (err.message && err.message.includes('Password must')) {
+        setError(err.message);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -135,115 +86,82 @@ export default function RegisterPage() {
           <CivixLogo size="lg" showTagline={false} />
           <h1 className="mt-4 text-2xl font-bold text-gray-900">Create Your Account</h1>
           <p className="mt-2 text-sm text-gray-600">
-            {location ? `${location.city}, ${location.state} ${zipCode}` : zipCode}
+            Join CITZN and engage with your government
           </p>
         </div>
 
         <Card className="p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Anonymous Mode Toggle */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <label className="flex items-start cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="stayAnonymous"
-                  checked={formData.stayAnonymous}
-                  onChange={handleInputChange}
-                  className="mt-1 mr-3"
-                />
-                <div>
-                  <p className="font-medium text-blue-900">Stay Anonymous</p>
-                  <p className="text-sm text-blue-700 mt-1">
-                    Participate without revealing your identity. You can always add your information later.
-                  </p>
-                </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                Email Address <span className="text-red-500">*</span>
               </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
+                placeholder="you@example.com"
+              />
             </div>
 
-            {/* Optional Identity Fields */}
-            {!formData.stayAnonymous && (
-              <div className="space-y-4 animate-fadeIn">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                      First Name (Optional)
-                    </label>
-                    <input
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Last Name (Optional)
-                    </label>
-                    <input
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email (Optional)
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
-                    placeholder="you@example.com"
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Privacy Settings */}
-            <div className="space-y-3 pt-4 border-t">
-              <h3 className="text-sm font-medium text-gray-900">Privacy Settings</h3>
-              
-              <label className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="allowAnalytics"
-                  checked={formData.allowAnalytics}
-                  onChange={handleInputChange}
-                  className="mr-2"
-                />
-                <span className="text-sm text-gray-700">
-                  Allow anonymous analytics to improve the platform
-                </span>
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+                Password <span className="text-red-500">*</span>
               </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                value={formData.password}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
+                placeholder="••••••••"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Must be 8+ characters with uppercase, lowercase, and number
+              </p>
+            </div>
 
-              <div>
-                <label htmlFor="retention" className="block text-sm text-gray-700 mb-1">
-                  Data retention period
-                </label>
-                <select
-                  id="retention"
-                  name="dataRetentionDays"
-                  value={formData.dataRetentionDays}
-                  onChange={(e) => setFormData(prev => ({ ...prev, dataRetentionDays: parseInt(e.target.value) }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
-                >
-                  <option value="30">30 days</option>
-                  <option value="90">90 days</option>
-                  <option value="180">180 days</option>
-                  <option value="365">1 year</option>
-                  <option value="730">2 years</option>
-                </select>
-              </div>
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
+                Confirm Password <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                required
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
+                placeholder="••••••••"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">
+                ZIP Code <span className="text-red-500">*</span>
+              </label>
+              <input
+                id="zipCode"
+                name="zipCode"
+                type="text"
+                required
+                maxLength={5}
+                pattern="[0-9]{5}"
+                value={formData.zipCode}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-delta"
+                placeholder="12345"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                We'll find your representatives based on your ZIP code
+              </p>
             </div>
 
             {/* Terms and Conditions */}
@@ -280,11 +198,11 @@ export default function RegisterPage() {
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => router.push('/')}
+                onClick={() => router.push('/login')}
                 disabled={loading}
                 fullWidth
               >
-                Back
+                Back to Login
               </Button>
               <Button
                 type="submit"
@@ -295,7 +213,6 @@ export default function RegisterPage() {
                 {loading ? 'Creating Account...' : 'Create Account'}
               </Button>
             </div>
-
           </form>
         </Card>
 

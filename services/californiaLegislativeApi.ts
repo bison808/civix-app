@@ -1,4 +1,5 @@
 import { Bill } from '@/types';
+import { legiScanApiClient } from './legiScanApiClient';
 
 // Cache configuration
 const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes for state bills
@@ -192,9 +193,9 @@ class CaliforniaLegislativeApiService {
     } catch (error) {
       console.error('Failed to fetch CA bills from Legislative API:', error);
       
-      // Fallback to mock CA bills
-      console.log('Using fallback CA legislative data');
-      return this.getCurrentCaliforniaBills();
+      // Fallback to minimal cached data - NO FAKE DATA
+      console.log('Using minimal fallback CA legislative data - LegiScan API temporarily unavailable');
+      return this.getMinimalFallbackBills();
     }
   }
 
@@ -203,9 +204,29 @@ class CaliforniaLegislativeApiService {
     limit: number,
     offset: number
   ): Promise<Bill[]> {
-    // For now, use realistic current CA bills
-    console.log('Using real CA Legislature bills (2025 session)');
-    return this.getCurrentCaliforniaBills().slice(0, limit);
+    // REAL API INTEGRATION - Agent Mike Implementation
+    console.log('Fetching REAL California bills from LegiScan API (2025 session)');
+    
+    try {
+      // Use LegiScan API client for real legislative data
+      const realBills = await legiScanApiClient.fetchCaliforniaBills(limit, offset, sessionYear);
+      
+      if (realBills.length > 0) {
+        console.log(`LegiScan: Retrieved ${realBills.length} real California bills`);
+        return realBills;
+      } else {
+        console.warn('LegiScan returned no bills, using minimal fallback');
+        return [];
+      }
+    } catch (error) {
+      console.error('LegiScan API failed, using fallback data:', error);
+      
+      // Fallback to minimal cached data only if LegiScan completely fails
+      // This prevents serving fake data as primary source
+      const fallbackBills = this.getMinimalFallbackBills();
+      console.warn(`Using ${fallbackBills.length} minimal fallback bills due to API failure`);
+      return fallbackBills;
+    }
   }
 
   // Transform CA legislative data to our Bill type
@@ -391,305 +412,98 @@ class CaliforniaLegislativeApiService {
     }
   }
 
-  // Get current California bills (2025 session)
-  private getCurrentCaliforniaBills(): Bill[] {
+  // REPLACED: Fake data eliminated - Agent Mike
+  // Minimal fallback when LegiScan API is completely unavailable
+  private getMinimalFallbackBills(): Bill[] {
     const currentDate = new Date().toISOString().split('T')[0];
     
-    const californiaBills: Bill[] = [
+    // Return minimal fallback to prevent app crash - NOT fake data
+    const fallbackBills: Bill[] = [
       {
-        id: 'ca-ab-1-2025',
-        billNumber: 'AB 1',
-        title: 'Housing Affordability and Accountability Act',
-        summary: 'Establishes new requirements for local governments to plan for housing needs and streamlines approval processes for affordable housing developments.',
+        id: 'ca-api-unavailable',
+        billNumber: 'API Notice',
+        title: 'LegiScan API Temporarily Unavailable',
+        summary: 'California legislative data is temporarily unavailable. Please try again in a few minutes.',
         status: {
           stage: 'Committee',
-          detail: 'In Assembly Housing and Community Development Committee',
+          detail: 'API service temporarily unavailable',
           date: currentDate
         },
-        chamber: 'House', // Assembly
-        introducedDate: '2024-12-02',
+        chamber: 'House',
+        introducedDate: currentDate,
         lastActionDate: currentDate,
-        lastAction: 'Referred to Assembly Housing and Community Development Committee',
+        lastAction: 'Checking API availability...',
         sponsor: {
-          id: 'ca-buffy_wicks',
-          name: 'Buffy Wicks',
-          party: 'Democrat',
-          state: 'CA',
-          district: '15'
+          id: 'system',
+          name: 'CITZN System',
+          party: 'System',
+          state: 'CA'
         },
         cosponsors: [],
-        committees: ['Assembly Housing and Community Development'],
-        subjects: ['Housing', 'Local Government', 'Planning and Zoning'],
-        policyArea: 'Housing',
-        legislativeHistory: [
-          {
-            date: '2024-12-02',
-            action: 'Introduced in Assembly',
-            chamber: 'House',
-            actionType: 'introduction'
-          }
-        ],
+        committees: [],
+        subjects: ['System Notice'],
+        policyArea: 'System',
+        legislativeHistory: [],
         aiSummary: {
-          id: 'ca-summary-ab-1-2025',
-          billId: 'ca-ab-1-2025',
-          title: 'Housing Affordability and Accountability Act',
-          simpleSummary: 'Requires cities to plan better for housing and makes it easier to build affordable homes in California.',
+          id: 'system-notice',
+          billId: 'ca-api-unavailable',
+          title: 'Service Temporarily Unavailable',
+          simpleSummary: 'Real California legislative data is temporarily unavailable due to API maintenance.',
           keyPoints: [
-            'Requires cities to meet housing production targets',
-            'Streamlines affordable housing approvals',
-            'Penalizes cities that don\'t comply',
-            'Includes tenant protection measures'
+            'LegiScan API is temporarily down',
+            'Real California bills will load when service is restored',
+            'No fake data is being displayed'
           ],
-          pros: [
-            'Could increase affordable housing supply',
-            'Holds cities accountable for housing goals',
-            'Streamlines bureaucratic processes',
-            'Protects renters from displacement'
-          ],
-          cons: [
-            'May override local community input',
-            'Could strain city budgets',
-            'Implementation complexity',
-            'Potential for unintended development'
-          ],
-          whoItAffects: [
-            'Renters and homebuyers',
-            'Local government officials',
-            'Housing developers',
-            'Community advocates'
-          ],
-          whatItMeans: 'This bill could make it easier to build affordable housing in your community while requiring cities to plan for growth.',
-          timeline: 'Committee hearings: 2-3 months, Assembly vote: 6 months, Implementation: 2026',
-          readingLevel: 'middle',
-          generatedAt: currentDate
-        }
-      },
-      {
-        id: 'ca-sb-2-2025',
-        billNumber: 'SB 2',
-        title: 'California Climate Resilience and Clean Energy Act',
-        summary: 'Establishes ambitious renewable energy targets, creates clean energy jobs program, and funds climate adaptation infrastructure across California.',
-        status: {
-          stage: 'Committee',
-          detail: 'In Senate Energy, Utilities and Communications Committee',
-          date: currentDate
-        },
-        chamber: 'Senate',
-        introducedDate: '2024-12-09',
-        lastActionDate: currentDate,
-        lastAction: 'Referred to Senate Energy, Utilities and Communications Committee',
-        sponsor: {
-          id: 'ca-scott_wiener',
-          name: 'Scott Wiener',
-          party: 'Democrat',
-          state: 'CA',
-          district: '11'
-        },
-        cosponsors: [],
-        committees: ['Senate Energy, Utilities and Communications'],
-        subjects: ['Climate Change', 'Renewable Energy', 'Environmental Protection', 'Jobs'],
-        policyArea: 'Environment',
-        legislativeHistory: [
-          {
-            date: '2024-12-09',
-            action: 'Introduced in Senate',
-            chamber: 'Senate',
-            actionType: 'introduction'
-          }
-        ],
-        aiSummary: {
-          id: 'ca-summary-sb-2-2025',
-          billId: 'ca-sb-2-2025',
-          title: 'California Climate Resilience and Clean Energy Act',
-          simpleSummary: 'Accelerates California\'s transition to clean energy while creating jobs and preparing for climate change impacts.',
-          keyPoints: [
-            'Requires 100% clean electricity by 2030',
-            'Creates 200,000 clean energy jobs',
-            'Funds wildfire prevention infrastructure',
-            'Invests in disadvantaged communities'
-          ],
-          pros: [
-            'Reduces greenhouse gas emissions',
-            'Creates high-paying green jobs',
-            'Improves air quality',
-            'Builds climate-resilient infrastructure'
-          ],
-          cons: [
-            'High upfront implementation costs',
-            'May increase energy rates short-term',
-            'Complex regulatory framework',
-            'Potential grid reliability concerns'
-          ],
-          whoItAffects: [
-            'Energy workers and job seekers',
-            'Utility customers statewide',
-            'Environmental justice communities',
-            'Clean energy companies'
-          ],
-          whatItMeans: 'This bill could transform California\'s energy system, potentially affecting your electricity bills while creating jobs in clean energy.',
-          timeline: 'Committee review: 3-4 months, Senate vote: 8 months, Implementation: 2025-2030',
-          readingLevel: 'middle',
-          generatedAt: currentDate
-        }
-      },
-      {
-        id: 'ca-ab-15-2025',
-        billNumber: 'AB 15',
-        title: 'California Gig Worker Protection and Benefits Act',
-        summary: 'Extends worker protections and benefits to gig economy workers including rideshare drivers, delivery workers, and freelance contractors.',
-        status: {
-          stage: 'Committee',
-          detail: 'In Assembly Labor and Employment Committee',
-          date: currentDate
-        },
-        chamber: 'House', // Assembly
-        introducedDate: '2025-01-12',
-        lastActionDate: currentDate,
-        lastAction: 'Referred to Assembly Labor and Employment Committee',
-        sponsor: {
-          id: 'ca-lorena_gonzalez',
-          name: 'Lorena Gonzalez',
-          party: 'Democrat',
-          state: 'CA',
-          district: '80'
-        },
-        cosponsors: [],
-        committees: ['Assembly Labor and Employment'],
-        subjects: ['Labor', 'Employment', 'Workers Rights', 'Gig Economy'],
-        policyArea: 'Labor and Employment',
-        legislativeHistory: [
-          {
-            date: '2025-01-12',
-            action: 'Introduced in Assembly',
-            chamber: 'House',
-            actionType: 'introduction'
-          }
-        ],
-        aiSummary: {
-          id: 'ca-summary-ab-15-2025',
-          billId: 'ca-ab-15-2025',
-          title: 'California Gig Worker Protection and Benefits Act',
-          simpleSummary: 'Gives gig workers like Uber drivers and DoorDash delivery people access to benefits and job protections.',
-          keyPoints: [
-            'Provides healthcare benefits for gig workers',
-            'Establishes minimum earnings guarantees',
-            'Creates portable benefits system',
-            'Protects against unfair deactivation'
-          ],
-          pros: [
-            'Improves worker financial security',
-            'Provides healthcare access',
-            'Ensures fair treatment',
-            'Creates industry standards'
-          ],
-          cons: [
-            'May increase costs for platforms',
-            'Could reduce worker flexibility',
-            'Complex implementation challenges',
-            'Potential service price increases'
-          ],
-          whoItAffects: [
-            'Gig economy workers',
-            'Rideshare and delivery app users',
-            'Platform companies',
-            'Traditional employees'
-          ],
-          whatItMeans: 'This bill could give gig workers more benefits and protections, potentially affecting the cost and availability of app-based services.',
-          timeline: 'Committee review: 2-3 months, Assembly vote: 5 months, Implementation: 2026',
-          readingLevel: 'middle',
-          generatedAt: currentDate
-        }
-      },
-      {
-        id: 'ca-sb-10-2025',
-        billNumber: 'SB 10',
-        title: 'California Public Safety and Criminal Justice Reform Act',
-        summary: 'Reforms criminal justice system through rehabilitation programs, mental health resources, and community-based alternatives to incarceration.',
-        status: {
-          stage: 'Committee',
-          detail: 'In Senate Public Safety Committee',
-          date: currentDate
-        },
-        chamber: 'Senate',
-        introducedDate: '2025-01-08',
-        lastActionDate: currentDate,
-        lastAction: 'Referred to Senate Public Safety Committee',
-        sponsor: {
-          id: 'ca-nancy_skinner',
-          name: 'Nancy Skinner',
-          party: 'Democrat',
-          state: 'CA',
-          district: '9'
-        },
-        cosponsors: [],
-        committees: ['Senate Public Safety'],
-        subjects: ['Criminal Justice', 'Public Safety', 'Mental Health', 'Rehabilitation'],
-        policyArea: 'Crime and Law Enforcement',
-        legislativeHistory: [
-          {
-            date: '2025-01-08',
-            action: 'Introduced in Senate',
-            chamber: 'Senate',
-            actionType: 'introduction'
-          }
-        ],
-        aiSummary: {
-          id: 'ca-summary-sb-10-2025',
-          billId: 'ca-sb-10-2025',
-          title: 'California Public Safety and Criminal Justice Reform Act',
-          simpleSummary: 'Focuses on rehabilitation and mental health treatment instead of just incarceration to reduce crime and recidivism.',
-          keyPoints: [
-            'Expands mental health courts',
-            'Funds drug treatment programs',
-            'Creates community service alternatives',
-            'Invests in victim support services'
-          ],
-          pros: [
-            'Reduces recidivism rates',
-            'Addresses root causes of crime',
-            'Saves taxpayer money long-term',
-            'Supports crime victims'
-          ],
-          cons: [
-            'High upfront program costs',
-            'May appear soft on crime',
-            'Complex system changes required',
-            'Results may take time to show'
-          ],
-          whoItAffects: [
-            'People in the justice system',
-            'Crime victims and families',
-            'Law enforcement agencies',
-            'Community organizations'
-          ],
-          whatItMeans: 'This bill could change how California handles crime, focusing more on treatment and rehabilitation than punishment.',
-          timeline: 'Committee hearings: 3 months, Senate vote: 6 months, Implementation: 2026-2027',
+          pros: ['Transparent about data availability'],
+          cons: ['Temporary service interruption'],
+          whoItAffects: ['Platform users'],
+          whatItMeans: 'The platform only shows real legislative data - no fake information.',
+          timeline: 'Service restoration in progress',
           readingLevel: 'middle',
           generatedAt: currentDate
         }
       }
     ];
 
-    return californiaBills;
+    return fallbackBills;
   }
 
-  // Search California bills
+  // Search California bills - Agent Mike Implementation
   async searchBills(query: string): Promise<Bill[]> {
-    const bills = await this.fetchRecentBills();
-    
-    const searchTerm = query.toLowerCase();
-    return bills.filter(bill => 
-      bill.title.toLowerCase().includes(searchTerm) ||
-      bill.summary.toLowerCase().includes(searchTerm) ||
-      bill.billNumber.toLowerCase().includes(searchTerm) ||
-      bill.subjects.some(s => s.toLowerCase().includes(searchTerm))
-    );
+    try {
+      // Use LegiScan API client for real search
+      return await legiScanApiClient.searchBills(query);
+    } catch (error) {
+      console.error('LegiScan search failed:', error);
+      // Fallback to local search on cached bills
+      const bills = await this.fetchRecentBills();
+      
+      const searchTerm = query.toLowerCase();
+      return bills.filter(bill => 
+        bill.title.toLowerCase().includes(searchTerm) ||
+        bill.summary.toLowerCase().includes(searchTerm) ||
+        bill.billNumber.toLowerCase().includes(searchTerm) ||
+        bill.subjects.some(s => s.toLowerCase().includes(searchTerm))
+      );
+    }
   }
 
-  // Get CA bill by ID
+  // Get CA bill by ID - Agent Mike Implementation
   async getBillById(billId: string): Promise<Bill | null> {
-    const bills = await this.fetchRecentBills();
-    return bills.find(b => b.id === billId) || null;
+    try {
+      // Try LegiScan API first for detailed bill information
+      if (billId.includes('legiscan')) {
+        const legiScanId = billId.replace('ca-legiscan-', '');
+        return await legiScanApiClient.getBillDetails(legiScanId);
+      }
+      
+      // Fallback to cached bills search
+      const bills = await this.fetchRecentBills();
+      return bills.find(b => b.id === billId) || null;
+    } catch (error) {
+      console.error('Failed to get bill details:', error);
+      return null;
+    }
   }
 
   // Clear cache

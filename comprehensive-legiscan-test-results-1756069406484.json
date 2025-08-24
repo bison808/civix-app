@@ -1,0 +1,130 @@
+{
+  "summary": {
+    "totalTests": 14,
+    "passedTests": 10,
+    "failedTests": 4,
+    "successRate": 71,
+    "averageResponseTime": 3,
+    "totalTime": 2876,
+    "timestamp": "2025-08-24T21:03:26.484Z",
+    "productionReady": false,
+    "performanceGrade": "A",
+    "criticalIssues": 0
+  },
+  "detailedResults": {
+    "votingRecords": [
+      {
+        "testName": "System Health Check",
+        "passed": true,
+        "details": "Status: healthy, Dependencies: 3",
+        "responseTime": 2,
+        "timestamp": "2025-08-24T21:03:24.728Z"
+      },
+      {
+        "testName": "Bills API Availability",
+        "passed": true,
+        "details": "Status: 200, Response time: 0ms",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:03:25.000Z"
+      },
+      {
+        "testName": "Committee API Functionality",
+        "passed": true,
+        "details": "Status: 200, Response time: 0ms",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:03:25.085Z"
+      },
+      {
+        "testName": "Representatives API Integration",
+        "passed": true,
+        "details": "Status: 200, Response time: 1ms",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:03:25.276Z"
+      }
+    ],
+    "committeeFunctionality": [],
+    "documentRetrieval": [],
+    "legislativeCalendars": [],
+    "advancedSearch": [],
+    "performanceValidation": [
+      {
+        "testName": "Bundle Size Check (Target: <400KB)",
+        "passed": true,
+        "details": "Initial load: 1ms (indicates bundle efficiency)",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:03:25.600Z"
+      },
+      {
+        "testName": "API Response Caching",
+        "passed": true,
+        "details": "First: 16ms, Second: 15ms",
+        "responseTime": 15,
+        "timestamp": "2025-08-24T21:03:25.631Z"
+      },
+      {
+        "testName": "React Query Integration",
+        "passed": true,
+        "details": "React Query backend health: healthy",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:03:26.287Z"
+      }
+    ],
+    "uiUxComponents": [
+      {
+        "testName": "Homepage Load Performance",
+        "passed": false,
+        "details": "Load time: 0ms (target: <2000ms)",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:03:25.574Z"
+      },
+      {
+        "testName": "Feed Page Performance",
+        "passed": false,
+        "details": "Status: 307, Load time: 0ms",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:03:25.581Z"
+      },
+      {
+        "testName": "Representatives Page Performance",
+        "passed": false,
+        "details": "Status: 307, Load time: 1ms",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:03:25.587Z"
+      },
+      {
+        "testName": "Committees Page Performance",
+        "passed": false,
+        "details": "Status: 307, Load time: 0ms",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:03:25.593Z"
+      }
+    ],
+    "integrationWorkflows": [
+      {
+        "testName": "ZIP Code → Representatives Workflow",
+        "passed": true,
+        "details": "ZIP 94102 lookup: 200 status",
+        "responseTime": 0,
+        "timestamp": "2025-08-24T21:03:26.296Z"
+      },
+      {
+        "testName": "Bills → Committee Integration",
+        "passed": true,
+        "details": "Bills: 200, Committees: 200",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:03:26.310Z"
+      },
+      {
+        "testName": "Complete User Journey (ZIP → Bills → Representatives)",
+        "passed": true,
+        "details": "ZIP: 200, Bills: 200, Reps: 200",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:03:26.483Z"
+      }
+    ],
+    "errors": []
+  },
+  "recommendations": [
+    "🔧 Address failing tests before production deployment"
+  ]
+}

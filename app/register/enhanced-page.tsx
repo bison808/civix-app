@@ -9,7 +9,8 @@ import { CivixLogo } from '@/components/CivixLogo';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import WelcomeAnimation from '@/components/onboarding/WelcomeAnimation';
 import Tooltip from '@/components/ui/Tooltip';
-import { authApi, RegisterRequest } from '@/services/authApi';
+import { authApi } from '@/services/authApi';
+import { RegisterRequest } from '@/types/auth.types';
 import { 
   Shield, 
   User, 

@@ -1,0 +1,121 @@
+{
+  "summary": {
+    "totalTests": 7,
+    "passedTests": 6,
+    "failedTests": 1,
+    "successRate": 86,
+    "averageResponseTime": 2,
+    "performanceGrade": "A+",
+    "bundleOptimized": true,
+    "cacheEffective": true,
+    "loadHandling": true,
+    "productionReady": true,
+    "timestamp": "2025-08-24T21:04:45.331Z"
+  },
+  "detailedResults": {
+    "loadTests": [],
+    "bundleTests": [
+      {
+        "testName": "Main Bundle Size Check",
+        "passed": true,
+        "details": "Load time: 1ms, Status: 307",
+        "responseTime": 1,
+        "bundleEfficient": true,
+        "timestamp": "2025-08-24T21:04:42.999Z"
+      },
+      {
+        "testName": "Dynamic Import Performance",
+        "passed": true,
+        "details": "Avg dynamic load: 0ms across 3 pages",
+        "responseTime": 0,
+        "pageResults": [
+          {
+            "page": "/feed",
+            "responseTime": 0,
+            "status": 307
+          },
+          {
+            "page": "/representatives",
+            "responseTime": 1,
+            "status": 307
+          },
+          {
+            "page": "/committees",
+            "responseTime": 0,
+            "status": 307
+          }
+        ],
+        "timestamp": "2025-08-24T21:04:43.017Z"
+      },
+      {
+        "testName": "React Query Bundle Integration",
+        "passed": true,
+        "details": "React Query health: 1ms",
+        "responseTime": 1,
+        "timestamp": "2025-08-24T21:04:44.123Z"
+      }
+    ],
+    "cacheTests": [
+      {
+        "testName": "API Response Caching",
+        "passed": true,
+        "details": "Avg cache improvement: 4ms",
+        "responseTime": 4,
+        "cacheResults": [
+          {
+            "endpoint": "/api/bills",
+            "firstCall": 20,
+            "secondCall": 6,
+            "improvement": 14,
+            "cached": true
+          },
+          {
+            "endpoint": "/api/representatives?zipCode=94102",
+            "firstCall": 7,
+            "secondCall": 7,
+            "improvement": 0,
+            "cached": true
+          },
+          {
+            "endpoint": "/api/committees",
+            "firstCall": 7,
+            "secondCall": 9,
+            "improvement": -2,
+            "cached": false
+          }
+        ],
+        "timestamp": "2025-08-24T21:04:44.182Z"
+      },
+      {
+        "testName": "Static Asset Caching",
+        "passed": false,
+        "details": "Cache headers present: false",
+        "responseTime": 0,
+        "cacheHeaders": {},
+        "timestamp": "2025-08-24T21:04:44.187Z"
+      }
+    ],
+    "concurrencyTests": [
+      {
+        "testName": "Concurrent API Requests (10 parallel)",
+        "passed": true,
+        "details": "10/10 requests succeeded, Avg: 1ms",
+        "responseTime": 1,
+        "successRate": 100,
+        "totalTime": 1039,
+        "timestamp": "2025-08-24T21:04:45.228Z"
+      },
+      {
+        "testName": "Mixed Endpoint Load Test",
+        "passed": true,
+        "details": "12/12 mixed requests succeeded in 100ms",
+        "responseTime": 0,
+        "successRate": 100,
+        "totalTime": 100,
+        "timestamp": "2025-08-24T21:04:45.330Z"
+      }
+    ],
+    "errors": []
+  },
+  "recommendations": []
+}

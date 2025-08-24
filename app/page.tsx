@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
 import { CivixLogo } from '@/components/CivixLogo';
 import Tooltip from '@/components/ui/Tooltip';
-import { authApi } from '@/services/authApi';
+// Dynamic import for authApi to prevent bundle bloat
 import { MapPin, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -47,6 +47,8 @@ export default function OptimizedLandingPage() {
     setLoading(true);
 
     try {
+      // Dynamic import to prevent authApi from loading in main bundle
+      const { authApi } = await import('@/services/authApi');
       const response = await authApi.verifyZipCode(zipCode);
       if (response.valid) {
         // Store ZIP and location info

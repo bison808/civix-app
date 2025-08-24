@@ -120,6 +120,7 @@ export default function LoginPage() {
               
               <button
                 type="button"
+                onClick={() => router.push('/forgot-password')}
                 className="text-sm text-delta hover:underline"
               >
                 Forgot password?
@@ -152,6 +153,15 @@ export default function LoginPage() {
               className="text-delta hover:underline font-medium"
             >
               Create Account
+            </button>
+          </p>
+          <p className="text-sm text-gray-600">
+            Forgot your email?{' '}
+            <button
+              onClick={() => router.push('/recover-username')}
+              className="text-delta hover:underline font-medium"
+            >
+              Recover Username
             </button>
           </p>
           <p className="text-xs text-gray-500">
