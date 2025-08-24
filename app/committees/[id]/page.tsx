@@ -8,9 +8,9 @@ import Link from 'next/link';
 import { useCommittees, useCommitteeMeetings } from '@/hooks/useCommittees';
 import committeeService from '@/services/committee.service';
 import { Committee, CommitteeMember } from '@/types/committee.types';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import Card from '@/components/core/Card';
+import Button from '@/components/core/Button';
+import Badge from '@/components/core/Badge';
 import { Separator } from '@/components/ui/separator';
 import CommitteeMeetingCard from '@/components/committees/CommitteeMeetingCard';
 import { 
@@ -110,7 +110,7 @@ export default function CommitteeDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gray-50 pt-14 md:pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
         {/* Breadcrumb */}
@@ -131,7 +131,7 @@ export default function CommitteeDetailPage() {
         </div>
 
         {/* Committee Header */}
-        <Card className="p-6 mb-8">
+        <Card variant="default" padding="lg" className="mb-8">
           <div className="flex justify-between items-start mb-6">
             <div className="flex-1">
               <div className="flex items-center space-x-3 mb-3">
@@ -192,7 +192,7 @@ export default function CommitteeDetailPage() {
           <div className="lg:col-span-2">
             
             {/* Committee Stats */}
-            <Card className="p-6 mb-6">
+            <Card variant="default" padding="lg" className="mb-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Committee Overview</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center">
@@ -216,7 +216,7 @@ export default function CommitteeDetailPage() {
 
             {/* Upcoming Meetings */}
             {upcomingMeetings.length > 0 && (
-              <Card className="p-6 mb-6">
+              <Card variant="default" padding="lg" className="mb-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold text-gray-900">Upcoming Meetings</h2>
                   <Link href={`/committees/${committeeId}/meetings`}>
@@ -235,7 +235,7 @@ export default function CommitteeDetailPage() {
 
             {/* Recent Activity */}
             {pastMeetings.length > 0 && (
-              <Card className="p-6">
+              <Card variant="default" padding="lg">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Meetings</h2>
                 <div className="space-y-4">
                   {pastMeetings.slice(0, 3).map(meeting => (
@@ -259,7 +259,7 @@ export default function CommitteeDetailPage() {
           <div className="space-y-6">
             
             {/* Leadership */}
-            <Card className="p-4">
+            <Card variant="default" padding="md">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Leadership</h3>
               <div className="space-y-3">
                 {committee.chair && (
@@ -275,7 +275,7 @@ export default function CommitteeDetailPage() {
             </Card>
 
             {/* Members */}
-            <Card className="p-4">
+            <Card variant="default" padding="md">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Members</h3>
                 <Badge variant="outline">{committee.memberCount} total</Badge>
@@ -296,7 +296,7 @@ export default function CommitteeDetailPage() {
 
             {/* Subcommittees */}
             {committee.subcommittees && committee.subcommittees.length > 0 && (
-              <Card className="p-4">
+              <Card variant="default" padding="md">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Subcommittees</h3>
                 <div className="space-y-2">
                   {committee.subcommittees.map(subcommitteeId => (
@@ -379,7 +379,7 @@ function CommitteeMemberCard({ member, compact = false }: CommitteeMemberCardPro
   }
 
   return (
-    <Card className="p-4">
+    <Card variant="default" padding="md">
       <div className="flex items-start justify-between mb-2">
         <div className="flex-1">
           <Link 
