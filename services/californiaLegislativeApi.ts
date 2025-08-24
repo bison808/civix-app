@@ -413,11 +413,19 @@ class CaliforniaLegislativeApiService {
   }
 
   // REPLACED: Fake data eliminated - Agent Mike
-  // Minimal fallback when LegiScan API is completely unavailable
+  // Development-safe California bills for demo/testing when API key not available
   private getMinimalFallbackBills(): Bill[] {
     const currentDate = new Date().toISOString().split('T')[0];
     
-    // Return minimal fallback to prevent app crash - NOT fake data
+    // Check if we have an API key - if not, show demo data with clear labeling
+    const hasApiKey = !!(process.env.LEGISCAN_API_KEY || process.env.NEXT_PUBLIC_LEGISCAN_API_KEY);
+    
+    if (!hasApiKey) {
+      // Development-safe demo data - clearly labeled as demo
+      return this.getDemoCaliforniaBills();
+    }
+    
+    // If we have API key but still failed, show API unavailable message
     const fallbackBills: Bill[] = [
       {
         id: 'ca-api-unavailable',
@@ -466,6 +474,134 @@ class CaliforniaLegislativeApiService {
     ];
 
     return fallbackBills;
+  }
+
+  // Development-safe demo California bills - clearly labeled as demo data
+  private getDemoCaliforniaBills(): Bill[] {
+    const currentDate = new Date().toISOString().split('T')[0];
+    
+    const demoBills: Bill[] = [
+      {
+        id: 'ca-demo-ab-1-2025',
+        billNumber: 'AB 1 (DEMO)',
+        title: '[DEMO] California Housing Affordability Act',
+        summary: 'DEMO DATA: Real bill tracking will be available when LegiScan API key is configured. This demonstrates the platform\'s capability to display real California legislative data.',
+        status: {
+          stage: 'Committee',
+          detail: 'Demo: In Assembly Housing Committee',
+          date: currentDate
+        },
+        chamber: 'House',
+        introducedDate: '2024-12-02',
+        lastActionDate: currentDate,
+        lastAction: 'Demo: Referred to Assembly Housing Committee',
+        sponsor: {
+          id: 'ca-demo-sponsor',
+          name: '[DEMO] Assembly Member',
+          party: 'Democrat',
+          state: 'CA',
+          district: '15'
+        },
+        cosponsors: [],
+        committees: ['Assembly Housing and Community Development'],
+        subjects: ['Housing', 'Demo Data'],
+        policyArea: 'Housing',
+        legislativeHistory: [{
+          date: '2024-12-02',
+          action: 'Demo: Introduced in Assembly',
+          chamber: 'House',
+          actionType: 'introduction'
+        }],
+        aiSummary: {
+          id: 'ca-demo-summary-ab-1',
+          billId: 'ca-demo-ab-1-2025',
+          title: '[DEMO] California Housing Affordability Act',
+          simpleSummary: 'DEMO DATA: This shows how real California bills will be displayed. Configure LegiScan API key to see actual legislative data.',
+          keyPoints: [
+            'This is demonstration data only',
+            'Real California bills will show when LegiScan API key is configured',
+            'Platform is ready for real legislative data',
+            'Demo shows data structure and display format'
+          ],
+          pros: [
+            'Demonstrates platform capabilities',
+            'Shows real data format',
+            'Ready for production deployment'
+          ],
+          cons: [
+            'Demo data only',
+            'Requires API key for real data',
+            'Limited to demonstration purposes'
+          ],
+          whoItAffects: ['Demo users', 'Platform developers', 'Future California residents'],
+          whatItMeans: 'This demonstrates how real California legislative data will appear once API access is configured.',
+          timeline: 'Demo: Configure LegiScan API key to access real California legislative data',
+          readingLevel: 'middle',
+          generatedAt: currentDate
+        }
+      },
+      {
+        id: 'ca-demo-sb-2-2025',
+        billNumber: 'SB 2 (DEMO)',
+        title: '[DEMO] California Climate Action Plan',
+        summary: 'DEMO DATA: Shows how California Senate bills will be displayed. Real legislative data will replace this when LegiScan API key is configured.',
+        status: {
+          stage: 'Committee',
+          detail: 'Demo: In Senate Environmental Quality Committee',
+          date: currentDate
+        },
+        chamber: 'Senate',
+        introducedDate: '2024-12-09',
+        lastActionDate: currentDate,
+        lastAction: 'Demo: Referred to Senate Environmental Quality Committee',
+        sponsor: {
+          id: 'ca-demo-senator',
+          name: '[DEMO] State Senator',
+          party: 'Democrat',
+          state: 'CA',
+          district: '11'
+        },
+        cosponsors: [],
+        committees: ['Senate Environmental Quality'],
+        subjects: ['Climate Change', 'Demo Data'],
+        policyArea: 'Environment',
+        legislativeHistory: [{
+          date: '2024-12-09',
+          action: 'Demo: Introduced in Senate',
+          chamber: 'Senate',
+          actionType: 'introduction'
+        }],
+        aiSummary: {
+          id: 'ca-demo-summary-sb-2',
+          billId: 'ca-demo-sb-2-2025',
+          title: '[DEMO] California Climate Action Plan',
+          simpleSummary: 'DEMO DATA: Represents how real California Senate environmental bills will be displayed with full details.',
+          keyPoints: [
+            'Demonstration of Senate bill format',
+            'Shows environmental policy area display',
+            'Demonstrates AI summary capabilities',
+            'Ready for real LegiScan API integration'
+          ],
+          pros: [
+            'Shows complete data structure',
+            'Demonstrates policy categorization',
+            'Ready for production data'
+          ],
+          cons: [
+            'Demo data only',
+            'Awaiting API key configuration',
+            'Not real legislative content'
+          ],
+          whoItAffects: ['Demo users', 'Environmental advocates', 'Platform testers'],
+          whatItMeans: 'Shows how real California environmental legislation will be displayed and analyzed.',
+          timeline: 'Demo: Production ready - awaiting LegiScan API key',
+          readingLevel: 'middle',
+          generatedAt: currentDate
+        }
+      }
+    ];
+
+    return demoBills;
   }
 
   // Search California bills - Agent Mike Implementation
