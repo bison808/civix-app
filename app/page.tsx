@@ -138,7 +138,7 @@ export default function OptimizedLandingPage() {
             {isFirstTime && (
               <p className={`mt-4 text-sm text-gray-600 ${enableAnimations ? 'animate-fade-in-delay' : ''}`}>
                 <Sparkles className="inline w-4 h-4 text-yellow-500 mr-1" />
-                Welcome! Let's get you started in 30 seconds
+                Welcome! Let's get you started
               </p>
             )}
             
@@ -167,6 +167,19 @@ export default function OptimizedLandingPage() {
                 <h3 className="font-semibold text-gray-900">Stay Engaged</h3>
                 <p className="text-sm text-gray-600">Make informed civic decisions</p>
               </div>
+            </div>
+            
+            {/* Trust indicators */}
+            <div className="flex items-center justify-center gap-6 mt-8 text-sm text-gray-600">
+              <span className="flex items-center gap-2">
+                <span>🔒</span> Secure
+              </span>
+              <span className="flex items-center gap-2">
+                <span>🙈</span> Private
+              </span>
+              <span className="flex items-center gap-2">
+                <span>⚡</span> No spam
+              </span>
             </div>
           </div>
 
@@ -308,27 +321,13 @@ export default function OptimizedLandingPage() {
                   </>
                 )}
               </Button>
-
-              {/* Trust indicators */}
-              <div className="flex items-center justify-center gap-4 text-xs text-gray-500">
-                <span className="flex items-center gap-1">
-                  <span>🔒</span> Secure
-                </span>
-                <span className="flex items-center gap-1">
-                  <span>🙈</span> Private
-                </span>
-                <span className="flex items-center gap-1">
-                  <span>⚡</span> No spam
-                </span>
-              </div>
               </form>
             </div>
           )}
 
-          {/* Additional help for new users */}
-          {!showConfirmation && isFirstTime && (
-            <div className="text-center space-y-2">
-              <p className="text-sm text-gray-600">First time here? No worries!</p>
+          {/* Learn more section */}
+          {!showConfirmation && (
+            <div className="text-center mt-8">
               <button 
                 className="text-sm text-delta hover:underline font-medium"
                 onClick={() => alert('Help section would open here')}
