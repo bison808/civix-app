@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // Define public routes that don't require authentication
-const publicRoutes = ['/', '/login', '/register', '/verify'];
+const publicRoutes = ['/login', '/register', '/verify'];
 
 // Define routes that require verified status
 const verifiedOnlyRoutes: string[] = []; // Allow anonymous access to all routes for now
@@ -25,12 +25,20 @@ export function middleware(request: NextRequest) {
   
   // Allow public routes
   if (isPublicRoute) {
-    // If user is logged in and tries to access login/register, redirect to feed
-    // But only if they also have the required ZIP code (prevent redirect loops)
+    // If user is logged in and tries to access login/register, redirect to dashboard
     if ((pathname === '/login' || pathname === '/register') && sessionToken && anonymousId && request.cookies.get('userZipCode')?.value) {
-      return NextResponse.redirect(new URL('/feed', request.url));
+      return NextResponse.redirect(new URL('/dashboard', request.url));
     }
     return NextResponse.next();
+  }
+  
+  // Redirect root path to login for unauthenticated users
+  if (pathname === '/') {
+    if (!sessionToken || !anonymousId) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    // If authenticated, redirect to dashboard
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
   
   // Check authentication for protected routes
@@ -40,13 +48,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
     
-    // For /feed specifically, redirect to register if no session
-    // For other protected routes, redirect to login
-    if (pathname === '/feed') {
-      return NextResponse.redirect(new URL('/register', request.url));
-    }
-    
-    // Store the intended destination for other routes
+    // Redirect all unauthenticated users to login
     const redirectUrl = new URL('/login', request.url);
     redirectUrl.searchParams.set('from', pathname);
     return NextResponse.redirect(redirectUrl);

@@ -108,7 +108,7 @@ export default function RegisterPage() {
         
         // Use router.push for better navigation
         setTimeout(() => {
-          router.push('/feed');
+          router.push('/dashboard');
         }, 500);
       } else {
         setError('Registration failed. Please try again.');

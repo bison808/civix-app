@@ -41,7 +41,7 @@ export default function LoginPage() {
         if (!zipCode) {
           router.push('/verify');
         } else {
-          router.push('/feed');
+          router.push('/dashboard');
         }
       } else {
         setError('Invalid email or password');
