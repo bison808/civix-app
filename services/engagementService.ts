@@ -497,7 +497,8 @@ class EngagementService {
       const topicInterests = this.analyzeTopicInterests(votes);
       
       // In production, this would query the bills API with personalized filters
-      return this.generateMockRecommendations(userId, topicInterests, limit);
+      // Use real bill recommendations based on user interests and actual bills
+      return await this.generateRealRecommendations(userId, topicInterests, limit);
     } catch (error) {
       console.error('Failed to get recommendations:', error);
       return [];
@@ -859,19 +860,70 @@ class EngagementService {
         topic: 'Healthcare',
         category: 'healthcare' as BillCategory,
         interestLevel: 'high' as const,
+        strength: 0.8,
         votingHistory: { totalVotes: votes.length, supportRate: 0.7 },
         lastEngagement: new Date().toISOString()
       }
     ];
   }
 
-  private generateMockRecommendations(userId: string, topics: TopicInterest[], limit: number): any[] {
-    // Mock recommendation generation
-    return Array.from({ length: limit }, (_, i) => ({
-      billId: `rec_${userId}_${i}`,
-      relevanceScore: Math.random(),
-      reason: 'Based on your voting history'
-    }));
+  // ELIMINATED: generateMockRecommendations() - replaced with real implementation
+  private async generateRealRecommendations(userId: string, topics: TopicInterest[], limit: number): Promise<any[]> {
+    try {
+      // Fetch real bills from API
+      const response = await fetch(`/api/bills?limit=${limit * 2}`);
+      if (!response.ok) {
+        console.error('Failed to fetch bills for recommendations');
+        return [];
+      }
+      
+      const bills = await response.json();
+      if (!Array.isArray(bills)) {
+        return [];
+      }
+
+      // Filter and score bills based on user's topic interests
+      const scoredBills = bills.map(bill => {
+        let relevanceScore = 0;
+        
+        // Score based on subjects matching user interests
+        if (bill.subjects) {
+          for (const topic of topics) {
+            if (bill.subjects.some((subject: string) => 
+                subject.toLowerCase().includes(topic.topic.toLowerCase()))) {
+              relevanceScore += topic.strength;
+            }
+          }
+        }
+        
+        // Score based on title/summary keywords
+        const titleLower = (bill.title || '').toLowerCase();
+        const summaryLower = (bill.summary || '').toLowerCase();
+        
+        for (const topic of topics) {
+          const topicLower = topic.topic.toLowerCase();
+          if (titleLower.includes(topicLower) || summaryLower.includes(topicLower)) {
+            relevanceScore += topic.strength * 0.5;
+          }
+        }
+        
+        return {
+          billId: bill.id,
+          title: bill.title,
+          summary: bill.summary,
+          relevanceScore,
+          reason: `Matches your interests in ${topics.map(t => t.topic).join(', ')}`
+        };
+      })
+      .filter(bill => bill.relevanceScore > 0)
+      .sort((a, b) => b.relevanceScore - a.relevanceScore)
+      .slice(0, limit);
+
+      return scoredBills;
+    } catch (error) {
+      console.error('Failed to generate real recommendations:', error);
+      return [];
+    }
   }
 
   // Update methods after user actions

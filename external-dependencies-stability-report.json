@@ -1,0 +1,160 @@
+{
+  "title": "External Dependencies Stability Assessment",
+  "timestamp": "2025-08-24T03:28:22.036Z",
+  "summary": {
+    "total": 5,
+    "passing": 1,
+    "failing": 0,
+    "warning": 4
+  },
+  "overallHealth": "GOOD",
+  "stabilityScore": 7,
+  "details": [
+    {
+      "name": "Congress API",
+      "url": "https://api.congress.gov/v3/bill/118?format=json&limit=1",
+      "status": "auth_required",
+      "responseTime": 312,
+      "error": "Authentication required (403)",
+      "httpStatus": 403,
+      "retryAttempts": 0,
+      "requiresAuth": false,
+      "fallbackAvailable": true
+    },
+    {
+      "name": "California Legislative API",
+      "url": "https://leginfo.legislature.ca.gov/faces/rest/billsSearch",
+      "status": "degraded",
+      "responseTime": 149,
+      "error": "HTTP 404: Not Found",
+      "httpStatus": 404,
+      "retryAttempts": 0,
+      "requiresAuth": false,
+      "fallbackAvailable": true
+    },
+    {
+      "name": "OpenStates CSV Data",
+      "url": "https://data.openstates.org/people/current/ca.csv",
+      "status": "healthy",
+      "responseTime": 167,
+      "error": null,
+      "httpStatus": 200,
+      "retryAttempts": 0,
+      "requiresAuth": false,
+      "fallbackAvailable": true
+    },
+    {
+      "name": "Geocodio API (Test)",
+      "url": "https://api.geocod.io/v1.7/geocode?q=90210&format=json",
+      "status": "auth_required",
+      "responseTime": 655,
+      "error": "Authentication required (403)",
+      "httpStatus": 403,
+      "retryAttempts": 0,
+      "requiresAuth": true,
+      "fallbackAvailable": true
+    },
+    {
+      "name": "Google Civic Info API (Test)",
+      "url": "https://www.googleapis.com/civicinfo/v2/representatives?address=90210",
+      "status": "auth_required",
+      "responseTime": 258,
+      "error": "Authentication required (403)",
+      "httpStatus": 403,
+      "retryAttempts": 0,
+      "requiresAuth": true,
+      "fallbackAvailable": true
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "HIGH",
+      "category": "Configuration",
+      "issue": "Missing API keys for: Congress API, Geocodio API (Test), Google Civic Info API (Test)",
+      "recommendation": "Configure API keys in environment variables",
+      "action": "Add proper API key management and fallback strategies"
+    }
+  ],
+  "nextSteps": [
+    "Implement comprehensive resilience infrastructure",
+    "Add circuit breakers for failing dependencies",
+    "Enhance error handling with graceful degradation",
+    "Implement comprehensive monitoring and alerting",
+    "Create operational runbooks for dependency failures"
+  ],
+  "rawTestResults": {
+    "timestamp": "2025-08-24T03:28:22.036Z",
+    "summary": {
+      "total": 5,
+      "passing": 1,
+      "failing": 0,
+      "warning": 4
+    },
+    "dependencies": [
+      {
+        "name": "Congress API",
+        "url": "https://api.congress.gov/v3/bill/118?format=json&limit=1",
+        "status": "auth_required",
+        "responseTime": 312,
+        "error": "Authentication required (403)",
+        "httpStatus": 403,
+        "retryAttempts": 0,
+        "requiresAuth": false,
+        "fallbackAvailable": true
+      },
+      {
+        "name": "California Legislative API",
+        "url": "https://leginfo.legislature.ca.gov/faces/rest/billsSearch",
+        "status": "degraded",
+        "responseTime": 149,
+        "error": "HTTP 404: Not Found",
+        "httpStatus": 404,
+        "retryAttempts": 0,
+        "requiresAuth": false,
+        "fallbackAvailable": true
+      },
+      {
+        "name": "OpenStates CSV Data",
+        "url": "https://data.openstates.org/people/current/ca.csv",
+        "status": "healthy",
+        "responseTime": 167,
+        "error": null,
+        "httpStatus": 200,
+        "retryAttempts": 0,
+        "requiresAuth": false,
+        "fallbackAvailable": true
+      },
+      {
+        "name": "Geocodio API (Test)",
+        "url": "https://api.geocod.io/v1.7/geocode?q=90210&format=json",
+        "status": "auth_required",
+        "responseTime": 655,
+        "error": "Authentication required (403)",
+        "httpStatus": 403,
+        "retryAttempts": 0,
+        "requiresAuth": true,
+        "fallbackAvailable": true
+      },
+      {
+        "name": "Google Civic Info API (Test)",
+        "url": "https://www.googleapis.com/civicinfo/v2/representatives?address=90210",
+        "status": "auth_required",
+        "responseTime": 258,
+        "error": "Authentication required (403)",
+        "httpStatus": 403,
+        "retryAttempts": 0,
+        "requiresAuth": true,
+        "fallbackAvailable": true
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "HIGH",
+        "category": "Configuration",
+        "issue": "Missing API keys for: Congress API, Geocodio API (Test), Google Civic Info API (Test)",
+        "recommendation": "Configure API keys in environment variables",
+        "action": "Add proper API key management and fallback strategies"
+      }
+    ]
+  }
+}

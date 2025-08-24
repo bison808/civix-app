@@ -1,0 +1,33 @@
+{
+  "validationTimestamp": "2025-08-24T02:13:45.525Z",
+  "summary": {
+    "totalViolations": 1,
+    "criticalViolations": 0,
+    "highViolations": 1,
+    "mediumViolations": 0,
+    "totalChecked": 9,
+    "placeholderViolations": 1,
+    "missingData": 0,
+    "validRepresentatives": 9
+  },
+  "expectedCounts": {
+    "federal": {
+      "senators": 2,
+      "houseReps": 52
+    },
+    "state": {
+      "senate": 40,
+      "assembly": 80
+    },
+    "counties": 58
+  },
+  "violations": [
+    {
+      "type": "INCOMPLETE_DATA",
+      "message": "Expected 2 senators, found 8",
+      "severity": "HIGH",
+      "timestamp": "2025-08-24T02:13:45.521Z"
+    }
+  ],
+  "recommendations": []
+}

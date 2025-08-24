@@ -1,0 +1,184 @@
+{
+  "userFlowTests": [
+    {
+      "flowName": "Anonymous User Registration",
+      "status": "PASS",
+      "totalResponseTime": 38,
+      "errors": [],
+      "warnings": [],
+      "stepCount": 2
+    },
+    {
+      "flowName": "ZIP Code Entry and Validation",
+      "status": "PASS",
+      "totalResponseTime": 13,
+      "errors": [],
+      "warnings": [],
+      "stepCount": 2
+    },
+    {
+      "flowName": "Representative Discovery",
+      "status": "PASS",
+      "totalResponseTime": 15,
+      "errors": [],
+      "warnings": [],
+      "stepCount": 2
+    },
+    {
+      "flowName": "Bill Tracking Engagement",
+      "status": "WARNING",
+      "totalResponseTime": 10,
+      "errors": [],
+      "warnings": [
+        "get_california_bills: Found forbidden values: Demo, DEMO"
+      ],
+      "stepCount": 2
+    }
+  ],
+  "unknownDataTests": [
+    {
+      "endpointName": "ZIP Code Validation",
+      "endpoint": "/api/auth/verify-zip",
+      "statusCode": 200,
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS",
+      "dataPreview": "Object with keys: valid, zipCode, city, state, county..."
+    },
+    {
+      "endpointName": "ZIP Code Validation SF",
+      "endpoint": "/api/auth/verify-zip",
+      "statusCode": 200,
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS",
+      "dataPreview": "Object with keys: valid, zipCode, city, state, county..."
+    },
+    {
+      "endpointName": "ZIP Code Validation Sacramento",
+      "endpoint": "/api/auth/verify-zip",
+      "statusCode": 200,
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS",
+      "dataPreview": "Object with keys: valid, zipCode, city, state, county..."
+    },
+    {
+      "endpointName": "ZIP Code Validation San Diego",
+      "endpoint": "/api/auth/verify-zip",
+      "statusCode": 200,
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS",
+      "dataPreview": "Object with keys: valid, zipCode, city, state, county..."
+    },
+    {
+      "endpointName": "Federal Bills",
+      "endpoint": "/api/bills?source=federal",
+      "statusCode": 200,
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS",
+      "dataPreview": "Array with 4 items"
+    },
+    {
+      "endpointName": "California Bills",
+      "endpoint": "/api/bills?source=california",
+      "statusCode": 200,
+      "hasForbiddenValues": true,
+      "forbiddenValues": [
+        "Demo",
+        "DEMO"
+      ],
+      "status": "FAIL",
+      "dataPreview": "Array with 4 items"
+    },
+    {
+      "endpointName": "Bills by ZIP",
+      "endpoint": "/api/bills?zipCode=90210",
+      "statusCode": 200,
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS",
+      "dataPreview": "Array with 4 items"
+    }
+  ],
+  "endToEndTests": [
+    {
+      "scenarioName": "New User Onboarding",
+      "zipCode": "90210",
+      "totalTime": 14,
+      "data": {
+        "location": {
+          "city": "Beverly Hills",
+          "state": "CA",
+          "county": "Los Angeles",
+          "coverage": "full_coverage"
+        },
+        "registration": "success",
+        "bills": {
+          "count": 4,
+          "hasFederalBills": true,
+          "hasCaliforniaBills": false
+        }
+      },
+      "errors": [],
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS"
+    },
+    {
+      "scenarioName": "Rural Area User",
+      "zipCode": "93514",
+      "totalTime": 17,
+      "data": {
+        "location": {
+          "city": "Los Angeles area",
+          "state": "CA",
+          "coverage": "full_coverage"
+        },
+        "registration": "success",
+        "bills": {
+          "count": 4,
+          "hasFederalBills": true,
+          "hasCaliforniaBills": false
+        }
+      },
+      "errors": [],
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS"
+    },
+    {
+      "scenarioName": "Urban Area User",
+      "zipCode": "94102",
+      "totalTime": 17,
+      "data": {
+        "location": {
+          "city": "San Francisco",
+          "state": "CA",
+          "county": "San Francisco",
+          "coverage": "full_coverage"
+        },
+        "registration": "success",
+        "bills": {
+          "count": 4,
+          "hasFederalBills": true,
+          "hasCaliforniaBills": false
+        }
+      },
+      "errors": [],
+      "hasForbiddenValues": false,
+      "forbiddenValues": [],
+      "status": "PASS"
+    }
+  ],
+  "performanceTests": [],
+  "overallStatus": "REQUIRES_FIXES",
+  "testSummary": {
+    "totalTests": 14,
+    "passed": 12,
+    "failed": 1,
+    "warnings": 1
+  }
+}

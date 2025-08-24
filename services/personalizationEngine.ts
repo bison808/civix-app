@@ -237,7 +237,7 @@ class PersonalizationEngine {
     }
 
     // 5. Trending/Community Activity (5% weight)
-    const trendScore = this.scoreTrendingRelevance(bill);
+    const trendScore = await this.scoreTrendingRelevance(bill);
     if (trendScore.score > 0) {
       reasons.push({
         type: 'trending',
@@ -413,16 +413,16 @@ class PersonalizationEngine {
   /**
    * Score trending/community activity
    */
-  private scoreTrendingRelevance(bill: any): {
+  private async scoreTrendingRelevance(bill: any): Promise<{
     score: number;
     explanation: string;
     confidence: number;
-  } {
+  }> {
     // This would check community engagement metrics
     // For now, simulate based on bill properties
     
     const recentActivity = this.calculateRecentActivity(bill);
-    const communityInterest = Math.random() * 0.5; // Mock community interest
+    const communityInterest = await this.getRealCommunityInterest(bill.id); // Real community interest data
     
     if (recentActivity > 0.6 || communityInterest > 0.3) {
       return {
@@ -616,9 +616,27 @@ class PersonalizationEngine {
   }
 
   private getBillCategory(billId: string): BillCategory {
-    // Mock implementation - would look up actual bill category
+    // TODO: Replace with real bill category lookup from API
     const categories: BillCategory[] = ['healthcare', 'education', 'environment', 'economy', 'defense'];
     return categories[Math.floor(Math.random() * categories.length)];
+  }
+
+  // REAL DATA METHOD: Get actual community interest metrics
+  private async getRealCommunityInterest(billId: string): Promise<number> {
+    try {
+      // Fetch real community engagement data from API
+      const response = await fetch(`/api/bills/${billId}/engagement`);
+      if (response.ok) {
+        const data = await response.json();
+        // Return normalized community interest score (0-1)
+        return Math.min(1, (data.views + data.votes + data.shares) / 1000);
+      }
+    } catch (error) {
+      console.warn(`Could not fetch community interest for ${billId}:`, error);
+    }
+    
+    // Return 0 instead of mock data when API is unavailable
+    return 0;
   }
 
   private getVotingCategories(votes: UserBillVote[]): BillCategory[] {

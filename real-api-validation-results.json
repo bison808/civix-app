@@ -1,0 +1,158 @@
+{
+  "zipCodeTests": [
+    {
+      "zipCode": "90210",
+      "statusCode": 200,
+      "responseTime": 603,
+      "valid": true,
+      "city": "Beverly Hills",
+      "state": "CA",
+      "county": "Los Angeles",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "94102",
+      "statusCode": 200,
+      "responseTime": 12,
+      "valid": true,
+      "city": "San Francisco",
+      "state": "CA",
+      "county": "San Francisco",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "95814",
+      "statusCode": 200,
+      "responseTime": 8,
+      "valid": true,
+      "city": "Sacramento",
+      "state": "CA",
+      "county": "Sacramento",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "92101",
+      "statusCode": 200,
+      "responseTime": 6,
+      "valid": true,
+      "city": "San Diego",
+      "state": "CA",
+      "county": "San Diego",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "93514",
+      "statusCode": 200,
+      "responseTime": 8,
+      "valid": true,
+      "city": "Los Angeles area",
+      "state": "CA",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "95947",
+      "statusCode": 200,
+      "responseTime": 7,
+      "valid": true,
+      "city": "Los Angeles area",
+      "state": "CA",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "96161",
+      "statusCode": 200,
+      "responseTime": 8,
+      "valid": true,
+      "city": "Los Angeles area",
+      "state": "CA",
+      "coverage": "full_coverage",
+      "status": "PASS"
+    },
+    {
+      "zipCode": "00000",
+      "statusCode": 400,
+      "responseTime": 5,
+      "valid": false,
+      "status": "FAIL",
+      "error": "Valid ZIP returned invalid response"
+    },
+    {
+      "zipCode": "99999",
+      "statusCode": 400,
+      "responseTime": 6,
+      "valid": false,
+      "status": "FAIL",
+      "error": "Valid ZIP returned invalid response"
+    },
+    {
+      "zipCode": "ABCDE",
+      "statusCode": 400,
+      "responseTime": 7,
+      "valid": false,
+      "status": "PASS"
+    }
+  ],
+  "apiEndpointTests": [
+    {
+      "endpoint": "/api/bills",
+      "method": "GET",
+      "statusCode": 200,
+      "responseTime": 173,
+      "hasData": true,
+      "dataType": "object",
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/bills/test",
+      "method": "GET",
+      "statusCode": 200,
+      "responseTime": 71,
+      "hasData": true,
+      "dataType": "object",
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/auth/register",
+      "method": "POST",
+      "statusCode": 200,
+      "responseTime": 69,
+      "hasData": true,
+      "dataType": "object",
+      "status": "PASS"
+    }
+  ],
+  "performanceTests": [
+    {
+      "page": "/",
+      "responseTime": 4853,
+      "statusCode": 200,
+      "status": "WARNING"
+    },
+    {
+      "page": "/bills",
+      "responseTime": 213,
+      "statusCode": 307,
+      "status": "PASS"
+    },
+    {
+      "page": "/about",
+      "responseTime": 21,
+      "statusCode": 307,
+      "status": "PASS"
+    }
+  ],
+  "errorHandlingTests": [],
+  "overallStatus": "REQUIRES_FIXES",
+  "testSummary": {
+    "totalTests": 16,
+    "passed": 13,
+    "failed": 2,
+    "warnings": 1
+  }
+}

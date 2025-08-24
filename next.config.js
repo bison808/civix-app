@@ -39,6 +39,15 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
     serverComponentsExternalPackages: ['@tanstack/react-query'],
+    optimizeServerReact: true,
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
   
   // Headers for performance and SEO
@@ -121,52 +130,123 @@ const nextConfig = {
     ]
   },
   
-  // Webpack optimizations for civic platform with enhanced code splitting
+  // Aggressive webpack optimizations for civic platform performance
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Enhanced bundle splitting for better caching and performance
+    // Aggressive bundle splitting for optimal performance
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
-        minSize: 20000,
-        maxSize: 244000,
+        minSize: 10000,      // Smaller chunks for better caching
+        maxSize: 150000,     // Much smaller max size - was 244000
+        maxAsyncRequests: 30, // Allow more async requests
+        maxInitialRequests: 25, // Allow more initial requests
         cacheGroups: {
           default: {
             minChunks: 2,
             priority: -20,
             reuseExistingChunk: true,
           },
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            priority: -10,
+          
+          // Critical path vendors (keep small)
+          frameworkVendor: {
+            test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+            name: 'framework',
+            priority: 40,
             chunks: 'all',
+            enforce: true,
           },
-          // Political mapping services split
-          politicalMapping: {
-            test: /[\\/]services[\\/](california|county|zip|dataQuality)/,
-            name: 'political-mapping',
-            priority: 15,
-            chunks: 'all',
+          
+          // Large data files - MUST be async only
+          californiaData: {
+            test: /[\\/]services[\\/]californiaFederalReps\.ts$/,
+            name: 'california-federal-data',
+            priority: 30,
+            chunks: 'async', // CRITICAL: Only load when needed
+            enforce: true,
           },
-          // Representative components split
-          representatives: {
-            test: /[\\/]components[\\/]representatives[\\/]/,
-            name: 'representatives',
-            priority: 12,
-            chunks: 'all',
+          
+          // UI libraries - async only
+          lucideReact: {
+            test: /[\\/]node_modules[\\/]lucide-react[\\/]/,
+            name: 'lucide-icons',
+            priority: 25,
+            chunks: 'async', // Icons loaded as needed
+            enforce: true,
           },
-          // Large libraries split
-          reactQuery: {
-            test: /[\\/]node_modules[\\/]@tanstack[\\/]/,
-            name: 'react-query',
-            priority: 11,
-            chunks: 'all',
-          },
+          
           framerMotion: {
             test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
             name: 'framer-motion',
-            priority: 10,
-            chunks: 'all',
+            priority: 24,
+            chunks: 'async', // Animation library - not critical path
+            enforce: true,
+          },
+          
+          // Data management libraries
+          reactQuery: {
+            test: /[\\/]node_modules[\\/]@tanstack[\\/]/,
+            name: 'react-query',
+            priority: 23,
+            chunks: 'async',
+            enforce: true,
+          },
+          
+          // Service chunks by functionality
+          representativeServices: {
+            test: /[\\/]services[\\/](representatives|federal|integrated).*\.ts$/,
+            name: 'representative-services',
+            priority: 20,
+            chunks: 'async',
+            enforce: true,
+          },
+          
+          billServices: {
+            test: /[\\/]services[\\/](bills|congress|committees?).*\.ts$/,
+            name: 'bill-services', 
+            priority: 19,
+            chunks: 'async',
+            enforce: true,
+          },
+          
+          geoServices: {
+            test: /[\\/]services[\\/](geo|zip|county|municipal).*\.ts$/,
+            name: 'geo-services',
+            priority: 18,
+            chunks: 'async',
+            enforce: true,
+          },
+          
+          // Component chunks by routes
+          representativeComponents: {
+            test: /[\\/]components[\\/]representatives[\\/]/,
+            name: 'representative-components',
+            priority: 15,
+            chunks: 'async',
+          },
+          
+          billComponents: {
+            test: /[\\/]components[\\/]bills[\\/]/,
+            name: 'bill-components',
+            priority: 14,
+            chunks: 'async',
+          },
+          
+          dashboardComponents: {
+            test: /[\\/]components[\\/]dashboard[\\/]/,
+            name: 'dashboard-components', 
+            priority: 13,
+            chunks: 'async',
+          },
+          
+          // Remaining vendor chunks
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)?.[1];
+              return `vendor-${packageName?.replace('@', '')}`;
+            },
+            priority: -10,
+            chunks: 'async',
           },
         },
       };
@@ -182,12 +262,17 @@ const nextConfig = {
     // Tree shaking optimizations - removed usedExports to fix webpack conflict
     config.optimization.sideEffects = false;
     
-    // Add performance budgets
+    // Performance budgets - temporarily warning level while optimizing
     if (!dev) {
       config.performance = {
-        maxAssetSize: 250000, // 250KB per asset
-        maxEntrypointSize: 350000, // 350KB for entry points
-        hints: 'warning',
+        maxAssetSize: 250000,  // 250KB per asset
+        maxEntrypointSize: 300000, // 300KB for entry points
+        hints: 'warning', // Temporarily warning to see improvement
+        assetFilter: (assetFilename) => {
+          // Skip large data files that are lazy loaded
+          return !assetFilename.endsWith('.html') && 
+                 !assetFilename.includes('california-federal-data');
+        }
       };
     }
     

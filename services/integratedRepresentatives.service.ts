@@ -9,7 +9,7 @@ import { FederalRepresentative } from '@/types/federal.types';
 import { representativesService } from './representatives.service';
 import { federalRepresentativesService } from './federalRepresentatives.service';
 import { zipDistrictMappingService } from './zipDistrictMapping';
-import { getCaliforniaFederalReps } from './californiaFederalReps';
+// Dynamic import for californiaFederalReps to reduce bundle size
 import { jurisdictionService } from './jurisdictionService';
 import { JurisdictionDetectionResult } from '@/types/jurisdiction.types';
 

@@ -1,0 +1,3015 @@
+{
+  "timestamp": "2025-08-24T01:32:31.486Z",
+  "realDataValidation": {
+    "pagesAnalyzed": 33,
+    "realDataPages": 13,
+    "placeholderPages": 13,
+    "pageDetails": {
+      "alpha/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/alpha/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "api/auth/register/route.ts": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/api/auth/register/route.ts",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "api/auth/verify-zip/route.ts": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/api/auth/verify-zip/route.ts",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Beverly Hills'",
+          "'Los Angeles'",
+          "'San Francisco'",
+          "'San Francisco'",
+          "'Santa Cruz'",
+          "'Santa Cruz'",
+          "'Santa Cruz'",
+          "'Santa Cruz'",
+          "'Palo Alto'",
+          "'Santa Clara'",
+          "'San Diego'",
+          "'San Diego'",
+          "'New York'",
+          "'New York'",
+          "'New York'",
+          "'New York'",
+          "'San Antonio'",
+          "'United States'",
+          "'United States'",
+          "'Unknown County'"
+        ]
+      },
+      "api/bills/route.ts": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/api/bills/route.ts",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "bills.service",
+          "billsservice"
+        ],
+        "hardcodedData": []
+      },
+      "api/bills/test/route.ts": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/api/bills/test/route.ts",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Fallback Data'"
+        ]
+      },
+      "bill/[id]/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/bill/[id]/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "bills/page.complex.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/bills/page.complex.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [
+          "userepresentatives",
+          "usebills"
+        ],
+        "hardcodedData": [
+          "'Floor Vote'"
+        ]
+      },
+      "bills/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/bills/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "coming soon"
+        ],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": []
+      },
+      "committees/[id]/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/committees/[id]/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [
+          "{committee.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "usecommittees",
+          "committee.service"
+        ],
+        "hardcodedData": []
+      },
+      "committees/page.complex.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/committees/page.complex.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": true,
+        "realDataIndicators": [
+          "{committee.name}"
+        ],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [
+          "usecommittees"
+        ],
+        "hardcodedData": [
+          "'Representative Member'",
+          "'Representative Member'"
+        ]
+      },
+      "committees/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/committees/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "coming soon"
+        ],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": []
+      },
+      "dashboard/page.complex.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/dashboard/page.complex.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "dashboard/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/dashboard/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "debug/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/debug/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Political Representatives'",
+          "'Customer Feedback'"
+        ]
+      },
+      "feed/enhanced-page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/feed/enhanced-page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "feed/mobile-page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/feed/mobile-page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "feed/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/feed/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": []
+      },
+      "impact/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/impact/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Civil Rights'",
+          "'Criminal Justice'",
+          "'Law Enforcement'"
+        ]
+      },
+      "layout.minimal.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/layout.minimal.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "layout.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/layout.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "login/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/login/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Sign In'"
+        ]
+      },
+      "my-votes/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/my-votes/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Contacted Rep'",
+          "'Newest First'",
+          "'Oldest First'",
+          "'Contacted Rep'",
+          "'Not Contacted'",
+          "'Not Shared'"
+        ]
+      },
+      "onboarding/interests/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/onboarding/interests/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "page-enhanced.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/page-enhanced.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "page.minimal.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/page.minimal.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "register/enhanced-page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/register/enhanced-page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Anonymous User'"
+        ]
+      },
+      "register/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/register/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Anonymous User'",
+          "'Create Account'",
+          "'Anonymous User'",
+          "'Continue Anonymously'"
+        ]
+      },
+      "representatives/[id]/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/representatives/[id]/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{representative.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Infrastructure Bill'"
+        ]
+      },
+      "representatives/enhanced-page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/representatives/enhanced-page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": [
+          "'Full Coverage'",
+          "'Federal Only'"
+        ]
+      },
+      "representatives/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/representatives/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'All Levels'",
+          "'Approval Rating'"
+        ]
+      },
+      "settings/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/settings/page.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "verify/page.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/app/verify/page.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [
+          "api.get"
+        ],
+        "hardcodedData": []
+      }
+    },
+    "errors": []
+  },
+  "serviceIntegration": {
+    "servicesAnalyzed": 57,
+    "realDataServices": 21,
+    "mockDataServices": 21,
+    "placeholderServices": 1,
+    "serviceDetails": {
+      "allStatesReps.ts": {
+        "filename": "allStatesReps.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "senate.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.wicker.senate.gov",
+          "https://www.hydesmith.senate.gov",
+          "https://www.hawley.senate.gov",
+          "https://www.schmitt.senate.gov",
+          "https://www.tester.senate.gov",
+          "https://www.sheehy.senate.gov",
+          "https://www.daines.senate.gov",
+          "https://www.fischer.senate.gov",
+          "https://www.ricketts.senate.gov",
+          "https://www.rosen.senate.gov",
+          "https://www.cortezmasto.senate.gov",
+          "https://www.shaheen.senate.gov",
+          "https://www.hassan.senate.gov",
+          "https://www.booker.senate.gov",
+          "https://www.kim.senate.gov",
+          "https://www.heinrich.senate.gov",
+          "https://www.lujan.senate.gov",
+          "https://www.tillis.senate.gov",
+          "https://www.budd.senate.gov",
+          "https://www.hoeven.senate.gov",
+          "https://www.cramer.senate.gov",
+          "https://www.vance.senate.gov",
+          "https://www.moreno.senate.gov",
+          "https://www.lankford.senate.gov",
+          "https://www.mullin.senate.gov",
+          "https://www.wyden.senate.gov",
+          "https://www.merkley.senate.gov",
+          "https://www.fetterman.senate.gov",
+          "https://www.mccormick.senate.gov",
+          "https://www.reed.senate.gov",
+          "https://www.whitehouse.senate.gov",
+          "https://www.graham.senate.gov",
+          "https://www.scott.senate.gov",
+          "https://www.thune.senate.gov",
+          "https://www.rounds.senate.gov",
+          "https://www.blackburn.senate.gov",
+          "https://www.hagerty.senate.gov",
+          "https://www.lee.senate.gov",
+          "https://www.curtis.senate.gov",
+          "https://www.sanders.senate.gov",
+          "https://www.welch.senate.gov",
+          "https://www.warner.senate.gov",
+          "https://www.kaine.senate.gov",
+          "https://www.murray.senate.gov",
+          "https://www.cantwell.senate.gov",
+          "https://www.justice.senate.gov",
+          "https://www.capito.senate.gov",
+          "https://www.baldwin.senate.gov",
+          "https://www.ronjohnson.senate.gov",
+          "https://www.barrasso.senate.gov",
+          "https://www.lummis.senate.gov"
+        ],
+        "dataStructures": []
+      },
+      "api.ts": {
+        "filename": "api.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "real bills"
+        ],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "auth.service.ts": {
+        "filename": "auth.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "authApi.ts": {
+        "filename": "authApi.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "http://localhost:3003"
+        ],
+        "dataStructures": [
+          "RegisterRequest",
+          "RegisterResponse",
+          "VerifyZipResponse",
+          "LoginRequest",
+          "LoginResponse",
+          "SessionValidation"
+        ]
+      },
+      "batchProcessor.ts": {
+        "filename": "batchProcessor.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "BatchProcessingOptions",
+          "ComprehensiveBatchResult"
+        ]
+      },
+      "bills.service.ts": {
+        "filename": "bills.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "cacheManager.service.ts": {
+        "filename": "cacheManager.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "CacheConfig",
+          "CacheEntry"
+        ]
+      },
+      "californiaFederalReps.ts": {
+        "filename": "californiaFederalReps.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "house.gov",
+          "senate.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.padilla.senate.gov",
+          "https://www.schiff.senate.gov",
+          "https://lamalfa.house.gov",
+          "https://kiley.house.gov",
+          "https://garamendi.house.gov",
+          "https://mcclintock.house.gov",
+          "https://mullin.house.gov",
+          "https://matsui.house.gov",
+          "https://bera.house.gov",
+          "https://obernolte.house.gov",
+          "https://harder.house.gov",
+          "https://duarte.house.gov"
+        ],
+        "dataStructures": []
+      },
+      "californiaLegislativeApi.ts": {
+        "filename": "californiaLegislativeApi.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://api.leginfo.ca.gov"
+        ],
+        "dataStructures": [
+          "CachedData",
+          "CaliforniaBillResponse",
+          "CaliforniaBillListResponse"
+        ]
+      },
+      "californiaServices.ts": {
+        "filename": "californiaServices.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "californiaStateApi.ts": {
+        "filename": "californiaStateApi.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://leginfo.legislature.ca.gov/faces/rest",
+          "https://www.sos.ca.gov/api",
+          "https://www.ca.gov/api",
+          "https://api.wedrawthelines.ca.gov",
+          "https://www.gov.ca.gov/wp-content/uploads/2019/01/Newsom-Official-Portrait-2019.jpg",
+          "https://www.gov.ca.gov",
+          "https://ltg.ca.gov/images/ltgov-headshot.jpg",
+          "https://ltg.ca.gov"
+        ],
+        "dataStructures": []
+      },
+      "civicInfoService.ts": {
+        "filename": "civicInfoService.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.beverlyhills.org",
+          "https://mayor.lacity.gov",
+          "https://sfmayor.org",
+          "https://www.sandiego.gov/mayor",
+          "https://www.sanjoseca.gov/your-government/mayor-council/mayor",
+          "https://www.cityofsacramento.org/Mayor",
+          "https://www.oaklandca.gov/officials/mayor",
+          "https://www.fresno.gov/mayor",
+          "https://www.cityofsantacruz.com",
+          "https://www.houstontx.gov/mayor",
+          "https://dallascityhall.com/government/citymayor",
+          "https://www.austintexas.gov/mayor",
+          "https://www.sanantonio.gov/mayor",
+          "https://www.fortworthtexas.gov/government/mayor",
+          "https://www.nyc.gov/office-of-the-mayor",
+          "https://www.buffalony.gov/129/Mayors-Office",
+          "https://www.cityofrochester.gov/mayor",
+          "https://www.albanyny.gov/Government/MayorsOffice",
+          "https://www.miamigov.com/Government/Mayor",
+          "https://www.miamibeachfl.gov",
+          "https://www.tampa.gov/mayor",
+          "https://www.orlando.gov/Our-Government/Mayor-Buddy-Dyer",
+          "https://www.coj.net/mayor",
+          "https://www.chicago.gov/city/en/depts/mayor.html",
+          "https://www.springfield.il.us/Departments/Mayor",
+          "https://www.boston.gov/departments/mayors-office",
+          "https://www.cambridgema.gov/Departments/citycouncil",
+          "https://www.worcesterma.gov/city-manager",
+          "https://www.seattle.gov/mayor",
+          "https://www.denvergov.org/Government/Agencies-Departments-Offices/Mayor",
+          "https://www.phoenix.gov/mayor",
+          "https://www.phila.gov/departments/mayor",
+          "https://detroitmi.gov/government/mayors-office",
+          "https://www.atlantaga.gov/government/mayor-s-office",
+          "https://mayor.dc.gov"
+        ],
+        "dataStructures": []
+      },
+      "committee-notifications.service.ts": {
+        "filename": "committee-notifications.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "CommitteeNotification",
+          "NotificationPreferences"
+        ]
+      },
+      "committee.service.ts": {
+        "filename": "committee.service.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "congress.gov",
+          "openstates.org",
+          "api.congress.gov"
+        ],
+        "mockDataIndicators": [
+          "mock",
+          "sample"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://api.congress.gov/v3",
+          "https://v3.openstates.org"
+        ],
+        "dataStructures": [
+          "CachedData"
+        ]
+      },
+      "congress2025.ts": {
+        "filename": "congress2025.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "house.gov",
+          "senate.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.tuberville.senate.gov",
+          "https://www.britt.senate.gov",
+          "https://www.murkowski.senate.gov",
+          "https://www.sullivan.senate.gov",
+          "https://www.kelly.senate.gov",
+          "https://www.gallego.senate.gov",
+          "https://www.boozman.senate.gov",
+          "https://www.cotton.senate.gov",
+          "https://www.padilla.senate.gov",
+          "https://www.schiff.senate.gov",
+          "https://www.bennet.senate.gov",
+          "https://www.hickenlooper.senate.gov",
+          "https://www.blumenthal.senate.gov",
+          "https://www.murphy.senate.gov",
+          "https://www.coons.senate.gov",
+          "https://www.bluntrochester.senate.gov",
+          "https://www.rickscott.senate.gov",
+          "https://www.senate.gov",
+          "https://www.ossoff.senate.gov",
+          "https://www.warnock.senate.gov",
+          "https://www.schatz.senate.gov",
+          "https://www.hirono.senate.gov",
+          "https://www.crapo.senate.gov",
+          "https://www.risch.senate.gov",
+          "https://www.durbin.senate.gov",
+          "https://www.duckworth.senate.gov",
+          "https://www.young.senate.gov",
+          "https://www.banks.senate.gov",
+          "https://www.grassley.senate.gov",
+          "https://www.ernst.senate.gov",
+          "https://www.moran.senate.gov",
+          "https://www.marshall.senate.gov",
+          "https://www.mcconnell.senate.gov",
+          "https://www.paul.senate.gov",
+          "https://www.cassidy.senate.gov",
+          "https://www.kennedy.senate.gov",
+          "https://www.collins.senate.gov",
+          "https://www.king.senate.gov",
+          "https://www.cardin.senate.gov",
+          "https://www.vanhollen.senate.gov",
+          "https://www.warren.senate.gov",
+          "https://www.markey.senate.gov",
+          "https://www.slotkin.senate.gov",
+          "https://www.peters.senate.gov",
+          "https://www.klobuchar.senate.gov",
+          "https://www.smith.senate.gov",
+          "https://www.schumer.senate.gov",
+          "https://www.gillibrand.senate.gov",
+          "https://www.cornyn.senate.gov",
+          "https://www.cruz.senate.gov",
+          "https://pelosi.house.gov",
+          "https://lofgren.house.gov",
+          "https://schiff.house.gov"
+        ],
+        "dataStructures": []
+      },
+      "congressApi.ts": {
+        "filename": "congressApi.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "congress.gov",
+          "api.congress.gov"
+        ],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://api.congress.gov/v3"
+        ],
+        "dataStructures": [
+          "CachedData",
+          "CongressBillResponse",
+          "CongressBillListResponse"
+        ]
+      },
+      "congressService.ts": {
+        "filename": "congressService.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "congress.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "countyMappingService.ts": {
+        "filename": "countyMappingService.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [
+          "sample",
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.acgov.org",
+          "https://www.alpinecountyca.gov",
+          "https://www.amadorgov.org",
+          "https://www.buttecounty.net",
+          "https://www.calaverasgov.us",
+          "https://www.countyofcolusa.org",
+          "https://www.contracosta.ca.gov",
+          "https://www.co.del-norte.ca.us",
+          "https://www.edcgov.us",
+          "https://www.co.fresno.ca.us",
+          "https://www.countyofglenn.net",
+          "https://humboldtgov.org",
+          "https://www.imperialcounty.org",
+          "https://www.inyocounty.us",
+          "https://www.kerncounty.com",
+          "https://www.countyofkings.com",
+          "https://www.lakecountyca.gov",
+          "https://www.lassencounty.org",
+          "https://www.lacounty.gov",
+          "https://www.maderacounty.com",
+          "https://www.marincounty.org",
+          "https://www.mariposacounty.org",
+          "https://www.mendocinocounty.org",
+          "https://www.co.merced.ca.us",
+          "https://www.co.modoc.ca.us",
+          "https://monocounty.ca.gov",
+          "https://www.co.monterey.ca.us",
+          "https://www.countyofnapa.org",
+          "https://www.mynevadacounty.com",
+          "https://www.ocgov.com",
+          "https://www.placer.ca.gov",
+          "https://www.plumascounty.us",
+          "https://www.rivco.org",
+          "https://www.saccounty.net",
+          "https://www.cosb.us",
+          "https://www.sbcounty.gov",
+          "https://www.sandiegocounty.gov",
+          "https://www.sf.gov",
+          "https://www.sjgov.org",
+          "https://www.slocounty.ca.gov",
+          "https://www.smcgov.org",
+          "https://www.countyofsb.org",
+          "https://www.sccgov.org",
+          "https://www.santacruzcounty.us",
+          "https://www.co.shasta.ca.us",
+          "https://www.sierracounty.ca.gov",
+          "https://www.co.siskiyou.ca.us",
+          "https://www.solanocounty.com",
+          "https://sonomacounty.ca.gov",
+          "https://www.stancounty.com",
+          "https://www.suttercounty.org",
+          "https://www.co.tehama.ca.us",
+          "https://www.trinitycounty.org",
+          "https://tularecounty.ca.gov",
+          "https://www.tuolumnecounty.ca.gov",
+          "https://www.ventura.org",
+          "https://www.yolocounty.org",
+          "https://www.yuba.org",
+          "https://www.ca.gov",
+          "https://www.ca.gov",
+          "https://www.${county.toLowerCase()}schools${i}.edu",
+          "https://www.${county.toLowerCase()}schools${i}.edu",
+          "https://www.${county.toLowerCase()}water.org",
+          "https://www.${county.toLowerCase()}water.org",
+          "https://www.${county.toLowerCase()}fire.org",
+          "https://www.${county.toLowerCase()}fire.org"
+        ],
+        "dataStructures": []
+      },
+      "countyOfficialsApi.ts": {
+        "filename": "countyOfficialsApi.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.lacounty.gov",
+          "https://bos.lacounty.gov/Board-Meeting/Board-Members",
+          "https://www.lavote.net",
+          "https://www.lacounty.gov/residents/contact-us/",
+          "https://www.sandiegocounty.gov",
+          "https://www.sandiegocounty.gov/content/sdc/bos.html",
+          "https://www.sdvote.com",
+          "https://www.sandiegocounty.gov/content/sdc/general/contact.html",
+          "https://www.ocgov.com",
+          "https://www.ocgov.com/about/board",
+          "https://www.ocvote.com",
+          "https://www.ocgov.com/contact",
+          "https://www.rivco.org",
+          "https://www.rivco.org/government/board-of-supervisors",
+          "https://www.voteinfo.net",
+          "https://www.sbcounty.gov",
+          "https://www.sbcounty.gov/main/board.aspx",
+          "https://www.sbcountyelections.com",
+          "https://hildalsolis.org",
+          "https://bos.lacounty.gov/Assets/BOS/images/Board%20Members/Solis_Official.jpg",
+          "https://bos.lacounty.gov/Board-Meeting/Board-Members/Holly-J-Mitchell",
+          "https://bos.lacounty.gov/Board-Meeting/Board-Members/Lindsey-P-Horvath",
+          "https://bos.lacounty.gov/Board-Meeting/Board-Members/Janice-Hahn",
+          "https://bos.lacounty.gov/Board-Meeting/Board-Members/Kathryn-Barger",
+          "https://lasd.org",
+          "https://da.lacounty.gov",
+          "https://assessor.lacounty.gov",
+          "https://www.sandiegocounty.gov/content/sdc/bos/bos1.html",
+          "https://www.sandiegocounty.gov/content/sdc/bos/bos2.html",
+          "https://www.sandiegocounty.gov/content/sdc/bos/bos3.html",
+          "https://www.sandiegocounty.gov/content/sdc/bos/bos4.html",
+          "https://www.sandiegocounty.gov/content/sdc/bos/bos5.html",
+          "https://www.sdsheriff.org",
+          "https://www.sdcda.org",
+          "https://www.ocgov.com/about/board/do",
+          "https://www.ocgov.com/about/board/sarmiento",
+          "https://www.ocgov.com/about/board/wagner",
+          "https://www.ocgov.com/about/board/chaffee",
+          "https://www.ocgov.com/about/board/bartlett",
+          "https://www.ocsheriff.gov",
+          "https://www.orangecountyda.org",
+          "https://www.${countyName.toLowerCase()}county.gov",
+          "https://www.${countyName.toLowerCase()}county.gov/sheriff",
+          "https://www.${countyName.toLowerCase()}county.gov/da"
+        ],
+        "dataStructures": [
+          "CountyScrapingResult",
+          "CountyWebsiteInfo"
+        ]
+      },
+      "countyServices.ts": {
+        "filename": "countyServices.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "coverageDetectionService.ts": {
+        "filename": "coverageDetectionService.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "CoverageLevel",
+          "LocationData"
+        ]
+      },
+      "dataCorrectionsService.ts": {
+        "filename": "dataCorrectionsService.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "CorrectionRequest",
+          "Evidence",
+          "ImpactAssessment",
+          "CorrectionWorkflow",
+          "WorkflowStep",
+          "WorkflowAction",
+          "AutoApprovalRule",
+          "ApprovalCondition",
+          "CorrectionBatch",
+          "DataStewardDashboard",
+          "CorrectionActivity",
+          "IssueTypeCount",
+          "UserCorrectionSubmission",
+          "FileUpload"
+        ]
+      },
+      "dataMonitoringService.ts": {
+        "filename": "dataMonitoringService.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "QualityMetrics",
+          "PerformanceMetrics",
+          "Alert",
+          "MonitoringDashboard",
+          "SystemHealthStatus",
+          "DataSourceStatus",
+          "UpdateSummary",
+          "MonitoringConfig"
+        ]
+      },
+      "dataQualityOrchestrator.ts": {
+        "filename": "dataQualityOrchestrator.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "DataQualitySystem",
+          "SystemMetrics"
+        ]
+      },
+      "dataQualityService.ts": {
+        "filename": "dataQualityService.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "ValidationResult",
+          "ValidationError",
+          "ValidationWarning",
+          "DiscrepancyReport",
+          "Discrepancy",
+          "StalenessReport",
+          "StaleRecord",
+          "ContactValidationReport",
+          "ContactValidationError"
+        ]
+      },
+      "dataQualityServices.ts": {
+        "filename": "dataQualityServices.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "dataRecoveryService.ts": {
+        "filename": "dataRecoveryService.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "RecoveryPlan",
+          "RecoveryStep",
+          "FallbackOption",
+          "BackupConfig",
+          "BackupDestination",
+          "RecoveryResult",
+          "CriticalFailureResponse",
+          "EmergencyAction",
+          "StakeholderNotification"
+        ]
+      },
+      "dataSyncManager.ts": {
+        "filename": "dataSyncManager.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "SyncConfig",
+          "SyncState",
+          "ChangeSet",
+          "NotificationSubscription"
+        ]
+      },
+      "dataUpdateScheduler.ts": {
+        "filename": "dataUpdateScheduler.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "UpdateSchedule",
+          "UpdateResult",
+          "UpdateError",
+          "UpdateJob",
+          "UpdateMetrics"
+        ]
+      },
+      "engagementService.ts": {
+        "filename": "engagementService.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "enhancedBillTracking.service.ts": {
+        "filename": "enhancedBillTracking.service.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "BillRepresentativeConnection",
+          "RepresentativeBillActivity",
+          "BillVote",
+          "UserBillPreferences"
+        ]
+      },
+      "expansionFeedbackService.ts": {
+        "filename": "expansionFeedbackService.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "ExpansionRequest",
+          "FeedbackContext",
+          "FeedbackPromptConfig"
+        ]
+      },
+      "federalRepresentatives.service.ts": {
+        "filename": "federalRepresentatives.service.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "congress.gov",
+          "propublica.org",
+          "api.congress.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://api.propublica.org/congress/v1",
+          "https://api.congress.gov/v3"
+        ],
+        "dataStructures": []
+      },
+      "feedback.service.ts": {
+        "filename": "feedback.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "geocodingService.ts": {
+        "filename": "geocodingService.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "sample"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://api.geocod.io/v1.7"
+        ],
+        "dataStructures": []
+      },
+      "index.ts": {
+        "filename": "index.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "integratedCaliforniaState.service.ts": {
+        "filename": "integratedCaliforniaState.service.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "state api"
+        ],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "integratedRepresentatives.service.ts": {
+        "filename": "integratedRepresentatives.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "for",
+          "UnifiedRepresentativeResult",
+          "RepresentativeSearchOptions"
+        ]
+      },
+      "jurisdictionService.ts": {
+        "filename": "jurisdictionService.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "lazy.ts": {
+        "filename": "lazy.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "legislativeApiClient.ts": {
+        "filename": "legislativeApiClient.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "congress.gov",
+          "openstates.org",
+          "ca.gov",
+          "api.congress.gov",
+          "state api"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://api.congress.gov/v3",
+          "https://openstates.org/api/v3",
+          "https://leginfo.legislature.ca.gov/faces/billSearchClient.xhtml"
+        ],
+        "dataStructures": [
+          "ApiConfig",
+          "ApiRequest",
+          "BatchedRequest",
+          "RateLimiter"
+        ]
+      },
+      "legislativeDataManager.ts": {
+        "filename": "legislativeDataManager.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "DataRequest",
+          "DataResponse"
+        ]
+      },
+      "mockData.ts": {
+        "filename": "mockData.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "house.gov",
+          "senate.gov"
+        ],
+        "mockDataIndicators": [
+          "mock",
+          "example.com"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://padilla.senate.gov",
+          "https://schiff.senate.gov",
+          "https://sherman.house.gov",
+          "https://cornyn.senate.gov",
+          "https://cruz.senate.gov",
+          "https://schumer.senate.gov",
+          "https://gillibrand.senate.gov"
+        ],
+        "dataStructures": []
+      },
+      "municipalApi.ts": {
+        "filename": "municipalApi.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": true,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [
+          "todo"
+        ],
+        "apiEndpoints": [
+          "https://mayor.lacity.gov",
+          "https://cd1.lacity.org",
+          "https://cd2.lacity.org",
+          "https://cd3.lacity.org",
+          "https://cd4.lacity.org",
+          "https://cd5.lacity.org",
+          "https://cd6.lacity.org",
+          "https://cd7.lacity.org",
+          "https://cd8.lacity.org",
+          "https://cd9.lacity.org",
+          "https://cd10.lacity.org",
+          "https://cd11.lacity.org",
+          "https://cd12.lacity.org",
+          "https://cd13.lacity.org",
+          "https://cd14.lacity.org",
+          "https://cd15.lacity.org",
+          "https://clerk.lacity.org",
+          "https://cao.lacity.org",
+          "https://www.lacity.org/government/elected-officials/city-attorney",
+          "https://www.sandiego.gov/mayor",
+          "https://www.sandiego.gov/cd1",
+          "https://www.sandiego.gov/cd2",
+          "https://www.sandiego.gov/cd3",
+          "https://www.sandiego.gov/cd4",
+          "https://www.sandiego.gov/cd5",
+          "https://www.sandiego.gov/cd6",
+          "https://www.sandiego.gov/cd7",
+          "https://www.sandiego.gov/cd8",
+          "https://www.sandiego.gov/cd9",
+          "https://www.sandiego.gov/city-clerk",
+          "https://www.cityofsacramento.org/Mayor",
+          "http://www.longbeach.gov/mayor",
+          "https://www.oaklandca.gov/officials/mayor",
+          "https://www.bakersfieldcity.us/gov/mgr/mayor_council/mayor",
+          "https://www.anaheim.net/281/Mayor-City-Council",
+          "https://lausd.net"
+        ],
+        "dataStructures": [
+          "CityInfo",
+          "MunicipalOfficial",
+          "CityOfficials",
+          "SchoolBoardMember",
+          "SchoolDistrict",
+          "SpecialDistrict"
+        ]
+      },
+      "openStatesService.ts": {
+        "filename": "openStatesService.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "openstates.org",
+          "ca.gov"
+        ],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://openstates.org/graphql",
+          "https://leginfo.legislature.ca.gov/faces/rest",
+          "https://data.openstates.org/people/current/${stateAbbrev}.csv",
+          "https://www.gov.ca.gov/wp-content/uploads/2019/01/Newsom-Official-Portrait-2019.jpg",
+          "https://www.gov.ca.gov",
+          "https://ltg.ca.gov/images/ltgov-headshot.jpg",
+          "https://ltg.ca.gov",
+          "https://data.openstates.org/people/current/ca.csv"
+        ],
+        "dataStructures": []
+      },
+      "optimizedApiClient.ts": {
+        "filename": "optimizedApiClient.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "ApiRequestOptions",
+          "BatchRequest"
+        ]
+      },
+      "personalizationEngine.ts": {
+        "filename": "personalizationEngine.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "BillRecommendation",
+          "RecommendationReason",
+          "PersonalizationProfile",
+          "TopicPreference",
+          "VotingPattern",
+          "GeographicInterest",
+          "RepresentativeConnection",
+          "BehaviorProfile"
+        ]
+      },
+      "queryOptimizer.ts": {
+        "filename": "queryOptimizer.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "QueryPattern",
+          "QueryCondition",
+          "IndexStrategy",
+          "QueryExecution",
+          "BillSearchFilters",
+          "EngagementQueryOptions",
+          "OptimizedQuery",
+          "QueryResult",
+          "QueryAnalysis",
+          "OptimizationRecommendation"
+        ]
+      },
+      "realDataService.ts": {
+        "filename": "realDataService.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "congress.gov",
+          "openstates.org",
+          "propublica.org",
+          "googleapis.com/civicinfo",
+          "real bills"
+        ],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.propublica.org/datastore/dataset/congressional-data-bulk-legislation-bills",
+          "https://unitedstates.github.io/congress-legislators/legislators-current.json",
+          "https://www.googleapis.com/civicinfo/v2",
+          "https://v3.openstates.org",
+          "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress",
+          "https://${state.toLowerCase()}.gov/senate",
+          "https://${state.toLowerCase()}.gov/house",
+          "https://${city.toLowerCase().replace(",
+          "https://${city.toLowerCase().replace("
+        ],
+        "dataStructures": []
+      },
+      "representatives.service.ts": {
+        "filename": "representatives.service.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "requestOrchestrator.ts": {
+        "filename": "requestOrchestrator.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "QueuedRequest",
+          "ServiceConfig",
+          "CircuitState"
+        ]
+      },
+      "santaCruzReps.ts": {
+        "filename": "santaCruzReps.ts",
+        "hasRealData": true,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "house.gov",
+          "senate.gov",
+          "ca.gov"
+        ],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://padilla.senate.gov",
+          "https://schiff.senate.gov",
+          "https://lofgren.house.gov",
+          "https://sd17.senate.ca.gov",
+          "https://a29.asmdc.org",
+          "https://www.cityofsantacruz.com"
+        ],
+        "dataStructures": []
+      },
+      "schoolDistrictApi.ts": {
+        "filename": "schoolDistrictApi.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://achieve.lausd.net/domain/32",
+          "https://lausd.net",
+          "https://www.sandiegounified.org",
+          "https://www.sjusd.org",
+          "https://www.sfusd.edu",
+          "https://www.fresnounified.org",
+          "https://www.laccd.edu"
+        ],
+        "dataStructures": [
+          "SchoolBoardMember",
+          "SchoolDistrict",
+          "CommunityCollegeDistrict"
+        ]
+      },
+      "voteManager.ts": {
+        "filename": "voteManager.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "mock"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "BillVote",
+          "VoteStats"
+        ]
+      },
+      "zipDistrictMapping.ts": {
+        "filename": "zipDistrictMapping.ts",
+        "hasRealData": true,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [
+          "ca.gov"
+        ],
+        "mockDataIndicators": [
+          "placeholder"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [
+          "https://www.senate.ca.gov",
+          "https://www.assembly.ca.gov"
+        ],
+        "dataStructures": []
+      },
+      "zipMappingServices.ts": {
+        "filename": "zipMappingServices.ts",
+        "hasRealData": false,
+        "hasMockData": false,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": []
+      },
+      "zipMappingTests.ts": {
+        "filename": "zipMappingTests.ts",
+        "hasRealData": false,
+        "hasMockData": true,
+        "hasPlaceholders": false,
+        "realDataIndicators": [],
+        "mockDataIndicators": [
+          "sample"
+        ],
+        "placeholderIndicators": [],
+        "apiEndpoints": [],
+        "dataStructures": [
+          "TestResult",
+          "TestSuite"
+        ]
+      }
+    },
+    "errors": []
+  },
+  "placeholderDetection": {
+    "componentsAnalyzed": 89,
+    "realDataComponents": 20,
+    "placeholderComponents": 15,
+    "componentDetails": {
+      "CivixLogo.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/CivixLogo.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "CriticalCSS.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/CriticalCSS.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": []
+      },
+      "ErrorBoundary.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ErrorBoundary.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "todo:"
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "LazyComponents.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/LazyComponents.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "LazyImage.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/LazyImage.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "LazyLoad.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/LazyLoad.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "OptimizedImage.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ui/OptimizedImage.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ServiceWorkerRegistration.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ServiceWorkerRegistration.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "UserMenu.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/UserMenu.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Anonymous User'"
+        ]
+      },
+      "VerificationBadge.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/VerificationBadge.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Verified Voter'",
+          "'Public Profile'"
+        ]
+      },
+      "ZipDisplay.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ZipDisplay.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "AccessibleNavigation.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/accessibility/AccessibleNavigation.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ContactRepModal.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/actions/ContactRepModal.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Call Script'",
+          "'Message Template'",
+          "'Send Message'"
+        ]
+      },
+      "ShareBillModal.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/actions/ShareBillModal.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ProtectedRoute.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/auth/ProtectedRoute.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "BillCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillCard.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "BillCardWithEngagement.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillCardWithEngagement.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "BillFeed.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillFeed.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "BillFeedback.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillFeedback.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "BillFilter.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillFilter.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'In Committee'",
+          "'Floor Vote'"
+        ]
+      },
+      "BillImpactSummary.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillImpactSummary.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'High Impact'",
+          "'Moderate Impact'",
+          "'Low Impact'"
+        ]
+      },
+      "BillProgress.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillProgress.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Committee Review'",
+          "'Floor Vote'",
+          "'Floor Vote'",
+          "'Passed Chamber'",
+          "'Floor Vote'"
+        ]
+      },
+      "BillSimplifier.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillSimplifier.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "BillVoting.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/BillVoting.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "EngagingBillSummary.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/EngagingBillSummary.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Key Details'",
+          "'Potential Outcomes'"
+        ]
+      },
+      "EnhancedBillCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/EnhancedBillCard.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Recent Activity'"
+        ]
+      },
+      "EnhancedBillEngagement.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/EnhancedBillEngagement.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Hide Settings'",
+          "'Notification Settings'"
+        ]
+      },
+      "MobileBillCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/MobileBillCard.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{bill.title}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "MobileBillProgress.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/MobileBillProgress.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Floor Vote'",
+          "'Floor Vote'"
+        ]
+      },
+      "RepresentativeConnection.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/RepresentativeConnection.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "UserVoteHistory.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/UserVoteHistory.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'HR 123'"
+        ]
+      },
+      "WhyThisMatters.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/bills/WhyThisMatters.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Healthcare Impact'",
+          "'Financial Impact'",
+          "'Education Impact'",
+          "'Employment Impact'",
+          "'Housing Impact'",
+          "'Community Impact'"
+        ]
+      },
+      "CommitteeActivity.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/committees/CommitteeActivity.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Meeting Scheduled'",
+          "'Bill Referred'",
+          "'Vote Held'",
+          "'Report Released'"
+        ]
+      },
+      "CommitteeCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/committees/CommitteeCard.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{committee.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Representative Member'",
+          "'Representative Member'",
+          "'Bill Interest'",
+          "'User Subscribed'"
+        ]
+      },
+      "CommitteeMeetingCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/committees/CommitteeMeetingCard.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'In Progress'",
+          "'Business Meeting'",
+          "'In Progress'",
+          "'Live Now'"
+        ]
+      },
+      "Badge.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/core/Badge.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "Button.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/core/Button.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "Card.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/core/Card.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "CivicEducationHub.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/education/CivicEducationHub.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'All Topics'",
+          "'Government Basics'",
+          "'Civic Rights'",
+          "'Civic Engagement'",
+          "'Understanding Legislation'",
+          "'Effective Advocacy'",
+          "'Congressional Voting'"
+        ]
+      },
+      "EngagementDashboard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/engagement/EngagementDashboard.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Active Citizen'",
+          "'High Impact'",
+          "'Growing Impact'",
+          "'Building Impact'",
+          "'Getting Started'",
+          "'HR 1234'"
+        ]
+      },
+      "PersonalizedEngagementDashboard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/engagement/PersonalizedEngagementDashboard.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Bronze Citizen'",
+          "'Silver Citizen'",
+          "'Gold Citizen'",
+          "'Platinum Citizen'",
+          "'Diamond Citizen'",
+          "'Your Votes'"
+        ]
+      },
+      "AggregatedFeedback.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/AggregatedFeedback.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "coming soon"
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Voting Record'",
+          "'Policy Positions'",
+          "'District 1'",
+          "'District 2'",
+          "'District 3'"
+        ]
+      },
+      "ContextualFeedbackPrompt.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/ContextualFeedbackPrompt.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Unknown City'",
+          "'Join Waitlist'",
+          "'Share Feedback'",
+          "'Your Feedback'",
+          "'Your Feedback'"
+        ]
+      },
+      "FeedbackButton.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/FeedbackButton.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "FeedbackForm.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/FeedbackForm.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Policy Positions'",
+          "'Voting Record'",
+          "'Community Engagement'",
+          "'Needs Changes'",
+          "'Impact Concerns'"
+        ]
+      },
+      "FeedbackHistory.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/FeedbackHistory.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Voting Record'",
+          "'Community Engagement'",
+          "'Policy Positions'"
+        ]
+      },
+      "LikeDislike.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/LikeDislike.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "SmartFeedbackFooter.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/SmartFeedbackFooter.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": []
+      },
+      "StateExpansionWaitlist.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/feedback/StateExpansionWaitlist.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder=",
+          "coming soon"
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Join Waitlist'"
+        ]
+      },
+      "HelpCenter.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/help/HelpCenter.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Getting Started'",
+          "'Understanding Bills'"
+        ]
+      },
+      "ImpactChart.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/impact/ImpactChart.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Community Impact'"
+        ]
+      },
+      "ImpactSummary.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/impact/ImpactSummary.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Mixed Impact'"
+        ]
+      },
+      "ResponsiveLegislativeLayout.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/layout/ResponsiveLegislativeLayout.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "StandardPageHeader.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/layout/StandardPageHeader.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "StandardPageLayout.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/layout/StandardPageLayout.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ResponsiveLayout.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/layouts/ResponsiveLayout.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ResponsivePoliticalLayout.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/layouts/ResponsivePoliticalLayout.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Your Representatives'"
+        ]
+      },
+      "GovernmentLevelNav.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/navigation/GovernmentLevelNav.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Government Level'",
+          "'Approval Rating'",
+          "'Alignment Score'"
+        ]
+      },
+      "MobileNav.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/navigation/MobileNav.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Anonymous User'",
+          "'Verified User'"
+        ]
+      },
+      "CommitteeNotificationCenter.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/notifications/CommitteeNotificationCenter.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "NotificationCenter.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/notifications/NotificationCenter.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Floor Consideration'"
+        ]
+      },
+      "CivicEducationIntro.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/onboarding/CivicEducationIntro.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "FirstTimeUserSetup.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/onboarding/FirstTimeUserSetup.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Stay Updated'"
+        ]
+      },
+      "GuidedTour.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/onboarding/GuidedTour.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "OnboardingCarousel.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/onboarding/OnboardingCarousel.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Stay Informed'"
+        ]
+      },
+      "OnboardingFlow.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/onboarding/OnboardingFlow.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Choose Privacy'",
+          "'Set Preferences'"
+        ]
+      },
+      "WelcomeAnimation.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/onboarding/WelcomeAnimation.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "PerformanceDashboard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/performance/PerformanceDashboard.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "WebVitals.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/performance/WebVitals.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": []
+      },
+      "ContactRepresentative.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/ContactRepresentative.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{representative.name}"
+        ],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Constituent Concern'",
+          "'Policy Question'",
+          "'Thank You'",
+          "'Public Safety'",
+          "'Veterans Affairs'",
+          "'Social Security'",
+          "'Tax Policy'",
+          "'Foreign Policy'",
+          "'Civil Rights'",
+          "'Call Now'",
+          "'Send Message'"
+        ]
+      },
+      "CoverageAwareRepresentativeList.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/CoverageAwareRepresentativeList.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": [
+          "'Full Coverage'",
+          "'Federal Only'",
+          "'Not Supported'"
+        ]
+      },
+      "EnhancedRepresentativeCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/EnhancedRepresentativeCard.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{representative.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Federal Government'",
+          "'State Government'",
+          "'County Government'"
+        ]
+      },
+      "JurisdictionAwareRepresentativeList.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/JurisdictionAwareRepresentativeList.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": [
+          "'Federal Representatives'",
+          "'State Representatives'",
+          "'Local Representatives'"
+        ]
+      },
+      "JurisdictionInfo.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/JurisdictionInfo.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "LazyRepresentativeComponents.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/LazyRepresentativeComponents.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ProgressiveRepresentativeList.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/ProgressiveRepresentativeList.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "api.get"
+        ],
+        "hardcodedData": []
+      },
+      "RepresentativeCard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/RepresentativeCard.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{representative.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "RepresentativeCardSkeleton.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/RepresentativeCardSkeleton.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "RepresentativeCommittees.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/RepresentativeCommittees.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": true,
+        "realDataIndicators": [
+          "{committee.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [
+          "committee.service"
+        ],
+        "hardcodedData": [
+          "'Vice Chair'",
+          "'Ranking Member'",
+          "'In Progress'"
+        ]
+      },
+      "RepresentativeProfile.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/RepresentativeProfile.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [
+          "{representative.name}"
+        ],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "RepresentativeScorecard.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/RepresentativeScorecard.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "ResponsivenessIndicator.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/representatives/ResponsivenessIndicator.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "Tooltip.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ui/Tooltip.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "badge.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ui/badge.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "button.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ui/button.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "card.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ui/card.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "separator.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/ui/separator.tsx",
+        "hasRealDataUsage": false,
+        "hasPlaceholders": false,
+        "hasServiceCalls": false,
+        "realDataIndicators": [],
+        "placeholderIndicators": [],
+        "serviceCalls": [],
+        "hardcodedData": []
+      },
+      "EnhancedZipInput.tsx": {
+        "filepath": "/home/bison808/DELTA/agent4_frontend/components/zipcode/EnhancedZipInput.tsx",
+        "hasRealDataUsage": true,
+        "hasPlaceholders": true,
+        "hasServiceCalls": true,
+        "realDataIndicators": [],
+        "placeholderIndicators": [
+          "placeholder="
+        ],
+        "serviceCalls": [
+          "fetch("
+        ],
+        "hardcodedData": [
+          "'Beverly Hills'",
+          "'Los Angeles'",
+          "'San Francisco'",
+          "'San Francisco'",
+          "'Santa Clara'",
+          "'San Diego'",
+          "'San Diego'",
+          "'New York'",
+          "'New York'",
+          "'New York'",
+          "'New York'"
+        ]
+      }
+    },
+    "errors": []
+  },
+  "dataConsistency": {
+    "crossServiceConsistency": false,
+    "dataTypeConsistency": false,
+    "apiEndpointConsistency": false,
+    "inconsistencies": [
+      {
+        "type": "mixed_data_sources",
+        "description": "Found 21 services using mock data alongside 10 using real data",
+        "mockServices": [
+          "api.ts",
+          "authApi.ts",
+          "californiaLegislativeApi.ts",
+          "californiaStateApi.ts",
+          "committee.service.ts",
+          "congressApi.ts",
+          "countyMappingService.ts",
+          "dataCorrectionsService.ts",
+          "dataMonitoringService.ts",
+          "engagementService.ts",
+          "enhancedBillTracking.service.ts",
+          "expansionFeedbackService.ts",
+          "geocodingService.ts",
+          "integratedCaliforniaState.service.ts",
+          "mockData.ts",
+          "openStatesService.ts",
+          "personalizationEngine.ts",
+          "realDataService.ts",
+          "voteManager.ts",
+          "zipDistrictMapping.ts",
+          "zipMappingTests.ts"
+        ],
+        "realServices": [
+          "allStatesReps.ts",
+          "californiaFederalReps.ts",
+          "civicInfoService.ts",
+          "congress2025.ts",
+          "congressService.ts",
+          "countyOfficialsApi.ts",
+          "federalRepresentatives.service.ts",
+          "legislativeApiClient.ts",
+          "municipalApi.ts",
+          "santaCruzReps.ts"
+        ]
+      },
+      {
+        "type": "placeholder_content",
+        "description": "Found 1 services with placeholder content",
+        "services": [
+          {
+            "name": "municipalApi.ts",
+            "placeholders": [
+              "todo"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "test_endpoints",
+        "description": "Found 1 test/mock endpoints in production code",
+        "endpoints": [
+          "https://www.tester.senate.gov"
+        ]
+      }
+    ],
+    "recommendations": [
+      "Replace all mock data services with real data integrations",
+      "Remove all placeholder content and replace with real data",
+      "Replace test/mock API endpoints with production endpoints"
+    ]
+  },
+  "crossReferenceValidation": {},
+  "overallScore": 15,
+  "issues": [
+    {
+      "severity": "critical",
+      "category": "mock_data",
+      "description": "21 services still using mock data",
+      "services": [
+        "api.ts",
+        "authApi.ts",
+        "californiaLegislativeApi.ts",
+        "californiaStateApi.ts",
+        "committee.service.ts",
+        "congressApi.ts",
+        "countyMappingService.ts",
+        "dataCorrectionsService.ts",
+        "dataMonitoringService.ts",
+        "engagementService.ts",
+        "enhancedBillTracking.service.ts",
+        "expansionFeedbackService.ts",
+        "geocodingService.ts",
+        "integratedCaliforniaState.service.ts",
+        "mockData.ts",
+        "openStatesService.ts",
+        "personalizationEngine.ts",
+        "realDataService.ts",
+        "voteManager.ts",
+        "zipDistrictMapping.ts",
+        "zipMappingTests.ts"
+      ]
+    },
+    {
+      "severity": "critical",
+      "category": "placeholder_content",
+      "description": "1 services contain placeholder content",
+      "services": [
+        {
+          "name": "municipalApi.ts",
+          "placeholders": [
+            "todo"
+          ]
+        }
+      ]
+    },
+    {
+      "severity": "high",
+      "category": "ui_placeholders",
+      "description": "13 pages contain placeholder content",
+      "pages": [
+        "alpha/page.tsx",
+        "bills/page.complex.tsx",
+        "bills/page.tsx",
+        "committees/page.complex.tsx",
+        "committees/page.tsx",
+        "feed/mobile-page.tsx",
+        "login/page.tsx",
+        "page-enhanced.tsx",
+        "page.tsx",
+        "register/enhanced-page.tsx",
+        "register/page.tsx",
+        "representatives/page.tsx",
+        "verify/page.tsx"
+      ]
+    }
+  ],
+  "recommendations": [
+    "Replace all mock data services with real data integrations",
+    "Remove all placeholder content and replace with real data",
+    "Replace test/mock API endpoints with production endpoints",
+    "Comprehensive data integration audit required before production release",
+    "Complete migration from mock to real data sources for all services",
+    "Ensure all UI components display real government data"
+  ],
+  "summary": {
+    "testDate": "2025-08-24T01:32:31.486Z",
+    "overallScore": 15,
+    "dataIntegrityLevel": "CRITICAL",
+    "productionReadiness": false,
+    "servicesAnalyzed": 57,
+    "pagesAnalyzed": 33,
+    "criticalIssues": 2,
+    "totalIssues": 3,
+    "totalRecommendations": 6
+  }
+}

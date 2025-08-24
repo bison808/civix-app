@@ -85,7 +85,7 @@ export interface SpecialDistrict {
 const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   'Los Angeles': {
     name: 'Los Angeles',
-    county: 'Los Angeles',
+    county: 'Los Angeles County',
     population: 3898747,
     incorporationDate: '1850-04-04',
     governanceType: 'Mayor-Council',
@@ -97,7 +97,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'San Diego': {
     name: 'San Diego',
-    county: 'San Diego',
+    county: 'San Diego County',
     population: 1386932,
     incorporationDate: '1850-03-27',
     governanceType: 'Mayor-Council',
@@ -109,7 +109,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'San Jose': {
     name: 'San Jose',
-    county: 'Santa Clara',
+    county: 'Santa Clara County',
     population: 1013240,
     incorporationDate: '1850-03-27',
     governanceType: 'Mayor-Council',
@@ -121,7 +121,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'San Francisco': {
     name: 'San Francisco',
-    county: 'San Francisco',
+    county: 'San Francisco County',
     population: 873965,
     incorporationDate: '1850-04-15',
     governanceType: 'Mayor-Council',
@@ -133,7 +133,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'Fresno': {
     name: 'Fresno',
-    county: 'Fresno',
+    county: 'Fresno County',
     population: 542107,
     incorporationDate: '1885-10-12',
     governanceType: 'Mayor-Council',
@@ -145,7 +145,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'Sacramento': {
     name: 'Sacramento',
-    county: 'Sacramento',
+    county: 'Sacramento County',
     population: 524943,
     incorporationDate: '1850-02-27',
     governanceType: 'Mayor-Council',
@@ -157,7 +157,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'Long Beach': {
     name: 'Long Beach',
-    county: 'Los Angeles',
+    county: 'Los Angeles County',
     population: 466742,
     incorporationDate: '1897-12-13',
     governanceType: 'Mayor-Council',
@@ -169,7 +169,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'Oakland': {
     name: 'Oakland',
-    county: 'Alameda',
+    county: 'Alameda County',
     population: 440646,
     incorporationDate: '1852-05-04',
     governanceType: 'Mayor-Council',
@@ -181,7 +181,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'Anaheim': {
     name: 'Anaheim',
-    county: 'Orange',
+    county: 'Orange County',
     population: 346824,
     incorporationDate: '1876-02-10',
     governanceType: 'Mayor-Council',
@@ -193,7 +193,7 @@ const CALIFORNIA_MAJOR_CITIES: Record<string, CityInfo> = {
   },
   'Bakersfield': {
     name: 'Bakersfield',
-    county: 'Kern',
+    county: 'Kern County',
     population: 380874,
     incorporationDate: '1898-01-11',
     governanceType: 'Council-Manager',
@@ -1227,7 +1227,7 @@ export class MunicipalApi {
     if (countyInfo) {
       const unincorporatedInfo: CityInfo = {
         name: 'Unincorporated Area',
-        county: countyInfo.name,
+        county: countyInfo.name, // Already includes "County" suffix after fix above
         population: 0,
         incorporationDate: '',
         governanceType: 'Commission',
@@ -1478,7 +1478,7 @@ export class MunicipalApi {
     };
 
     const countyName = countyMap[firstThree];
-    return countyName ? { name: countyName } : null;
+    return countyName ? { name: `${countyName} County` } : null;
   }
 
   // Cache helpers

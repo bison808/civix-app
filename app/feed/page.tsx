@@ -12,10 +12,12 @@ import ZipDisplay from '@/components/ZipDisplay';
 import VerificationBadge from '@/components/VerificationBadge';
 import ProtectedRoute from '@/components/auth/ProtectedRoute';
 import EngagementDashboard from '@/components/engagement/EngagementDashboard';
+import ContextualFeedbackPrompt from '@/components/feedback/ContextualFeedbackPrompt';
 import { useAuth } from '@/contexts/AuthContext';
 import { Bill } from '@/types';
 import { api } from '@/services/api';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { coverageDetectionService } from '@/services/coverageDetectionService';
 
 export default function FeedPage() {
   const router = useRouter();
@@ -23,11 +25,44 @@ export default function FeedPage() {
   const [bills, setBills] = useState<Bill[]>([]);
   const [loading, setLoading] = useState(true);
   const [showEngagement, setShowEngagement] = useState(false);
+  const [locationData, setLocationData] = useState<any>(null);
+  const [coverage, setCoverage] = useState<any>(null);
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     loadBills();
+    loadLocationData();
   }, [user]);
+
+  const loadLocationData = async () => {
+    const zipCode = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
+    if (zipCode) {
+      try {
+        const zipResponse = await fetch('/api/auth/verify-zip', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ zipCode })
+        });
+        const zipData = await zipResponse.json();
+        
+        if (zipData.valid) {
+          const locationData = {
+            city: zipData.city,
+            state: zipData.state,
+            county: zipData.county,
+            zipCode,
+            coordinates: [0, 0] as [number, number],
+            districts: { congressional: 0 }
+          };
+          const coverage = coverageDetectionService.determineUserExperience(locationData);
+          setLocationData(locationData);
+          setCoverage(coverage);
+        }
+      } catch (error) {
+        console.error('Failed to load location data:', error);
+      }
+    }
+  };
 
   const loadBills = async () => {
     setLoading(true);
@@ -117,6 +152,21 @@ export default function FeedPage() {
           hasMore={false}
           useEnhancedCards={true}
         />
+
+        {/* Feedback Collection at Bottom of Feed */}
+        {!loading && bills.length > 0 && coverage && locationData && (
+          <div className="px-4 py-6">
+            <ContextualFeedbackPrompt
+              context={{
+                type: 'after_search',
+                zipCode: locationData.zipCode,
+                state: locationData.state,
+                page: 'feed'
+              }}
+              compact
+            />
+          </div>
+        )}
       </div>
       </div>
     </ProtectedRoute>

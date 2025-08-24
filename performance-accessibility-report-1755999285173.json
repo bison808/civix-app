@@ -1,0 +1,162 @@
+{
+  "timestamp": "2025-08-24T01:34:37.774Z",
+  "performanceMetrics": {
+    "loadTimes": [
+      200,
+      144,
+      136,
+      138,
+      186
+    ],
+    "averageLoadTime": 161,
+    "dataTransfer": {
+      "totalSize": 27934,
+      "sizeKB": 27,
+      "contentType": "text/html; charset=utf-8",
+      "compression": false
+    },
+    "caching": {
+      "cacheControl": "public, max-age=0, must-revalidate",
+      "hasCacheHeaders": true,
+      "etag": true,
+      "lastModified": false
+    },
+    "compression": {},
+    "errors": []
+  },
+  "accessibilityChecks": {
+    "htmlStructure": {
+      "hasDoctype": true,
+      "hasLangAttribute": true,
+      "hasTitle": true,
+      "hasMetaViewport": true,
+      "hasMetaCharset": true,
+      "hasProperHeadings": false,
+      "headingCount": 0
+    },
+    "semanticElements": {
+      "header": false,
+      "nav": false,
+      "main": true,
+      "section": false,
+      "article": false,
+      "aside": false,
+      "footer": false
+    },
+    "ariaSupport": {
+      "hasAriaLabels": true,
+      "hasAriaDescriptions": false,
+      "hasAriaRoles": false,
+      "hasAriaExpanded": false,
+      "hasAriaHidden": false
+    },
+    "imageAccessibility": {
+      "totalImages": 1,
+      "imagesWithAlt": 1,
+      "altTextCompliance": true,
+      "compliancePercentage": 100
+    },
+    "keyboardNavigation": {
+      "hasFocusableElements": false,
+      "hasSkipLinks": true,
+      "hasAccessKeys": false
+    },
+    "colorContrast": {
+      "hasHighContrastOption": false,
+      "hasDarkModeOption": false,
+      "hasCustomColors": true
+    },
+    "errors": []
+  },
+  "mobileResponsiveness": {
+    "viewportMeta": {
+      "hasViewportMeta": true,
+      "viewportContent": "width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover, user-scalable=yes",
+      "hasWidth": true,
+      "hasInitialScale": true,
+      "hasMaximumScale": true
+    },
+    "responsiveDesign": {
+      "hasMediaQueries": true,
+      "hasFlexbox": true,
+      "hasGrid": false,
+      "hasResponsiveImages": true,
+      "hasResponsiveUnits": true
+    },
+    "touchFriendly": {
+      "hasTouchEvents": false,
+      "hasLargeClickTargets": false,
+      "hasMobileNavigation": false
+    },
+    "mobileOptimization": {
+      "hasAppleTouchIcon": false,
+      "hasManifest": false,
+      "hasThemeColor": true,
+      "hasMobileFriendlyForms": false
+    },
+    "errors": []
+  },
+  "loadTesting": {
+    "concurrentRequests": {
+      "totalRequests": 10,
+      "successfulRequests": 10,
+      "failedRequests": 0,
+      "totalTime": 740,
+      "averageResponseTime": 273,
+      "successRate": 100
+    },
+    "stressTest": {
+      "requests": 5,
+      "successful": 5,
+      "totalTime": 171,
+      "maintained": true
+    },
+    "consistencyTest": {},
+    "errors": []
+  },
+  "coreWebVitals": {
+    "loadingPerformance": {
+      "responseTime": 122,
+      "pageSize": 27934,
+      "hasPreload": true,
+      "hasPrefetch": false,
+      "hasAsyncScripts": true,
+      "hasDeferScripts": false,
+      "hasLazyLoading": false
+    },
+    "interactivityIndicators": {
+      "hasServiceWorker": true,
+      "hasEventListeners": true,
+      "hasFormElements": true,
+      "hasInteractiveElements": true
+    },
+    "visualStability": {
+      "hasImageDimensions": true,
+      "hasFixedDimensions": true,
+      "hasFlexLayout": false,
+      "hasGridLayout": false
+    },
+    "resourceOptimization": {
+      "hasCompression": false,
+      "hasCaching": true,
+      "hasMinifiedCSS": false,
+      "hasMinifiedJS": false,
+      "hasWebP": true,
+      "hasCDN": false
+    },
+    "errors": []
+  },
+  "overallScore": 80,
+  "summary": {
+    "testDate": "2025-08-24T01:34:37.774Z",
+    "overallScore": 80,
+    "performanceGrade": "B",
+    "productionReady": true,
+    "criticalIssues": [],
+    "recommendations": [
+      "Enable gzip compression for better performance",
+      "Add proper heading structure for screen reader navigation",
+      "Use more semantic HTML elements for better accessibility"
+    ]
+  }
+}

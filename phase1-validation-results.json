@@ -1,0 +1,1595 @@
+{
+  "zipCodeTests": [
+    {
+      "zipCode": "90210",
+      "responseTime": 1,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "94102",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90001",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95060",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "92101",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "91501",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "93514",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95947",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "96161",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "96162",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90210",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90001",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95814",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90028",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "94301",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "92037",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "93101",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95404",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90505",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "92373",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95350",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90405",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "93940",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95521",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "96001",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "93065",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90742",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95991",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "95037",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "90201",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "93003",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    },
+    {
+      "zipCode": "92708",
+      "responseTime": 0,
+      "status": "WARNING",
+      "hasRealData": true,
+      "representatives": [
+        {
+          "name": "Dianne Feinstein",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3841",
+            "email": "senator@feinstein.senate.gov"
+          }
+        },
+        {
+          "name": "Alex Padilla",
+          "level": "federal",
+          "office": "U.S. Senator",
+          "district": "California",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 224-3553",
+            "email": "senator@padilla.senate.gov"
+          }
+        },
+        {
+          "name": "Brad Sherman",
+          "level": "federal",
+          "office": "U.S. Representative",
+          "district": "32nd Congressional District",
+          "party": "Democratic",
+          "contact": {
+            "phone": "(202) 225-5911",
+            "email": "rep.sherman@house.gov"
+          }
+        }
+      ],
+      "errors": [
+        "Placeholders found: Demo, DEMO"
+      ]
+    }
+  ],
+  "politicalDataTests": [
+    {
+      "zipCode": "90210",
+      "totalRepresentatives": 3,
+      "federalReps": 3,
+      "stateReps": 0,
+      "countyReps": 0,
+      "localReps": 0,
+      "hasRealNames": true,
+      "hasRealDistricts": true,
+      "status": "PASS"
+    },
+    {
+      "zipCode": "94102",
+      "totalRepresentatives": 3,
+      "federalReps": 3,
+      "stateReps": 0,
+      "countyReps": 0,
+      "localReps": 0,
+      "hasRealNames": true,
+      "hasRealDistricts": true,
+      "status": "PASS"
+    },
+    {
+      "zipCode": "95814",
+      "totalRepresentatives": 3,
+      "federalReps": 3,
+      "stateReps": 0,
+      "countyReps": 0,
+      "localReps": 0,
+      "hasRealNames": true,
+      "hasRealDistricts": true,
+      "status": "PASS"
+    },
+    {
+      "zipCode": "92101",
+      "totalRepresentatives": 3,
+      "federalReps": 3,
+      "stateReps": 0,
+      "countyReps": 0,
+      "localReps": 0,
+      "hasRealNames": true,
+      "hasRealDistricts": true,
+      "status": "PASS"
+    }
+  ],
+  "billsSystemTests": [
+    {
+      "endpoint": "/api/bills",
+      "status": "PASS",
+      "billCount": 2,
+      "hasRealBillData": true
+    },
+    {
+      "endpoint": "/api/committees",
+      "status": "PASS",
+      "committeeCount": 2,
+      "hasRealCommitteeData": true
+    }
+  ],
+  "performanceTests": [
+    {
+      "endpoint": "/",
+      "loadTime": 0,
+      "status": "PASS",
+      "target": "< 2000ms"
+    },
+    {
+      "endpoint": "/representatives",
+      "loadTime": 0,
+      "status": "PASS",
+      "target": "< 2000ms"
+    },
+    {
+      "endpoint": "/bills",
+      "loadTime": 0,
+      "status": "PASS",
+      "target": "< 2000ms"
+    },
+    {
+      "endpoint": "/about",
+      "loadTime": 0,
+      "status": "PASS",
+      "target": "< 2000ms"
+    }
+  ],
+  "errorTests": [
+    {
+      "input": "00000",
+      "status": "WARNING",
+      "handledGracefully": false
+    },
+    {
+      "input": "99999",
+      "status": "WARNING",
+      "handledGracefully": false
+    },
+    {
+      "input": "ABCDE",
+      "status": "WARNING",
+      "handledGracefully": false
+    },
+    {
+      "input": "123",
+      "status": "WARNING",
+      "handledGracefully": false
+    }
+  ],
+  "unknownDataValidation": [
+    {
+      "zipCode": "90210",
+      "status": "FAIL",
+      "placeholdersFound": [
+        "Demo",
+        "DEMO"
+      ],
+      "cleanData": false
+    },
+    {
+      "zipCode": "94102",
+      "status": "FAIL",
+      "placeholdersFound": [
+        "Demo",
+        "DEMO"
+      ],
+      "cleanData": false
+    },
+    {
+      "zipCode": "95814",
+      "status": "FAIL",
+      "placeholdersFound": [
+        "Demo",
+        "DEMO"
+      ],
+      "cleanData": false
+    }
+  ],
+  "overallStatus": "REQUIRES_FIXES",
+  "testSummary": {
+    "totalTests": 49,
+    "passed": 10,
+    "failed": 3,
+    "warnings": 36
+  },
+  "timestamp": "2025-08-24T01:17:09.734Z",
+  "testConfiguration": {
+    "testZipCodes": [
+      "90210",
+      "94102",
+      "90001",
+      "95060",
+      "92101",
+      "91501",
+      "93514",
+      "95947",
+      "96161",
+      "96162",
+      "90210",
+      "90001",
+      "95814",
+      "90028",
+      "94301",
+      "92037",
+      "93101",
+      "95404",
+      "90505",
+      "92373",
+      "95350",
+      "90405",
+      "93940",
+      "95521",
+      "96001",
+      "93065",
+      "90742",
+      "95991",
+      "95037",
+      "90201",
+      "93003",
+      "92708"
+    ],
+    "serverUrl": "http://localhost:3010",
+    "testSuite": "Phase 1 Final Validation"
+  }
+}

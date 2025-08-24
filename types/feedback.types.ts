@@ -23,7 +23,7 @@ export interface Feedback {
 }
 
 export type FeedbackType = 'bill' | 'representative' | 'issue' | 'general' | 'suggestion';
-export type FeedbackCategory = 'support' | 'oppose' | 'question' | 'concern' | 'suggestion' | 'complaint' | 'praise';
+export type FeedbackCategory = 'support' | 'oppose' | 'question' | 'concern' | 'suggestion' | 'complaint' | 'praise' | 'state_expansion';
 export type FeedbackStatus = 'pending' | 'reviewed' | 'acknowledged' | 'responded' | 'resolved' | 'archived';
 
 export interface FeedbackResponse {
@@ -115,7 +115,7 @@ export interface FeedbackFilter {
   limit?: number;
 }
 
-export interface FeedbackResponse {
+export interface FeedbackListResponse {
   feedback: Feedback[];
   total: number;
   page: number;

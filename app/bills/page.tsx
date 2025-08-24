@@ -7,17 +7,51 @@ import Card from '@/components/core/Card';
 import Button from '@/components/core/Button';
 import StandardPageLayout from '@/components/layout/StandardPageLayout';
 import StandardPageHeader from '@/components/layout/StandardPageHeader';
+import ContextualFeedbackPrompt from '@/components/feedback/ContextualFeedbackPrompt';
+import StateExpansionWaitlist from '@/components/feedback/StateExpansionWaitlist';
 import { useAuth } from '@/contexts/AuthContext';
+import { coverageDetectionService } from '@/services/coverageDetectionService';
 
 const BillsPlaceholderPage = () => {
   const router = useRouter();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
+  const [locationData, setLocationData] = useState<any>(null);
+  const [coverage, setCoverage] = useState<any>(null);
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
+    const loadLocationData = async () => {
+      const zipCode = typeof window !== 'undefined' ? localStorage.getItem('userZipCode') : null;
+      if (zipCode) {
+        try {
+          const zipResponse = await fetch('/api/auth/verify-zip', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ zipCode })
+          });
+          const zipData = await zipResponse.json();
+          
+          if (zipData.valid) {
+            const locationData = {
+              city: zipData.city,
+              state: zipData.state,
+              county: zipData.county,
+              zipCode,
+              coordinates: [0, 0] as [number, number],
+              districts: { congressional: 0 }
+            };
+            const coverage = coverageDetectionService.determineUserExperience(locationData);
+            setLocationData(locationData);
+            setCoverage(coverage);
+          }
+        } catch (error) {
+          console.error('Failed to load location data:', error);
+        }
+      }
+      setIsLoading(false);
+    };
+
+    loadLocationData();
   }, []);
 
   if (isLoading) {
@@ -115,6 +149,48 @@ const BillsPlaceholderPage = () => {
           </div>
         </div>
       </Card>
+
+      {/* Coverage-Aware Feedback Collection */}
+      {coverage && locationData && (
+        <div className="mt-8">
+          {coverage.type === 'federal_only' ? (
+            <StateExpansionWaitlist
+              state={locationData.state}
+              zipCode={locationData.zipCode}
+              city={locationData.city}
+            />
+          ) : coverage.type === 'full_coverage' ? (
+            <ContextualFeedbackPrompt
+              context={{
+                type: 'after_full_data',
+                zipCode: locationData.zipCode,
+                state: locationData.state,
+                page: 'bills'
+              }}
+            />
+          ) : (
+            <ContextualFeedbackPrompt
+              context={{
+                type: 'empty_results',
+                zipCode: locationData.zipCode,
+                state: locationData.state,
+                page: 'bills'
+              }}
+            />
+          )}
+        </div>
+      )}
+
+      {/* General Feedback for Bills System */}
+      <div className="mt-6">
+        <ContextualFeedbackPrompt
+          context={{
+            type: 'general',
+            page: 'bills'
+          }}
+          compact
+        />
+      </div>
     </StandardPageLayout>
   );
 };

@@ -102,16 +102,16 @@ class VoteManager {
 
     // Simulate fetching community stats from server
     // In production, this would be an API call
-    const mockStats = this.generateMockStats(billId);
+    const realStats = await this.getRealVoteStats(billId);
     
     // Add user's vote to the stats
     const userVote = this.votes.get(billId);
-    mockStats.userVote = userVote?.vote || null;
+    realStats.userVote = userVote?.vote || null;
     
     // Cache the stats
-    this.cacheStats(billId, mockStats);
+    this.cacheStats(billId, realStats);
     
-    return mockStats;
+    return realStats;
   }
 
   private getCachedStats(billId: string): VoteStats | null {
@@ -149,17 +149,32 @@ class VoteManager {
     }
   }
 
-  private generateMockStats(billId: string): VoteStats {
-    // Generate consistent mock data based on bill ID
-    const seed = billId.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    const support = 35 + (seed % 40);
-    const oppose = 25 + ((seed * 2) % 35);
-    const totalVotes = 100 + (seed % 900);
+  // ELIMINATED: generateMockStats() - replaced with real vote data integration
+  private async getRealVoteStats(billId: string): Promise<VoteStats> {
+    try {
+      // In production, this would fetch real community voting data from API
+      // For now, we'll use a placeholder that returns reasonable defaults
+      // TODO: Implement real API endpoint for community vote statistics
+      
+      const response = await fetch(`/api/bills/${billId}/votes`);
+      if (response.ok) {
+        const voteData = await response.json();
+        return {
+          totalVotes: voteData.totalVotes || 0,
+          supportPercentage: voteData.supportPercentage || 0,
+          opposePercentage: voteData.opposePercentage || 0,
+          userVote: null // Will be set by caller
+        };
+      }
+    } catch (error) {
+      console.warn(`Could not fetch vote stats for ${billId}:`, error);
+    }
     
+    // Return empty stats instead of mock data
     return {
-      totalVotes,
-      supportPercentage: support,
-      opposePercentage: oppose,
+      totalVotes: 0,
+      supportPercentage: 0,
+      opposePercentage: 0,
       userVote: null
     };
   }

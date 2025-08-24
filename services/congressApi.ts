@@ -293,9 +293,19 @@ class CongressApiService {
         console.error('API error details:', error.message, error.stack);
       }
       
-      // Fallback to enhanced mock data
-      console.log('Using fallback enhanced mock bills');
-      return this.getEnhancedMockBills();
+      // Fallback to local API endpoint with real bill data instead of mock data
+      console.log('Congress API unavailable, using local bills API endpoint');
+      try {
+        const response = await fetch(`/api/bills?limit=${limit}&offset=${offset}`);
+        if (response.ok) {
+          const bills = await response.json();
+          return Array.isArray(bills) ? bills : [];
+        }
+      } catch (fallbackError) {
+        console.error('Local bills API also failed:', fallbackError);
+      }
+      // Return empty array instead of mock data
+      return [];
     }
   }
 
@@ -602,220 +612,8 @@ class CongressApiService {
     }
   }
 
-  // Enhanced mock data for demonstration
-  private getEnhancedMockBills(): Bill[] {
-    const currentDate = new Date().toISOString().split('T')[0];
-    
-    return [
-      {
-        id: 'hr-1-119',
-        billNumber: 'H.R. 1',
-        title: 'One Big Beautiful Bill Act',
-        shortTitle: 'One Big Beautiful Bill',
-        summary: 'Comprehensive budget reconciliation legislation combining tax cuts, border security funding, and energy production expansion. This massive bill uses the reconciliation process to pass major policy changes with simple majority votes.',
-        status: {
-          stage: 'Committee',
-          detail: 'Referred to House Committee on Energy and Commerce',
-          date: currentDate
-        },
-        chamber: 'House',
-        introducedDate: '2025-01-15',
-        lastActionDate: currentDate,
-        lastAction: 'Referred to House Committee on Energy and Commerce',
-        sponsor: {
-          id: 'S001176',
-          name: 'Steve Scalise',
-          party: 'Republican',
-          state: 'LA',
-          district: '1'
-        },
-        cosponsors: [],
-        committees: ['House Energy and Commerce'],
-        subjects: ['Energy', 'Oil and Gas', 'Renewable Energy', 'Climate Change', 'Jobs'],
-        policyArea: 'Energy',
-        legislativeHistory: [
-          {
-            date: '2025-01-15',
-            action: 'Introduced in House',
-            chamber: 'House',
-            actionType: 'introduction'
-          }
-        ],
-        aiSummary: {
-          id: 'summary-hr-1-119',
-          billId: 'hr-1-119',
-          title: 'One Big Beautiful Bill Act',
-          simpleSummary: 'Combines major Republican priorities including tax cuts, border security, and energy production into one massive reconciliation bill.',
-          keyPoints: [
-            'Extends Trump tax cuts permanently',
-            'Allocates $100 billion for border security',
-            'Expands domestic energy production',
-            'Uses reconciliation to bypass filibuster'
-          ],
-          pros: [
-            'Lower energy costs for families',
-            'Creates millions of high-paying jobs',
-            'Reduces dependence on foreign oil',
-            'Includes renewable energy investments'
-          ],
-          cons: [
-            'Environmental concerns about increased drilling',
-            'High upfront investment costs',
-            'May increase carbon emissions short-term',
-            'Opposition from environmental groups'
-          ],
-          whoItAffects: [
-            'Energy workers and job seekers',
-            'Homeowners paying energy bills',
-            'Oil and gas companies',
-            'Renewable energy sector',
-            'Environmental communities'
-          ],
-          whatItMeans: 'This bill would dramatically expand American energy production, potentially lowering your energy bills while creating jobs in your area.',
-          timeline: 'Committee review: 2-3 months, Full vote: 6 months, Implementation: 2026',
-          readingLevel: 'middle',
-          generatedAt: currentDate
-        }
-      },
-      {
-        id: 's-47-119',
-        billNumber: 'S. 47',
-        title: 'Comprehensive Border Security Act of 2025',
-        shortTitle: 'Border Security Act',
-        summary: 'Strengthens border security through enhanced technology, increased personnel, and improved immigration enforcement procedures. Allocates $25 billion for border infrastructure and technology upgrades.',
-        status: {
-          stage: 'Committee',
-          detail: 'Referred to Senate Committee on Homeland Security',
-          date: currentDate
-        },
-        chamber: 'Senate',
-        introducedDate: '2025-01-22',
-        lastActionDate: currentDate,
-        lastAction: 'Referred to Senate Committee on Homeland Security and Governmental Affairs',
-        sponsor: {
-          id: 'C001098',
-          name: 'Ted Cruz',
-          party: 'Republican',
-          state: 'TX'
-        },
-        cosponsors: [],
-        committees: ['Senate Homeland Security and Governmental Affairs'],
-        subjects: ['Immigration', 'Border Security', 'Law Enforcement', 'National Security'],
-        policyArea: 'Immigration',
-        legislativeHistory: [
-          {
-            date: '2025-01-22',
-            action: 'Introduced in Senate',
-            chamber: 'Senate',
-            actionType: 'introduction'
-          }
-        ],
-        aiSummary: {
-          id: 'summary-s-47-119',
-          billId: 's-47-119',
-          title: 'Comprehensive Border Security Act of 2025',
-          simpleSummary: 'Strengthens border security with new technology, more agents, and $25 billion in funding to prevent illegal immigration.',
-          keyPoints: [
-            'Hires 20,000 new border patrol agents',
-            'Installs advanced surveillance systems',
-            'Builds strategic barrier systems',
-            'Enhances port of entry security'
-          ],
-          pros: [
-            'Improves national security',
-            'Creates law enforcement jobs',
-            'Reduces illegal border crossings',
-            'Modernizes border technology'
-          ],
-          cons: [
-            'High cost to taxpayers',
-            'Environmental impact concerns',
-            'May affect legal immigration',
-            'Community opposition in border areas'
-          ],
-          whoItAffects: [
-            'Border communities',
-            'Law enforcement agencies',
-            'Immigration applicants',
-            'Taxpayers nationwide'
-          ],
-          whatItMeans: 'This bill would significantly increase border security measures, affecting immigration patterns and border community life.',
-          timeline: 'Committee review: 3 months, Senate vote: 6 months, Implementation: 2026-2028',
-          readingLevel: 'middle',
-          generatedAt: currentDate
-        }
-      },
-      {
-        id: 'hr-125-119',
-        billNumber: 'H.R. 125',
-        title: 'Artificial Intelligence Safety and Innovation Act of 2025',
-        shortTitle: 'AI Safety Act',
-        summary: 'Establishes federal guidelines for AI development and deployment, creates safety standards, protects consumer privacy, and promotes responsible innovation in artificial intelligence technologies.',
-        status: {
-          stage: 'Committee',
-          detail: 'Referred to House Committee on Science, Space, and Technology',
-          date: currentDate
-        },
-        chamber: 'House',
-        introducedDate: '2025-02-03',
-        lastActionDate: currentDate,
-        lastAction: 'Referred to House Committee on Science, Space, and Technology',
-        sponsor: {
-          id: 'K000389',
-          name: 'Ro Khanna',
-          party: 'Democrat',
-          state: 'CA',
-          district: '17'
-        },
-        cosponsors: [],
-        committees: ['House Science, Space, and Technology'],
-        subjects: ['Artificial Intelligence', 'Technology', 'Privacy', 'Innovation', 'Consumer Protection'],
-        policyArea: 'Science, Technology, Communications',
-        legislativeHistory: [
-          {
-            date: '2025-02-03',
-            action: 'Introduced in House',
-            chamber: 'House',
-            actionType: 'introduction'
-          }
-        ],
-        aiSummary: {
-          id: 'summary-hr-125-119',
-          billId: 'hr-125-119',
-          title: 'Artificial Intelligence Safety and Innovation Act of 2025',
-          simpleSummary: 'Creates safety rules for AI like ChatGPT while supporting American tech innovation and protecting your privacy.',
-          keyPoints: [
-            'Requires AI safety testing before public release',
-            'Protects personal data from AI misuse',
-            'Creates 50,000 AI-related jobs',
-            'Establishes AI oversight board'
-          ],
-          pros: [
-            'Protects consumer privacy',
-            'Prevents AI discrimination',
-            'Supports tech innovation',
-            'Creates high-tech jobs'
-          ],
-          cons: [
-            'May slow AI development',
-            'Compliance costs for companies',
-            'Could limit AI capabilities',
-            'International competitiveness concerns'
-          ],
-          whoItAffects: [
-            'Tech workers and companies',
-            'AI users and consumers',
-            'Privacy advocates',
-            'Business automation users'
-          ],
-          whatItMeans: 'This bill would regulate AI systems to ensure they are safe and fair while protecting your personal information.',
-          timeline: 'Committee hearings: 2 months, House vote: 4 months, Implementation: 2026',
-          readingLevel: 'middle',
-          generatedAt: currentDate
-        }
-      }
-    ];
-  }
+  // ELIMINATED: getEnhancedMockBills() function (214 lines) - replaced with real API integration
+  // All bill data now comes from real Congress API or /api/bills endpoint
 
   // Search bills
   async searchBills(query: string, filters?: any): Promise<Bill[]> {

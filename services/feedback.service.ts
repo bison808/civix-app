@@ -4,7 +4,7 @@ import {
   FeedbackSubmission,
   FeedbackAggregation,
   FeedbackFilter,
-  FeedbackResponse as FeedbackListResponse,
+  FeedbackListResponse,
   FeedbackStats,
 } from '../types/feedback.types';
 

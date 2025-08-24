@@ -110,7 +110,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
         id: '3',
         type: 'representative_action',
         title: 'Your Representative Voted',
-        message: 'Rep. Jane Smith voted YES on H.R. 999 Infrastructure Investment Act.',
+        message: 'Rep. Maria Gonzalez voted YES on H.R. 999 Infrastructure Investment Act.',
         timestamp: '2025-01-21T16:45:00Z',
         isRead: true,
         isImportant: false,

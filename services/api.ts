@@ -1,33 +1,39 @@
 import { Bill, User, Representative, FilterOptions, VoteRecord } from '@/types';
-import { mockBills, mockUser, mockRepresentatives, mockCARepresentatives, mockTXRepresentatives, mockNYRepresentatives } from './mockData';
 import { realDataService } from './realDataService';
 import { congressService } from './congressService';
 import { civicInfoService } from './civicInfoService';
+import { congressApi } from './congressApi';
 
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-// Feature flag to enable real data
+// Always use real data - no more mock data
 const USE_REAL_DATA = true;
 
-// Mock API service layer - will be replaced with real API calls to Agents 1-3
+// Production API service layer - only real data
 export const api = {
-  // Agent 1 Data API Mock
+  // Real Congressional Data API
   bills: {
     async getAll(filters?: FilterOptions): Promise<Bill[]> {
       await delay(300);
       
-      // Use REAL bills from Congress!
+      // Use REAL bills from Congress API - no fallbacks to mock data
       let bills: Bill[] = [];
-      if (USE_REAL_DATA) {
+      try {
+        bills = await congressApi.fetchRecentBills(50, 0);
+        if (bills.length === 0) {
+          // Fallback to congressional service if congressApi returns empty
+          bills = await congressService.getRecentBills();
+        }
+      } catch (error) {
+        console.error('Failed to fetch real bills:', error);
+        // Try alternative real data source
         try {
           bills = await congressService.getRecentBills();
-        } catch (error) {
-          console.error('Failed to fetch real bills, using mock:', error);
-          bills = [...mockBills];
+        } catch (fallbackError) {
+          console.error('All real data sources failed:', fallbackError);
+          throw new Error('Unable to fetch legislative data. Please try again later.');
         }
-      } else {
-        bills = [...mockBills];
       }
       
       if (filters) {
@@ -54,71 +60,241 @@ export const api = {
 
     async getById(id: string): Promise<Bill | undefined> {
       await delay(200);
-      if (USE_REAL_DATA) {
-        try {
-          const bills = await congressService.getRecentBills();
-          return bills.find(bill => bill.id === id);
-        } catch (error) {
-          console.error('Failed to fetch real bill, using mock:', error);
-        }
+      try {
+        // Try congressApi first for detailed bill data
+        const bill = await congressApi.getBillById(id);
+        if (bill) return bill;
+        
+        // Fallback to general congressional service
+        const bills = await congressService.getRecentBills();
+        return bills.find(bill => bill.id === id);
+      } catch (error) {
+        console.error('Failed to fetch real bill:', error);
+        throw new Error('Unable to fetch bill details. Please try again later.');
       }
-      return mockBills.find(bill => bill.id === id);
     },
 
     async search(query: string): Promise<Bill[]> {
       await delay(300);
-      const lowercaseQuery = query.toLowerCase();
-      return mockBills.filter(bill => 
-        bill.title.toLowerCase().includes(lowercaseQuery) ||
-        (bill.aiSummary?.simpleSummary || bill.summary).toLowerCase().includes(lowercaseQuery) ||
-        bill.subjects.some(subject => subject.includes(lowercaseQuery))
-      );
+      try {
+        // Use real search functionality from congressApi
+        const results = await congressApi.searchBills(query);
+        return results;
+      } catch (error) {
+        console.error('Failed to search real bills:', error);
+        // Fallback to searching through recent bills
+        try {
+          const allBills = await congressApi.fetchRecentBills(100, 0);
+          const lowercaseQuery = query.toLowerCase();
+          return allBills.filter(bill => 
+            bill.title.toLowerCase().includes(lowercaseQuery) ||
+            (bill.aiSummary?.simpleSummary || bill.summary).toLowerCase().includes(lowercaseQuery) ||
+            bill.subjects.some(subject => subject.toLowerCase().includes(lowercaseQuery))
+          );
+        } catch (fallbackError) {
+          console.error('Search fallback failed:', fallbackError);
+          throw new Error('Unable to search bills. Please try again later.');
+        }
+      }
     }
   },
 
-  // Agent 2 Simplified Content API Mock
+  // Real AI Summary Service
   simplified: {
     async getBillSummary(billId: string): Promise<string> {
       await delay(200);
-      const bill = mockBills.find(b => b.id === billId);
-      return bill?.aiSummary?.simpleSummary || bill?.summary || 'Summary not available';
+      try {
+        const bill = await congressApi.getBillById(billId);
+        if (bill?.aiSummary?.simpleSummary) {
+          return bill.aiSummary.simpleSummary;
+        }
+        if (bill?.summary) {
+          return bill.summary;
+        }
+        return 'Summary not available for this bill.';
+      } catch (error) {
+        console.error('Failed to fetch bill summary:', error);
+        return 'Unable to load bill summary. Please try again later.';
+      }
     },
 
     async getImpactAnalysis(billId: string, zipCode: string): Promise<any> {
       await delay(300);
-      const bill = mockBills.find(b => b.id === billId);
-      return {
-        personalImpacts: bill?.estimatedImpact ? [bill.estimatedImpact] : [],
-        communityImpacts: [
-          'More funding for local schools',
-          'Better healthcare access in your area',
-          'New job opportunities nearby'
-        ],
-        timeline: {
-          voteDate: bill?.lastActionDate,
-          implementationDate: '2025-07-01',
-          firstEffects: '2025-10-01'
+      try {
+        const bill = await congressApi.getBillById(billId);
+        const location = await realDataService.getLocationFromZip(zipCode);
+        
+        if (!bill) {
+          throw new Error('Bill not found');
         }
-      };
+
+        // Generate real impact analysis based on bill content and location
+        const impact = {
+          personalImpacts: bill.estimatedImpact ? [bill.estimatedImpact] : [],
+          communityImpacts: await this.generateLocationSpecificImpacts(bill, location),
+          timeline: {
+            voteDate: bill.lastActionDate,
+            implementationDate: this.estimateImplementationDate(bill),
+            firstEffects: this.estimateFirstEffectsDate(bill)
+          },
+          economicAnalysis: bill.estimatedImpact?.economicImpact || null,
+          affectedGroups: bill.estimatedImpact?.affectedGroups || []
+        };
+
+        return impact;
+      } catch (error) {
+        console.error('Failed to generate impact analysis:', error);
+        return {
+          error: 'Unable to generate impact analysis',
+          personalImpacts: [],
+          communityImpacts: [],
+          timeline: null
+        };
+      }
+    },
+
+    // Helper methods for impact analysis
+    async generateLocationSpecificImpacts(bill: Bill, location: any): Promise<string[]> {
+      const impacts: string[] = [];
+      
+      if (!location) return impacts;
+
+      // Analyze bill content for location-specific impacts
+      const subjects = bill.subjects || [];
+      const title = bill.title.toLowerCase();
+      
+      if (subjects.includes('Education') || title.includes('education')) {
+        impacts.push(`Education funding changes may affect schools in ${location.city}`);
+      }
+      
+      if (subjects.includes('Healthcare') || title.includes('healthcare') || title.includes('health')) {
+        impacts.push(`Healthcare access may be impacted in ${location.county}`);
+      }
+      
+      if (subjects.includes('Transportation') || title.includes('infrastructure')) {
+        impacts.push(`Transportation and infrastructure improvements planned for your area`);
+      }
+
+      if (subjects.includes('Energy') || title.includes('energy')) {
+        impacts.push(`Energy policy changes may affect utility costs in ${location.state}`);
+      }
+
+      return impacts.length > 0 ? impacts : [`This legislation may impact residents of ${location.city}, ${location.state}`];
+    },
+
+    estimateImplementationDate(bill: Bill): string {
+      // Estimate implementation based on bill complexity and stage
+      const stage = bill.status.stage;
+      const now = new Date();
+      
+      if (stage === 'Law') {
+        return new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]; // 90 days
+      } else if (stage === 'Conference' || stage === 'Presidential') {
+        return new Date(now.getTime() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]; // 6 months
+      } else {
+        return new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]; // 1 year
+      }
+    },
+
+    estimateFirstEffectsDate(bill: Bill): string {
+      // Estimate when first effects would be felt
+      const implementationDate = new Date(this.estimateImplementationDate(bill));
+      const firstEffects = new Date(implementationDate.getTime() + 60 * 24 * 60 * 60 * 1000); // 60 days after implementation
+      return firstEffects.toISOString().split('T')[0];
     }
   },
 
-  // Agent 3 Auth API Mock
+  // Real Auth API Service
   auth: {
     async verifyZipCode(zipCode: string): Promise<boolean> {
       await delay(500);
-      // Simple validation for demo
-      return /^\d{5}$/.test(zipCode);
+      try {
+        // Use real ZIP code validation with location data
+        const location = await realDataService.getLocationFromZip(zipCode);
+        return location !== null && location.state !== 'Unknown';
+      } catch (error) {
+        console.error('ZIP code verification failed:', error);
+        // Fallback to format validation
+        return /^\d{5}$/.test(zipCode);
+      }
     },
 
     async getUser(): Promise<User> {
       await delay(200);
-      return mockUser;
+      // In production, this would get real user data from auth service
+      // For now, return a constructed user from stored auth state
+      const storedSession = typeof window !== 'undefined' ? localStorage.getItem('userSession') : null;
+      
+      if (storedSession) {
+        try {
+          const session = JSON.parse(storedSession);
+          const zipCode = session.zipCode || localStorage.getItem('userZipCode') || '00000';
+          const location = await realDataService.getLocationFromZip(zipCode);
+          
+          return {
+            id: session.anonymousId || 'anonymous-user',
+            email: session.email || 'anonymous@citzn.com',
+            name: session.name || 'Anonymous User',
+            zipCode,
+            district: `${location?.state || 'US'}-01`,
+            state: location?.state || 'US',
+            preferences: {
+              notifications: true,
+              emailUpdates: false,
+              smsUpdates: false,
+              topicInterests: []
+            },
+            createdAt: session.createdAt || new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+        } catch (error) {
+          console.error('Failed to parse user session:', error);
+        }
+      }
+      
+      // Default user if no session
+      return {
+        id: 'anonymous-user',
+        email: 'anonymous@citzn.com',
+        name: 'Anonymous User',
+        zipCode: '00000',
+        district: 'US-01',
+        state: 'US',
+        preferences: {
+          notifications: true,
+          emailUpdates: false,
+          smsUpdates: false,
+          topicInterests: []
+        },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
     },
 
     async updateUser(updates: Partial<User>): Promise<User> {
       await delay(300);
-      return { ...mockUser, ...updates };
+      const currentUser = await this.getUser();
+      const updatedUser = { ...currentUser, ...updates, updatedAt: new Date().toISOString() };
+      
+      // Store updated user info in session
+      if (typeof window !== 'undefined') {
+        try {
+          const storedSession = localStorage.getItem('userSession');
+          if (storedSession) {
+            const session = JSON.parse(storedSession);
+            const updatedSession = {
+              ...session,
+              ...updates,
+              updatedAt: new Date().toISOString()
+            };
+            localStorage.setItem('userSession', JSON.stringify(updatedSession));
+          }
+        } catch (error) {
+          console.error('Failed to update user session:', error);
+        }
+      }
+      
+      return updatedUser;
     }
   },
 
@@ -135,85 +311,103 @@ export const api = {
     }
   },
 
-  // Representatives API
+  // Representatives API - uses real API endpoint
   representatives: {
-    async getByZipCode(zipCode: string): Promise<Representative[]> {
+    async getByZipCode(zipCode: string, level: 'federal' | 'state' | 'local' | 'all' = 'all'): Promise<Representative[]> {
       await delay(300);
       
-      // Use real 119th Congress data for ALL ZIP codes
       try {
-        const { getRepsByZip } = await import('./congress2025');
-        const congressReps = getRepsByZip(zipCode);
+        // Call the real API endpoint we just created
+        const response = await fetch(`/api/representatives?zipCode=${zipCode}&level=${level}`);
         
-        if (congressReps.length > 0) {
-          // Get location information for local officials
-          const location = await realDataService.getLocationFromZip(zipCode);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to fetch representatives');
+        }
+        
+        const data = await response.json();
+        return data.representatives || [];
+      } catch (error) {
+        console.error('Failed to fetch representatives from API:', error);
+        
+        // Emergency fallback: direct service calls
+        try {
+          const { getRepsByZip } = await import('./congress2025');
+          const congressReps = getRepsByZip(zipCode);
           
-          // Get REAL local officials data
-          let localOfficials: Representative[] = [];
-          if (location) {
-            localOfficials = await civicInfoService.getLocalOfficials(
-              location.city,
-              location.state,
-              zipCode
-            );
-          }
-          
-          // If no local officials found, add at least basic info
-          if (localOfficials.length === 0) {
-            localOfficials = [
-              {
+          if (congressReps.length > 0) {
+            const location = await realDataService.getLocationFromZip(zipCode);
+            
+            // Add basic local representative if no API
+            if (location) {
+              const localRep: Representative = {
                 id: `mayor-${zipCode}`,
-                name: `Mayor of ${location?.city || 'Your City'}`,
+                name: `Mayor of ${location.city}`,
                 title: 'Mayor',
                 party: 'Independent' as const,
-                state: congressReps[0]?.state || 'US',
-                district: location?.city || 'Local',
+                state: location.state,
+                district: location.city,
                 chamber: 'Local' as any,
                 level: 'municipal' as const,
-                jurisdiction: location?.city || 'Your City',
+                jurisdiction: location.city,
                 governmentType: 'city' as const,
                 jurisdictionScope: 'citywide' as const,
                 contactInfo: {
                   phone: '311',
-                  website: `https://www.${(location?.city || 'local').toLowerCase().replace(/\s+/g, '')}.gov`,
-                  email: `mayor@${(location?.city || 'local').toLowerCase().replace(/\s+/g, '')}.gov`
+                  website: `https://www.${location.city.toLowerCase().replace(/\s+/g, '')}.gov`,
+                  email: `mayor@${location.city.toLowerCase().replace(/\s+/g, '')}.gov`
                 },
                 socialMedia: {},
                 committees: [],
                 termStart: '2022-01-01',
                 termEnd: '2026-01-01'
-              }
-            ];
+              };
+              return [...congressReps, localRep];
+            }
+            
+            return congressReps;
           }
           
-          return [...congressReps, ...localOfficials];
+          throw new Error('No representatives found');
+        } catch (fallbackError) {
+          console.error('Representatives fallback failed:', fallbackError);
+          throw new Error('Unable to fetch representatives. Please check the ZIP code and try again.');
         }
-      } catch (error) {
-        console.error('Failed to fetch Congress 2025 data:', error);
-      }
-      
-      // Fallback to original mock data if something goes wrong
-      const zipNum = parseInt(zipCode);
-      
-      if (zipCode.startsWith('90') || zipCode.startsWith('91') || zipCode.startsWith('92') || zipCode.startsWith('93') || zipCode.startsWith('94') || zipCode.startsWith('95') || zipCode.startsWith('96')) {
-        // California ZIP codes
-        return mockCARepresentatives;
-      } else if (zipCode.startsWith('75') || zipCode.startsWith('76') || zipCode.startsWith('77') || zipCode.startsWith('78') || zipCode.startsWith('79')) {
-        // Texas ZIP codes
-        return mockTXRepresentatives;
-      } else if (zipCode.startsWith('10') || zipCode.startsWith('11') || zipCode.startsWith('12') || zipCode.startsWith('13') || zipCode.startsWith('14')) {
-        // New York ZIP codes
-        return mockNYRepresentatives;
-      } else {
-        // Default to California for unknown ZIP codes
-        return mockCARepresentatives;
       }
     },
 
-    async contact(repId: string, method: 'email' | 'phone', message?: string): Promise<void> {
+    async contact(repId: string, method: 'email' | 'phone', subject: string, message: string): Promise<void> {
       await delay(500);
-      console.log('Contacting representative:', { repId, method, message });
+      
+      try {
+        // Use the real API endpoint for contacting representatives
+        const response = await fetch('/api/representatives', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            representativeId: repId,
+            method,
+            subject,
+            message,
+            userInfo: {
+              timestamp: new Date().toISOString()
+            }
+          })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to send message');
+        }
+
+        const result = await response.json();
+        console.log('Message sent successfully:', result);
+      } catch (error) {
+        console.error('Failed to contact representative:', error);
+        throw error;
+      }
     }
   },
 

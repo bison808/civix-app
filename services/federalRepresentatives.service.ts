@@ -19,7 +19,7 @@ import {
 import { Representative } from '@/types/representatives.types';
 import { representativesService } from './representatives.service';
 import { congressApi } from './congressApi';
-import { CALIFORNIA_SENATORS, CALIFORNIA_HOUSE_REPS, getCaliforniaFederalReps } from './californiaFederalReps';
+// Dynamic import for large california data to reduce bundle size
 
 class FederalRepresentativesService {
   private readonly PROPUBLICA_API_BASE = 'https://api.propublica.org/congress/v1';
@@ -36,6 +36,14 @@ class FederalRepresentativesService {
   }
 
   /**
+   * Dynamically load California federal representatives data to reduce bundle size
+   */
+  private async loadCaliforniaFederalData() {
+    const { CALIFORNIA_SENATORS, CALIFORNIA_HOUSE_REPS, getCaliforniaFederalReps } = await import('./californiaFederalReps');
+    return { CALIFORNIA_SENATORS, CALIFORNIA_HOUSE_REPS, getCaliforniaFederalReps };
+  }
+
+  /**
    * Get all California federal representatives (2 Senators + 52 House members)
    */
   async getCaliforniaFederalDelegation(): Promise<CaliforniaFederalDelegation> {
@@ -47,6 +55,9 @@ class FederalRepresentativesService {
     }
 
     try {
+      // Dynamically load the large California data
+      const { CALIFORNIA_SENATORS, CALIFORNIA_HOUSE_REPS } = await this.loadCaliforniaFederalData();
+      
       // Get enhanced data for senators and house members
       const [enhancedSenators, enhancedHouseMembers] = await Promise.all([
         this.enhanceRepresentatives(CALIFORNIA_SENATORS),
@@ -70,6 +81,8 @@ class FederalRepresentativesService {
       console.error('Error fetching California federal delegation:', error);
       
       // Return basic data without enhancements as fallback
+      const { CALIFORNIA_SENATORS, CALIFORNIA_HOUSE_REPS } = await this.loadCaliforniaFederalData();
+      
       return {
         senators: this.convertToFederalReps(CALIFORNIA_SENATORS),
         houseMembers: this.convertToFederalReps(CALIFORNIA_HOUSE_REPS),
@@ -87,6 +100,7 @@ class FederalRepresentativesService {
    * Get California federal representatives by ZIP code
    */
   async getCaliforniaFederalRepsByZip(zipCode: string): Promise<FederalRepresentative[]> {
+    const { getCaliforniaFederalReps } = await this.loadCaliforniaFederalData();
     const basicReps = getCaliforniaFederalReps(zipCode);
     return this.enhanceRepresentatives(basicReps);
   }

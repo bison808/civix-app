@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { mockBills } from '@/services/mockData';
 import { congressService } from '@/services/congressService';
 import { billsService } from '@/services/bills.service';
 import { congressApi } from '@/services/congressApi';
@@ -46,8 +45,8 @@ export async function GET(request: NextRequest) {
       try {
         bills = await congressService.getRecentBills();
       } catch (fallbackError) {
-        console.error('Fallback also failed, using mock data:', fallbackError);
-        bills = mockBills;
+        console.error('All data sources failed:', fallbackError);
+        throw new Error('Unable to fetch bill data from any source');
       }
     }
 

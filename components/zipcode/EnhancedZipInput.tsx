@@ -1,26 +1,39 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { MapPin, Search, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
+import { MapPin, Search, CheckCircle, AlertTriangle, Loader2, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Common California ZIP codes for auto-complete
-const CALIFORNIA_ZIP_CODES = [
-  { zip: '90210', city: 'Beverly Hills', county: 'Los Angeles' },
-  { zip: '94102', city: 'San Francisco', county: 'San Francisco' },
-  { zip: '95014', city: 'Cupertino', county: 'Santa Clara' },
-  { zip: '90401', city: 'Santa Monica', county: 'Los Angeles' },
-  { zip: '92101', city: 'San Diego', county: 'San Diego' },
-  { zip: '95060', city: 'Santa Cruz', county: 'Santa Cruz' },
-  { zip: '94301', city: 'Palo Alto', county: 'Santa Clara' },
-  { zip: '90028', city: 'Hollywood', county: 'Los Angeles' },
-  { zip: '91505', city: 'Burbank', county: 'Los Angeles' },
-  { zip: '95616', city: 'Davis', county: 'Yolo' },
+// Common US ZIP codes for auto-complete (expanded beyond just California)
+const POPULAR_ZIP_CODES = [
+  // California
+  { zip: '90210', city: 'Beverly Hills', state: 'CA', county: 'Los Angeles' },
+  { zip: '94102', city: 'San Francisco', state: 'CA', county: 'San Francisco' },
+  { zip: '95014', city: 'Cupertino', state: 'CA', county: 'Santa Clara' },
+  { zip: '92101', city: 'San Diego', state: 'CA', county: 'San Diego' },
+  // New York
+  { zip: '10001', city: 'New York', state: 'NY', county: 'New York' },
+  { zip: '10013', city: 'New York', state: 'NY', county: 'New York' },
+  { zip: '11201', city: 'Brooklyn', state: 'NY', county: 'Kings' },
+  // Texas
+  { zip: '75201', city: 'Dallas', state: 'TX', county: 'Dallas' },
+  { zip: '77001', city: 'Houston', state: 'TX', county: 'Harris' },
+  { zip: '78701', city: 'Austin', state: 'TX', county: 'Travis' },
+  // Florida
+  { zip: '33101', city: 'Miami', state: 'FL', county: 'Miami-Dade' },
+  { zip: '32801', city: 'Orlando', state: 'FL', county: 'Orange' },
+  // Illinois
+  { zip: '60601', city: 'Chicago', state: 'IL', county: 'Cook' },
+  // Washington
+  { zip: '98101', city: 'Seattle', state: 'WA', county: 'King' },
+  // Massachusetts
+  { zip: '02108', city: 'Boston', state: 'MA', county: 'Suffolk' },
 ];
 
 interface ZipCodeSuggestion {
   zip: string;
   city: string;
+  state: string;
   county: string;
 }
 
@@ -40,7 +53,7 @@ export default function EnhancedZipInput({
   value,
   onChange,
   onValidZip,
-  placeholder = 'Enter California ZIP code...',
+  placeholder = 'Enter your ZIP code...',
   disabled = false,
   showLocationIcon = true,
   className = '',
@@ -50,7 +63,7 @@ export default function EnhancedZipInput({
   const [suggestions, setSuggestions] = useState<ZipCodeSuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
-  const [validationState, setValidationState] = useState<'none' | 'valid' | 'invalid' | 'out-of-state'>('none');
+  const [validationState, setValidationState] = useState<'none' | 'valid' | 'invalid' | 'supported' | 'limited'>('none');
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const suggestionsRef = useRef<HTMLDivElement>(null);
@@ -77,10 +90,11 @@ export default function EnhancedZipInput({
     }
 
     if (value.length >= 2) {
-      const filtered = CALIFORNIA_ZIP_CODES.filter(item =>
+      const filtered = POPULAR_ZIP_CODES.filter(item =>
         item.zip.startsWith(value) ||
         item.city.toLowerCase().includes(value.toLowerCase()) ||
-        item.county.toLowerCase().includes(value.toLowerCase())
+        item.county.toLowerCase().includes(value.toLowerCase()) ||
+        item.state.toLowerCase().includes(value.toLowerCase())
       );
       setSuggestions(filtered);
       setShowSuggestions(filtered.length > 0 && value !== filtered[0]?.zip);
@@ -104,29 +118,62 @@ export default function EnhancedZipInput({
       return;
     }
 
-    // Check if it's a California ZIP code (basic range check)
-    const zipNum = parseInt(zip);
-    const isCaliforniaZip = 
-      (zipNum >= 90000 && zipNum <= 96199) || // Main CA range
-      (zipNum >= 93200 && zipNum <= 93299) || // Additional CA ranges
-      (zipNum >= 95200 && zipNum <= 95299);
+    try {
+      // Call the real ZIP verification API
+      const response = await fetch('/api/auth/verify-zip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ zipCode: zip })
+      });
 
-    if (!isCaliforniaZip) {
-      setValidationState('out-of-state');
-      setIsValidating(false);
-      return;
-    }
+      const data = await response.json();
 
-    // Find exact match in our data
-    const exactMatch = CALIFORNIA_ZIP_CODES.find(item => item.zip === zip);
-    
-    if (exactMatch) {
-      setValidationState('valid');
-      onValidZip?.(exactMatch);
-    } else {
-      // Could be valid CA ZIP not in our small dataset
-      setValidationState('valid');
-      onValidZip?.({ zip, city: 'California', county: 'California' });
+      if (data.valid) {
+        if (data.coverage === 'full_coverage') {
+          setValidationState('supported');
+          onValidZip?.({ 
+            zip, 
+            city: data.city, 
+            state: data.state,
+            county: data.county 
+          });
+        } else if (data.coverage === 'federal_only') {
+          setValidationState('limited');
+          onValidZip?.({ 
+            zip, 
+            city: data.city, 
+            state: data.state,
+            county: data.county 
+          });
+        } else {
+          setValidationState('valid');
+          onValidZip?.({ 
+            zip, 
+            city: data.city, 
+            state: data.state,
+            county: data.county 
+          });
+        }
+      } else {
+        setValidationState('invalid');
+      }
+    } catch (error) {
+      // Fall back to basic validation if API fails
+      const exactMatch = POPULAR_ZIP_CODES.find(item => item.zip === zip);
+      
+      if (exactMatch) {
+        setValidationState(exactMatch.state === 'CA' ? 'supported' : 'limited');
+        onValidZip?.(exactMatch);
+      } else {
+        // Basic US ZIP code range check
+        const zipNum = parseInt(zip);
+        if (zipNum >= 501 && zipNum <= 99950) {
+          setValidationState('limited');
+          onValidZip?.({ zip, city: 'Unknown', state: 'Unknown', county: 'Unknown' });
+        } else {
+          setValidationState('invalid');
+        }
+      }
     }
     
     setIsValidating(false);
@@ -176,10 +223,13 @@ export default function EnhancedZipInput({
     }
 
     switch (validationState) {
+      case 'supported':
+        return <CheckCircle className="text-green-500" size={iconSizes[size]} />;
+      case 'limited':
+        return <Globe className="text-blue-500" size={iconSizes[size]} />;
       case 'valid':
         return <CheckCircle className="text-green-500" size={iconSizes[size]} />;
       case 'invalid':
-      case 'out-of-state':
         return <AlertTriangle className="text-red-500" size={iconSizes[size]} />;
       default:
         return showLocationIcon ? <MapPin className="text-gray-400" size={iconSizes[size]} /> : null;
@@ -190,10 +240,12 @@ export default function EnhancedZipInput({
     switch (validationState) {
       case 'invalid':
         return 'Please enter a valid 5-digit ZIP code';
-      case 'out-of-state':
-        return 'Please enter a California ZIP code';
+      case 'supported':
+        return 'Full political data available';
+      case 'limited':
+        return 'Federal representatives available';
       case 'valid':
-        return 'Valid California ZIP code';
+        return 'Valid ZIP code';
       default:
         return null;
     }
@@ -220,11 +272,15 @@ export default function EnhancedZipInput({
             'disabled:bg-gray-50 disabled:text-gray-500',
             sizeClasses[size],
             showLocationIcon || validationState !== 'none' ? 'pr-12' : '',
-            validationState === 'invalid' || validationState === 'out-of-state' 
+            validationState === 'invalid' 
               ? 'border-red-300 focus:ring-red-500' 
-              : validationState === 'valid' 
+              : validationState === 'supported' 
                 ? 'border-green-300 focus:ring-green-500' 
-                : ''
+                : validationState === 'limited'
+                  ? 'border-blue-300 focus:ring-blue-500'
+                  : validationState === 'valid'
+                    ? 'border-green-300 focus:ring-green-500'
+                    : ''
           )}
           maxLength={5}
           inputMode="numeric"
@@ -241,9 +297,13 @@ export default function EnhancedZipInput({
       {validationState !== 'none' && (
         <p className={cn(
           'mt-1 text-sm',
-          validationState === 'invalid' || validationState === 'out-of-state' 
+          validationState === 'invalid' 
             ? 'text-red-600' 
-            : 'text-green-600'
+            : validationState === 'supported'
+              ? 'text-green-600'
+              : validationState === 'limited'
+                ? 'text-blue-600'
+                : 'text-green-600'
         )}>
           {getValidationMessage()}
         </p>
@@ -273,7 +333,7 @@ export default function EnhancedZipInput({
                     {suggestion.zip}
                   </div>
                   <div className="text-sm text-gray-600">
-                    {suggestion.city}, {suggestion.county} County
+                    {suggestion.city}, {suggestion.state} • {suggestion.county} County
                   </div>
                 </div>
               </div>
@@ -286,7 +346,7 @@ export default function EnhancedZipInput({
       {value.length === 0 && (
         <div className="mt-2 text-xs text-gray-500 flex items-center gap-1">
           <Search size={12} />
-          Try searching by ZIP code, city, or county name
+          Try searching by ZIP code, city, state, or county name
         </div>
       )}
     </div>

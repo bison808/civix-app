@@ -1,0 +1,252 @@
+{
+  "billsTests": [
+    {
+      "endpoint": "/api/bills",
+      "statusCode": 200,
+      "responseTime": 19,
+      "hasData": true,
+      "billCount": 8,
+      "dataQuality": {
+        "hasRealData": false,
+        "issues": [
+          "Mock indicators found: demo, Demo, DEMO"
+        ],
+        "sampleCount": 8,
+        "structure": [
+          "id",
+          "billNumber",
+          "title",
+          "summary",
+          "sponsor",
+          "status",
+          "introducedDate",
+          "lastActionDate",
+          "lastAction",
+          "subjects",
+          "chamber",
+          "committees",
+          "cosponsors",
+          "legislativeHistory",
+          "estimatedImpact",
+          "aiSummary"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/bills?source=federal",
+      "statusCode": 200,
+      "responseTime": 8,
+      "hasData": true,
+      "billCount": 4,
+      "dataQuality": {
+        "hasRealData": true,
+        "issues": [],
+        "sampleCount": 4,
+        "structure": [
+          "id",
+          "billNumber",
+          "title",
+          "summary",
+          "sponsor",
+          "status",
+          "introducedDate",
+          "lastActionDate",
+          "lastAction",
+          "subjects",
+          "chamber",
+          "committees",
+          "cosponsors",
+          "legislativeHistory",
+          "estimatedImpact",
+          "aiSummary"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/bills?source=california",
+      "statusCode": 200,
+      "responseTime": 7,
+      "hasData": true,
+      "billCount": 4,
+      "dataQuality": {
+        "hasRealData": false,
+        "issues": [
+          "Mock indicators found: demo, Demo, DEMO",
+          "Invalid or missing bill numbers"
+        ],
+        "sampleCount": 4,
+        "structure": [
+          "id",
+          "billNumber",
+          "title",
+          "summary",
+          "status",
+          "chamber",
+          "introducedDate",
+          "lastActionDate",
+          "lastAction",
+          "sponsor",
+          "cosponsors",
+          "committees",
+          "subjects",
+          "policyArea",
+          "legislativeHistory",
+          "aiSummary"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/bills?limit=10",
+      "statusCode": 200,
+      "responseTime": 6,
+      "hasData": true,
+      "billCount": 8,
+      "dataQuality": {
+        "hasRealData": false,
+        "issues": [
+          "Mock indicators found: demo, Demo, DEMO"
+        ],
+        "sampleCount": 8,
+        "structure": [
+          "id",
+          "billNumber",
+          "title",
+          "summary",
+          "sponsor",
+          "status",
+          "introducedDate",
+          "lastActionDate",
+          "lastAction",
+          "subjects",
+          "chamber",
+          "committees",
+          "cosponsors",
+          "legislativeHistory",
+          "estimatedImpact",
+          "aiSummary"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/bills?zipCode=90210",
+      "statusCode": 200,
+      "responseTime": 8,
+      "hasData": true,
+      "billCount": 4,
+      "dataQuality": {
+        "hasRealData": true,
+        "issues": [],
+        "sampleCount": 4,
+        "structure": [
+          "id",
+          "billNumber",
+          "title",
+          "summary",
+          "sponsor",
+          "status",
+          "introducedDate",
+          "lastActionDate",
+          "lastAction",
+          "subjects",
+          "chamber",
+          "committees",
+          "cosponsors",
+          "legislativeHistory",
+          "estimatedImpact",
+          "aiSummary"
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "endpoint": "/api/bills/test",
+      "statusCode": 200,
+      "responseTime": 6,
+      "hasData": false,
+      "billCount": 0,
+      "dataQuality": {
+        "hasRealData": false,
+        "issues": [
+          "No bill data available"
+        ]
+      },
+      "status": "PASS"
+    }
+  ],
+  "committeeTests": [
+    {
+      "endpoint": "/api/bills (committee data)",
+      "billsWithCommittees": 8,
+      "totalBills": 8,
+      "hasCommitteeData": true,
+      "status": "PASS"
+    }
+  ],
+  "dataQualityTests": [
+    {
+      "zipCode": "90210",
+      "statusCode": 200,
+      "billCount": 4,
+      "hasLocationSpecificBills": false,
+      "status": "PASS"
+    },
+    {
+      "zipCode": "94102",
+      "statusCode": 200,
+      "billCount": 4,
+      "hasLocationSpecificBills": false,
+      "status": "PASS"
+    },
+    {
+      "zipCode": "95814",
+      "statusCode": 200,
+      "billCount": 4,
+      "hasLocationSpecificBills": false,
+      "status": "PASS"
+    },
+    {
+      "zipCode": "92101",
+      "statusCode": 200,
+      "billCount": 4,
+      "hasLocationSpecificBills": false,
+      "status": "PASS"
+    }
+  ],
+  "performanceTests": [
+    {
+      "testName": "Basic bills fetch",
+      "endpoint": "/api/bills",
+      "responseTime": 6,
+      "status": "PASS"
+    },
+    {
+      "testName": "Limited bills fetch",
+      "endpoint": "/api/bills?limit=5",
+      "responseTime": 5,
+      "status": "PASS"
+    },
+    {
+      "testName": "Federal bills only",
+      "endpoint": "/api/bills?source=federal",
+      "responseTime": 5,
+      "status": "PASS"
+    },
+    {
+      "testName": "California bills only",
+      "endpoint": "/api/bills?source=california",
+      "responseTime": 5,
+      "status": "PASS"
+    }
+  ],
+  "overallStatus": "BILLS_SYSTEM_READY",
+  "testSummary": {
+    "totalTests": 15,
+    "passed": 15,
+    "failed": 0,
+    "warnings": 0
+  }
+}

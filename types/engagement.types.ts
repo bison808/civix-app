@@ -43,6 +43,7 @@ export interface TopicInterest {
   topic: string;
   category: BillCategory;
   interestLevel: 'low' | 'medium' | 'high';
+  strength: number; // Numeric strength for relevance scoring
   votingHistory: {
     totalVotes: number;
     supportRate: number;

@@ -273,15 +273,38 @@ class CommitteeService {
 
   // Private helper methods
   private async fetchRepresentativeCommittees(representativeId: string): Promise<Committee[]> {
-    // For now, return mock data based on representative ID patterns
-    // In production, this would call the appropriate API based on the rep's level
-    return this.getMockCommitteesByRepresentative(representativeId);
+    try {
+      // Use the real API endpoint to fetch committees
+      const response = await fetch('/api/committees?level=federal');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch committees');
+      }
+      
+      const data = await response.json();
+      return data.committees || [];
+    } catch (error) {
+      console.error('Error fetching representative committees:', error);
+      return [];
+    }
   }
 
   private async fetchCommitteeDetails(committeeId: string): Promise<Committee | null> {
-    // Mock implementation - in production would fetch from appropriate API
-    const mockCommittees = this.getMockFederalCommittees();
-    return mockCommittees.find(c => c.id === committeeId) || null;
+    try {
+      // Use the real API endpoint to fetch committee details
+      const response = await fetch('/api/committees');
+      
+      if (!response.ok) {
+        return null;
+      }
+      
+      const data = await response.json();
+      const committees = data.committees || [];
+      return committees.find((c: Committee) => c.id === committeeId) || null;
+    } catch (error) {
+      console.error('Error fetching committee details:', error);
+      return null;
+    }
   }
 
   private async fetchCommitteeMeetings(
@@ -289,8 +312,14 @@ class CommitteeService {
     limit: number, 
     includeUpcoming: boolean
   ): Promise<CommitteeMeeting[]> {
-    // Mock implementation
-    return this.getMockCommitteeMeetings(committeeId).slice(0, limit);
+    try {
+      // In production, this would fetch real meeting data
+      // For now, return empty array as real meeting APIs are complex
+      return [];
+    } catch (error) {
+      console.error('Error fetching committee meetings:', error);
+      return [];
+    }
   }
 
   private async getUserRepresentatives(userZip: string): Promise<Representative[]> {
@@ -300,11 +329,25 @@ class CommitteeService {
   }
 
   private async searchFederalCommittees(query: string, filter?: CommitteeFilter): Promise<Committee[]> {
-    const committees = this.getMockFederalCommittees();
-    return committees.filter(c => 
-      c.name.toLowerCase().includes(query.toLowerCase()) ||
-      c.jurisdiction.toLowerCase().includes(query.toLowerCase())
-    );
+    try {
+      // Fetch real federal committee data from API endpoint
+      const params = new URLSearchParams();
+      if (filter?.chamber && filter.chamber !== 'All') params.set('chamber', filter.chamber.toLowerCase());
+      if (filter?.level && filter.level !== 'All') params.set('level', filter.level.toLowerCase());
+      if (query.trim()) params.set('jurisdiction', query);
+      
+      const response = await fetch(`/api/committees?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.committees || [];
+    } catch (error) {
+      console.error('Failed to fetch federal committees:', error);
+      // In case of API failure, return empty array instead of mock data
+      return [];
+    }
   }
 
   private async searchStateCommittees(query: string, filter?: CommitteeFilter): Promise<Committee[]> {
@@ -332,136 +375,40 @@ class CommitteeService {
     return 'Low';
   }
 
-  // Mock data methods (replace with real API calls in production)
-  private getMockCommitteesByRepresentative(representativeId: string): Committee[] {
-    const currentDate = new Date().toISOString();
-    
-    // Sample committees based on representative
-    return [
-      {
-        id: 'house-energy-commerce',
-        name: 'House Committee on Energy and Commerce',
-        abbreviation: 'HENCOM',
-        chamber: 'House',
-        jurisdiction: 'Energy, commerce, healthcare, telecommunications, consumer protection',
-        description: 'Oversees matters related to energy policy, interstate and foreign commerce, consumer affairs, and public health.',
-        isActive: true,
-        level: 'federal',
-        members: [
-          {
-            representativeId,
-            name: 'John Doe',
-            party: 'Republican',
-            state: 'TX',
-            district: '25',
-            role: 'Member',
-            isVoting: true,
-            joinedDate: '2023-01-01'
-          }
-        ],
-        memberCount: 55,
-        meetingsThisYear: 12,
-        billsConsidered: 45,
-        lastMeetingDate: '2025-01-15',
-        nextMeetingDate: '2025-01-25',
-        createdAt: currentDate,
-        updatedAt: currentDate
+  // Real data methods using API endpoints
+  private async getRealCommitteesByRepresentative(representativeId: string): Promise<Committee[]> {
+    try {
+      // This would fetch committees for a specific representative from the API
+      // For now, return all federal committees and filter client-side
+      const response = await fetch('/api/committees?level=federal');
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status}`);
       }
-    ];
+      
+      const data = await response.json();
+      // TODO: Implement actual filtering by representative membership
+      // For now, return all committees as placeholder
+      return data.committees || [];
+    } catch (error) {
+      console.error('Failed to fetch committees by representative:', error);
+      return [];
+    }
   }
 
-  private getMockFederalCommittees(): Committee[] {
-    const currentDate = new Date().toISOString();
-    
-    return [
-      {
-        id: 'house-energy-commerce',
-        name: 'House Committee on Energy and Commerce',
-        abbreviation: 'HENCOM',
-        chamber: 'House',
-        jurisdiction: 'Energy, commerce, healthcare, telecommunications, consumer protection',
-        description: 'Oversees matters related to energy policy, interstate and foreign commerce, consumer affairs, and public health.',
-        isActive: true,
-        level: 'federal',
-        members: [],
-        memberCount: 55,
-        meetingsThisYear: 12,
-        billsConsidered: 45,
-        lastMeetingDate: '2025-01-15',
-        nextMeetingDate: '2025-01-25',
-        createdAt: currentDate,
-        updatedAt: currentDate
-      },
-      {
-        id: 'senate-judiciary',
-        name: 'Senate Committee on the Judiciary',
-        abbreviation: 'SJUD',
-        chamber: 'Senate',
-        jurisdiction: 'Federal courts, immigration, antitrust, intellectual property, criminal justice',
-        description: 'Oversees the administration of justice within the federal government.',
-        isActive: true,
-        level: 'federal',
-        members: [],
-        memberCount: 22,
-        meetingsThisYear: 8,
-        billsConsidered: 32,
-        lastMeetingDate: '2025-01-10',
-        nextMeetingDate: '2025-01-30',
-        createdAt: currentDate,
-        updatedAt: currentDate
-      }
-    ];
-  }
+  // ELIMINATED: getMockFederalCommittees() - All federal committee data now comes from real API endpoint /api/committees
 
-  private getMockCommitteeMeetings(committeeId: string): CommitteeMeeting[] {
-    const currentDate = new Date().toISOString();
-    
-    return [
-      {
-        id: `meeting_${committeeId}_001`,
-        eventId: 'event_123456',
-        committeeId,
-        committeeName: 'House Committee on Energy and Commerce',
-        title: 'Hearing on AI Safety and Innovation',
-        type: 'Hearing',
-        status: 'Scheduled',
-        date: '2025-01-25T10:00:00Z',
-        time: '10:00 AM',
-        duration: 180,
-        location: 'Room 2123, Rayburn House Office Building',
-        isPublic: true,
-        description: 'Examining the current state of AI safety measures and innovation policies.',
-        agenda: [
-          {
-            id: 'agenda_001',
-            order: 1,
-            title: 'Opening Statements',
-            type: 'Administrative',
-            estimatedDuration: 30
-          },
-          {
-            id: 'agenda_002',
-            order: 2,
-            title: 'Witness Testimony on AI Safety Standards',
-            type: 'Hearing',
-            estimatedDuration: 120
-          }
-        ],
-        witnesses: [
-          {
-            id: 'witness_001',
-            name: 'Dr. Jane Smith',
-            title: 'Director of AI Ethics',
-            organization: 'Tech Safety Institute',
-            expertise: ['AI Safety', 'Machine Learning', 'Ethics']
-          }
-        ],
-        bills: ['hr-125-119'],
-        documents: [],
-        createdAt: currentDate,
-        updatedAt: currentDate
-      }
-    ];
+  // ELIMINATED: getMockCommitteeMeetings() - to be replaced with real committee meeting API
+  // Real committee meetings data would come from Congress.gov or committee-specific APIs
+  private async getRealCommitteeMeetings(committeeId: string): Promise<CommitteeMeeting[]> {
+    try {
+      // TODO: Implement real committee meeting API integration
+      // This would fetch from Congress.gov committee schedules or similar real source
+      console.log(`Real committee meetings API not yet implemented for ${committeeId}`);
+      return [];
+    } catch (error) {
+      console.error('Failed to fetch committee meetings:', error);
+      return [];
+    }
   }
 }
 

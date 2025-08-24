@@ -1,0 +1,153 @@
+{
+  "timestamp": "2025-08-24T01:30:31.141Z",
+  "siteAccessibility": {
+    "productionAccessible": true,
+    "localAccessible": true,
+    "loadTimes": {
+      "production": 198,
+      "local": 5728
+    },
+    "errors": []
+  },
+  "dataIntegrity": {
+    "noPlaceholderContent": false,
+    "realDataPresent": true,
+    "placeholdersFound": [
+      "placeholder"
+    ],
+    "realDataIndicators": [
+      "representative",
+      "congress",
+      "bill"
+    ],
+    "errors": []
+  },
+  "apiResponseTimes": {
+    "endpoints": {
+      "/": {
+        "responseTime": 141,
+        "statusCode": 200,
+        "accessible": true
+      },
+      "/api/health": {
+        "responseTime": 127,
+        "statusCode": 404,
+        "accessible": true
+      },
+      "/api/representatives": {
+        "responseTime": 117,
+        "statusCode": 404,
+        "accessible": true
+      },
+      "/api/bills": {
+        "responseTime": 218,
+        "statusCode": 200,
+        "accessible": true
+      },
+      "/api/committees": {
+        "responseTime": 112,
+        "statusCode": 404,
+        "accessible": true
+      }
+    },
+    "averageResponseTime": 143,
+    "meetsSLA": true,
+    "errors": []
+  },
+  "zipCodeValidation": {
+    "validZipCodes": {
+      "90210": {
+        "statusCode": 404,
+        "responseTime": 118,
+        "hasData": true,
+        "accessible": false
+      },
+      "94102": {
+        "statusCode": 404,
+        "responseTime": 162,
+        "hasData": true,
+        "accessible": false
+      },
+      "95060": {
+        "statusCode": 404,
+        "responseTime": 125,
+        "hasData": true,
+        "accessible": false
+      }
+    },
+    "invalidZipCodes": {
+      "123": {
+        "statusCode": 404,
+        "hasGracefulError": true,
+        "responseTime": 100
+      },
+      "99999": {
+        "statusCode": 404,
+        "hasGracefulError": true,
+        "responseTime": 125
+      },
+      "00000": {
+        "statusCode": 404,
+        "hasGracefulError": true,
+        "responseTime": 140
+      },
+      "ABCDE": {
+        "statusCode": 404,
+        "hasGracefulError": true,
+        "responseTime": 114
+      }
+    },
+    "responseConsistency": true,
+    "errors": []
+  },
+  "crossPageConsistency": {
+    "navigationStructure": {
+      "hasConsistentNav": false
+    },
+    "brandingConsistency": {
+      "consistent": false,
+      "CITZN_inconsistent": true,
+      "logo_inconsistent": true
+    },
+    "dataConsistency": {},
+    "errors": []
+  },
+  "errorHandling": {
+    "gracefulErrorPages": {
+      "notFound": {
+        "statusCode": 307,
+        "hasCustomErrorPage": true,
+        "responseTime": 131
+      }
+    },
+    "apiErrorHandling": {
+      "invalidEndpoint": {
+        "statusCode": 404,
+        "hasJsonError": true,
+        "responseTime": 120
+      }
+    },
+    "userFriendlyErrors": true,
+    "errors": []
+  },
+  "overallScore": 55,
+  "summary": {
+    "testDate": "2025-08-24T01:30:31.141Z",
+    "overallScore": 55,
+    "productionReadiness": false,
+    "criticalIssues": [
+      "Placeholder content found: placeholder"
+    ],
+    "recommendations": [
+      "Standardize navigation across all pages"
+    ],
+    "testsConducted": [
+      "Site Accessibility",
+      "Data Integrity",
+      "ZIP Code Handling",
+      "API Response Times",
+      "Error Handling",
+      "Cross-Page Consistency"
+    ]
+  }
+}

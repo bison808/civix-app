@@ -10,6 +10,7 @@ import {
 import { Representative } from '../types/representatives.types';
 import { geocodingService } from './geocodingService';
 import { representativesService } from './representatives.service';
+import { getAssemblyMemberByDistrict, getSenateMemberByDistrict } from './realCaliforniaLegislativeData';
 
 class ZipDistrictMappingService {
   private californiaZipData: Map<string, CaliforniaZipCodeData> = new Map();
@@ -190,48 +191,54 @@ class ZipDistrictMappingService {
       ? mapping.stateAssemblyDistrict 
       : mapping.primaryDistricts.stateAssembly;
 
+    // EMERGENCY FIX: Use real California State Senator data
     if (senateDistrict > 0) {
-      representatives.push({
-        id: `ca-senate-${senateDistrict}`,
-        name: `State Senator (District ${senateDistrict})`,
-        title: 'State Senator',
-        party: 'Democrat', // Placeholder
-        level: 'state',
-        chamber: 'Senate',
-        state: 'CA',
-        district: `Senate District ${senateDistrict}`,
-        districtNumber: senateDistrict,
-        jurisdictions: [mapping.zipCode],
-        contactInfo: {
-          phone: '916-651-4000', // California State Senate
-          website: 'https://www.senate.ca.gov',
-          email: `district${senateDistrict}@senate.ca.gov`
-        },
-        termStart: '2023-01-01',
-        termEnd: '2026-12-31'
-      });
+      const realSenator = getSenateMemberByDistrict(senateDistrict);
+      if (realSenator) {
+        representatives.push({
+          id: realSenator.id,
+          name: realSenator.name,
+          title: realSenator.title,
+          party: realSenator.party,
+          level: 'state',
+          chamber: 'Senate',
+          state: 'CA',
+          district: `Senate District ${senateDistrict}`,
+          districtNumber: senateDistrict,
+          jurisdictions: [mapping.zipCode],
+          contactInfo: realSenator.contactInfo,
+          termStart: realSenator.termStart,
+          termEnd: realSenator.termEnd
+        });
+      } else {
+        // Log missing data but don't create placeholder
+        console.warn(`⚠️ CITZN: No real Senate data for district ${senateDistrict} - representative not included until data is available`);
+      }
     }
 
+    // EMERGENCY FIX: Use real California Assembly Member data
     if (assemblyDistrict > 0) {
-      representatives.push({
-        id: `ca-assembly-${assemblyDistrict}`,
-        name: `Assembly Member (District ${assemblyDistrict})`,
-        title: 'Assembly Member',
-        party: 'Democrat', // Placeholder
-        level: 'state',
-        chamber: 'Assembly',
-        state: 'CA',
-        district: `Assembly District ${assemblyDistrict}`,
-        districtNumber: assemblyDistrict,
-        jurisdictions: [mapping.zipCode],
-        contactInfo: {
-          phone: '916-319-2000', // California State Assembly
-          website: 'https://www.assembly.ca.gov',
-          email: `district${assemblyDistrict}@asm.ca.gov`
-        },
-        termStart: '2023-01-01',
-        termEnd: '2024-12-31'
-      });
+      const realAssemblyMember = getAssemblyMemberByDistrict(assemblyDistrict);
+      if (realAssemblyMember) {
+        representatives.push({
+          id: realAssemblyMember.id,
+          name: realAssemblyMember.name,
+          title: realAssemblyMember.title,
+          party: realAssemblyMember.party,
+          level: 'state',
+          chamber: 'Assembly',
+          state: 'CA',
+          district: `Assembly District ${assemblyDistrict}`,
+          districtNumber: assemblyDistrict,
+          jurisdictions: [mapping.zipCode],
+          contactInfo: realAssemblyMember.contactInfo,
+          termStart: realAssemblyMember.termStart,
+          termEnd: realAssemblyMember.termEnd
+        });
+      } else {
+        // Log missing data but don't create placeholder
+        console.warn(`⚠️ CITZN: No real Assembly data for district ${assemblyDistrict} - representative not included until data is available`);
+      }
     }
 
     return representatives;

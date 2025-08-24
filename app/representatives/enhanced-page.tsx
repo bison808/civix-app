@@ -14,8 +14,11 @@ import EnhancedZipInput from '@/components/zipcode/EnhancedZipInput';
 import EnhancedRepresentativeCard from '@/components/representatives/EnhancedRepresentativeCard';
 import GovernmentLevelNav, { FilterState, GovernmentLevel } from '@/components/navigation/GovernmentLevelNav';
 import AggregatedFeedback from '@/components/feedback/AggregatedFeedback';
+import StateExpansionWaitlist from '@/components/feedback/StateExpansionWaitlist';
+import ContextualFeedbackPrompt from '@/components/feedback/ContextualFeedbackPrompt';
 import Button from '@/components/core/Button';
 import { cn } from '@/lib/utils';
+import { coverageDetectionService, CoverageLevel, LocationData } from '@/services/coverageDetectionService';
 
 const GOVERNMENT_LEVELS: GovernmentLevel[] = [
   {
@@ -72,6 +75,8 @@ export default function EnhancedRepresentativesPage() {
   const [showZipInput, setShowZipInput] = useState(!user?.zipCode);
   const [showAggregatedFeedback, setShowAggregatedFeedback] = useState(false);
   const [viewMode, setViewMode] = useState<'cards' | 'compact'>('cards');
+  const [locationData, setLocationData] = useState<LocationData | null>(null);
+  const [coverage, setCoverage] = useState<CoverageLevel | null>(null);
   
   // Filter state
   const [filters, setFilters] = useState<FilterState>({
@@ -153,15 +158,54 @@ export default function EnhancedRepresentativesPage() {
     setError(null);
     
     try {
+      // First, get location and coverage data
+      const zipResponse = await fetch('/api/auth/verify-zip', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ zipCode: zip })
+      });
+
+      const zipData = await zipResponse.json();
+
+      if (!zipData.valid) {
+        setError('Invalid ZIP code. Please enter a valid US ZIP code.');
+        return;
+      }
+
+      // Create location data and determine coverage
+      const locationData: LocationData = {
+        city: zipData.city,
+        state: zipData.state,
+        county: zipData.county,
+        zipCode: zip,
+        coordinates: [0, 0], // Default coordinates
+        districts: { congressional: 0 }
+      };
+
+      const coverage = coverageDetectionService.determineUserExperience(locationData);
+      
+      setLocationData(locationData);
+      setCoverage(coverage);
+
+      // Load representatives based on coverage
       const data = await api.representatives.getByZipCode(zip);
       
+      // Filter representatives based on coverage level
+      let filteredData = data;
+      if (coverage.type === 'federal_only') {
+        // Only show federal representatives for non-CA states
+        filteredData = data.filter(rep => 
+          rep.chamber === 'House' || rep.chamber === 'Senate'
+        );
+      }
+      
       // Enhance data with levels and sample scores
-      const enhancedData = data.map((rep, index) => ({
+      const enhancedData = filteredData.map((rep, index) => ({
         ...rep,
         level: (rep.title === 'Senator' || rep.title === 'Representative' ? 'federal' : 
                rep.title.includes('State') || rep.title.includes('Assembly') ? 'state' : 
                rep.title.includes('County') || rep.title.includes('Supervisor') ? 'county' : 'municipal') as 'federal' | 'state' | 'county' | 'municipal',
-        jurisdiction: rep.state || 'California',
+        jurisdiction: rep.state || locationData.state,
         governmentType: (rep.title === 'Senator' || rep.title === 'Representative' ? 'federal' :
                        rep.title.includes('State') ? 'state' : 
                        rep.title.includes('County') ? 'county' : 'city') as 'city' | 'county' | 'state' | 'federal' | 'district' | 'special',
@@ -202,7 +246,7 @@ export default function EnhancedRepresentativesPage() {
     setZipCode(newZip);
   };
 
-  const handleValidZip = (zipData: { zip: string; city: string; county: string }) => {
+  const handleValidZip = (zipData: { zip: string; city: string; state: string; county: string }) => {
     // Update the ZIP code and potentially save to user profile
     setZipCode(zipData.zip);
   };
@@ -390,6 +434,39 @@ export default function EnhancedRepresentativesPage() {
                 </div>
               )}
 
+              {/* Coverage Status Banner */}
+              {coverage && locationData && (
+                <div className={cn(
+                  'p-4 rounded-lg border',
+                  coverage.type === 'full_coverage' 
+                    ? 'bg-green-50 border-green-200'
+                    : coverage.type === 'federal_only'
+                      ? 'bg-blue-50 border-blue-200'
+                      : 'bg-gray-50 border-gray-200'
+                )}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-medium text-gray-900">
+                        {locationData.city}, {locationData.state}
+                      </h3>
+                      <p className="text-sm text-gray-600">{coverage.message}</p>
+                    </div>
+                    <div className={cn(
+                      'px-2 py-1 rounded-full text-xs font-medium',
+                      coverage.type === 'full_coverage' 
+                        ? 'bg-green-100 text-green-700'
+                        : coverage.type === 'federal_only'
+                          ? 'bg-blue-100 text-blue-700'
+                          : 'bg-gray-100 text-gray-700'
+                    )}>
+                      {coverage.type === 'full_coverage' && 'Full Coverage'}
+                      {coverage.type === 'federal_only' && 'Federal Only'}
+                      {coverage.type === 'not_supported' && 'Limited'}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Representatives List */}
               {filteredRepresentatives.length === 0 ? (
                 <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-200">
@@ -424,6 +501,55 @@ export default function EnhancedRepresentativesPage() {
                       showHierarchy={true}
                     />
                   ))}
+                </div>
+              )}
+
+              {/* State Expansion Waitlist for Federal-Only Coverage */}
+              {coverage && coverage.type === 'federal_only' && locationData && (
+                <div className="mt-8">
+                  <StateExpansionWaitlist
+                    state={locationData.state}
+                    zipCode={zipCode}
+                    city={locationData.city}
+                  />
+                </div>
+              )}
+
+              {/* Contextual Feedback Prompts */}
+              {coverage && locationData && (
+                <div className="mt-6">
+                  {coverage.type === 'full_coverage' ? (
+                    <ContextualFeedbackPrompt
+                      context={{
+                        type: 'after_full_data',
+                        zipCode,
+                        state: locationData.state,
+                        page: 'representatives'
+                      }}
+                      compact
+                    />
+                  ) : coverage.type === 'federal_only' ? (
+                    <ContextualFeedbackPrompt
+                      context={{
+                        type: 'limited_coverage',
+                        zipCode,
+                        state: locationData.state,
+                        page: 'representatives'
+                      }}
+                      state={locationData.state}
+                      compact
+                    />
+                  ) : (
+                    <ContextualFeedbackPrompt
+                      context={{
+                        type: 'empty_results',
+                        zipCode,
+                        state: locationData.state,
+                        page: 'representatives'
+                      }}
+                      compact
+                    />
+                  )}
                 </div>
               )}
             </div>
