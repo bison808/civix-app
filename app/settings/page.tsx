@@ -207,7 +207,7 @@ export default function SettingsPage() {
           <Button variant="outline" fullWidth onClick={() => router.push('/onboarding/interests')}>
             Update Interests
           </Button>
-          <Button variant="outline" fullWidth onClick={() => router.push('/')}>
+          <Button variant="outline" fullWidth onClick={() => router.push('/change-zip')}>
             Change ZIP Code
           </Button>
           <Button variant="danger" fullWidth onClick={handleSignOut}>

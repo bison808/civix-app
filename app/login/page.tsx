@@ -144,7 +144,7 @@ export default function LoginPage() {
 
         </Card>
 
-        <div className="text-center">
+        <div className="text-center space-y-2">
           <p className="text-sm text-gray-600">
             Don't have an account?{' '}
             <button
@@ -152,6 +152,14 @@ export default function LoginPage() {
               className="text-delta hover:underline font-medium"
             >
               Create Account
+            </button>
+          </p>
+          <p className="text-xs text-gray-500">
+            <button
+              onClick={() => router.push('/preview')}
+              className="text-delta hover:underline"
+            >
+              Preview CITZN →
             </button>
           </p>
         </div>
