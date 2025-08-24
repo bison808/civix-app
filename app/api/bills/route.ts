@@ -1,24 +1,57 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { mockBills } from '@/services/mockData';
 import { congressService } from '@/services/congressService';
+import { billsService } from '@/services/bills.service';
+import { congressApi } from '@/services/congressApi';
+import { californiaLegislativeApi } from '@/services/californiaLegislativeApi';
 
 export async function GET(request: NextRequest) {
   try {
-    // Try to get real bills from Congress API
-    let bills = [];
-    
-    try {
-      bills = await congressService.getRecentBills();
-    } catch (error) {
-      console.error('Failed to fetch real bills, using mock data:', error);
-      bills = mockBills;
-    }
-    
-    // Apply any filters from query params
     const { searchParams } = new URL(request.url);
+    const source = searchParams.get('source'); // 'federal', 'california', 'all'
+    const zipCode = searchParams.get('zipCode');
+    const representativeId = searchParams.get('representativeId');
     const topic = searchParams.get('topic');
     const status = searchParams.get('status');
-    
+    const limit = parseInt(searchParams.get('limit') || '20');
+    const offset = parseInt(searchParams.get('offset') || '0');
+
+    let bills = [];
+
+    try {
+      // Handle different bill sources
+      if (zipCode) {
+        // Get bills from user's representatives
+        bills = await billsService.getBillsFromUserRepresentatives(zipCode);
+      } else if (representativeId) {
+        // Get bills from specific representative
+        const activity = await billsService.getBillsByRepresentative(representativeId);
+        bills = [...activity.sponsoredBills, ...activity.cosponsoredBills, ...activity.committeeBills];
+      } else if (source === 'federal') {
+        // Get federal bills only
+        bills = await congressApi.fetchRecentBills(limit, offset);
+      } else if (source === 'california') {
+        // Get California bills only
+        bills = await californiaLegislativeApi.fetchRecentBills(limit, offset);
+      } else {
+        // Get mixed federal and state bills
+        const federalBills = await congressApi.fetchRecentBills(Math.ceil(limit / 2), offset);
+        const californiaBills = await californiaLegislativeApi.fetchRecentBills(Math.floor(limit / 2), offset);
+        bills = [...federalBills, ...californiaBills];
+      }
+    } catch (error) {
+      console.error('Failed to fetch enhanced bills, using fallback:', error);
+      
+      // Fallback to original congress service
+      try {
+        bills = await congressService.getRecentBills();
+      } catch (fallbackError) {
+        console.error('Fallback also failed, using mock data:', fallbackError);
+        bills = mockBills;
+      }
+    }
+
+    // Apply filters
     let filteredBills = [...bills];
     
     if (topic) {

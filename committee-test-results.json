@@ -1,0 +1,114 @@
+{
+  "committeeAPI": [
+    {
+      "path": "/committees",
+      "name": "Committee List Page",
+      "status": 307,
+      "loaded": false,
+      "hasContent": false,
+      "passed": false
+    },
+    {
+      "path": "/committees/test-committee",
+      "name": "Committee Detail Page",
+      "status": 307,
+      "loaded": false,
+      "hasContent": false,
+      "passed": false
+    },
+    {
+      "name": "Committee Service Import",
+      "passed": true
+    },
+    {
+      "name": "Committee Notification Service",
+      "passed": true
+    }
+  ],
+  "meetingSchedules": [
+    {
+      "name": "Meeting Calendar Integration",
+      "testable": false,
+      "passed": false,
+      "reason": "Requires external API integration"
+    },
+    {
+      "name": "Upcoming Meetings Display",
+      "testable": false,
+      "passed": false,
+      "reason": "Requires committee page UI"
+    },
+    {
+      "name": "Meeting Alerts",
+      "testable": true,
+      "passed": true
+    }
+  ],
+  "memberData": [
+    {
+      "name": "Committee Membership Data",
+      "description": "Member lists for committees",
+      "available": true,
+      "passed": true
+    },
+    {
+      "name": "Member Role Information",
+      "description": "Chair, ranking member, etc.",
+      "available": true,
+      "passed": true
+    },
+    {
+      "name": "Member Contact Information",
+      "description": "Links to representative profiles",
+      "available": true,
+      "passed": true
+    }
+  ],
+  "userEngagement": [
+    {
+      "name": "Committee Following",
+      "description": "Users can follow committees",
+      "implemented": true,
+      "passed": true
+    },
+    {
+      "name": "Meeting Notifications",
+      "description": "Users get notified about meetings",
+      "implemented": true,
+      "passed": true
+    },
+    {
+      "name": "Committee Bill Tracking",
+      "description": "Track bills in committees",
+      "implemented": true,
+      "passed": true
+    }
+  ],
+  "dataIntegrity": [
+    {
+      "component": "./services/committee.service.ts",
+      "exists": true,
+      "type": "file structure",
+      "passed": true
+    },
+    {
+      "component": "./services/committee-notifications.service.ts",
+      "exists": true,
+      "type": "file structure",
+      "passed": true
+    },
+    {
+      "component": "./components/committees",
+      "exists": true,
+      "type": "file structure",
+      "passed": true
+    },
+    {
+      "component": "./types/committee.types.ts",
+      "exists": true,
+      "type": "file structure",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { ChevronLeft, Mail, Phone, Globe, MapPin, ThumbsUp, ThumbsDown, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
@@ -13,6 +15,7 @@ import RepresentativeScorecard from '@/components/representatives/Representative
 import ResponsivenessIndicator from '@/components/representatives/ResponsivenessIndicator';
 import FeedbackHistory from '@/components/feedback/FeedbackHistory';
 import ContactRepresentative from '@/components/representatives/ContactRepresentative';
+import RepresentativeCommittees from '@/components/representatives/RepresentativeCommittees';
 
 export default function RepresentativeDetailPage() {
   const router = useRouter();
@@ -118,6 +121,13 @@ export default function RepresentativeDetailPage() {
               lastContact="2 days ago"
             />
           </Card>
+
+          {/* Committee Assignments Section */}
+          <RepresentativeCommittees 
+            representative={representative}
+            showUpcomingMeetings={true}
+            limit={5}
+          />
 
           {/* Scorecard Section */}
           <RepresentativeScorecard

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { AuthProvider } from '@/contexts/AuthContext';
-// import { ClientQueryProvider } from '@/providers/client-query-provider';
+import { ClientQueryProvider } from '@/providers/client-query-provider';
 import { WebVitalsMonitor } from '@/components/performance/WebVitals';
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
 import MobileNav from '@/components/navigation/MobileNav';
@@ -81,14 +81,16 @@ export default function RootLayout({
         </a>
 
         <AuthProvider>
-          <NavigationErrorBoundary>
-            <MobileNav />
-          </NavigationErrorBoundary>
-          <div className="min-h-screen flex flex-col">
-            <main id="main-content" className="flex-1">
-              {children}
-            </main>
-          </div>
+          <ClientQueryProvider>
+            <NavigationErrorBoundary>
+              <MobileNav />
+            </NavigationErrorBoundary>
+            <div className="min-h-screen flex flex-col">
+              <main id="main-content" className="flex-1">
+                {children}
+              </main>
+            </div>
+          </ClientQueryProvider>
         </AuthProvider>
 
         <WebVitalsMonitor />

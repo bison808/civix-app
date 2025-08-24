@@ -1,4 +1,7 @@
 import { dataPipelineAPI, aiEngineAPI } from './api/client';
+import { enhancedBillTrackingService } from './enhancedBillTracking.service';
+import { congressApi } from './congressApi';
+import { californiaLegislativeApi } from './californiaLegislativeApi';
 import {
   Bill,
   BillFilter,
@@ -117,7 +120,7 @@ class BillsService {
     return await response.json() as { message: string };
   }
 
-  async getPersonalizedBills(zipCode: string, interests?: string[]): Promise<Bill[]> {
+  async getPersonalizedBillsLegacy(zipCode: string, interests?: string[]): Promise<Bill[]> {
     const params = new URLSearchParams();
     params.append('zipCode', zipCode);
     if (interests && interests.length > 0) {
@@ -131,6 +134,60 @@ class BillsService {
   async compareBills(billIds: string[]): Promise<any> {
     const response = await dataPipelineAPI.post('/api/bills/compare', { billIds });
     return await response.json();
+  }
+
+  // Enhanced bill tracking methods
+  
+  async getBillsByRepresentative(
+    representativeId: string,
+    includeTypes?: Array<'sponsored' | 'cosponsored' | 'committee' | 'votes'>
+  ) {
+    return await enhancedBillTrackingService.getBillsByRepresentative(representativeId, includeTypes);
+  }
+
+  async getBillsFromUserRepresentatives(zipCode: string): Promise<Bill[]> {
+    return await enhancedBillTrackingService.getBillsFromUserRepresentatives(zipCode);
+  }
+
+  async trackBillProgress(billId: string) {
+    return await enhancedBillTrackingService.trackBillProgress(billId);
+  }
+
+  async getPersonalizedBills(zipCode: string, preferences?: any): Promise<Bill[]> {
+    return await enhancedBillTrackingService.getPersonalizedBills(zipCode, preferences);
+  }
+
+  // Direct API access methods
+  
+  async getRecentFederalBills(limit?: number, offset?: number): Promise<Bill[]> {
+    return await congressApi.fetchRecentBills(limit, offset);
+  }
+
+  async getRecentCaliforniaBills(limit?: number, offset?: number): Promise<Bill[]> {
+    return await californiaLegislativeApi.fetchRecentBills(limit, offset);
+  }
+
+  async searchFederalBills(query: string): Promise<Bill[]> {
+    return await congressApi.searchBills(query);
+  }
+
+  async searchCaliforniaBills(query: string): Promise<Bill[]> {
+    return await californiaLegislativeApi.searchBills(query);
+  }
+
+  async getFederalBillById(billId: string): Promise<Bill | null> {
+    return await congressApi.getBillById(billId);
+  }
+
+  async getCaliforniaBillById(billId: string): Promise<Bill | null> {
+    return await californiaLegislativeApi.getBillById(billId);
+  }
+
+  // Clear caches
+  async clearAllCaches(): Promise<void> {
+    enhancedBillTrackingService.clearCache();
+    congressApi.clearCache();
+    californiaLegislativeApi.clearCache();
   }
 }
 

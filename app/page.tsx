@@ -1,8 +1,9 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import Button from '@/components/core/Button';
 import { CivixLogo } from '@/components/CivixLogo';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';

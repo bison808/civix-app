@@ -5,6 +5,21 @@ export * from './feedback.types';
 export * from './districts.types';
 export * from './california-state.types';
 export * from './county.types';
+export * from './engagement.types';
+export type { 
+  CommitteeMember, 
+  CommitteeMeeting, 
+  CommitteeAgendaItem,
+  CommitteeWitness,
+  CommitteeDocument,
+  CommitteeVote,
+  CommitteeMemberVote,
+  CommitteeFilter,
+  CommitteeListResponse,
+  CommitteeActivity,
+  CommitteeStats,
+  CommitteeSchedule
+} from './committee.types';
 
 export interface PersonalImpact {
   category: 'financial' | 'healthcare' | 'education' | 'environment' | 'safety' | 'rights';

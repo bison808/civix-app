@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, Heart, GraduationCap, DollarSign, Leaf, Home, Scale, Briefcase, Car, Lock } from 'lucide-react';

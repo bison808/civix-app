@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function ClientQueryProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -18,6 +18,17 @@ export function ClientQueryProvider({ children }: { children: React.ReactNode })
         },
       })
   );
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Don't render QueryClientProvider during SSR
+  if (!isClient) {
+    return <>{children}</>;
+  }
 
   return (
     <QueryClientProvider client={queryClient}>

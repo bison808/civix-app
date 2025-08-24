@@ -1,0 +1,266 @@
+{
+  "summary": {
+    "totalTests": 26,
+    "totalPassed": 21,
+    "successRate": 80.8,
+    "totalTime": 2580,
+    "integrationHealthy": true,
+    "regressionClean": false,
+    "timestamp": "2025-08-23T23:23:15.404Z"
+  },
+  "results": {
+    "zipValidation": [
+      {
+        "zip": "90210",
+        "description": "Beverly Hills, CA",
+        "expected": true,
+        "actual": true,
+        "responseTime": 294,
+        "status": 200,
+        "location": "Beverly Hills, CA",
+        "passed": true
+      },
+      {
+        "zip": "10001",
+        "description": "New York, NY",
+        "expected": true,
+        "actual": true,
+        "responseTime": 12,
+        "status": 200,
+        "location": "New York, NY",
+        "passed": true
+      },
+      {
+        "zip": "95814",
+        "description": "Sacramento, CA",
+        "expected": true,
+        "actual": true,
+        "responseTime": 11,
+        "status": 200,
+        "location": "Sacramento, CA",
+        "passed": true
+      },
+      {
+        "zip": "02108",
+        "description": "Boston, MA",
+        "expected": true,
+        "actual": true,
+        "responseTime": 7,
+        "status": 200,
+        "location": "Boston, MA",
+        "passed": true
+      },
+      {
+        "zip": "00000",
+        "description": "Invalid ZIP",
+        "expected": false,
+        "actual": false,
+        "responseTime": 6,
+        "status": 400,
+        "location": "undefined, undefined",
+        "passed": false
+      },
+      {
+        "zip": "99999",
+        "description": "Out of range ZIP",
+        "expected": false,
+        "actual": false,
+        "responseTime": 8,
+        "status": 400,
+        "location": "undefined, undefined",
+        "passed": false
+      }
+    ],
+    "billsAPI": [
+      {
+        "endpoint": "/api/bills",
+        "name": "Default Bills List",
+        "params": {},
+        "status": 200,
+        "responseTime": 175,
+        "billCount": 8,
+        "hasValidStructure": true,
+        "cacheHeaders": "public, max-age=300, s-maxage=600, public, s-maxage=300, stale-while-revalidate=600, max-age=60",
+        "passed": true
+      },
+      {
+        "endpoint": "/api/bills",
+        "name": "Federal Bills (Limited)",
+        "params": {
+          "source": "federal",
+          "limit": "10"
+        },
+        "status": 200,
+        "responseTime": 10,
+        "billCount": 4,
+        "hasValidStructure": true,
+        "cacheHeaders": "public, max-age=300, s-maxage=600, public, s-maxage=300, stale-while-revalidate=600, max-age=60",
+        "passed": true
+      },
+      {
+        "endpoint": "/api/bills",
+        "name": "California Bills",
+        "params": {
+          "source": "california",
+          "limit": "5"
+        },
+        "status": 200,
+        "responseTime": 8,
+        "billCount": 4,
+        "hasValidStructure": true,
+        "cacheHeaders": "public, max-age=300, s-maxage=600, public, s-maxage=300, stale-while-revalidate=600, max-age=60",
+        "passed": true
+      },
+      {
+        "endpoint": "/api/bills",
+        "name": "Bills by ZIP (90210)",
+        "params": {
+          "zipCode": "90210",
+          "limit": "15"
+        },
+        "status": 200,
+        "responseTime": 16,
+        "billCount": 4,
+        "hasValidStructure": true,
+        "cacheHeaders": "public, max-age=300, s-maxage=600, public, s-maxage=300, stale-while-revalidate=600, max-age=60",
+        "passed": true
+      },
+      {
+        "endpoint": "/api/bills",
+        "name": "Energy Bills",
+        "params": {
+          "topic": "energy",
+          "limit": "10"
+        },
+        "status": 200,
+        "responseTime": 6,
+        "billCount": 1,
+        "hasValidStructure": true,
+        "cacheHeaders": "public, max-age=300, s-maxage=600, public, s-maxage=300, stale-while-revalidate=600, max-age=60",
+        "passed": true
+      },
+      {
+        "endpoint": "/api/bills",
+        "name": "Bills in Committee",
+        "params": {
+          "status": "Committee"
+        },
+        "status": 200,
+        "responseTime": 5,
+        "billCount": 6,
+        "hasValidStructure": true,
+        "cacheHeaders": "public, max-age=300, s-maxage=600, public, s-maxage=300, stale-while-revalidate=600, max-age=60",
+        "passed": true
+      }
+    ],
+    "legislativeIntegration": [
+      {
+        "test": "ZIP to Bills Integration",
+        "zipValid": true,
+        "billsReturned": 4,
+        "totalTime": 14,
+        "passed": true
+      },
+      {
+        "test": "Mixed Federal/State Bills",
+        "billsReturned": 8,
+        "hasFederalBills": true,
+        "hasStateBills": true,
+        "responseTime": 5,
+        "passed": true
+      }
+    ],
+    "userJourney": [
+      {
+        "step": 1,
+        "name": "Landing Page Load",
+        "status": 200,
+        "responseTime": 1666,
+        "passed": true,
+        "expectation": "Page loads successfully",
+        "dataReturned": false
+      },
+      {
+        "step": 2,
+        "name": "ZIP Code Validation",
+        "status": 200,
+        "responseTime": 18,
+        "passed": true,
+        "expectation": "ZIP validates as Sacramento, CA",
+        "dataReturned": true
+      },
+      {
+        "step": 3,
+        "name": "Browse Bills",
+        "status": 200,
+        "responseTime": 25,
+        "passed": true,
+        "expectation": "Returns bills relevant to area",
+        "dataReturned": true
+      },
+      {
+        "step": 4,
+        "name": "Feed Page",
+        "status": 307,
+        "responseTime": 10,
+        "passed": false,
+        "expectation": "Feed page loads",
+        "dataReturned": false
+      },
+      {
+        "step": 5,
+        "name": "Bills Page",
+        "status": 307,
+        "responseTime": 8,
+        "passed": false,
+        "expectation": "Bills page loads",
+        "dataReturned": false
+      }
+    ],
+    "performanceMetrics": [
+      {
+        "name": "Bills API Load Time",
+        "averageTime": 14,
+        "minTime": 12,
+        "maxTime": 15,
+        "passed": true
+      },
+      {
+        "name": "ZIP Validation Speed",
+        "averageTime": 11,
+        "minTime": 11,
+        "maxTime": 11,
+        "passed": true
+      },
+      {
+        "name": "Filtered Bills Query",
+        "averageTime": 12,
+        "minTime": 11,
+        "maxTime": 13,
+        "passed": true
+      },
+      {
+        "name": "Home Page Load",
+        "averageTime": 30,
+        "minTime": 29,
+        "maxTime": 31,
+        "passed": true
+      }
+    ],
+    "regressionTests": [
+      {
+        "name": "Political Mapping Still Works",
+        "passed": true
+      },
+      {
+        "name": "Routes Still Accessible",
+        "passed": false
+      },
+      {
+        "name": "API Endpoints Consistent",
+        "passed": true
+      }
+    ],
+    "errors": []
+  }
+}

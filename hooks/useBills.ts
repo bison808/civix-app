@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query';
 import billsService from '../services/bills.service';
+import { useClientSafeQuery } from './useClientSafeQuery';
 import {
   Bill,
   BillFilter,
@@ -9,7 +10,7 @@ import {
 } from '../types/bills.types';
 
 export function useBills(filter?: BillFilter) {
-  return useQuery({
+  return useClientSafeQuery({
     queryKey: ['bills', filter],
     queryFn: () => billsService.getBills(filter),
     staleTime: 5 * 60 * 1000, // 5 minutes

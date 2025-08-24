@@ -1,0 +1,138 @@
+{
+  "timestamp": "2025-08-24T00:10:18.873Z",
+  "testSuite": "Responsive Design Testing",
+  "agent": "Agent 29",
+  "totalTests": 21,
+  "passed": 18,
+  "failed": 3,
+  "errors": [],
+  "responsiveTests": [
+    {
+      "name": "Bills page uses responsive breakpoints",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.878Z"
+    },
+    {
+      "name": "Bills page has responsive grid layout",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.878Z"
+    },
+    {
+      "name": "Bills page has mobile-first considerations",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.878Z"
+    },
+    {
+      "name": "Bills page has flexible layout system",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.878Z"
+    },
+    {
+      "name": "Bills page has responsive navigation",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.878Z"
+    },
+    {
+      "name": "Bills page components use responsive classes",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.879Z"
+    },
+    {
+      "name": "Committee page has responsive grid system",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.880Z"
+    },
+    {
+      "name": "Committee page adapts to mobile layout",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.880Z"
+    },
+    {
+      "name": "Committee stats dashboard is responsive",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.880Z"
+    },
+    {
+      "name": "Committee sidebar layout is responsive",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.880Z"
+    },
+    {
+      "name": "Committee cards adapt to screen size",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.880Z"
+    },
+    {
+      "name": "Button has responsive styling",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "Card has responsive styling",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "BillFeed has responsive styling",
+      "passed": false,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "Tailwind config includes responsive settings",
+      "passed": false,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "Tailwind config covers all component paths",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "Tailwind config has theme extensions",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "App has proper viewport meta tag",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "App includes mobile-friendly styling",
+      "passed": false,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "Mobile navigation component exists",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    },
+    {
+      "name": "Media query hook for responsive behavior exists",
+      "passed": true,
+      "details": null,
+      "timestamp": "2025-08-24T00:10:18.881Z"
+    }
+  ],
+  "executionTime": "0.003s"
+}

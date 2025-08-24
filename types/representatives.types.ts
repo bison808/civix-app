@@ -21,6 +21,8 @@ export interface Representative {
   governmentType: 'city' | 'county' | 'state' | 'federal' | 'district' | 'special';
   jurisdictionScope?: 'citywide' | 'countywide' | 'statewide' | 'national' | 'district';
   jurisdictionType?: 'incorporated_city' | 'unincorporated_area' | 'special_district';
+  lastContacted?: string;
+  votePosition?: 'yes' | 'no' | 'abstain';
 }
 
 export interface ContactInfo {

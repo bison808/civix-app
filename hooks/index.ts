@@ -55,3 +55,10 @@ export {
   useSentimentAnalysis,
   useSuggestTags,
 } from './useFeedback';
+
+// Committee hooks
+export {
+  useCommittees,
+  useCommitteeActivity,
+  useCommitteeMeetings,
+} from './useCommittees';

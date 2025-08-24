@@ -13,7 +13,7 @@ interface CacheEntry<T> {
   priority: number;
 }
 
-class OptimizedCache<T> {
+export class OptimizedCache<T> {
   private cache = new Map<string, CacheEntry<T>>();
   private config: CacheConfig;
 

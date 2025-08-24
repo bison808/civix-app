@@ -22,6 +22,13 @@ export interface Bill {
   estimatedImpact?: BillImpact;
   aiSummary?: SimplifiedBill;
   userVote?: 'like' | 'dislike' | null;
+  isTracked?: boolean;
+  userConnection?: {
+    type: 'representative_sponsored' | 'representative_cosponsored' | 'representative_committee' | 'subject_interest';
+    representativeName?: string;
+    representativeTitle?: string;
+    details?: string;
+  };
 }
 
 export interface BillStatus {

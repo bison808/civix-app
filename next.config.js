@@ -8,6 +8,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
+  // Disable static generation to fix React Query SSR issues
+  output: 'standalone',
+  
   // Image optimization for faster loading
   images: {
     domains: ['localhost', 'citznvote.netlify.app', 'citzn.vote', 'bioguide.congress.gov'],

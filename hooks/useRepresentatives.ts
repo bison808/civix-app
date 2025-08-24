@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import representativesService from '../services/representatives.service';
+import { useClientSafeQuery } from './useClientSafeQuery';
 import {
   Representative,
   RepresentativeFilter,
@@ -7,7 +8,7 @@ import {
 } from '../types/representatives.types';
 
 export function useRepresentatives(filter?: RepresentativeFilter) {
-  return useQuery({
+  return useClientSafeQuery({
     queryKey: ['representatives', filter],
     queryFn: () => representativesService.getRepresentatives(filter),
     staleTime: 10 * 60 * 1000, // 10 minutes

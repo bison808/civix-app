@@ -16,13 +16,16 @@ import {
   BarChart3,
   HelpCircle,
   ChevronRight,
-  MapPin
+  MapPin,
+  Building
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import ZipDisplay from '@/components/ZipDisplay';
 import VerificationBadge from '@/components/VerificationBadge';
 import UserMenu from '@/components/UserMenu';
+import CommitteeNotificationCenter from '@/components/notifications/CommitteeNotificationCenter';
+import committeeNotificationService from '@/services/committee-notifications.service';
 
 interface MobileNavProps {
   className?: string;
@@ -34,10 +37,24 @@ export default function MobileNav({ className }: MobileNavProps) {
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   // Ensure component is mounted on client to prevent hydration mismatches
   useEffect(() => {
     setIsClient(true);
+    
+    // Load notification count
+    const loadNotificationCount = () => {
+      const unread = committeeNotificationService.getUnreadNotifications();
+      setNotificationCount(unread.length);
+    };
+    
+    loadNotificationCount();
+    
+    // Set up polling for new notifications
+    const interval = setInterval(loadNotificationCount, 30000);
+    return () => clearInterval(interval);
   }, []);
 
   // Close menu on route change with error handling
@@ -74,9 +91,9 @@ export default function MobileNav({ className }: MobileNavProps) {
 
   const navItems = [
     { 
-      icon: Home, 
-      label: 'Feed', 
-      path: '/feed',
+      icon: FileText, 
+      label: 'Bills', 
+      path: '/bills',
       badge: null 
     },
     { 
@@ -89,6 +106,12 @@ export default function MobileNav({ className }: MobileNavProps) {
       icon: Users, 
       label: 'Reps', 
       path: '/representatives',
+      badge: null 
+    },
+    { 
+      icon: Building, 
+      label: 'Committees', 
+      path: '/committees',
       badge: null 
     },
     { 
@@ -192,9 +215,12 @@ export default function MobileNav({ className }: MobileNavProps) {
           <button 
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative"
             aria-label="Notifications"
+            onClick={() => setShowNotifications(true)}
           >
             <Bell size={18} />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+            {notificationCount > 0 && (
+              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+            )}
           </button>
           <UserMenu />
         </div>
@@ -371,6 +397,17 @@ export default function MobileNav({ className }: MobileNavProps) {
           </p>
         </div>
       </div>
+
+      {/* Committee Notification Center */}
+      <CommitteeNotificationCenter
+        isOpen={showNotifications}
+        onClose={() => {
+          setShowNotifications(false);
+          // Refresh notification count after closing
+          const unread = committeeNotificationService.getUnreadNotifications();
+          setNotificationCount(unread.length);
+        }}
+      />
     </>
   );
 }

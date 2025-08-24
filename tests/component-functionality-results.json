@@ -1,0 +1,522 @@
+{
+  "timestamp": "2025-08-24T00:09:07.522Z",
+  "testSuite": "Component Functionality Testing",
+  "agent": "Agent 29",
+  "totalTests": 81,
+  "passed": 72,
+  "failed": 9,
+  "errors": [],
+  "componentTests": {
+    "bills": {
+      "passed": 21,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "page file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.527Z"
+        },
+        {
+          "name": "page has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "page is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "page proper TypeScript usage",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFeed file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFeed has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFeed is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFeed proper TypeScript usage",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFilter file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFilter has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFilter is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillFilter proper TypeScript usage",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillCard file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillCard has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillCard is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "BillCard proper TypeScript usage",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "VotingButtons file exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "Bills page has search functionality",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.528Z"
+        },
+        {
+          "name": "Bills page has filter functionality",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.529Z"
+        },
+        {
+          "name": "Bills page has voting functionality",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.529Z"
+        },
+        {
+          "name": "Bills page has authentication protection",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.529Z"
+        },
+        {
+          "name": "Bills page integrates with representatives",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.529Z"
+        }
+      ]
+    },
+    "committees": {
+      "passed": 14,
+      "failed": 2,
+      "tests": [
+        {
+          "name": "page file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "page has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "page is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeCard file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeCard has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeCard is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeList file exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeFilters file exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeActivity file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.530Z"
+        },
+        {
+          "name": "CommitteeActivity has valid imports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "CommitteeActivity is TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Committee page has search functionality",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Committee page has filter functionality",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Committee page has statistics dashboard",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Committee page shows activity",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Committee page has authentication",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        }
+      ]
+    },
+    "dashboard": {
+      "passed": 2,
+      "failed": 3,
+      "tests": [
+        {
+          "name": "page file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "page has valid structure",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "UserStats file exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "ActivityFeed file exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "QuickActions file exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        }
+      ]
+    },
+    "core": {
+      "passed": 35,
+      "failed": 3,
+      "tests": [
+        {
+          "name": "Button core component exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Button properly structured",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Card core component exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Card properly structured",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Input core component exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "Modal core component exists",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "ProtectedRoute core component exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "ProtectedRoute properly structured",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "UserMenu core component exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "UserMenu properly structured",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "CivixLogo core component exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.531Z"
+        },
+        {
+          "name": "CivixLogo properly structured",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "index.ts type definitions exist",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "index.ts has proper type exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "committee.types.ts type definitions exist",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "committee.types.ts has proper type exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "bill.types.ts type definitions exist",
+          "passed": false,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "api.ts service exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "api.ts has exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "api.ts uses TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "committee-notifications.service.ts service exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "committee-notifications.service.ts has exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "committee-notifications.service.ts uses TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useAuth.ts service exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useAuth.ts has exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useAuth.ts uses TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useBills.ts service exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useBills.ts has exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useBills.ts uses TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useCommittees.ts service exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useCommittees.ts has exports",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "useCommittees.ts uses TypeScript",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "package.json config file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "tsconfig.json config file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "tailwind.config.ts config file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "next.config.js config file exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": ".next build artifact exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        },
+        {
+          "name": "node_modules build artifact exists",
+          "passed": true,
+          "details": null,
+          "timestamp": "2025-08-24T00:09:07.532Z"
+        }
+      ]
+    }
+  },
+  "executionTime": "0.005s"
+}

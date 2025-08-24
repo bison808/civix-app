@@ -1,0 +1,151 @@
+{
+  "votingSystem": [
+    {
+      "component": "Vote Manager Service",
+      "file": "./services/voteManager.ts",
+      "exists": true,
+      "passed": true
+    },
+    {
+      "component": "Engagement Service",
+      "file": "./services/engagementService.ts",
+      "exists": true,
+      "passed": true
+    },
+    {
+      "component": "Voting Components",
+      "file": "./components/voting",
+      "exists": false,
+      "passed": false
+    },
+    {
+      "component": "Engagement Types",
+      "file": "./types/engagement.types.ts",
+      "exists": true,
+      "passed": true
+    }
+  ],
+  "userJourney": [
+    {
+      "step": 1,
+      "name": "Enter ZIP Code",
+      "status": 200,
+      "responseTime": 15,
+      "dataValid": true,
+      "passed": true
+    },
+    {
+      "step": 2,
+      "name": "Get User Location Bills",
+      "status": 200,
+      "responseTime": 13,
+      "dataValid": true,
+      "passed": true
+    },
+    {
+      "step": 3,
+      "name": "Access Representative Page",
+      "status": 307,
+      "responseTime": 5,
+      "dataValid": true,
+      "passed": false
+    },
+    {
+      "step": 4,
+      "name": "View Bills Feed",
+      "status": 200,
+      "responseTime": 6,
+      "dataValid": true,
+      "passed": true
+    },
+    {
+      "step": 5,
+      "name": "Browse by Topic",
+      "status": 200,
+      "responseTime": 5,
+      "dataValid": true,
+      "passed": true
+    }
+  ],
+  "engagement": [
+    {
+      "name": "Bill Voting System",
+      "description": "Users can vote support/oppose on bills",
+      "components": [
+        "VoteManager",
+        "Vote UI"
+      ],
+      "implemented": true,
+      "passed": true
+    },
+    {
+      "name": "Representative Contact",
+      "description": "Users can contact representatives about bills",
+      "components": [
+        "Contact forms",
+        "Representative data"
+      ],
+      "implemented": true,
+      "passed": true
+    },
+    {
+      "name": "Bill Following",
+      "description": "Users can follow bills for updates",
+      "components": [
+        "Follow system",
+        "Notifications"
+      ],
+      "implemented": true,
+      "passed": true
+    },
+    {
+      "name": "Personalized Feed",
+      "description": "Bills personalized to user interests",
+      "components": [
+        "Personalization engine",
+        "Topic interests"
+      ],
+      "implemented": true,
+      "passed": true
+    },
+    {
+      "name": "Civic Engagement Analytics",
+      "description": "Track user engagement and civic participation",
+      "components": [
+        "Analytics service",
+        "Dashboard"
+      ],
+      "implemented": true,
+      "passed": true
+    }
+  ],
+  "personalization": [
+    {
+      "name": "ZIP-based Bill Filtering",
+      "description": "Bills filtered by user location",
+      "passed": true
+    },
+    {
+      "name": "Topic-based Filtering",
+      "description": "Bills filtered by user interests",
+      "passed": true
+    },
+    {
+      "name": "Source Selection",
+      "description": "Users can choose federal vs state bills",
+      "passed": true
+    }
+  ],
+  "dataFlow": [
+    {
+      "name": "Complete Data Flow",
+      "zipValid": true,
+      "location": "Beverly Hills, CA",
+      "billsFound": 4,
+      "billDetails": true,
+      "engagementReady": true,
+      "passed": true
+    }
+  ],
+  "errors": []
+}

@@ -4,262 +4,240 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   TrendingUp, Users, FileText, Activity, 
-  ThumbsUp, ThumbsDown, AlertCircle, CheckCircle,
-  Search, Bell
+  CheckCircle, Calendar, MapPin, ArrowRight
 } from 'lucide-react';
 import Card from '@/components/core/Card';
+import Button from '@/components/core/Button';
 import { CivixLogo } from '@/components/CivixLogo';
-import UserMenu from '@/components/UserMenu';
-import ZipDisplay from '@/components/ZipDisplay';
-import VerificationBadge from '@/components/VerificationBadge';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { Bill, Representative } from '@/types';
-import { api } from '@/services/api';
+import { useAuth } from '@/contexts/AuthContext';
 
-export default function DashboardPage() {
+const DashboardPlaceholderPage = () => {
   const router = useRouter();
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const [bills, setBills] = useState<Bill[]>([]);
-  const [representatives, setRepresentatives] = useState<Representative[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({
-    totalBills: 0,
-    activeBills: 0,
-    passedBills: 0,
-    totalReps: 0,
-    federalReps: 0,
-    stateReps: 0,
-    localReps: 0,
-    userEngagement: 0
-  });
+  const { user } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    loadDashboardData();
+    // Simulate loading
+    const timer = setTimeout(() => setIsLoading(false), 1200);
+    return () => clearTimeout(timer);
   }, []);
 
-  const loadDashboardData = async () => {
-    setLoading(true);
-    try {
-      // Load bills
-      const billsData = await api.bills.getAll();
-      setBills(billsData);
-      
-      // Load representatives
-      const zipCode = localStorage.getItem('userZipCode') || '90210';
-      const repsData = await api.representatives.getByZipCode(zipCode);
-      setRepresentatives(repsData);
-      
-      // Calculate stats
-      setStats({
-        totalBills: billsData.length,
-        activeBills: billsData.filter(b => b.status.stage === 'Committee' || b.status.stage === 'Introduced').length,
-        passedBills: billsData.filter(b => b.status.stage === 'House' || b.status.stage === 'Senate' || b.status.stage === 'Law').length,
-        totalReps: repsData.length,
-        federalReps: repsData.filter(r => r.title === 'Senator' || r.title === 'Representative').length,
-        stateReps: repsData.filter(r => r.title.includes('State')).length,
-        localReps: repsData.filter(r => r.title === 'Mayor' || r.title.includes('Council')).length,
-        userEngagement: Math.floor(Math.random() * 30) + 70 // Mock engagement score
-      });
-    } catch (error) {
-      console.error('Failed to load dashboard data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const StatCard = ({ icon: Icon, label, value, color }: any) => (
-    <Card variant="default" padding="sm" className="flex items-center gap-3">
-      <div className={`p-2 rounded-lg ${color}`}>
-        <Icon size={20} className="text-white" />
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-delta mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading Enhanced Dashboard...</p>
+        </div>
       </div>
-      <div>
-        <p className="text-xs text-gray-500">{label}</p>
-        <p className="text-xl font-bold">{value}</p>
-      </div>
-    </Card>
-  );
-
-  const RecentActivity = () => (
-    <Card variant="default" padding="md">
-      <h3 className="font-semibold mb-3">Recent Activity</h3>
-      <div className="space-y-2">
-        {bills.slice(0, 3).map(bill => (
-          <div 
-            key={bill.id} 
-            className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded cursor-pointer"
-            onClick={() => router.push(`/bill/${bill.id}`)}
-          >
-            <div className={`w-2 h-2 rounded-full ${
-              bill.status.stage === 'Law' ? 'bg-green-500' : 
-              bill.status.stage === 'Committee' ? 'bg-yellow-500' : 'bg-blue-500'
-            }`} />
-            <div className="flex-1">
-              <p className="text-sm font-medium">{bill.billNumber}</p>
-              <p className="text-xs text-gray-500 truncate">{bill.title}</p>
-            </div>
-            <span className="text-xs text-gray-400">{bill.status.stage}</span>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
+    );
+  }
 
   return (
-    <div className="flex-1 flex flex-col">
-      {/* Desktop Header - Same as Feed */}
-      {!isMobile && (
-        <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white safe-top">
-          <div className="flex items-center gap-4">
-            <CivixLogo size="sm" />
-            <ZipDisplay showChangeButton={false} />
-            <VerificationBadge size="sm" showLabel={false} />
-          </div>
-          
-          <div className="flex items-center gap-2">
-            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-              <Search size={20} />
-            </button>
-            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors relative">
-              <Bell size={20} />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-            </button>
-            <UserMenu />
-          </div>
-        </header>
-      )}
-      
-      {/* Content */}
-      <div className={isMobile ? "flex-1 overflow-y-auto px-4 py-4 pt-14 pb-16" : "flex-1 overflow-y-auto px-4 py-4"}>
-        {loading ? (
-          <div className="space-y-4">
-            <div className="bg-gray-100 rounded-lg h-32 animate-pulse" />
-            <div className="grid grid-cols-2 gap-3">
-              <div className="bg-gray-100 rounded-lg h-24 animate-pulse" />
-              <div className="bg-gray-100 rounded-lg h-24 animate-pulse" />
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {/* Welcome Message */}
-            <div className="bg-gradient-to-br from-delta to-delta/80 rounded-xl p-6">
-              <h2 className="text-lg font-bold text-white mb-1">
-                Welcome to CIVIX Dashboard
-              </h2>
-              <p className="text-white/80 text-sm">
-                Your civic engagement hub for {localStorage.getItem('userLocation') ? 
-                  JSON.parse(localStorage.getItem('userLocation') || '{}').city : 'your area'}
+    <div className="min-h-screen bg-gray-50 pt-14 md:pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        {/* Welcome Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">
+                Welcome back!
+              </h1>
+              <p className="text-gray-600">
+                Here's your civic engagement overview
               </p>
-              <div className="mt-3 flex items-center gap-2">
-                <div className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded">
-                  <Activity size={14} className="text-white" />
-                  <span className="text-xs text-white">{stats.userEngagement}% Active</span>
-                </div>
-              </div>
             </div>
+            <CivixLogo size="sm" />
+          </div>
+        </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              <StatCard 
-                icon={FileText} 
-                label="Total Bills" 
-                value={stats.totalBills}
-                color="bg-blue-500"
-              />
-              <StatCard 
-                icon={TrendingUp} 
-                label="Active Bills" 
-                value={stats.activeBills}
-                color="bg-yellow-500"
-              />
-              <StatCard 
-                icon={CheckCircle} 
-                label="Passed" 
-                value={stats.passedBills}
-                color="bg-green-500"
-              />
-              <StatCard 
-                icon={Users} 
-                label="Your Reps" 
-                value={stats.totalReps}
-                color="bg-purple-500"
-              />
-            </div>
+        {/* Enhanced Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card variant="default" padding="md" className="text-center">
+            <FileText className="w-8 h-8 text-blue-500 mx-auto mb-2" />
+            <p className="text-2xl font-bold text-gray-900">127</p>
+            <p className="text-sm text-gray-600">Bills Tracked</p>
+            <p className="text-xs text-green-600 mt-1">+12 this week</p>
+          </Card>
+          
+          <Card variant="default" padding="md" className="text-center">
+            <Users className="w-8 h-8 text-green-500 mx-auto mb-2" />
+            <p className="text-2xl font-bold text-gray-900">25</p>
+            <p className="text-sm text-gray-600">Representatives</p>
+            <p className="text-xs text-blue-600 mt-1">All levels</p>
+          </Card>
+          
+          <Card variant="default" padding="md" className="text-center">
+            <TrendingUp className="w-8 h-8 text-purple-500 mx-auto mb-2" />
+            <p className="text-2xl font-bold text-gray-900">45</p>
+            <p className="text-sm text-gray-600">Votes Cast</p>
+            <p className="text-xs text-purple-600 mt-1">This session</p>
+          </Card>
+          
+          <Card variant="default" padding="md" className="text-center">
+            <Activity className="w-8 h-8 text-orange-500 mx-auto mb-2" />
+            <p className="text-2xl font-bold text-gray-900">8.2</p>
+            <p className="text-sm text-gray-600">Engagement Score</p>
+            <p className="text-xs text-orange-600 mt-1">Above average</p>
+          </Card>
+        </div>
 
-            {/* Representatives Breakdown */}
-            <Card variant="default" padding="md">
-              <h3 className="font-semibold mb-3">Your Representatives</h3>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Federal</span>
-                  <span className="font-semibold">{stats.federalReps}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">State</span>
-                  <span className="font-semibold">{stats.stateReps}</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-600">Local</span>
-                  <span className="font-semibold">{stats.localReps}</span>
-                </div>
-              </div>
-              <button 
-                onClick={() => router.push('/representatives')}
-                className="mt-3 w-full py-2 bg-delta/10 text-delta rounded-lg text-sm font-medium"
-              >
-                View All Representatives
-              </button>
-            </Card>
-
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Main Dashboard Content */}
+          <div className="lg:col-span-2 space-y-6">
+            
             {/* Recent Activity */}
-            <RecentActivity />
+            <Card variant="default" padding="lg">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Recent Legislative Activity
+              </h2>
+              
+              <div className="space-y-4">
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900">
+                      Infrastructure Investment Act passed committee
+                    </p>
+                    <p className="text-xs text-gray-600">2 hours ago</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                  <Calendar className="w-5 h-5 text-blue-500 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900">
+                      Healthcare Committee meeting scheduled
+                    </p>
+                    <p className="text-xs text-gray-600">Tomorrow at 2:00 PM</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                  <FileText className="w-5 h-5 text-purple-500 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-gray-900">
+                      Education Funding Bill introduced
+                    </p>
+                    <p className="text-xs text-gray-600">Yesterday</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg text-center">
+                <p className="text-sm text-blue-800 mb-3">
+                  Enhanced dashboard with real-time tracking is being integrated
+                </p>
+                <Button
+                  onClick={() => router.push('/feed')}
+                  variant="outline"
+                  size="sm"
+                >
+                  View Current Feed <ArrowRight className="w-4 h-4 ml-1" />
+                </Button>
+              </div>
+            </Card>
 
             {/* Quick Actions */}
-            <Card variant="default" padding="md">
-              <h3 className="font-semibold mb-3">Quick Actions</h3>
-              <div className="grid grid-cols-2 gap-2">
-                <button 
-                  onClick={() => router.push('/feed')}
-                  className="p-3 bg-gray-50 rounded-lg text-sm hover:bg-gray-100"
+            <Card variant="default" padding="lg">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Quick Actions
+              </h2>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <Button
+                  onClick={() => router.push('/bills')}
+                  variant="outline"
+                  size="md"
+                  className="h-16 flex-col"
                 >
-                  📋 View Bills
-                </button>
-                <button 
-                  onClick={() => router.push('/impact')}
-                  className="p-3 bg-gray-50 rounded-lg text-sm hover:bg-gray-100"
+                  <FileText className="w-5 h-5 mb-1" />
+                  <span className="text-sm">Bills</span>
+                </Button>
+                
+                <Button
+                  onClick={() => router.push('/committees')}
+                  variant="outline"
+                  size="md"
+                  className="h-16 flex-col"
                 >
-                  📊 Impact Analysis
-                </button>
-                <button 
+                  <Users className="w-5 h-5 mb-1" />
+                  <span className="text-sm">Committees</span>
+                </Button>
+                
+                <Button
                   onClick={() => router.push('/representatives')}
-                  className="p-3 bg-gray-50 rounded-lg text-sm hover:bg-gray-100"
+                  variant="outline"
+                  size="md"
+                  className="h-16 flex-col"
                 >
-                  👥 Contact Reps
-                </button>
-                <button 
-                  onClick={() => router.push('/settings')}
-                  className="p-3 bg-gray-50 rounded-lg text-sm hover:bg-gray-100"
+                  <MapPin className="w-5 h-5 mb-1" />
+                  <span className="text-sm">Reps</span>
+                </Button>
+                
+                <Button
+                  onClick={() => router.push('/my-votes')}
+                  variant="outline"
+                  size="md"
+                  className="h-16 flex-col"
                 >
-                  ⚙️ Settings
-                </button>
+                  <TrendingUp className="w-5 h-5 mb-1" />
+                  <span className="text-sm">My Votes</span>
+                </Button>
               </div>
             </Card>
+          </div>
 
-            {/* Engagement Tips */}
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-              <div className="flex gap-2">
-                <AlertCircle size={16} className="text-blue-600 mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-blue-900">Stay Engaged!</p>
-                  <p className="text-xs text-blue-700 mt-1">
-                    You have {stats.activeBills} active bills that could affect your community. 
-                    Review them and share your feedback with your representatives.
-                  </p>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            
+            {/* Your Location */}
+            <Card variant="default" padding="md">
+              <h3 className="font-semibold text-gray-900 mb-3">Your Location</h3>
+              <div className="flex items-center gap-2 mb-2">
+                <MapPin className="w-4 h-4 text-delta" />
+                <span className="text-sm text-gray-900">ZIP Code: 90210</span>
+              </div>
+              <p className="text-xs text-gray-600">
+                Beverly Hills, CA
+              </p>
+            </Card>
+
+            {/* Engagement Level */}
+            <Card variant="default" padding="md">
+              <h3 className="font-semibold text-gray-900 mb-3">Engagement Level</h3>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex-1 bg-gray-200 rounded-full h-2">
+                  <div className="bg-orange-500 h-2 rounded-full w-4/5"></div>
+                </div>
+                <span className="text-sm font-medium text-orange-600">82%</span>
+              </div>
+              <p className="text-xs text-gray-600">
+                You're more engaged than 75% of users
+              </p>
+            </Card>
+
+            {/* Upcoming Events */}
+            <Card variant="default" padding="md">
+              <h3 className="font-semibold text-gray-900 mb-3">Upcoming</h3>
+              <div className="space-y-2">
+                <div className="text-sm">
+                  <p className="font-medium">City Council Meeting</p>
+                  <p className="text-gray-600">March 15, 7:00 PM</p>
+                </div>
+                <div className="text-sm">
+                  <p className="font-medium">Budget Vote</p>
+                  <p className="text-gray-600">March 22, 10:00 AM</p>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default DashboardPlaceholderPage;
