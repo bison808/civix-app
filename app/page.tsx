@@ -118,11 +118,21 @@ export default function OptimizedLandingPage() {
       )}
 
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12">
-        <div className="w-full max-w-md space-y-6 sm:space-y-8">
+        <div className="w-full max-w-4xl space-y-6 sm:space-y-8">
           
           {/* Logo Section */}
           <div className="text-center">
             <CivixLogo size="2xl" showTagline={true} animated={enableAnimations} />
+            
+            {/* Hero Section */}
+            <div className="mt-6 space-y-4">
+              <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                Your Voice in Democracy
+              </h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Track bills, contact representatives, and stay informed about the issues that matter to your community.
+              </p>
+            </div>
             
             {/* Welcome message for first-time users */}
             {isFirstTime && (
@@ -131,6 +141,33 @@ export default function OptimizedLandingPage() {
                 Welcome! Let's get you started in 30 seconds
               </p>
             )}
+            
+            {/* Key Features Preview */}
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+              <div className="flex flex-col items-center space-y-2">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">📊</span>
+                </div>
+                <h3 className="font-semibold text-gray-900">Track Bills</h3>
+                <p className="text-sm text-gray-600">Follow legislation that affects you</p>
+              </div>
+              
+              <div className="flex flex-col items-center space-y-2">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">🏛️</span>
+                </div>
+                <h3 className="font-semibold text-gray-900">Your Reps</h3>
+                <p className="text-sm text-gray-600">Connect with your representatives</p>
+              </div>
+              
+              <div className="flex flex-col items-center space-y-2">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                  <span className="text-2xl">🗳️</span>
+                </div>
+                <h3 className="font-semibold text-gray-900">Stay Engaged</h3>
+                <p className="text-sm text-gray-600">Make informed civic decisions</p>
+              </div>
+            </div>
           </div>
 
           {/* Main Content */}
@@ -185,7 +222,8 @@ export default function OptimizedLandingPage() {
             </div>
           ) : (
             /* ZIP Code Form */
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="max-w-md mx-auto">
+              <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700">
@@ -283,7 +321,8 @@ export default function OptimizedLandingPage() {
                   <span>⚡</span> No spam
                 </span>
               </div>
-            </form>
+              </form>
+            </div>
           )}
 
           {/* Additional help for new users */}

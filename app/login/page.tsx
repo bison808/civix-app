@@ -142,30 +142,6 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or</span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={() => router.push('/register')}
-                fullWidth
-              >
-                Continue Anonymously
-              </Button>
-              <p className="mt-2 text-xs text-center text-gray-500">
-                No personal information required
-              </p>
-            </div>
-          </div>
         </Card>
 
         <div className="text-center">
