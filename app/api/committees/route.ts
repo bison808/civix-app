@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { legiScanComprehensiveApi, type CommitteeInfo } from '@/services/legiScanComprehensiveApi';
 
 interface Committee {
   id: string;
@@ -382,31 +383,58 @@ export async function GET(request: NextRequest) {
   const includeInactive = searchParams.get('includeInactive') === 'true';
 
   try {
-    let committees = [...FEDERAL_COMMITTEES];
+    console.log('[Committees API] Fetching committees with LegiScan integration');
+    
+    let committees: Committee[] = [];
+
+    // Get California state committees from LegiScan first
+    if (!level || level === 'all' || level === 'state') {
+      console.log('[Committees API] Fetching California state committees from LegiScan');
+      
+      try {
+        const californiaCommittees = await legiScanComprehensiveApi.getStateCommittees('CA');
+        const transformedCommittees = californiaCommittees.map(transformLegiScanCommittee);
+        committees.push(...transformedCommittees);
+        
+        console.log(`[Committees API] Successfully added ${transformedCommittees.length} California committees`);
+      } catch (error) {
+        console.error('[Committees API] LegiScan committee fetch failed:', error);
+        // Continue with federal committees only
+      }
+    }
+
+    // Add federal committees if requested
+    if (!level || level === 'all' || level === 'federal') {
+      committees.push(...FEDERAL_COMMITTEES);
+      console.log(`[Committees API] Added ${FEDERAL_COMMITTEES.length} federal committees`);
+    }
+
+    // Apply filters
+    let filteredCommittees = committees;
 
     // Filter by chamber
     if (chamber && chamber !== 'all') {
       if (chamber === 'joint') {
-        committees = committees.filter(c => c.type === 'joint');
+        filteredCommittees = filteredCommittees.filter(c => c.type === 'joint');
       } else {
-        committees = committees.filter(c => c.chamber === chamber);
+        filteredCommittees = filteredCommittees.filter(c => c.chamber === chamber);
       }
     }
 
     // Filter by level 
     if (level && level !== 'all') {
-      committees = committees.filter(c => c.level === level);
+      filteredCommittees = filteredCommittees.filter(c => c.level === level);
     }
 
     // Filter by type
     if (type) {
-      committees = committees.filter(c => c.type === type);
+      filteredCommittees = filteredCommittees.filter(c => c.type === type);
     }
 
     // Filter by jurisdiction
     if (jurisdiction) {
       const searchTerm = jurisdiction.toLowerCase();
-      committees = committees.filter(c => 
+      filteredCommittees = filteredCommittees.filter(c => 
         c.jurisdiction.some(j => j.toLowerCase().includes(searchTerm)) ||
         c.name.toLowerCase().includes(searchTerm) ||
         c.description?.toLowerCase().includes(searchTerm)
@@ -415,15 +443,15 @@ export async function GET(request: NextRequest) {
 
     // Filter active/inactive
     if (!includeInactive) {
-      committees = committees.filter(c => c.isActive);
+      filteredCommittees = filteredCommittees.filter(c => c.isActive);
     }
 
     // Sort alphabetically by name
-    committees.sort((a, b) => a.name.localeCompare(b.name));
+    filteredCommittees.sort((a, b) => a.name.localeCompare(b.name));
 
     const response = {
-      committees,
-      total: committees.length,
+      committees: filteredCommittees,
+      total: filteredCommittees.length,
       filters: {
         chamber: chamber || 'all',
         level: level || 'all', 
@@ -433,36 +461,140 @@ export async function GET(request: NextRequest) {
       },
       summary: {
         byChart: {
-          house: committees.filter(c => c.chamber === 'house').length,
-          senate: committees.filter(c => c.chamber === 'senate').length,
-          joint: committees.filter(c => c.type === 'joint').length
+          house: filteredCommittees.filter(c => c.chamber === 'house').length,
+          senate: filteredCommittees.filter(c => c.chamber === 'senate').length,
+          joint: filteredCommittees.filter(c => c.type === 'joint').length
         },
         byType: {
-          standing: committees.filter(c => c.type === 'standing').length,
-          subcommittee: committees.filter(c => c.type === 'subcommittee').length,
-          select: committees.filter(c => c.type === 'select').length,
-          joint: committees.filter(c => c.type === 'joint').length
+          standing: filteredCommittees.filter(c => c.type === 'standing').length,
+          subcommittee: filteredCommittees.filter(c => c.type === 'subcommittee').length,
+          select: filteredCommittees.filter(c => c.type === 'select').length,
+          joint: filteredCommittees.filter(c => c.type === 'joint').length
         },
         byLevel: {
-          federal: committees.filter(c => c.level === 'federal').length,
-          state: committees.filter(c => c.level === 'state').length,
-          local: committees.filter(c => c.level === 'local').length
+          federal: filteredCommittees.filter(c => c.level === 'federal').length,
+          state: filteredCommittees.filter(c => c.level === 'state').length,
+          local: filteredCommittees.filter(c => c.level === 'local').length
         }
+      },
+      source: {
+        legiScan: filteredCommittees.filter(c => c.level === 'state').length > 0,
+        federal: filteredCommittees.filter(c => c.level === 'federal').length > 0,
+        timestamp: new Date().toISOString()
       }
     };
 
+    console.log(`[Committees API] Returning ${filteredCommittees.length} committees (${committees.length} total before filters)`);
     return NextResponse.json(response);
 
   } catch (error) {
     console.error('Committees API error:', error);
-    return NextResponse.json(
-      { 
-        error: 'Failed to fetch committees',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    );
+    
+    // Fallback to federal committees only if LegiScan fails completely
+    try {
+      let fallbackCommittees = [...FEDERAL_COMMITTEES];
+      
+      // Apply basic filters to fallback data
+      if (chamber && chamber !== 'all') {
+        if (chamber === 'joint') {
+          fallbackCommittees = fallbackCommittees.filter(c => c.type === 'joint');
+        } else {
+          fallbackCommittees = fallbackCommittees.filter(c => c.chamber === chamber);
+        }
+      }
+      
+      fallbackCommittees.sort((a, b) => a.name.localeCompare(b.name));
+      
+      return NextResponse.json({
+        committees: fallbackCommittees,
+        total: fallbackCommittees.length,
+        error: 'LegiScan integration temporarily unavailable - showing federal committees only',
+        fallback: true,
+        source: {
+          legiScan: false,
+          federal: true,
+          timestamp: new Date().toISOString()
+        }
+      });
+    } catch (fallbackError) {
+      return NextResponse.json(
+        { 
+          error: 'Failed to fetch committees',
+          details: error instanceof Error ? error.message : 'Unknown error'
+        },
+        { status: 500 }
+      );
+    }
   }
+}
+
+/**
+ * Transform LegiScan CommitteeInfo to our Committee interface
+ */
+function transformLegiScanCommittee(legiScanCommittee: CommitteeInfo): Committee {
+  const chair = legiScanCommittee.members.find(m => m.role === 'Chair');
+  const rankingMember = legiScanCommittee.members.find(m => m.role === 'Vice Chair');
+  
+  return {
+    id: `ca-committee-${legiScanCommittee.id}`,
+    name: legiScanCommittee.name,
+    chamber: legiScanCommittee.chamber === 'House' ? 'house' : 'senate',
+    level: 'state',
+    type: 'standing', // Assume all California committees are standing committees
+    description: `California ${legiScanCommittee.chamber === 'House' ? 'Assembly' : 'Senate'} committee handling legislative matters`,
+    jurisdiction: deriveJurisdictionFromName(legiScanCommittee.name),
+    members: {
+      chair: chair ? `${chair.name} (${chair.party})` : undefined,
+      rankingMember: rankingMember ? `${rankingMember.name} (${rankingMember.party})` : undefined,
+      totalMembers: legiScanCommittee.members.length
+    },
+    website: legiScanCommittee.url,
+    isActive: true,
+    bills: {
+      active: legiScanCommittee.currentBills?.length || 0,
+      recentBills: legiScanCommittee.currentBills?.slice(0, 5) || []
+    }
+  };
+}
+
+/**
+ * Derive jurisdiction topics from committee name
+ */
+function deriveJurisdictionFromName(committeeName: string): string[] {
+  const name = committeeName.toLowerCase();
+  const jurisdictions: string[] = [];
+  
+  if (name.includes('appropriations') || name.includes('budget')) {
+    jurisdictions.push('Budget and Appropriations', 'Fiscal Policy');
+  }
+  if (name.includes('housing')) {
+    jurisdictions.push('Housing Policy', 'Community Development');
+  }
+  if (name.includes('environment')) {
+    jurisdictions.push('Environmental Policy', 'Climate Change');
+  }
+  if (name.includes('health')) {
+    jurisdictions.push('Healthcare Policy', 'Public Health');
+  }
+  if (name.includes('education')) {
+    jurisdictions.push('Education Policy', 'Public Schools');
+  }
+  if (name.includes('transportation')) {
+    jurisdictions.push('Transportation', 'Infrastructure');
+  }
+  if (name.includes('judiciary')) {
+    jurisdictions.push('Judicial Affairs', 'Civil Rights');
+  }
+  if (name.includes('agriculture')) {
+    jurisdictions.push('Agriculture', 'Food Safety');
+  }
+  
+  // Default if no specific matches
+  if (jurisdictions.length === 0) {
+    jurisdictions.push('Legislative Affairs', 'California State Policy');
+  }
+  
+  return jurisdictions;
 }
 
 // Committee detail endpoint would be implemented in /api/committees/[id]/route.ts

@@ -53,6 +53,72 @@ class CommitteeService {
     });
   }
 
+  // PRODUCTION FIX: Main getCommittees method - follows Mike's successful API endpoint pattern
+  async getCommittees(filter?: CommitteeFilter): Promise<CommitteeListResponse> {
+    const cacheKey = `${COMMITTEE_CACHE_KEY}main_${JSON.stringify(filter)}`;
+    const cached = this.getCached<CommitteeListResponse>(cacheKey);
+    if (cached) return cached;
+
+    try {
+      console.log('[CommitteeService] Calling working committees API endpoint');
+      
+      // Build query parameters for the working API endpoint
+      const params = new URLSearchParams();
+      if (filter?.chamber && filter.chamber !== 'All') {
+        params.set('chamber', filter.chamber.toLowerCase());
+      }
+      if (filter?.level && filter.level !== 'All') {
+        params.set('level', filter.level.toLowerCase());
+      }
+      if (filter?.type && filter.type !== 'All') {
+        params.set('type', filter.type.toLowerCase());
+      }
+      if (filter?.jurisdiction) {
+        params.set('jurisdiction', filter.jurisdiction);
+      }
+      
+      const apiUrl = `/api/committees${params.toString() ? `?${params.toString()}` : ''}`;
+      console.log('[CommitteeService] Fetching from:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Committees API failed: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log(`[CommitteeService] Successfully fetched ${data.committees?.length || 0} committees`);
+      
+      // Transform to expected CommitteeListResponse format
+      const result: CommitteeListResponse = {
+        committees: data.committees || [],
+        total: data.total || (data.committees?.length || 0),
+        page: 1,
+        pageSize: data.committees?.length || 0,
+        filters: filter,
+        summary: data.summary,
+        source: data.source
+      };
+
+      this.setCached(cacheKey, result);
+      return result;
+    } catch (error) {
+      console.error('[CommitteeService] API call failed:', error);
+      return {
+        committees: [],
+        total: 0,
+        page: 1,
+        pageSize: 0,
+        filters: filter
+      };
+    }
+  }
+
   // Get committees by representative
   async getCommitteesByRepresentative(representativeId: string): Promise<Committee[]> {
     const cacheKey = `${COMMITTEE_CACHE_KEY}rep_${representativeId}`;

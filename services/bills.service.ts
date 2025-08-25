@@ -32,14 +32,50 @@ class BillsService {
       }
     }
 
-    const response = await dataPipelineAPI.get(
-      `/api/bills${params.toString() ? `?${params.toString()}` : ''}`
-    );
-    return await response.json() as BillsResponse;
+    // PRODUCTION FIX: Call our own working /api/bills endpoint instead of external data pipeline
+    // Our /api/bills endpoint returns real California bills from LegiScan API
+    const apiUrl = `/api/bills${params.toString() ? `?${params.toString()}` : ''}`;
+    
+    console.log('[BillsService] Calling working LegiScan API endpoint:', apiUrl);
+    
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Bills API failed: ${response.status} ${response.statusText}`);
+    }
+    
+    const bills = await response.json();
+    
+    // Transform response to expected BillsResponse format
+    return {
+      bills: Array.isArray(bills) ? bills : [],
+      total: Array.isArray(bills) ? bills.length : 0,
+      page: filter?.page || 1,
+      pageSize: filter?.limit || 20,
+      totalPages: Math.ceil((Array.isArray(bills) ? bills.length : 0) / (filter?.limit || 20))
+    } as BillsResponse;
   }
 
   async getBillById(id: string): Promise<Bill> {
-    const response = await dataPipelineAPI.get(`/api/bills/${id}`);
+    // PRODUCTION FIX: Use our own working API endpoint for bill details
+    console.log('[BillsService] Fetching bill details for ID:', id);
+    
+    const response = await fetch(`/api/bills/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Bill detail API failed: ${response.status} ${response.statusText}`);
+    }
+    
     return await response.json() as Bill;
   }
 

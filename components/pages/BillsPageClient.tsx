@@ -3,16 +3,16 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-// Dynamic import with SSR disabled to prevent context errors - using simple version temporarily
+// PRODUCTION FIX: Use real BillsPageContent that calls LegiScan API, not placeholder data
 const BillsPageContent = dynamic(
-  () => import('./BillsPageContent.simple').then(mod => ({ default: mod.BillsPageContentSimple })),
+  () => import('./BillsPageContent').then(mod => ({ default: mod.BillsPageContent })),
   {
     ssr: false,
     loading: () => (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading Bills...</p>
+          <p className="text-gray-600">Loading California Legislative Bills...</p>
         </div>
       </div>
     )

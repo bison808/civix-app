@@ -3,16 +3,16 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-// Dynamic import with SSR disabled to prevent context errors - using simplified version temporarily
+// Dynamic import with SSR disabled to prevent context errors - using full version with LegiScan integration
 const CommitteesPageContent = dynamic(
-  () => import('./CommitteesPageContent.simple').then(mod => ({ default: mod.CommitteesPageContentSimple })),
+  () => import('./CommitteesPageContent').then(mod => ({ default: mod.CommitteesPageContent })),
   {
     ssr: false,
     loading: () => (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading Committees...</p>
+          <p className="text-gray-600">Loading Legislative Committees...</p>
         </div>
       </div>
     )

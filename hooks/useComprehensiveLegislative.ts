@@ -154,7 +154,7 @@ const useCommitteeDetails = (committeeId: number) => {
 };
 
 /**
- * Hook for state committees list - PRODUCTION OPTIMIZED
+ * Hook for state committees list - PRODUCTION OPTIMIZED with Service Layer
  */
 const useStateCommittees = (stateId: string = 'CA') => {
   const [committees, setCommittees] = useState<CommitteeInfo[]>([]);
@@ -166,11 +166,42 @@ const useStateCommittees = (stateId: string = 'CA') => {
     setError(null);
 
     try {
-      const committeesData = await legiScanComprehensiveApi.getStateCommittees(stateId);
+      // PRODUCTION FIX: Use the fixed committee service instead of direct LegiScan API
+      const { committeeService } = await import('@/services/committee.service');
+      const response = await committeeService.getCommittees({
+        level: stateId === 'CA' ? 'state' : 'federal',
+        chamber: 'All'
+      });
+      
+      // Transform Committee[] to CommitteeInfo[] format if needed
+      const committeesData = response.committees.map(committee => ({
+        id: committee.id,
+        name: committee.name,
+        chamber: committee.chamber as 'House' | 'Senate',
+        jurisdiction: committee.jurisdiction ? [committee.jurisdiction] : [],
+        description: committee.description || '',
+        members: committee.members || [],
+        chair: committee.chair,
+        subcommittees: committee.subcommittees || [],
+        currentBills: [],
+        website: committee.website,
+        phone: committee.phone,
+        address: committee.address,
+        meetingSchedule: committee.meetingSchedule
+      })) as CommitteeInfo[];
+      
       setCommittees(committeesData);
     } catch (err) {
       console.error('Committee fetch error:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch committees');
+      
+      // Fallback to direct LegiScan API if service layer fails
+      try {
+        const committeesData = await legiScanComprehensiveApi.getStateCommittees(stateId);
+        setCommittees(committeesData);
+      } catch (fallbackErr) {
+        console.error('Fallback committee fetch also failed:', fallbackErr);
+      }
     } finally {
       setLoading(false);
     }
