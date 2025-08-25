@@ -55,20 +55,7 @@ export default function MobileNav({ className }: MobileNavProps) {
     // Set up polling for new notifications
     const interval = setInterval(loadNotificationCount, 30000);
     
-    // Add a global click listener to debug navigation issues
-    const handleGlobalClick = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (target && target.closest('.mobile-nav-critical')) {
-        console.log('MobileNav: Global click detected on navigation');
-      }
-    };
-    
-    document.addEventListener('click', handleGlobalClick);
-    
-    return () => {
-      clearInterval(interval);
-      document.removeEventListener('click', handleGlobalClick);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   // Close menu on route change with error handling
@@ -147,13 +134,11 @@ export default function MobileNav({ className }: MobileNavProps) {
 
   const handleNavigation = useCallback((path: string) => {
     try {
-      console.log('MobileNav: Attempting navigation to:', path);
       router.push(path);
     } catch (error) {
       console.error('Navigation error:', error);
       // Fallback to window.location for critical navigation
       if (typeof window !== 'undefined') {
-        console.log('MobileNav: Using fallback navigation to:', path);
         window.location.href = path;
       }
     }
@@ -175,12 +160,8 @@ export default function MobileNav({ className }: MobileNavProps) {
   
   // Don't render until client-side hydration is complete
   if (!isClient || shouldHideNav) {
-    console.log('MobileNav: Not rendering -', { isClient, shouldHideNav, pathname });
     return null;
   }
-
-  // Debug navigation rendering
-  console.log('MobileNav: Rendering on pathname:', pathname);
 
   // Fallback rendering for critical navigation if component encounters issues
   if (!navItems || navItems.length === 0) {
@@ -280,11 +261,7 @@ export default function MobileNav({ className }: MobileNavProps) {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('MobileNav: Button clicked for:', item.path);
                 handleNavigation(item.path);
-              }}
-              onTouchStart={(e) => {
-                console.log('MobileNav: Touch started for:', item.path);
               }}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center",

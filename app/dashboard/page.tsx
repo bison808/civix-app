@@ -10,7 +10,7 @@ import Card from '@/components/core/Card';
 import Button from '@/components/core/Button';
 import StandardPageLayout from '@/components/layout/StandardPageLayout';
 import { useAuth } from '@/contexts/AuthContext';
-import { NavigationTest } from '@/components/diagnostics/NavigationTest';
+// import { NavigationTest } from '@/components/diagnostics/NavigationTest'; // Development only
 
 const DashboardPlaceholderPage = () => {
   const router = useRouter();
@@ -233,7 +233,7 @@ const DashboardPlaceholderPage = () => {
         </div>
         </div>
       </StandardPageLayout>
-      <NavigationTest />
+      {/* <NavigationTest /> Development only */}
     </>
   );
 };

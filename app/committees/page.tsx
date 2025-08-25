@@ -1,7 +1,8 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import nextDynamic from 'next/dynamic';
+import { CommitteesPageContent } from '@/components/pages/CommitteesPageContent';
 
 function ErrorFallback({error, resetErrorBoundary}: {error: Error, resetErrorBoundary: () => void}) {
   return (
@@ -67,18 +68,28 @@ function CommitteesPageSkeleton() {
   );
 }
 
-// Kevin's Architecture + Rachel's UX: Client-only component with skeleton
-const CommitteesPageContent = nextDynamic(
-  () => import('@/components/pages/CommitteesPageContent').then(mod => ({ 
-    default: mod.CommitteesPageContent 
-  })),
-  { 
-    ssr: false,
-    loading: () => <CommitteesPageSkeleton />
-  }
-);
+// Kevin's Architecture Solution: Direct import removes hydration isolation issues
+// Rachel's UX: Progressive loading with skeleton screen for perceived performance
+function CommitteesPageWithProgressiveLoading() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
-// Kevin's Architecture Fix: Direct imports instead of dynamic imports
+  useEffect(() => {
+    // Progressive loading: Show skeleton briefly, then content
+    const timer = setTimeout(() => {
+      setShowContent(true);
+      setIsLoading(false);
+    }, 200); // Brief skeleton display for perceived performance
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading || !showContent) {
+    return <CommitteesPageSkeleton />;
+  }
+
+  return <CommitteesPageContent />;
+}
 
 export default function CommitteesPage() {
   return (
@@ -97,7 +108,7 @@ export default function CommitteesPage() {
         }
       }}
     >
-      <CommitteesPageContent />
+      <CommitteesPageWithProgressiveLoading />
     </ErrorBoundary>
   );
 }

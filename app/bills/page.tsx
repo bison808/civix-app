@@ -1,8 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import nextDynamic from 'next/dynamic';
-import { NavigationTest } from '@/components/diagnostics/NavigationTest';
+import { BillsPageContent } from '@/components/pages/BillsPageContent';
+// import { NavigationTest } from '@/components/diagnostics/NavigationTest'; // Development only
 
 function ErrorFallback({error, resetErrorBoundary}: {error: Error, resetErrorBoundary: () => void}) {
   return (
@@ -60,17 +61,28 @@ function BillsPageSkeleton() {
   );
 }
 
-// Kevin's Architecture + Rachel's UX: Client-only component with skeleton
-const BillsPageContent = nextDynamic(
-  () => import('@/components/pages/BillsPageContent').then(mod => ({ 
-    default: mod.BillsPageContent 
-  })),
-  { 
-    ssr: false,
-    loading: () => <BillsPageSkeleton />
-  }
-);
+// Kevin's Architecture Solution: Direct import removes hydration isolation issues
+// Rachel's UX: Progressive loading with skeleton screen for perceived performance
+function BillsPageWithProgressiveLoading() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
+  useEffect(() => {
+    // Progressive loading: Show skeleton briefly, then content
+    const timer = setTimeout(() => {
+      setShowContent(true);
+      setIsLoading(false);
+    }, 200); // Brief skeleton display for perceived performance
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading || !showContent) {
+    return <BillsPageSkeleton />;
+  }
+
+  return <BillsPageContent />;
+}
 
 export default function BillsPage() {
   return (
@@ -90,9 +102,9 @@ export default function BillsPage() {
           }
         }}
       >
-        <BillsPageContent />
+        <BillsPageWithProgressiveLoading />
       </ErrorBoundary>
-      <NavigationTest />
+      {/* <NavigationTest /> Development only */}
     </>
   );
 }
