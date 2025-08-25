@@ -69,16 +69,16 @@ export function BillsPageContent() {
 
   // Load and enhance bills with representative connections
   useEffect(() => {
-    if (bills.length > 0 && representatives.length > 0) {
+    if (bills.length > 0) {
       const enhanced = bills.map(bill => ({
         ...bill,
-        connectedReps: representatives.filter(rep => 
+        connectedReps: representatives.length > 0 ? representatives.filter(rep => 
           // Connect bills to reps based on jurisdiction and committees
           (bill.chamber === 'House' && rep.title === 'Representative') ||
           (bill.chamber === 'Senate' && rep.title === 'Senator') ||
           // State level connections
           (bill.level === 'state' && rep.level === 'state')
-        ),
+        ) : [],
         userEngagementLevel: calculateEngagementLevel(bill)
       }));
       
