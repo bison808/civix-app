@@ -3,7 +3,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/core/Button';
-import { CivixLogo } from '@/components/CivixLogo';
+import { CitznLogo } from '@/components/CitznLogo';
 import Tooltip from '@/components/ui/Tooltip';
 // Dynamic import for authApi to prevent bundle bloat
 import { MapPin, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
@@ -124,7 +124,7 @@ export default function OptimizedLandingPage() {
           
           {/* Logo Section */}
           <div className="text-center">
-            <CivixLogo size="2xl" showTagline={true} animated={enableAnimations} />
+            <CitznLogo size="2xl" showTagline={true} animated={enableAnimations} />
             
             {/* Hero Section */}
             <div className="mt-6 space-y-4">

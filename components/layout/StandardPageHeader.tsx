@@ -1,6 +1,6 @@
 'use client';
 
-import { CivixLogo } from '@/components/CivixLogo';
+import { CitznLogo } from '@/components/CitznLogo';
 import { cn } from '@/lib/utils';
 
 interface StandardPageHeaderProps {
@@ -28,7 +28,7 @@ export function StandardPageHeader({
     )}>
       {showLogo && (
         <div className="mx-auto mb-4">
-          <CivixLogo size={logoSize} />
+          <CitznLogo size={logoSize} />
         </div>
       )}
       <h1 className="text-3xl font-bold text-gray-900 mb-2">

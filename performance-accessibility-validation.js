@@ -11,7 +11,7 @@ const https = require('https');
 const fs = require('fs').promises;
 const path = require('path');
 
-const PRODUCTION_URL = 'https://civix-app.vercel.app';
+const PRODUCTION_URL = 'https://civix-app.vercel.app'; // TODO: Update to CITZN domain when available
 
 class PerformanceAccessibilityValidator {
   constructor() {

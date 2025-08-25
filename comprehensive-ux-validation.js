@@ -11,7 +11,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs').promises;
 const path = require('path');
 
-const PRODUCTION_URL = 'https://civix-app.vercel.app';
+const PRODUCTION_URL = 'https://civix-app.vercel.app'; // TODO: Update to CITZN domain when available
 const LOCAL_URL = 'http://localhost:3012';
 
 // Test ZIP codes for comprehensive coverage
