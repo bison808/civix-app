@@ -239,7 +239,7 @@ export class LegiScanApiClient {
 
     try {
       console.log('[LegiScan] Requesting California session list...');
-      const endpoint = `/?op=getSessionList&id=CA&api_key=${this.apiKey}`;
+      const endpoint = `/?key=${this.apiKey}&op=getSessionList&state=CA`;
       
       const response = await this.client.call<LegiScanSessionResponse>(endpoint, {
         method: 'GET',
@@ -293,11 +293,11 @@ export class LegiScanApiClient {
     }
 
     try {
-      // PRODUCTION FIX: Use getMasterListByState instead of session-based approach
-      // This matches the working API call pattern you tested
+      // PRODUCTION FIX: Use getMasterList with state parameter per LegiScan API v1.91 manual
+      // Correct format: /?key=APIKEY&op=getMasterList&state=CA (not getMasterListByState with id=)
       console.log('[LegiScan] Using direct state master list approach...');
       
-      const endpoint = `/?op=getMasterListByState&id=CA&api_key=${this.apiKey}`;
+      const endpoint = `/?key=${this.apiKey}&op=getMasterList&state=CA`;
       console.log('[LegiScan] Calling endpoint:', endpoint.replace(this.apiKey, '***'));
       
       const response = await this.client.call<LegiScanMasterListResponse>(endpoint, {
@@ -356,7 +356,7 @@ export class LegiScanApiClient {
     }
 
     try {
-      const endpoint = `/?op=getBill&id=${billId}&api_key=${this.apiKey}`;
+      const endpoint = `/?key=${this.apiKey}&op=getBill&id=${billId}`;
       
       const response = await this.client.call<LegiScanBillResponse>(endpoint, {
         method: 'GET',
@@ -634,7 +634,7 @@ export class LegiScanApiClient {
 
     // Test 2: Direct API connectivity (skip session test for now)
     try {
-      const testEndpoint = `/?op=getMasterListByState&id=CA&api_key=${this.apiKey}`;
+      const testEndpoint = `/?key=${this.apiKey}&op=getMasterList&state=CA`;
       const testResponse = await this.client.call<LegiScanMasterListResponse>(testEndpoint, {
         method: 'GET',
         headers: this.buildHeaders(),
