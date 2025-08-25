@@ -385,22 +385,42 @@ class LegiScanComprehensiveApiService {
    * Enables "Find committees that handle [topic]" feature
    */
   async getStateCommittees(stateId: string = 'CA'): Promise<CommitteeInfo[]> {
+    if (!this.apiKey) {
+      console.warn('LegiScan API key not configured - returning demo committee data');
+      return this.getDemoCommittees();
+    }
+
     try {
       const endpoint = `/?op=getCommitteesByState&id=${stateId}&api_key=${this.apiKey}`;
+      console.log(`[Production] Fetching committees for ${stateId} from LegiScan API`);
 
       const response = await this.client.call<{ status: string; committees: any[] }>(endpoint, {
         method: 'GET',
         headers: this.buildHeaders(),
       });
 
-      if (response.data.status !== 'OK' || !response.data.committees) {
-        return [];
+      console.log(`[Production] Committee API response status:`, response.data.status);
+
+      if (response.data.status !== 'OK') {
+        console.error(`[Production] LegiScan API returned status: ${response.data.status}`);
+        return this.getDemoCommittees();
       }
 
-      return response.data.committees.map(committee => this.transformCommitteeData(committee));
+      if (!response.data.committees || response.data.committees.length === 0) {
+        console.warn(`[Production] No committees data returned from API`);
+        return this.getDemoCommittees();
+      }
+
+      const committees = response.data.committees.map(committee => this.transformCommitteeData(committee));
+      console.log(`[Production] Successfully transformed ${committees.length} committees`);
+      
+      return committees;
     } catch (error) {
-      console.error('Failed to fetch state committees:', error);
-      return [];
+      console.error('[Production] Failed to fetch state committees:', error);
+      if (error instanceof Error) {
+        console.error('[Production] Error details:', error.message);
+      }
+      return this.getDemoCommittees();
     }
   }
 
@@ -815,6 +835,73 @@ class LegiScanComprehensiveApiService {
         details: { error: error instanceof Error ? error.message : 'Unknown error' }
       };
     }
+  }
+
+  /**
+   * Get demo committees for development and API key fallback
+   */
+  private getDemoCommittees(): CommitteeInfo[] {
+    return [
+      {
+        id: 1001,
+        name: '[DEMO] Assembly Committee on Housing and Community Development',
+        chamber: 'House',
+        url: 'https://demo.legiscan.com/committee/housing',
+        members: [
+          {
+            peopleId: 2001,
+            name: '[DEMO] Assembly Member Chair',
+            party: 'Democrat',
+            role: 'Chair',
+            district: '15'
+          },
+          {
+            peopleId: 2002,
+            name: '[DEMO] Assembly Member Vice Chair',
+            party: 'Republican',
+            role: 'Vice Chair',
+            district: '42'
+          }
+        ]
+      },
+      {
+        id: 1002,
+        name: '[DEMO] Senate Committee on Environmental Quality',
+        chamber: 'Senate',
+        url: 'https://demo.legiscan.com/committee/environment',
+        members: [
+          {
+            peopleId: 3001,
+            name: '[DEMO] Senator Environment Chair',
+            party: 'Democrat',
+            role: 'Chair',
+            district: '11'
+          },
+          {
+            peopleId: 3002,
+            name: '[DEMO] Senator Environment Member',
+            party: 'Republican',
+            role: 'Member',
+            district: '33'
+          }
+        ]
+      },
+      {
+        id: 1003,
+        name: '[DEMO] Assembly Committee on Budget',
+        chamber: 'House',
+        url: 'https://demo.legiscan.com/committee/budget',
+        members: [
+          {
+            peopleId: 4001,
+            name: '[DEMO] Assembly Budget Chair',
+            party: 'Democrat',
+            role: 'Chair',
+            district: '7'
+          }
+        ]
+      }
+    ];
   }
 }
 

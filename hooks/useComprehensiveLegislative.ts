@@ -154,21 +154,14 @@ const useCommitteeDetails = (committeeId: number) => {
 };
 
 /**
- * Hook for state committees list - CLIENT-SIDE SAFE
+ * Hook for state committees list - PRODUCTION OPTIMIZED
  */
 const useStateCommittees = (stateId: string = 'CA') => {
   const [committees, setCommittees] = useState<CommitteeInfo[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const fetchCommittees = useCallback(async () => {
-    if (!isClient) return; // CLIENT-SIDE SAFETY
-    
     setLoading(true);
     setError(null);
 
@@ -176,21 +169,20 @@ const useStateCommittees = (stateId: string = 'CA') => {
       const committeesData = await legiScanComprehensiveApi.getStateCommittees(stateId);
       setCommittees(committeesData);
     } catch (err) {
+      console.error('Committee fetch error:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch committees');
     } finally {
       setLoading(false);
     }
-  }, [stateId, isClient]);
+  }, [stateId]);
 
   useEffect(() => {
-    if (isClient) {
-      fetchCommittees();
-    }
+    fetchCommittees();
   }, [fetchCommittees]);
 
   return {
     committees,
-    loading: !isClient || loading,
+    loading,
     error,
     refetch: fetchCommittees,
   };
@@ -382,21 +374,14 @@ const useDocumentContent = () => {
 // ========================================================================================
 
 /**
- * Hook for legislative calendar events - CLIENT-SIDE SAFE
+ * Hook for legislative calendar events - PRODUCTION OPTIMIZED
  */
 const useLegislativeCalendar = (stateId: string = 'CA', days: number = 30) => {
   const [events, setEvents] = useState<LegislativeCalendarEvent[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const fetchCalendar = useCallback(async () => {
-    if (!isClient) return; // CLIENT-SIDE SAFETY
-    
     setLoading(true);
     setError(null);
 
@@ -404,21 +389,20 @@ const useLegislativeCalendar = (stateId: string = 'CA', days: number = 30) => {
       const calendarData = await legiScanComprehensiveApi.getLegislativeCalendar(stateId, days);
       setEvents(calendarData);
     } catch (err) {
+      console.error('Legislative calendar fetch error:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch legislative calendar');
     } finally {
       setLoading(false);
     }
-  }, [stateId, days, isClient]);
+  }, [stateId, days]);
 
   useEffect(() => {
-    if (isClient) {
-      fetchCalendar();
-    }
+    fetchCalendar();
   }, [fetchCalendar]);
 
   return {
     events,
-    loading: !isClient || loading,
+    loading,
     error,
     refetch: fetchCalendar,
   };

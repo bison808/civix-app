@@ -197,10 +197,29 @@ export class LegiScanApiClient {
   
   constructor() {
     this.client = new ResilientApiClient(LEGISCAN_CONFIG);
+    
+    // PRODUCTION FIX: Enhanced API key access with comprehensive logging
     this.apiKey = process.env.LEGISCAN_API_KEY || process.env.NEXT_PUBLIC_LEGISCAN_API_KEY;
     
+    // Production diagnostic logging
+    const isProduction = process.env.NODE_ENV === 'production';
+    const hasServerKey = !!process.env.LEGISCAN_API_KEY;
+    const hasClientKey = !!process.env.NEXT_PUBLIC_LEGISCAN_API_KEY;
+    
+    console.log('[LegiScan] Production Environment Check:', {
+      isProduction,
+      hasServerKey,
+      hasClientKey,
+      apiKeyLength: this.apiKey ? this.apiKey.length : 0,
+      keySource: hasServerKey ? 'server' : hasClientKey ? 'client' : 'none',
+      timestamp: new Date().toISOString()
+    });
+    
     if (!this.apiKey) {
-      console.warn('LegiScan API key not found. Add LEGISCAN_API_KEY to environment variables.');
+      console.error('[LegiScan] PRODUCTION ERROR: API key not found in environment variables');
+      console.error('[LegiScan] Expected: LEGISCAN_API_KEY=319097f61079e8bdbb4d07c10c34a961');
+    } else {
+      console.log('[LegiScan] API key loaded successfully:', `${this.apiKey.substring(0, 8)}...`);
     }
   }
 
@@ -212,11 +231,22 @@ export class LegiScanApiClient {
       return this.currentSession.ca;
     }
 
+    // PRODUCTION FIX: Ensure API key is available before making session call
+    if (!this.apiKey) {
+      console.error('[LegiScan] Cannot get session - API key not available');
+      throw new Error('LegiScan API key required for session retrieval');
+    }
+
     try {
-      const response = await this.client.call<LegiScanSessionResponse>('/', {
+      console.log('[LegiScan] Requesting California session list...');
+      const endpoint = `/?op=getSessionList&id=CA&api_key=${this.apiKey}`;
+      
+      const response = await this.client.call<LegiScanSessionResponse>(endpoint, {
         method: 'GET',
         headers: this.buildHeaders(),
       });
+
+      console.log('[LegiScan] Session API Response Status:', response.data?.status);
 
       if (response.data.status === 'OK' && response.data.sessions) {
         // Find current California session (2025-2026)
@@ -227,18 +257,24 @@ export class LegiScanApiClient {
         
         if (currentSession) {
           this.currentSession.ca = currentSession.session_id;
-          console.log(`Found California session ${currentSession.session_id}: ${currentSession.session_name}`);
+          console.log(`[LegiScan] Found California session ${currentSession.session_id}: ${currentSession.session_name}`);
           return currentSession.session_id;
+        } else {
+          console.warn('[LegiScan] No current California session found for 2025');
         }
+      } else {
+        console.error('[LegiScan] Session API returned invalid response:', response.data);
       }
     } catch (error) {
-      console.error('Failed to get California session:', error);
+      console.error('[LegiScan] Failed to get California session:', error);
+      if (error instanceof Error) {
+        console.error('[LegiScan] Session error details:', error.message);
+      }
+      throw error; // Re-throw to trigger proper fallback
     }
 
-    // Fallback to known 2025 session ID (will be updated once API is available)
-    console.warn('Using fallback California session ID');
-    this.currentSession.ca = 2025; // This will need to be updated with actual session ID
-    return this.currentSession.ca;
+    // Should not reach here if API is working properly
+    throw new Error('Unable to retrieve California session from LegiScan API');
   }
 
   /**
@@ -249,41 +285,65 @@ export class LegiScanApiClient {
     offset: number = 0,
     sessionYear?: string
   ): Promise<Bill[]> {
+    console.log('[LegiScan] fetchCaliforniaBills called:', { limit, offset, sessionYear });
+    
     if (!this.apiKey) {
-      console.error('LegiScan API key required for real data. Falling back to cached data.');
-      throw new Error('LegiScan API key not configured');
+      console.error('[LegiScan] PRODUCTION ERROR: API key required for real data');
+      throw new Error('LegiScan API key not configured - check Vercel environment variables');
     }
 
     try {
-      // Get current session ID
-      const sessionId = await this.getCurrentCaliforniaSession();
+      // PRODUCTION FIX: Use getMasterListByState instead of session-based approach
+      // This matches the working API call pattern you tested
+      console.log('[LegiScan] Using direct state master list approach...');
       
-      // Fetch master list for California
-      const endpoint = `/?op=getMasterList&id=${sessionId}&api_key=${this.apiKey}`;
+      const endpoint = `/?op=getMasterListByState&id=CA&api_key=${this.apiKey}`;
+      console.log('[LegiScan] Calling endpoint:', endpoint.replace(this.apiKey, '***'));
       
       const response = await this.client.call<LegiScanMasterListResponse>(endpoint, {
         method: 'GET',
         headers: this.buildHeaders(),
       });
 
-      if (response.data.status !== 'OK') {
+      console.log('[LegiScan] Master list response keys:', Object.keys(response.data || {}));
+      console.log('[LegiScan] Master list response status:', response.data?.status);
+      console.log('[LegiScan] Master list bills count:', response.data?.masterlist ? Object.keys(response.data.masterlist).length : 0);
+
+      if (!response.data) {
+        throw new Error('LegiScan API returned no data');
+      }
+
+      if (response.data.status && response.data.status !== 'OK') {
         throw new Error(`LegiScan API error: ${response.data.status}`);
       }
 
+      // Handle different response formats
+      const masterList = response.data.masterlist || response.data;
+      if (!masterList || (typeof masterList === 'object' && Object.keys(masterList).length === 0)) {
+        console.warn('[LegiScan] No bills found in master list response');
+        return [];
+      }
+
       // Transform LegiScan data to our Bill format
-      const bills = this.transformLegiScanBills(response.data.masterlist);
+      const bills = this.transformLegiScanBills(masterList);
+      console.log('[LegiScan] Transformed bills count:', bills.length);
       
       // Apply pagination
       const startIndex = offset;
       const endIndex = startIndex + limit;
       const paginatedBills = bills.slice(startIndex, endIndex);
 
-      console.log(`LegiScan: Fetched ${paginatedBills.length} California bills (${bills.length} total)`);
+      console.log(`[LegiScan] SUCCESS: Fetched ${paginatedBills.length} California bills (${bills.length} total)`);
+      console.log('[LegiScan] Sample bill numbers:', paginatedBills.slice(0, 3).map(b => b.billNumber));
       return paginatedBills;
 
     } catch (error) {
-      console.error('LegiScan API failed:', error);
-      throw error; // Let the resilient client handle fallbacks
+      console.error('[LegiScan] PRODUCTION API FAILED:', error);
+      if (error instanceof Error) {
+        console.error('[LegiScan] Error details:', error.message);
+        console.error('[LegiScan] Stack trace:', error.stack);
+      }
+      throw error; // Re-throw to trigger fallbacks in calling code
     }
   }
 
@@ -540,6 +600,93 @@ export class LegiScanApiClient {
       'User-Agent': 'CITZN-Platform/1.0 (civic-engagement)',
       'Content-Type': 'application/json'
     };
+  }
+
+  // PRODUCTION DIAGNOSTIC METHOD
+  async runProductionDiagnostic(): Promise<{
+    apiKeyStatus: 'configured' | 'missing';
+    sessionStatus: 'available' | 'failed';
+    billsStatus: 'working' | 'failed';
+    apiUsageWorking: boolean;
+    diagnosticResults: any;
+  }> {
+    console.log('[LegiScan] Running production diagnostic...');
+    
+    const results: any = {
+      timestamp: new Date().toISOString(),
+      apiKeyConfigured: !!this.apiKey,
+      environment: process.env.NODE_ENV,
+    };
+
+    // Test 1: API Key
+    if (!this.apiKey) {
+      console.error('[LegiScan] DIAGNOSTIC FAILED: No API key');
+      return {
+        apiKeyStatus: 'missing',
+        sessionStatus: 'failed',
+        billsStatus: 'failed',
+        apiUsageWorking: false,
+        diagnosticResults: results
+      };
+    }
+    results.apiKeyLength = this.apiKey.length;
+    console.log('[LegiScan] ✓ API key configured');
+
+    // Test 2: Direct API connectivity (skip session test for now)
+    try {
+      const testEndpoint = `/?op=getMasterListByState&id=CA&api_key=${this.apiKey}`;
+      const testResponse = await this.client.call<LegiScanMasterListResponse>(testEndpoint, {
+        method: 'GET',
+        headers: this.buildHeaders(),
+      });
+      
+      results.apiConnectivity = testResponse.data?.status === 'OK';
+      results.directApiSuccess = true;
+      console.log('[LegiScan] ✓ Direct API connectivity working');
+    } catch (error) {
+      results.apiError = error instanceof Error ? error.message : 'Unknown error';
+      results.directApiSuccess = false;
+      console.error('[LegiScan] ✗ Direct API connectivity failed');
+      return {
+        apiKeyStatus: 'configured',
+        sessionStatus: 'failed',
+        billsStatus: 'failed',
+        apiUsageWorking: false,
+        diagnosticResults: results
+      };
+    }
+
+    // Test 3: Bills retrieval
+    try {
+      const testBills = await this.fetchCaliforniaBills(3, 0);
+      results.billsCount = testBills.length;
+      results.billsSuccess = true;
+      results.sampleBills = testBills.slice(0, 2).map(b => ({
+        id: b.id,
+        number: b.billNumber,
+        title: b.title.substring(0, 50)
+      }));
+      console.log('[LegiScan] ✓ Bills retrieval working');
+      
+      return {
+        apiKeyStatus: 'configured',
+        sessionStatus: 'available', 
+        billsStatus: 'working',
+        apiUsageWorking: true,
+        diagnosticResults: results
+      };
+    } catch (error) {
+      results.billsError = error instanceof Error ? error.message : 'Unknown error';
+      results.billsSuccess = false;
+      console.error('[LegiScan] ✗ Bills retrieval failed');
+      return {
+        apiKeyStatus: 'configured',
+        sessionStatus: 'available',
+        billsStatus: 'failed', 
+        apiUsageWorking: false,
+        diagnosticResults: results
+      };
+    }
   }
 
   // Management methods
