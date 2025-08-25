@@ -54,7 +54,21 @@ export default function MobileNav({ className }: MobileNavProps) {
     
     // Set up polling for new notifications
     const interval = setInterval(loadNotificationCount, 30000);
-    return () => clearInterval(interval);
+    
+    // Add a global click listener to debug navigation issues
+    const handleGlobalClick = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (target && target.closest('.mobile-nav-critical')) {
+        console.log('MobileNav: Global click detected on navigation');
+      }
+    };
+    
+    document.addEventListener('click', handleGlobalClick);
+    
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('click', handleGlobalClick);
+    };
   }, []);
 
   // Close menu on route change with error handling
@@ -133,11 +147,13 @@ export default function MobileNav({ className }: MobileNavProps) {
 
   const handleNavigation = useCallback((path: string) => {
     try {
+      console.log('MobileNav: Attempting navigation to:', path);
       router.push(path);
     } catch (error) {
       console.error('Navigation error:', error);
       // Fallback to window.location for critical navigation
       if (typeof window !== 'undefined') {
+        console.log('MobileNav: Using fallback navigation to:', path);
         window.location.href = path;
       }
     }
@@ -159,8 +175,12 @@ export default function MobileNav({ className }: MobileNavProps) {
   
   // Don't render until client-side hydration is complete
   if (!isClient || shouldHideNav) {
+    console.log('MobileNav: Not rendering -', { isClient, shouldHideNav, pathname });
     return null;
   }
+
+  // Debug navigation rendering
+  console.log('MobileNav: Rendering on pathname:', pathname);
 
   // Fallback rendering for critical navigation if component encounters issues
   if (!navItems || navItems.length === 0) {
@@ -243,7 +263,9 @@ export default function MobileNav({ className }: MobileNavProps) {
           right: '0px',
           backgroundColor: 'white',
           borderTop: '1px solid rgb(229 231 235)',
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
+          height: '4rem',
+          width: '100%'
         } as React.CSSProperties}
         role="navigation"
         aria-label="Main navigation"
@@ -255,21 +277,32 @@ export default function MobileNav({ className }: MobileNavProps) {
           return (
             <button
               key={item.path}
-              onClick={() => handleNavigation(item.path)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('MobileNav: Button clicked for:', item.path);
+                handleNavigation(item.path);
+              }}
+              onTouchStart={(e) => {
+                console.log('MobileNav: Touch started for:', item.path);
+              }}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center",
                 "py-2 px-1 relative transition-all duration-150",
                 "min-h-[44px] min-w-[44px]", // Ensure minimum touch target size
                 "cursor-pointer touch-manipulation",
                 "hover:bg-delta/5 active:scale-95",
+                "focus:outline-none focus:ring-2 focus:ring-delta focus:ring-opacity-50",
                 active ? "text-delta font-medium" : "text-gray-500 hover:text-gray-700"
               )}
               style={{
                 touchAction: 'manipulation',
-                WebkitTapHighlightColor: 'rgba(124, 58, 237, 0.1)'
+                WebkitTapHighlightColor: 'rgba(124, 58, 237, 0.1)',
+                pointerEvents: 'auto'
               }}
               aria-label={item.label}
               aria-current={active ? 'page' : undefined}
+              type="button"
             >
               <Icon size={22} />
               <span className={cn(

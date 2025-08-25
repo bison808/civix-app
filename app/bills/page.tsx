@@ -2,6 +2,7 @@
 
 import { ErrorBoundary } from 'react-error-boundary';
 import nextDynamic from 'next/dynamic';
+import { NavigationTest } from '@/components/diagnostics/NavigationTest';
 
 function ErrorFallback({error, resetErrorBoundary}: {error: Error, resetErrorBoundary: () => void}) {
   return (
@@ -73,22 +74,25 @@ const BillsPageContent = nextDynamic(
 
 export default function BillsPage() {
   return (
-    <ErrorBoundary 
-      FallbackComponent={ErrorFallback}
-      onError={(error) => {
-        console.error('Bills page error:', error);
-        // Add accessibility announcement for screen readers
-        if (typeof document !== 'undefined') {
-          const announcement = document.createElement('div');
-          announcement.setAttribute('aria-live', 'assertive');
-          announcement.setAttribute('aria-atomic', 'true');
-          announcement.textContent = 'Error loading bills page. Please try refreshing.';
-          document.body.appendChild(announcement);
-          setTimeout(() => document.body.removeChild(announcement), 3000);
-        }
-      }}
-    >
-      <BillsPageContent />
-    </ErrorBoundary>
+    <>
+      <ErrorBoundary 
+        FallbackComponent={ErrorFallback}
+        onError={(error) => {
+          console.error('Bills page error:', error);
+          // Add accessibility announcement for screen readers
+          if (typeof document !== 'undefined') {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'assertive');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.textContent = 'Error loading bills page. Please try refreshing.';
+            document.body.appendChild(announcement);
+            setTimeout(() => document.body.removeChild(announcement), 3000);
+          }
+        }}
+      >
+        <BillsPageContent />
+      </ErrorBoundary>
+      <NavigationTest />
+    </>
   );
 }

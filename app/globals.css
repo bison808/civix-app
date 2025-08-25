@@ -104,6 +104,18 @@
     .mobile-nav-critical * {
       z-index: 9999 !important;
     }
+
+    /* Ensure navigation buttons are always clickable */
+    .mobile-nav-critical button {
+      pointer-events: auto !important;
+      position: relative !important;
+      z-index: 9999 !important;
+    }
+
+    /* Prevent any dynamic content from overlaying navigation */
+    .mobile-nav-critical {
+      isolation: isolate !important;
+    }
   }
 
   .no-scrollbar {

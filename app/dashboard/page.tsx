@@ -10,6 +10,7 @@ import Card from '@/components/core/Card';
 import Button from '@/components/core/Button';
 import StandardPageLayout from '@/components/layout/StandardPageLayout';
 import { useAuth } from '@/contexts/AuthContext';
+import { NavigationTest } from '@/components/diagnostics/NavigationTest';
 
 const DashboardPlaceholderPage = () => {
   const router = useRouter();
@@ -34,9 +35,10 @@ const DashboardPlaceholderPage = () => {
   }
 
   return (
-    <StandardPageLayout>
-      {/* Welcome Header */}
-      <div className="mb-8">
+    <>
+      <StandardPageLayout>
+        {/* Welcome Header */}
+        <div className="mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
             Welcome back!
@@ -229,8 +231,10 @@ const DashboardPlaceholderPage = () => {
             </div>
           </Card>
         </div>
-      </div>
-    </StandardPageLayout>
+        </div>
+      </StandardPageLayout>
+      <NavigationTest />
+    </>
   );
 };
 
