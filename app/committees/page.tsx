@@ -1,8 +1,17 @@
-'use client';
-
-import nextDynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
+import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import nextDynamic from 'next/dynamic';
+
+// Kevin's Architecture + Rachel's UX: Client-only component with skeleton  
+const CommitteesPageContent = nextDynamic(
+  () => import('@/components/pages/CommitteesPageContent').then(mod => ({ 
+    default: mod.CommitteesPageContent 
+  })),
+  { 
+    ssr: false,
+    loading: () => null // Skeleton handled by Suspense
+  }
+);
 
 export const dynamic = 'force-dynamic';
 
@@ -16,73 +25,61 @@ function ErrorFallback({error, resetErrorBoundary}: {error: Error, resetErrorBou
         <p className="text-sm text-red-600 mb-4">
           We encountered an issue loading the committees page. This might be a temporary connectivity issue.
         </p>
-        <button 
-          onClick={resetErrorBoundary}
-          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-        >
-          Try Loading Again
-        </button>
-      </div>
-    </div>
-  );
-}
-
-function CommitteesPageLoading() {
-  const [showTimeout, setShowTimeout] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowTimeout(true);
-    }, 8000); // Show timeout after 8 seconds
-    
-    return () => clearTimeout(timer);
-  }, []);
-  
-  if (showTimeout) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-yellow-50">
-        <div className="text-center max-w-md mx-auto px-4">
-          <h2 className="text-xl font-semibold text-yellow-800 mb-4">Taking longer than expected</h2>
-          <p className="text-sm text-yellow-600 mb-4">
-            Legislative committees are taking a while to load. This might be due to high server load.
-          </p>
+        <div className="space-y-2">
           <button 
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors mr-2"
+            onClick={resetErrorBoundary}
+            className="block w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            Reload page
+            Try Loading Again
           </button>
           <button 
             onClick={() => window.location.href = '/'}
-            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
+            className="block w-full px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
           >
-            Go to Home
+            Return to Home
           </button>
         </div>
-      </div>
-    );
-  }
-  
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <p className="text-gray-600 font-medium">Loading California Legislative Committees...</p>
-        <p className="text-xs text-gray-500 mt-2">Connecting to committee data...</p>
       </div>
     </div>
   );
 }
 
-const CommitteesPageContent = nextDynamic(
-  () => import('@/components/pages/CommitteesPageContent').then(mod => ({ 
-    default: mod.CommitteesPageContent 
-  })),
-  { 
-    ssr: false,
-    loading: () => <CommitteesPageLoading />
-  }
-);
+// Progressive Loading Skeleton - Rachel's UX Enhancement
+function CommitteesPageSkeleton() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="mb-6">
+          <div className="h-8 bg-gray-200 rounded-lg w-80 mb-2 animate-pulse"></div>
+          <div className="h-4 bg-gray-200 rounded w-96 animate-pulse"></div>
+        </div>
+        
+        <div className="grid gap-6 md:grid-cols-2">
+          {[...Array(8)].map((_, i) => (
+            <div key={i} className="bg-white rounded-lg shadow-sm border p-6">
+              <div className="h-6 bg-gray-200 rounded w-3/4 mb-3 animate-pulse"></div>
+              <div className="h-4 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+              <div className="h-4 bg-gray-200 rounded w-5/6 mb-4 animate-pulse"></div>
+              <div className="flex justify-between">
+                <div className="h-5 bg-gray-200 rounded w-24 animate-pulse"></div>
+                <div className="h-5 bg-gray-200 rounded w-20 animate-pulse"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="text-center mt-8">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+          <p className="text-gray-600 text-sm" role="status" aria-live="polite">
+            Loading California legislative committees...
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Kevin's Architecture Fix: Direct imports instead of dynamic imports
 
 export default function CommitteesPage() {
   return (
@@ -90,9 +87,18 @@ export default function CommitteesPage() {
       FallbackComponent={ErrorFallback}
       onError={(error) => {
         console.error('Committees page error:', error);
+        // Add accessibility announcement for screen readers
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'assertive');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.textContent = 'Error loading committees page. Please try refreshing.';
+        document.body.appendChild(announcement);
+        setTimeout(() => document.body.removeChild(announcement), 3000);
       }}
     >
-      <CommitteesPageContent />
+      <Suspense fallback={<CommitteesPageSkeleton />}>
+        <CommitteesPageContent />
+      </Suspense>
     </ErrorBoundary>
   );
 }
