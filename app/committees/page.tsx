@@ -1,7 +1,7 @@
+'use client';
+
 import { ErrorBoundary } from 'react-error-boundary';
 import nextDynamic from 'next/dynamic';
-
-export const dynamic = 'force-dynamic';
 
 function ErrorFallback({error, resetErrorBoundary}: {error: Error, resetErrorBoundary: () => void}) {
   return (
