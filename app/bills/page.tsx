@@ -1,10 +1,8 @@
-import nextDynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 
-export const dynamic = 'force-dynamic';
-
-// Dynamic import with SSR disabled to prevent React Query context errors
-const BillsPageClient = nextDynamic(
-  () => import('@/components/pages/BillsPageClient'),
+// Single dynamic import to prevent React Query SSR issues - no loading chain
+const BillsPageContent = dynamic(
+  () => import('@/components/pages/BillsPageContent').then(mod => ({ default: mod.BillsPageContent })),
   { 
     ssr: false,
     loading: () => (
@@ -19,5 +17,5 @@ const BillsPageClient = nextDynamic(
 );
 
 export default function BillsPage() {
-  return <BillsPageClient />;
+  return <BillsPageContent />;
 }

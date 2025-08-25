@@ -48,6 +48,21 @@ export function BillsPageContent() {
   
   const bills = Array.isArray(billsData) ? billsData : (billsData?.bills || []);
   
+  // Loading timeout to prevent infinite loading states
+  const [loadingTimeout, setLoadingTimeout] = useState(false);
+  
+  useEffect(() => {
+    if (loading) {
+      const timeout = setTimeout(() => {
+        setLoadingTimeout(true);
+      }, 15000); // 15 second timeout
+      
+      return () => clearTimeout(timeout);
+    } else {
+      setLoadingTimeout(false);
+    }
+  }, [loading]);
+  
   // Make representatives optional for public access - use empty query when not authenticated
   const { 
     data: representativesData 
@@ -445,6 +460,19 @@ export function BillsPageContent() {
                   Error Loading Bills
                 </h3>
                 <p className="text-gray-600 mb-4">{error instanceof Error ? error.message : String(error)}</p>
+                <Button onClick={() => refreshBills()}>
+                  Try Again
+                </Button>
+              </Card>
+            ) : loadingTimeout ? (
+              <Card variant="default" padding="md" className="text-center">
+                <AlertCircle size={48} className="mx-auto text-yellow-500 mb-4" />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Loading Taking Longer Than Expected
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Bills are taking a while to load. This might be due to high server load or network issues.
+                </p>
                 <Button onClick={() => refreshBills()}>
                   Try Again
                 </Button>
