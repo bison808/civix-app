@@ -3,9 +3,9 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-// Dynamic import with SSR disabled to prevent context errors
+// Dynamic import with SSR disabled to prevent context errors - using simple version temporarily
 const BillsPageContent = dynamic(
-  () => import('./BillsPageContent').then(mod => ({ default: mod.BillsPageContent })),
+  () => import('./BillsPageContent.simple').then(mod => ({ default: mod.BillsPageContentSimple })),
   {
     ssr: false,
     loading: () => (
