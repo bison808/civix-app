@@ -3,9 +3,9 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
-// Dynamic import with SSR disabled to prevent context errors
+// Dynamic import with SSR disabled to prevent context errors - using simplified version temporarily
 const CommitteesPageContent = dynamic(
-  () => import('./CommitteesPageContent').then(mod => ({ default: mod.CommitteesPageContent })),
+  () => import('./CommitteesPageContent.simple').then(mod => ({ default: mod.CommitteesPageContentSimple })),
   {
     ssr: false,
     loading: () => (

@@ -9,7 +9,7 @@ import { CivixLogo } from '@/components/CivixLogo';
 import UserMenu from '@/components/UserMenu';
 import ZipDisplay from '@/components/ZipDisplay';
 import VerificationBadge from '@/components/VerificationBadge';
-import ProtectedRoute from '@/components/auth/ProtectedRoute';
+// import ProtectedRoute from '@/components/auth/ProtectedRoute'; // Removed - bills should be publicly accessible
 import Card from '@/components/core/Card';
 import Button from '@/components/core/Button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -38,7 +38,7 @@ export function BillsPageContent() {
   const [activeView, setActiveView] = useState<'all' | 'tracked' | 'voted'>('all');
   const [sortBy, setSortBy] = useState<'relevance' | 'date' | 'engagement'>('relevance');
   
-  // Hooks
+  // Hooks - make them optional to prevent authentication blocking
   const { 
     data: billsData, 
     isLoading: loading, 
@@ -48,11 +48,14 @@ export function BillsPageContent() {
   
   const bills = Array.isArray(billsData) ? billsData : (billsData?.bills || []);
   
+  // Make representatives optional for public access - use empty query when not authenticated
   const { 
     data: representativesData 
   } = useRepresentatives();
   
-  const representatives = Array.isArray(representativesData) ? representativesData : (representativesData?.representatives || []);
+  const representatives = representativesData ? 
+    (Array.isArray(representativesData) ? representativesData : (representativesData?.representatives || [])) :
+    [];
 
   // Enhanced bills with representative connections
   const [enhancedBills, setEnhancedBills] = useState<BillWithRepConnection[]>([]);
@@ -105,7 +108,7 @@ export function BillsPageContent() {
 
   const handleVote = async (billId: string, vote: 'like' | 'dislike' | null) => {
     if (!user) {
-      router.push('/login');
+      router.push('/login?from=/bills');
       return;
     }
     
@@ -122,7 +125,7 @@ export function BillsPageContent() {
 
   const handleTrackBill = async (billId: string, track: boolean) => {
     if (!user) {
-      router.push('/login');
+      router.push('/login?from=/bills');
       return;
     }
     
@@ -291,8 +294,7 @@ export function BillsPageContent() {
   );
 
   return (
-    <ProtectedRoute>
-      <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col">
         {/* Desktop Header */}
         {!isMobile && (
           <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white safe-top">
@@ -461,6 +463,5 @@ export function BillsPageContent() {
           </div>
         </div>
       </div>
-    </ProtectedRoute>
   );
 }
