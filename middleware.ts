@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // Define public routes that don't require authentication
-const publicRoutes = ['/login', '/register', '/verify', '/preview'];
+const publicRoutes = ['/login', '/register', '/verify', '/preview', '/bills', '/committees'];
 
 // Define routes that require verified status
 const verifiedOnlyRoutes: string[] = []; // Allow anonymous access to all routes for now
