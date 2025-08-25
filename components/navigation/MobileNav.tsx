@@ -36,14 +36,11 @@ export default function MobileNav({ className }: MobileNavProps) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClient, setIsClient] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
 
-  // Ensure component is mounted on client to prevent hydration mismatches
+  // Load notifications immediately without hydration delay
   useEffect(() => {
-    setIsClient(true);
-    
     // Load notification count
     const loadNotificationCount = () => {
       const unread = committeeNotificationService.getUnreadNotifications();
@@ -69,7 +66,7 @@ export default function MobileNav({ className }: MobileNavProps) {
 
   // Prevent body scroll when menu is open with cleanup
   useEffect(() => {
-    if (!isClient || typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return;
     
     try {
       if (isMenuOpen) {
@@ -88,7 +85,7 @@ export default function MobileNav({ className }: MobileNavProps) {
         console.warn('Error resetting body scroll:', error);
       }
     };
-  }, [isMenuOpen, isClient]);
+  }, [isMenuOpen]);
 
   const navItems = [
     { 
@@ -158,8 +155,8 @@ export default function MobileNav({ className }: MobileNavProps) {
                         pathname.startsWith('/onboarding') || 
                         pathname === '/login';
   
-  // Don't render until client-side hydration is complete
-  if (!isClient || shouldHideNav) {
+  // Don't render on pages that shouldn't show navigation
+  if (shouldHideNav) {
     return null;
   }
 

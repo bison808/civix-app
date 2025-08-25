@@ -67,6 +67,11 @@ const nextConfig = {
             key: 'X-DNS-Prefetch-Control',
             value: 'on'
           },
+          // CRITICAL: Resource hints for faster chunk loading
+          {
+            key: 'Link',
+            value: '</static/chunks/framework.js>; rel=preload; as=script, </static/chunks/critical-ui.js>; rel=preload; as=script'
+          },
           // Security headers for civic platform
           {
             key: 'X-XSS-Protection',
@@ -88,6 +93,11 @@ const nextConfig = {
           {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()'
+          },
+          // CRITICAL: Connection preloading for faster resource fetching
+          {
+            key: 'Link',
+            value: '<https://api.congress.gov>; rel=preconnect; crossorigin, <https://v3.openstates.org>; rel=preconnect; crossorigin'
           }
         ]
       },
@@ -142,23 +152,35 @@ const nextConfig = {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: 'all',
-        minSize: 10000,      // Smaller chunks for better caching
-        maxSize: 150000,     // Much smaller max size - was 244000
-        maxAsyncRequests: 30, // Allow more async requests
-        maxInitialRequests: 4, // Much more aggressive limit
+        minSize: 20000,      // Larger minimum to reduce fragmentation  
+        maxSize: 200000,     // Balanced for fewer chunks
+        maxAsyncRequests: 15, // Reduce async fragmentation
+        maxInitialRequests: 6, // Allow critical UI chunks
         cacheGroups: {
           // Disable default chunk splitting to prevent fragmentation
           default: false,
           defaultVendors: false,
           
-          // Single consolidated framework chunk
+          // CRITICAL: Consolidated framework chunk - FORCE SINGLE CHUNK
           framework: {
-            test: /[\\/]node_modules[\\/](react|react-dom|next)[\\/]/,
+            test: /[\\/]node_modules[\\/](react|react-dom|next|scheduler|prop-types|use-subscription)[\\/]/,
             name: 'framework',
-            priority: 50,
+            priority: 60,
             chunks: 'all',
             enforce: true,
             reuseExistingChunk: true,
+            minSize: 0,
+            maxSize: 500000, // Allow larger framework chunk to prevent splitting
+          },
+          
+          // CRITICAL: Navigation and interaction libraries - FIRST PRIORITY
+          criticalUI: {
+            test: /[\\/](components[\\/](navigation|layout|core)|hooks[\\/](useAuth|useMediaQuery))[\\/]/,
+            name: 'critical-ui',
+            priority: 55,
+            chunks: 'initial', // Load immediately with page
+            enforce: true,
+            minSize: 0,
           },
           
           // Large data files - MUST be async only
@@ -263,19 +285,82 @@ const nextConfig = {
     // Tree shaking optimizations - removed usedExports to fix webpack conflict
     config.optimization.sideEffects = false;
     
-    // Performance budgets - COMPREHENSIVE PLATFORM OPTIMIZED
+    // CRITICAL: Module concatenation for faster loading
+    config.optimization.concatenateModules = true;
+    
+    // CRITICAL: Parallel chunk loading optimization  
+    if (!dev && !isServer) {
+      config.optimization.runtimeChunk = {
+        name: 'runtime'  // Single runtime chunk for faster loading
+      };
+      
+      // Minimize chunk dependencies for parallel loading
+      config.optimization.moduleIds = 'deterministic';
+      config.optimization.chunkIds = 'deterministic';
+    }
+    
+    // Performance budgets - OPTIMIZED FOR <20 CHUNK TARGET
     if (!dev) {
       config.performance = {
-        maxAssetSize: 350000,  // 350KB per asset (realistic for comprehensive civic features)
-        maxEntrypointSize: 400000, // 400KB for comprehensive civic engagement entry points  
-        hints: 'warning', // Warn but don't fail build - comprehensive features justified
+        maxAssetSize: 250000,  // 250KB per asset - STRICTER for fewer chunks
+        maxEntrypointSize: 350000, // 350KB entry points - REDUCED from 400KB
+        hints: 'error', // ERROR on budget violations to enforce <20 chunks
         assetFilter: (assetFilename) => {
-          // Skip large data files and comprehensive feature chunks
+          // Monitor all chunks except specific data files
           return !assetFilename.endsWith('.html') && 
                  !assetFilename.includes('california-federal-data') &&
-                 !assetFilename.includes('comprehensive-legislative');
+                 !assetFilename.includes('comprehensive-legislative') &&
+                 !assetFilename.includes('.map'); // Skip sourcemaps
         }
       };
+    }
+    
+    // CRITICAL: Bundle analysis and chunk monitoring
+    config.plugins = config.plugins || [];
+    
+    if (!dev) {
+      const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+      
+      // Add bundle analyzer in CI or when ANALYZE=true
+      if (process.env.CI || process.env.ANALYZE === 'true') {
+        config.plugins.push(
+          new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            reportFilename: 'bundle-analysis.html',
+            openAnalyzer: false,
+            generateStatsFile: true,
+            statsFilename: 'bundle-stats.json'
+          })
+        );
+      }
+      
+      // Custom plugin to monitor chunk count
+      config.plugins.push({
+        apply: (compiler) => {
+          compiler.hooks.done.tap('ChunkCountMonitor', (stats) => {
+            const chunks = stats.compilation.chunks;
+            const chunkCount = chunks.size;
+            
+            console.log(`\n🎯 BUNDLE OPTIMIZATION REPORT:`);
+            console.log(`📦 Total chunks: ${chunkCount} (Target: <20)`);
+            
+            if (chunkCount > 20) {
+              console.log(`❌ CHUNK COUNT EXCEEDED TARGET: ${chunkCount} > 20`);
+              console.log(`🔧 Bundle fragmentation optimization needed`);
+            } else {
+              console.log(`✅ Chunk count within target: ${chunkCount} ≤ 20`);
+            }
+            
+            // List largest chunks for optimization guidance
+            const sortedChunks = Array.from(chunks).sort((a, b) => b.size - a.size);
+            console.log(`\n📊 Largest chunks:`);
+            sortedChunks.slice(0, 5).forEach((chunk, i) => {
+              const sizeKB = Math.round(chunk.size / 1024);
+              console.log(`${i + 1}. ${chunk.name || 'unnamed'}: ${sizeKB}KB`);
+            });
+          });
+        }
+      });
     }
     
     return config;

@@ -1,0 +1,201 @@
+
+> citzn-frontend@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.0
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · turbo
+
+   Creating an optimized production build ...
+
+🎯 BUNDLE OPTIMIZATION REPORT:
+📦 Total chunks: 85 (Target: <20)
+❌ CHUNK COUNT EXCEEDED TARGET: 85 > 20
+🔧 Bundle fragmentation optimization needed
+
+📊 Largest chunks:
+1. app/_not-found/page: NaNKB
+2. pages/_app: NaNKB
+3. pages/_error: NaNKB
+4. pages/_document: NaNKB
+5. app/api/auth/change-password/route: NaNKB
+
+🎯 BUNDLE OPTIMIZATION REPORT:
+📦 Total chunks: 2 (Target: <20)
+✅ Chunk count within target: 2 ≤ 20
+
+📊 Largest chunks:
+1. middleware: NaNKB
+2. edge-runtime-webpack: NaNKB
+Failed to compile.
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (342 KiB). This can impact web performance.
+Entrypoints:
+  app/bills/page (454 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      96.js
+      925.js
+      5235.js
+      9506.js
+      ../app/bills/page.js
+  app/committees/page (414 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      949.js
+      1699.js
+      ../app/committees/page.js
+  app/dashboard/page (347 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/dashboard/page.js
+  app/page (465 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8372.js
+      8187.js
+      ../app/page.js
+  app/preview/page (347 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8372.js
+      8187.js
+      ../app/preview/page.js
+  app/account/page (348 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/account/page.js
+  app/bill/[id]/page (362 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      8187.js
+      96.js
+      925.js
+      ../app/bill/[id]/page.js
+  app/change-zip/page (350 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/change-zip/page.js
+  app/api/monitoring/health-checks/route (372 KiB)
+      ../webpack-runtime.js
+      8948.js
+      5972.js
+      6923.js
+      5672.js
+      4106.js
+      6441.js
+      ../app/api/monitoring/health-checks/route.js
+  app/feed/page (427 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      96.js
+      925.js
+      5235.js
+      1699.js
+      4912.js
+      ../app/feed/page.js
+  app/committees/[id]/page (365 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      4869.js
+      8187.js
+      ../app/committees/[id]/page.js
+  app/impact/page (362 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      8187.js
+      96.js
+      925.js
+      ../app/impact/page.js
+  app/my-votes/page (364 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      8187.js
+      96.js
+      925.js
+      4912.js
+      ../app/my-votes/page.js
+  app/recover-username/page (344 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/recover-username/page.js
+  app/debug/page (349 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      8187.js
+      96.js
+      925.js
+      ../app/debug/page.js
+  app/register/page (342 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/register/page.js
+  app/representatives/[id]/page (417 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      4869.js
+      8187.js
+      96.js
+      925.js
+      ../app/representatives/[id]/page.js
+  app/settings/page (343 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/settings/page.js
+  app/reset-password/page (343 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      ../app/reset-password/page.js
+  app/representatives/page (390 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      96.js
+      925.js
+      ../app/representatives/page.js
+
+
+> Build failed because of webpack errors

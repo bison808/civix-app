@@ -1,0 +1,50 @@
+{
+  "timestamp": "2025-08-25T05:37:23.469Z",
+  "summary": {
+    "totalPages": 6,
+    "failedPages": 6,
+    "averageLoadTime": 0,
+    "jsonHeavyPages": [],
+    "lightweightPages": [],
+    "navigationDegradation": {}
+  },
+  "detailedResults": {
+    "homepage": {
+      "path": "/",
+      "error": "page.waitForTimeout is not a function",
+      "loadTime": 4543,
+      "failed": true
+    },
+    "login": {
+      "path": "/login",
+      "error": "page.waitForTimeout is not a function",
+      "loadTime": 1295,
+      "failed": true
+    },
+    "preview": {
+      "path": "/preview",
+      "error": "page.waitForTimeout is not a function",
+      "loadTime": 1573,
+      "failed": true
+    },
+    "bills": {
+      "path": "/bills",
+      "error": "page.waitForTimeout is not a function",
+      "loadTime": 1734,
+      "failed": true
+    },
+    "committees": {
+      "path": "/committees",
+      "error": "page.waitForTimeout is not a function",
+      "loadTime": 1078,
+      "failed": true
+    },
+    "dashboard": {
+      "path": "/dashboard",
+      "error": "page.waitForTimeout is not a function",
+      "loadTime": 1165,
+      "failed": true
+    }
+  },
+  "recommendations": []
+}

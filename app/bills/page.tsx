@@ -62,22 +62,16 @@ function BillsPageSkeleton() {
 }
 
 // Kevin's Architecture Solution: Direct import removes hydration isolation issues
-// Rachel's UX: Progressive loading with skeleton screen for perceived performance
+// Rachel's UX: Immediate content loading for optimal navigation responsiveness
 function BillsPageWithProgressiveLoading() {
   const [isLoading, setIsLoading] = useState(true);
-  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    // Progressive loading: Show skeleton briefly, then content
-    const timer = setTimeout(() => {
-      setShowContent(true);
-      setIsLoading(false);
-    }, 200); // Brief skeleton display for perceived performance
-
-    return () => clearTimeout(timer);
+    // Load content immediately for fastest handler attachment
+    setIsLoading(false);
   }, []);
 
-  if (isLoading || !showContent) {
+  if (isLoading) {
     return <BillsPageSkeleton />;
   }
 
