@@ -50,7 +50,13 @@ export function BillsPageContent() {
   
   // Loading timeout to prevent infinite loading states
   const [loadingTimeout, setLoadingTimeout] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   
+  // Hydration safety
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
   useEffect(() => {
     if (loading) {
       const timeout = setTimeout(() => {
@@ -476,6 +482,11 @@ export function BillsPageContent() {
                 <Button onClick={() => refreshBills()}>
                   Try Again
                 </Button>
+              </Card>
+            ) : !hydrated ? (
+              <Card variant="default" padding="md" className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-delta mx-auto mb-4" />
+                <p className="text-gray-600">Initializing...</p>
               </Card>
             ) : (
               <BillFeed

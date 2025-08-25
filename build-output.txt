@@ -1,0 +1,902 @@
+
+> citzn-frontend@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.0
+  - Environments: .env.local
+  - Experiments (use with caution):
+    · turbo
+
+   Creating an optimized production build ...
+ ⚠ Compiled with warnings
+
+./services/authApi.ts
+export 'LoginRequest' (reexported as 'LoginRequest') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./contexts/AuthContext.tsx
+
+./services/authApi.ts
+export 'LoginResponse' (reexported as 'LoginResponse') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./contexts/AuthContext.tsx
+
+./services/authApi.ts
+export 'RegisterRequest' (reexported as 'RegisterRequest') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./contexts/AuthContext.tsx
+
+./services/authApi.ts
+export 'RegisterResponse' (reexported as 'RegisterResponse') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./contexts/AuthContext.tsx
+
+./services/authApi.ts
+export 'SessionValidation' (reexported as 'SessionValidation') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./contexts/AuthContext.tsx
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (391 KiB). This can impact web performance.
+Entrypoints:
+  main (599 KiB)
+      static/chunks/webpack-b22fac0a121150cb.js
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/main-a093b68c7a9268e9.js
+  main-app (596 KiB)
+      static/chunks/webpack-b22fac0a121150cb.js
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/main-app-affbdbf23366b5ee.js
+  app/_not-found/page (590 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/_not-found/page-63d5795af0ccbafe.js
+  app/layout (796 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/css/649fbed350a3931a.css
+      static/chunks/app/layout-f3956634-5446f3e3a8fef7c4.js
+      static/chunks/app/layout-f88dba18-12829d9550c3c48e.js
+      static/chunks/app/layout-f5ee3ce1-0d6a5f972b520074.js
+      static/chunks/app/layout-f181baaa-a41a321d862cdd84.js
+      static/chunks/app/layout-7a08a8f9-194aaf591df143ea.js
+  app/bills/page (904 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/bills/page-f3956634-c1c4bb14595e8bb5.js
+      static/chunks/app/bills/page-a3dad144-6f65f5904f962208.js
+      static/chunks/app/bills/page-f88dba18-7b86f96b9878f143.js
+      static/chunks/app/bills/page-2fa8cb0f-3924f1f06de2bd31.js
+      static/chunks/app/bills/page-d7649d92-9c7ada1bf7794be9.js
+      static/chunks/app/bills/page-9a64d271-c5ff63b2df60a8d3.js
+      static/chunks/app/bills/page-5b081574-df31e14d684300ee.js
+      static/chunks/app/bills/page-ae1c8867-1cbabe4a70d90b49.js
+      static/chunks/app/bills/page-91a1816f-e113ff4a52eb17fa.js
+      static/chunks/app/bills/page-f181baaa-4b3c0b022dd80282.js
+      static/chunks/app/bills/page-88d449b6-d7a1db674655ed2f.js
+      static/chunks/app/bills/page-7a08a8f9-64a1f55515c721d3.js
+  app/committees/page (789 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/committees/page-f3956634-047d474b60edbca6.js
+      static/chunks/app/committees/page-74811a20-8d6184765c15c127.js
+      static/chunks/app/committees/page-0dd19aa3-5c259a647b911c8b.js
+      static/chunks/app/committees/page-559c05d9-3bff9aa909567ee4.js
+      static/chunks/app/committees/page-f88dba18-ba7d18e8733ed04e.js
+      static/chunks/app/committees/page-ae1c8867-573033fa423560ea.js
+      static/chunks/app/committees/page-7a08a8f9-cca24352b1556bd0.js
+  app/dashboard/page (716 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/dashboard/page-f3956634-784547acae2dede3.js
+      static/chunks/app/dashboard/page-f88dba18-0e1717260400374b.js
+      static/chunks/app/dashboard/page-23c6a6c4-90ff505e0cae3d72.js
+      static/chunks/app/dashboard/page-7a08a8f9-64fa4f266388dfa2.js
+  app/page (772 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/page-f3956634-56e3c9a97071e442.js
+      static/chunks/app/page-f88dba18-ea1cb65a5ef8531f.js
+      static/chunks/app/page-ae080475-977e2a5f07123316.js
+      static/chunks/app/page-518ca55f-f6cd0cae15deaf17.js
+      static/chunks/app/page-4c6b37ae-f98932ec3fb675a0.js
+      static/chunks/app/page-37a93c5f-5852009a60bb826a.js
+      static/chunks/app/page-f33ddaf2-aa87c47d7402e705.js
+      static/chunks/app/page-02e6ce79-643c3f88a57eef76.js
+      static/chunks/app/page-2fa8cb0f-96d02667d49cca71.js
+  app/preview/page (630 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/preview/page-10a17c3fe2b0e17c.js
+  app/alpha/page (620 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/alpha/page-e8615150ded5741d.js
+  app/account/page (626 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/account/page-bf4ef30dfe46752f.js
+  app/change-zip/page (705 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/change-zip/page-f3956634-39e1414f430f71a9.js
+      static/chunks/app/change-zip/page-23c6a6c4-fab93c729d635862.js
+      static/chunks/app/change-zip/page-7a08a8f9-11ebfd1ac0e2d5e9.js
+  app/bill/[id]/page (723 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/bill/[id]/page-f3956634-6fc02384ddfa96da.js
+      static/chunks/app/bill/[id]/page-c95521b0-7ba445dd2fd8763d.js
+      static/chunks/app/bill/[id]/page-f181baaa-63c5db632173e5ff.js
+      static/chunks/app/bill/[id]/page-0727e70b-2dd65c025acc034f.js
+  app/feed/page (807 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/feed/page-f3956634-6f3a10156b363de7.js
+      static/chunks/app/feed/page-84b740c5-7aeef91417d984b8.js
+      static/chunks/app/feed/page-c0fb0a63-c40265b92a831938.js
+      static/chunks/app/feed/page-a3dad144-6cd2a5b3fe55282e.js
+      static/chunks/app/feed/page-f88dba18-90a2b0d1be6e0c91.js
+      static/chunks/app/feed/page-ae1c8867-e6b6bcaa7ee77bc6.js
+      static/chunks/app/feed/page-7a08a8f9-79458218c820bfa2.js
+  app/committees/[id]/page (644 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/committees/[id]/page-f3956634-63451f5ad9adaddd.js
+      static/chunks/app/committees/[id]/page-f88dba18-49092b3c76885eda.js
+  app/forgot-password/page (619 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/forgot-password/page-1798a86f76e0b61d.js
+  app/impact/page (722 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/impact/page-f3956634-2a7a0f9ef1b5b560.js
+      static/chunks/app/impact/page-c95521b0-4871379d8d384280.js
+      static/chunks/app/impact/page-f181baaa-82c38010335ccee5.js
+      static/chunks/app/impact/page-0727e70b-65178c3b74d76a35.js
+  app/login/page (691 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/login/page-f3956634-5f5c5db3cf4658e3.js
+      static/chunks/app/login/page-23c6a6c4-9c001f07d967b4f5.js
+      static/chunks/app/login/page-7a08a8f9-2d08950878572ee9.js
+  app/onboarding/interests/page (619 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/onboarding/interests/page-c0c33ba14e607581.js
+  app/debug/page (723 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/debug/page-f3956634-50458ae1e76470f3.js
+      static/chunks/app/debug/page-f88dba18-1f3c911a3360d03f.js
+      static/chunks/app/debug/page-c95521b0-34fe729eb5c44f25.js
+      static/chunks/app/debug/page-23c6a6c4-b1c4bfb5720a6da3.js
+      static/chunks/app/debug/page-f181baaa-0549c85c0320f371.js
+      static/chunks/app/debug/page-7a08a8f9-e7109eaa384a4801.js
+  app/recover-username/page (621 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/recover-username/page-a809c4bd5c54212f.js
+  app/register/page (692 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/register/page-f3956634-10e45027bc65afbe.js
+      static/chunks/app/register/page-23c6a6c4-8df4da676258e1ec.js
+      static/chunks/app/register/page-7a08a8f9-97887d5de9db1656.js
+  app/representatives/[id]/page (767 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/representatives/[id]/page-f3956634-1b905bb034cfe3f1.js
+      static/chunks/app/representatives/[id]/page-f88dba18-9618259d6cea8118.js
+      static/chunks/app/representatives/[id]/page-c95521b0-2069b5d421988536.js
+      static/chunks/app/representatives/[id]/page-f181baaa-7be36f6330d78373.js
+      static/chunks/app/representatives/[id]/page-fb1db077-1ee30ee3fcac8f75.js
+      static/chunks/app/representatives/[id]/page-0727e70b-b34ea4f5b35ccbba.js
+  app/reset-password/page (620 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/reset-password/page-5bac6e11ac4af3b8.js
+  app/my-votes/page (726 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/my-votes/page-f3956634-da897e38cf45aa65.js
+      static/chunks/app/my-votes/page-c95521b0-aae66e49f229c56e.js
+      static/chunks/app/my-votes/page-f181baaa-7f1d6d6e5fe25b14.js
+      static/chunks/app/my-votes/page-0727e70b-3a9f592e369bfaca.js
+  app/verify/page (691 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/verify/page-f3956634-264319968021ffd5.js
+      static/chunks/app/verify/page-23c6a6c4-6dd556711c457a78.js
+      static/chunks/app/verify/page-7a08a8f9-8cd747f026160563.js
+  app/settings/page (711 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/settings/page-f3956634-22831a4acc24950d.js
+      static/chunks/app/settings/page-f88dba18-804b3d5a8e147d6c.js
+      static/chunks/app/settings/page-23c6a6c4-462530793ed0d8d1.js
+      static/chunks/app/settings/page-7a08a8f9-f1291e04207f2701.js
+  app/representatives/page (765 KiB)
+      static/chunks/framework-27f02048-e3d634cccb322c6d.js
+      static/chunks/framework-2ac2bb03-5b7e4f5ca9701a5d.js
+      static/chunks/framework-d78f60f2-c94d661ab4d9d6e3.js
+      static/chunks/framework-4e8e7ca0-5e4d397394831d89.js
+      static/chunks/framework-fc717cc5-e79b70685b6eeb01.js
+      static/chunks/framework-4497f2ad-88ce0fed20a5ca74.js
+      static/chunks/framework-362d063c-9d1bce0e83f1da6d.js
+      static/chunks/framework-9c587c8a-54f9345a7ea1795d.js
+      static/chunks/framework-c5892f74-9f4d2de52645da9e.js
+      static/chunks/framework-d7c15829-2f2850942b22ba26.js
+      static/chunks/framework-c3a08eae-da008acb3e1911f4.js
+      static/chunks/framework-9b6e52f9-36d0742610922393.js
+      static/chunks/framework-d91c2bd6-4d78e245bacde143.js
+      static/chunks/framework-2ac4632b-d2f89ab46b993fc8.js
+      static/chunks/framework-9a66d3c2-f8cd3a708efdc362.js
+      static/chunks/framework-c5ecec4b-834606e7252ba0ca.js
+      static/chunks/framework-7b390a09-20ef138dd5b8fe2c.js
+      static/chunks/framework-2898f16f-b73437b7d4e2054b.js
+      static/css/7fb674adbec2a7c3.css
+      static/chunks/framework-d031d8a3-9d8de0fea1328aa3.js
+      static/chunks/app/representatives/page-f3956634-eaa1661d1a6ff069.js
+      static/chunks/app/representatives/page-f88dba18-daa66059ea26314a.js
+      static/chunks/app/representatives/page-c95521b0-d286b910d6e38a0c.js
+      static/chunks/app/representatives/page-23c6a6c4-842db5db7c422539.js
+      static/chunks/app/representatives/page-f181baaa-b8dfeef00dd9b6a8.js
+      static/chunks/app/representatives/page-7a08a8f9-af3d1b4f34b935cd.js
+
+./services/authApi.ts
+export 'LoginRequest' (reexported as 'LoginRequest') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./app/page.tsx
+
+./services/authApi.ts
+export 'LoginResponse' (reexported as 'LoginResponse') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./app/page.tsx
+
+./services/authApi.ts
+export 'RegisterRequest' (reexported as 'RegisterRequest') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./app/page.tsx
+
+./services/authApi.ts
+export 'RegisterResponse' (reexported as 'RegisterResponse') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./app/page.tsx
+
+./services/authApi.ts
+export 'SessionValidation' (reexported as 'SessionValidation') was not found in '@/types/auth.types' (module has no exports)
+
+Import trace for requested module:
+./services/authApi.ts
+./app/page.tsx
+
+entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (391 KiB). This can impact web performance.
+Entrypoints:
+  app/bills/page (452 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      96.js
+      925.js
+      5235.js
+      9506.js
+      ../app/bills/page.js
+  app/committees/page (412 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      949.js
+      1699.js
+      ../app/committees/page.js
+  app/page (465 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8372.js
+      8187.js
+      ../app/page.js
+  app/feed/page (427 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      6226.js
+      8187.js
+      96.js
+      925.js
+      5235.js
+      1699.js
+      4912.js
+      ../app/feed/page.js
+  app/representatives/[id]/page (417 KiB)
+      ../webpack-runtime.js
+      8948.js
+      1411.js
+      4869.js
+      8187.js
+      96.js
+      925.js
+      ../app/representatives/[id]/page.js
+
+   Skipping validation of types
+   Linting ...
+   Collecting page data ...
+   Generating static pages (0/40) ...
+   Generating static pages (10/40) 
+   Generating static pages (20/40) 
+   Generating static pages (30/40) 
+ ✓ Generating static pages (40/40)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                        Size     First Load JS
+┌ ○ /                                              61.3 kB         245 kB
+├ ○ /_not-found                                    252 B           184 kB
+├ ○ /account                                       11.2 kB         195 kB
+├ ○ /alpha                                         10.5 kB         195 kB
+├ ƒ /api/auth/change-password                      0 B                0 B
+├ ƒ /api/auth/forgot-password                      0 B                0 B
+├ ƒ /api/auth/login                                0 B                0 B
+├ ƒ /api/auth/recover-username                     0 B                0 B
+├ ƒ /api/auth/register                             0 B                0 B
+├ ƒ /api/auth/reset-password                       0 B                0 B
+├ ƒ /api/auth/setup-security-questions             0 B                0 B
+├ ƒ /api/auth/update-profile                       0 B                0 B
+├ ƒ /api/auth/verify-zip                           0 B                0 B
+├ ƒ /api/bills                                     0 B                0 B
+├ ○ /api/bills/test                                0 B                0 B
+├ ƒ /api/committees                                0 B                0 B
+├ ƒ /api/debug-legiscan                            0 B                0 B
+├ ○ /api/legiscan-diagnostic                       0 B                0 B
+├ ƒ /api/legiscan-test                             0 B                0 B
+├ ƒ /api/monitoring/database                       0 B                0 B
+├ ƒ /api/monitoring/health-checks                  0 B                0 B
+├ ƒ /api/monitoring/legiscan-usage                 0 B                0 B
+├ ƒ /api/monitoring/performance                    0 B                0 B
+├ ƒ /api/monitoring/security                       0 B                0 B
+├ ƒ /api/monitoring/security/events                0 B                0 B
+├ ƒ /api/representatives                           0 B                0 B
+├ ƒ /api/system/health                             0 B                0 B
+├ ƒ /bill/[id]                                     38.2 kB         222 kB
+├ ○ /bills                                         82.8 kB         267 kB
+├ ○ /change-zip                                    31.1 kB         215 kB
+├ ○ /committees                                    52.9 kB         237 kB
+├ ƒ /committees/[id]                               15.3 kB         199 kB
+├ ○ /dashboard                                     33 kB           217 kB
+├ ○ /debug                                         38.4 kB         223 kB
+├ ○ /feed                                          57.9 kB         242 kB
+├ ○ /forgot-password                               9.85 kB         194 kB
+├ ○ /impact                                        37.7 kB         222 kB
+├ ○ /login                                         27.1 kB         211 kB
+├ ○ /my-votes                                      38.4 kB         223 kB
+├ ○ /onboarding/interests                          9.97 kB         194 kB
+├ ○ /preview                                       12.9 kB         197 kB
+├ ○ /recover-username                              10.3 kB         194 kB
+├ ○ /register                                      27.4 kB         212 kB
+├ ○ /representatives                               47.3 kB         231 kB
+├ ƒ /representatives/[id]                          46.9 kB         231 kB
+├ ○ /reset-password                                10.1 kB         194 kB
+├ ○ /settings                                      32.2 kB         216 kB
+└ ○ /verify                                        27.3 kB         211 kB
++ First Load JS shared by all                      185 kB
+  ├ chunks/framework-9b6e52f9-36d0742610922393.js  53.7 kB
+  └ chunks/framework-c3a08eae-da008acb3e1911f4.js  14.1 kB
+  ├ chunks/framework-d031d8a3-9d8de0fea1328aa3.js  43.8 kB
+  └ other shared chunks (total)                    73.3 kB
+
+
+ƒ Middleware                                       26.7 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

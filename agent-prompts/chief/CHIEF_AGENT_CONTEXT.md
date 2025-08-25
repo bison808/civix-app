@@ -63,13 +63,29 @@
 
 ---
 
-## 🔄 CURRENT STATUS
+## 🔄 CURRENT STATUS - AUGUST 25, 2025
 
-**Active Agent**: Agent Sarah - Expanding geographic validation coverage
-**Next Agent**: Agent Lisa - Performance monitoring (waiting for Sarah)
-**Deployment Ready**: Yes, with LEGISCAN_API_KEY environment variable
+**PERSISTENT ERROR DEBUGGING IN PROGRESS**
 
-**Critical Decision Made**: ZIP codes sufficient (100% accuracy) - no addresses needed
+**Active Agents**:
+- **Agent Quinn**: Performing systematic validation of why agent "fixes" persist in production
+- **Agent Alex**: (Prompt ready) Dynamic browser-based debugging approach - parallel to Quinn
+
+**Production Issues (All persist despite multiple agent interventions)**:
+- ❌ Bills/committees pages show infinite loading despite loading chain simplification
+- ❌ Navigation menu non-functional on bills page only (CSS fixes failed)
+- ❌ Bill/committee detail pages not loading (click events not working)
+- ❌ Authentication resets after each Vercel deployment (deferred until debugging complete)
+
+**Key Fixes Already Attempted**:
+- ✅ LegiScan API format corrected (key= vs api_key=)
+- ✅ Authentication middleware routes updated
+- ✅ Triple-nested loading simplified to single dynamic import
+- ✅ Build errors fixed (debug-bills page removed)
+- ✅ React Query SSR issues resolved
+- ✅ useClientSafeQuery replaced with standard useQuery
+
+**Root Problem**: Agent implementations test locally but fail in production - investigation ongoing
 
 ---
 

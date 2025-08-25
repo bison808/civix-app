@@ -42,10 +42,12 @@ class BillsService {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache, no-store, must-revalidate', // Force fresh data
       },
     });
     
     if (!response.ok) {
+      console.error(`[BillsService] API Error: ${response.status} ${response.statusText}`);
       throw new Error(`Bills API failed: ${response.status} ${response.statusText}`);
     }
     
