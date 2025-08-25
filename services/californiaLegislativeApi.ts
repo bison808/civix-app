@@ -204,27 +204,32 @@ class CaliforniaLegislativeApiService {
     limit: number,
     offset: number
   ): Promise<Bill[]> {
-    // REAL API INTEGRATION - Agent Mike Implementation
-    console.log('Fetching REAL California bills from LegiScan API (2025 session)');
+    // PRODUCTION REAL API INTEGRATION - Agent Mike Implementation
+    console.log('[Production] Fetching REAL California bills from LegiScan API (2025 session)');
+    console.log('[Production] API Call Parameters:', { limit, offset, sessionYear });
     
     try {
       // Use LegiScan API client for real legislative data
       const realBills = await legiScanApiClient.fetchCaliforniaBills(limit, offset, sessionYear);
       
       if (realBills.length > 0) {
-        console.log(`LegiScan: Retrieved ${realBills.length} real California bills`);
+        console.log(`[Production] SUCCESS: Retrieved ${realBills.length} real California bills from LegiScan`);
+        console.log('[Production] Sample bills:', realBills.slice(0, 2).map(b => ({ id: b.id, number: b.billNumber, title: b.title.substring(0, 50) + '...' })));
         return realBills;
       } else {
-        console.warn('LegiScan returned no bills, using minimal fallback');
+        console.warn('[Production] LegiScan returned no bills - checking if this is expected');
         return [];
       }
     } catch (error) {
-      console.error('LegiScan API failed, using fallback data:', error);
+      console.error('[Production] LegiScan API FAILED - this should not happen with proper API key:', error);
+      if (error instanceof Error) {
+        console.error('[Production] Failure reason:', error.message);
+      }
       
       // Fallback to minimal cached data only if LegiScan completely fails
       // This prevents serving fake data as primary source
       const fallbackBills = this.getMinimalFallbackBills();
-      console.warn(`Using ${fallbackBills.length} minimal fallback bills due to API failure`);
+      console.warn(`[Production] FALLBACK: Using ${fallbackBills.length} fallback bills due to API failure`);
       return fallbackBills;
     }
   }

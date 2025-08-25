@@ -15,6 +15,19 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20');
     const offset = parseInt(searchParams.get('offset') || '0');
 
+    // 🔍 AGENT ALEX DEBUGGING: Log API route parameters
+    console.log('[ALEX-DEBUG] Bills API Route called:', {
+      source,
+      zipCode,
+      representativeId,
+      topic,
+      status,
+      limit,
+      offset,
+      url: request.url,
+      timestamp: new Date().toISOString()
+    });
+
     let bills = [];
 
     try {
@@ -33,13 +46,25 @@ export async function GET(request: NextRequest) {
         // Get California bills only
         bills = await californiaLegislativeApi.fetchRecentBills(limit, offset);
       } else {
-        // Get mixed federal and state bills
-        const federalBills = await congressApi.fetchRecentBills(Math.ceil(limit / 2), offset);
-        const californiaBills = await californiaLegislativeApi.fetchRecentBills(Math.floor(limit / 2), offset);
-        bills = [...federalBills, ...californiaBills];
+        // 🎯 AGENT ALEX FIX: Default to California bills (LegiScan) instead of federal
+        console.log('[ALEX-DEBUG] No source specified - defaulting to California bills (LegiScan)');
+        bills = await californiaLegislativeApi.fetchRecentBills(limit, offset);
+        
+        // If California bills are empty, then mix with federal
+        if (bills.length === 0) {
+          console.log('[ALEX-DEBUG] No CA bills found, falling back to mixed federal/state');
+          const federalBills = await congressApi.fetchRecentBills(Math.ceil(limit / 2), offset);
+          const californiaBills = await californiaLegislativeApi.fetchRecentBills(Math.floor(limit / 2), offset);
+          bills = [...federalBills, ...californiaBills];
+        }
       }
     } catch (error) {
-      console.error('Failed to fetch enhanced bills, using fallback:', error);
+      console.error('[ALEX-DEBUG] Failed to fetch enhanced bills, using fallback:', {
+        error: error instanceof Error ? error.message : error,
+        stack: error instanceof Error ? error.stack : undefined,
+        source,
+        timestamp: new Date().toISOString()
+      });
       
       // Fallback to original congress service
       try {
