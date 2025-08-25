@@ -1,17 +1,5 @@
-import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import nextDynamic from 'next/dynamic';
-
-// Kevin's Architecture + Rachel's UX: Client-only component with skeleton  
-const CommitteesPageContent = nextDynamic(
-  () => import('@/components/pages/CommitteesPageContent').then(mod => ({ 
-    default: mod.CommitteesPageContent 
-  })),
-  { 
-    ssr: false,
-    loading: () => null // Skeleton handled by Suspense
-  }
-);
 
 export const dynamic = 'force-dynamic';
 
@@ -79,6 +67,17 @@ function CommitteesPageSkeleton() {
   );
 }
 
+// Kevin's Architecture + Rachel's UX: Client-only component with skeleton
+const CommitteesPageContent = nextDynamic(
+  () => import('@/components/pages/CommitteesPageContent').then(mod => ({ 
+    default: mod.CommitteesPageContent 
+  })),
+  { 
+    ssr: false,
+    loading: () => <CommitteesPageSkeleton />
+  }
+);
+
 // Kevin's Architecture Fix: Direct imports instead of dynamic imports
 
 export default function CommitteesPage() {
@@ -88,17 +87,17 @@ export default function CommitteesPage() {
       onError={(error) => {
         console.error('Committees page error:', error);
         // Add accessibility announcement for screen readers
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'assertive');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.textContent = 'Error loading committees page. Please try refreshing.';
-        document.body.appendChild(announcement);
-        setTimeout(() => document.body.removeChild(announcement), 3000);
+        if (typeof document !== 'undefined') {
+          const announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'assertive');
+          announcement.setAttribute('aria-atomic', 'true');
+          announcement.textContent = 'Error loading committees page. Please try refreshing.';
+          document.body.appendChild(announcement);
+          setTimeout(() => document.body.removeChild(announcement), 3000);
+        }
       }}
     >
-      <Suspense fallback={<CommitteesPageSkeleton />}>
-        <CommitteesPageContent />
-      </Suspense>
+      <CommitteesPageContent />
     </ErrorBoundary>
   );
 }

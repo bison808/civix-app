@@ -1,17 +1,5 @@
-import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import nextDynamic from 'next/dynamic';
-
-// Kevin's Architecture + Rachel's UX: Client-only component with skeleton
-const BillsPageContent = nextDynamic(
-  () => import('@/components/pages/BillsPageContent').then(mod => ({ 
-    default: mod.BillsPageContent 
-  })),
-  { 
-    ssr: false,
-    loading: () => null // Skeleton handled by Suspense
-  }
-);
 
 export const dynamic = 'force-dynamic';
 
@@ -71,7 +59,17 @@ function BillsPageSkeleton() {
   );
 }
 
-// Kevin's Architecture Fix: Direct imports instead of dynamic imports
+// Kevin's Architecture + Rachel's UX: Client-only component with skeleton
+const BillsPageContent = nextDynamic(
+  () => import('@/components/pages/BillsPageContent').then(mod => ({ 
+    default: mod.BillsPageContent 
+  })),
+  { 
+    ssr: false,
+    loading: () => <BillsPageSkeleton />
+  }
+);
+
 
 export default function BillsPage() {
   return (
@@ -80,17 +78,17 @@ export default function BillsPage() {
       onError={(error) => {
         console.error('Bills page error:', error);
         // Add accessibility announcement for screen readers
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'assertive');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.textContent = 'Error loading bills page. Please try refreshing.';
-        document.body.appendChild(announcement);
-        setTimeout(() => document.body.removeChild(announcement), 3000);
+        if (typeof document !== 'undefined') {
+          const announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'assertive');
+          announcement.setAttribute('aria-atomic', 'true');
+          announcement.textContent = 'Error loading bills page. Please try refreshing.';
+          document.body.appendChild(announcement);
+          setTimeout(() => document.body.removeChild(announcement), 3000);
+        }
       }}
     >
-      <Suspense fallback={<BillsPageSkeleton />}>
-        <BillsPageContent />
-      </Suspense>
+      <BillsPageContent />
     </ErrorBoundary>
   );
 }
