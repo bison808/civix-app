@@ -61,7 +61,15 @@ export const api = {
     async getById(id: string): Promise<Bill | undefined> {
       await delay(200);
       try {
-        // Try congressApi first for detailed bill data
+        // Check if this is a California LegiScan bill (ca-legiscan-*)
+        if (id.startsWith('ca-legiscan-')) {
+          // Import California legislative API for LegiScan bills
+          const { californiaLegislativeApi } = await import('@/services/californiaLegislativeApi');
+          const bill = await californiaLegislativeApi.getBillById(id);
+          if (bill) return bill;
+        }
+        
+        // Try congressApi for federal bills
         const bill = await congressApi.getBillById(id);
         if (bill) return bill;
         

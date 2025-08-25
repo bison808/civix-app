@@ -122,11 +122,7 @@ export default function EnhancedBillCard({ bill, onVote, onClick, compact = fals
         'active:scale-[0.98]', // Mobile touch feedback
         urgency?.level === 'urgent' && 'ring-2 ring-red-100'
       )}
-      onClick={(e) => {
-        if (!expanded) {
-          onClick?.(bill);
-        }
-      }}
+      onClick={() => onClick?.(bill)}
     >
       {/* Urgency Banner */}
       {urgency?.label && (
@@ -157,13 +153,14 @@ export default function EnhancedBillCard({ bill, onVote, onClick, compact = fals
             </h3>
           </div>
           
-          {/* Expand/Navigate Icon */}
+          {/* Expand/Collapse Icon */}
           <button
             onClick={(e) => {
               e.stopPropagation();
               setExpanded(!expanded);
             }}
             className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
+            aria-label={expanded ? "Collapse details" : "Expand details"}
           >
             {expanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
           </button>
@@ -232,7 +229,7 @@ export default function EnhancedBillCard({ bill, onVote, onClick, compact = fals
               }}
               className="w-full py-2 bg-delta text-white rounded-lg text-sm font-medium hover:bg-delta/90 transition-colors"
             >
-              View Full Details
+              Open Bill Details Page
             </button>
           </div>
         )}

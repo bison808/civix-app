@@ -39,7 +39,7 @@ export default function ResponsiveLegislativeLayout({
 
       <div className={cn(
         "flex",
-        isMobile ? "flex-col pt-14 pb-16" : "min-h-screen"
+        isMobile ? "flex-col pt-14 page-content-mobile" : "min-h-screen"
       )}>
         {/* Sidebar - Hidden on mobile, collapsible on tablet */}
         {sidebar && !isMobile && (

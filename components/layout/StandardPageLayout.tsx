@@ -50,7 +50,7 @@ export function StandardPageLayout({
 
       {/* Page Content */}
       <div className={cn(
-        isMobile ? "flex-1 overflow-auto pt-14 pb-16" : "flex-1 overflow-auto",
+        isMobile ? "flex-1 overflow-auto pt-14 page-content-mobile" : "flex-1 overflow-auto",
         contentClassName
       )}>
         <div className={cn(

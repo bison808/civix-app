@@ -231,15 +231,19 @@ export default function MobileNav({ className }: MobileNavProps) {
         className={cn(
           "mobile-nav-critical", // Critical CSS class with !important rules
           "flex items-center justify-around safe-bottom",
-          "md:hidden" // Only show on mobile
+          "md:hidden", // Only show on mobile
+          "shadow-lg" // Add shadow for better visual separation
         )}
         style={{ 
-          display: 'flex', 
+          display: 'flex !important', 
           zIndex: 9999,
           position: 'fixed',
           bottom: '0px',
           left: '0px',
-          right: '0px'
+          right: '0px',
+          backgroundColor: 'white',
+          borderTop: '1px solid rgb(229 231 235)',
+          pointerEvents: 'auto'
         } as React.CSSProperties}
         role="navigation"
         aria-label="Main navigation"
@@ -254,10 +258,16 @@ export default function MobileNav({ className }: MobileNavProps) {
               onClick={() => handleNavigation(item.path)}
               className={cn(
                 "flex-1 flex flex-col items-center justify-center",
-                "py-2 px-1 relative transition-colors",
+                "py-2 px-1 relative transition-all duration-150",
                 "min-h-[44px] min-w-[44px]", // Ensure minimum touch target size
-                active ? "text-delta" : "text-gray-500"
+                "cursor-pointer touch-manipulation",
+                "hover:bg-delta/5 active:scale-95",
+                active ? "text-delta font-medium" : "text-gray-500 hover:text-gray-700"
               )}
+              style={{
+                touchAction: 'manipulation',
+                WebkitTapHighlightColor: 'rgba(124, 58, 237, 0.1)'
+              }}
               aria-label={item.label}
               aria-current={active ? 'page' : undefined}
             >

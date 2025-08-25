@@ -72,8 +72,8 @@ export default function BillDetailPage() {
     return (
       <div className="flex-1 flex flex-col items-center justify-center px-4 pt-14 pb-16">
         <p className="text-gray-500 mb-4">Bill not found</p>
-        <Button variant="outline" onClick={() => router.push('/feed')}>
-          Return to Feed
+        <Button variant="outline" onClick={() => router.push('/bills')}>
+          Return to Bills
         </Button>
       </div>
     );

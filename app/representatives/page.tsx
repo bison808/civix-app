@@ -379,7 +379,7 @@ export default function RepresentativesPage() {
       </div>
 
       {/* Content wrapper - Conditional padding based on mobile/desktop */}
-      <div className={isMobile ? "flex-1 overflow-y-auto pt-14 pb-16" : "flex-1 overflow-y-auto"}>
+      <div className={isMobile ? "flex-1 overflow-y-auto pt-14 page-content-mobile" : "flex-1 overflow-y-auto"}>
         <div className="p-4 space-y-4">
           {/* Aggregated Feedback Panel */}
           {showAggregatedFeedback && filteredReps.length > 0 && (

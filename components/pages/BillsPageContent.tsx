@@ -320,7 +320,7 @@ export function BillsPageContent() {
         )}
 
         {/* Main Content */}
-        <div className={isMobile ? "flex-1 overflow-auto pt-14 pb-16" : "flex-1 overflow-auto"}>
+        <div className={isMobile ? "flex-1 overflow-auto pt-14 page-content-mobile" : "flex-1 overflow-auto"}>
           <div className="px-4 py-4">
             {/* Page Header */}
             <div className="mb-6">
