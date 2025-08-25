@@ -413,7 +413,7 @@ export class LegiScanApiClient {
    */
   private transformLegiScanBillData(legiScanBill: any): Bill {
     const billId = `ca-legiscan-${legiScanBill.bill_id}`;
-    const billNumber = legiScanBill.bill_number || 'Unknown';
+    const billNumber = legiScanBill.number || 'Unknown';
     
     return {
       id: billId,
